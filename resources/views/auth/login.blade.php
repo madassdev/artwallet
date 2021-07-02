@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-lg btn-primary btn-block">Sign in</button>
+                                        <button typr="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
                                     </div>
                                 </form>
                                 <div class="form-note-s2 text-center pt-4"> New on our platform? <a href="html/pages/auths/auth-register-v2.html">Create an account</a>

@@ -12954,6 +12954,7 @@ p > span > .icon.ni { vertical-align: middle; }
 .nk-error-gfx { padding-bottom: 30px; max-width: 90%; }
 
 .nk-error-head { font-size: 160px; font-weight: 700; background: -webkit-linear-gradient(#854fff, #3a2272); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: .9; }
+.nk-error2-head { font-size: 60px; font-weight: 700; background: -webkit-linear-gradient(#854fff, #3a2272); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: .9; }
 
 .nk-error-title { padding-bottom: 1rem; }
 

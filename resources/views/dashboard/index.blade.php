@@ -27,6 +27,7 @@ $auth_user = auth()->user();
         const PUBLIC_PATH = "{{ asset('transcorp')}}"
         const IMG_PATH = "{{ asset('images/')}}"
         const AUTH_USER = @json($auth_user);
+        const APP_URL = "{{env('APP_URL')}}";
     </script>
     <script src="{{asset('js/dashboard/index.js')}}"></script>
     <!-- app-root @e -->

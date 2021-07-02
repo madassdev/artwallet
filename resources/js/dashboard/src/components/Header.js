@@ -258,7 +258,7 @@ function Header() {
                                 </div>
                                 <div className="dropdown-inner">
                                     <ul className="link-list">
-                                        <li><a href="#"><em className="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                        <li><a href={APP_URL+'/logout'}><em className="icon ni ni-signout"></em><span>Sign out</span></a></li>
                                     </ul>
                                 </div>
                             </div>
