@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { nav_items } from "../data/NavItems";
 
 
@@ -11,7 +11,7 @@ function Sidebar() {
         >
             <div className="nk-sidebar-element nk-sidebar-head">
                 <div className="nk-sidebar-brand">
-                    <Link
+                    <NavLink
                         to='/'
                         className="logo-link nk-sidebar-logo"
                     >
@@ -33,7 +33,7 @@ function Sidebar() {
                             srcSet="./images/logo-small2x.png 2x"
                             alt="logo-small"
                         />
-                    </Link>
+                    </NavLink>
                 </div>
                 <div className="nk-menu-trigger mr-n2">
                     <a
@@ -79,7 +79,7 @@ function Sidebar() {
                                 nav_items.map(item=>(
 
                             <li className="nk-menu-item" key={item.id}>
-                                <Link to={item.link} activeClassName="active current-link"
+                                <NavLink to={item.link} activeClassName="nav-active"
                                     href="html/index.html"
                                     className="nk-menu-link"
                                 >
@@ -89,7 +89,7 @@ function Sidebar() {
                                     <span className="nk-menu-text">
                                         {item.title}
                                     </span>
-                                </Link>
+                                </NavLink>
                             </li>
                                 ))
                             }
