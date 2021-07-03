@@ -1,9 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { nav_items } from "../data/NavItems";
 
-
 function Sidebar() {
-    console.log(AUTH_USER)
+    console.log(AUTH_USER);
     return (
         <div
             className="nk-sidebar nk-sidebar-fixed is-light "
@@ -11,10 +10,7 @@ function Sidebar() {
         >
             <div className="nk-sidebar-element nk-sidebar-head">
                 <div className="nk-sidebar-brand">
-                    <NavLink
-                        to='/'
-                        className="logo-link nk-sidebar-logo"
-                    >
+                    <NavLink to="/" className="logo-link nk-sidebar-logo">
                         <img
                             className="logo-light logo-img"
                             src="./images/logo.png"
@@ -56,44 +52,58 @@ function Sidebar() {
                 <div className="nk-sidebar-content">
                     <div className="nk-sidebar-menu" data-simplebar>
                         <ul className="nk-menu">
-                            {/* <li className="nk-menu-item">
-                                <a
-                                    href="html/ecommerce/index.html"
-                                    className="nk-menu-link"
-                                >
-                                    <span className="nk-menu-icon">
-                                        <em className="icon ni ni-bag"></em>
-                                    </span>
-                                    <span className="nk-menu-text">
-                                        E-Commerce Panel
-                                    </span>
-                                    <span className="nk-menu-badge">HOT</span>
-                                </a>
-                            </li> */}
+                            {AUTH_USER.is_admin && (
+                                <>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/services"
+                                            className="nk-menu-link"
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="icon ni ni-cart-fill"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Services
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/providers"
+                                            className="nk-menu-link"
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="icon ni ni-cart-fill"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Providers
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                </>
+                            )}
                             <li className="nk-menu-heading">
                                 <h6 className="overline-title text-primary-alt">
                                     Dashboards
                                 </h6>
                             </li>
-                            {
-                                nav_items.map(item=>(
-
-                            <li className="nk-menu-item" key={item.id}>
-                                <NavLink to={item.link} activeClassName="nav-active"
-                                    href="html/index.html"
-                                    className="nk-menu-link"
-                                >
-                                    <span className="nk-menu-icon">
-                                        <em className={item.icon}></em>
-                                    </span>
-                                    <span className="nk-menu-text">
-                                        {item.title}
-                                    </span>
-                                </NavLink>
-                            </li>
-                                ))
-                            }
-                           </ul>
+                            {nav_items.map((item) => (
+                                <li className="nk-menu-item" key={item.id}>
+                                    <NavLink
+                                        to={item.link}
+                                        activeClassName="nav-active"
+                                        className="nk-menu-link"
+                                    >
+                                        <span className="nk-menu-icon">
+                                            <em className={item.icon}></em>
+                                        </span>
+                                        <span className="nk-menu-text">
+                                            {item.title}
+                                        </span>
+                                    </NavLink>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>

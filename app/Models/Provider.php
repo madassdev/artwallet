@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'service_id', 'title', 'description'
+    ];
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

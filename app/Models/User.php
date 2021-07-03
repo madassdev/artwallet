@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+        "role",
+        "is_admin"
+    ];
+
+    public function getRoleAttribute(){
+        return $this->roles->pluck('name')->toArray();
+    }
+
+    public function getIsAdminAttribute(){
+        return $this->roles->where('name','admin')->count() ? true : false;
+    }
 }

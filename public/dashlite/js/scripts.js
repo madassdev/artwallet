@@ -95,25 +95,25 @@
   }; // CurrentLink Detect @v1.0
 
 
-  // NioApp.CurrentLink = function () {
-  //   var _link = '.nk-menu-link, .menu-link, .nav-link',
-  //       _currentURL = window.location.href,
-  //       fileName = _currentURL.substring(0, _currentURL.indexOf("#") == -1 ? _currentURL.length : _currentURL.indexOf("#")),
-  //       fileName = fileName.substring(0, fileName.indexOf("?") == -1 ? fileName.length : fileName.indexOf("?"));
+  NioApp.CurrentLink = function () {
+    var _link = '.nk-menu-link, .menu-link, .nav-link',
+        _currentURL = window.location.href,
+        fileName = _currentURL.substring(0, _currentURL.indexOf("#") == -1 ? _currentURL.length : _currentURL.indexOf("#")),
+        fileName = fileName.substring(0, fileName.indexOf("?") == -1 ? fileName.length : fileName.indexOf("?"));
 
-  //   $(_link).each(function () {
-  //     var self = $(this),
-  //         _self_link = self.attr('href');
+    $(_link).each(function () {
+      var self = $(this),
+          _self_link = self.attr('href');
 
-  //     if (fileName.match(_self_link)) {
-  //       self.closest("li").addClass('active current-page').parents().closest("li").addClass("active current-page");
-  //       self.closest("li").children('.nk-menu-sub').css('display', 'block');
-  //       self.parents().closest("li").children('.nk-menu-sub').css('display', 'block');
-  //     } else {
-  //       self.closest("li").removeClass('active current-page').parents().closest("li:not(.current-page)").removeClass("active");
-  //     }
-  //   });
-  // }; // PasswordSwitch @v1.0
+      if (fileName.match(_self_link)) {
+        self.closest("li").addClass('active current-page').parents().closest("li").addClass("active current-page");
+        self.closest("li").children('.nk-menu-sub').css('display', 'block');
+        self.parents().closest("li").children('.nk-menu-sub').css('display', 'block');
+      } else {
+        self.closest("li").removeClass('active current-page').parents().closest("li:not(.current-page)").removeClass("active");
+      }
+    });
+  }; // PasswordSwitch @v1.0
 
 
   NioApp.PassSwitch = function () {
@@ -819,7 +819,7 @@
   NioApp.OtherInit = function () {
     NioApp.ClassBody();
     NioApp.PassSwitch();
-    // NioApp.CurrentLink();
+    NioApp.CurrentLink();
     NioApp.LinkOff('.is-disable');
     NioApp.ClassNavMenu();
     NioApp.SetHW('[data-height]', 'height');

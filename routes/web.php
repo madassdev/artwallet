@@ -25,6 +25,21 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
         return view('dashboard.index');
     })->where(['all' => '.*']);
 });
+
+Route::group(['prefix' => 'admin', 'middleware' =>[ 'auth', 'role:admin']], function () {
+    Route::any('{all?}', function($slug = null){
+        return view('admin.index');
+    })->where(['all' => '.*']);
+});
+
+// Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('/', 'AdminController@index');
+//     Route::resource('/services', 'ServiceController');
+//     Route::get('/', 'AdminController@index');
+//     Route::resource('/providers', 'ProviderController');
+// });
+
+
 Route::get('template', function(){
     return view('template');
 });

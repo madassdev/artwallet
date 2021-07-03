@@ -1,5 +1,10 @@
 export const nav_items= [
     {
+        id: 0,
+        title: "Buy",
+        icon: "icon ni ni-wallet",
+        link: "/buy",
+    },{
         id: 1,
         title: "Airtime",
         icon: "icon ni ni-cart-fill",

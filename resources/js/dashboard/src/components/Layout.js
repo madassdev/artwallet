@@ -17,8 +17,8 @@ function Layout(props) {
                             <div className="nk-content-body">
                                 <div className="nk-block-head nk-block-head-sm">
                                     <div className="nk-block-between">
-                                        {props.children}
                                     </div>
+                                        {props.children}
                                 </div>
                             </div>
                         </div>

@@ -1,12 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
 import Layout from "./components/Layout";
+import Service from "./components/Service";
+import Buy from "./components/Buy";
+import Provider from "./components/Provider";
 import { nav_items } from "./data/NavItems";
 import Page from "./components/Page";
+import Modal from "./components/Modal";
+import { connect } from "react-redux";
+import { fetchServices } from "./actions/serviceActions";
+import { fetchProviders } from "./actions/providerActions";
 
 function App(props) {
-   
+    useEffect(() => {
+        props.getServices();
+        props.getProviders();
+        // props.getPlans();
+    }, []);
+    console.log(props);
     return (
         <Router basename={ROUTE_BASENAME}>
             <Layout>
@@ -14,16 +25,20 @@ function App(props) {
                     <Route exact path="/">
                         <h2>Home</h2>
                     </Route>
-                    {
-                        nav_items.map(item => (
+                    {AUTH_USER.is_admin && (
+                        <Switch>
+                            <Route path="/services">
+                                <Service />
+                            </Route>
 
-                    <Route path={item.link} key={item.id}>
-                        <Page title={item.title}></Page>
-                    </Route>
-                        ))
-                    }
-                    <Route path="/data">
-                        <h2>Data</h2>
+                            <Route path="/providers">
+                                <Provider />
+                            </Route>
+                        </Switch>
+                    )}
+
+                    <Route path="/buy">
+                        <Buy />
                     </Route>
                     <Route path="/history">
                         <h2>History</h2>
@@ -35,11 +50,40 @@ function App(props) {
                         <h2>Withdrawals</h2>
                     </Route>
                     <Route path="/settings">
-                       <h2>Settings</h2>
+                        <h2>Settings</h2>
                     </Route>
                 </Switch>
             </Layout>
+            <Modal
+                show={props.modal.show}
+                header={props.modal.header}
+                closeModal={() => {
+                    props.closeModal();
+                }}
+            >
+                {props.modal.content}
+            </Modal>
         </Router>
     );
 }
-export default App;
+
+const mapStateToProps = (state) => {
+    return {
+        modal: state.appState.modal,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getServices: () => dispatch(fetchServices()),
+        getProviders: () => dispatch(fetchProviders()),
+        closeModal: () =>
+            dispatch({
+                type: "CLOSE_MODAL",
+            }),
+        // getPlans: () => dispatch(fetchPlans()),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default App;
