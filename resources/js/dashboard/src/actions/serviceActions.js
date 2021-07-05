@@ -2,7 +2,7 @@
 import { serviceActions } from "./actionType";
 import axios from "axios";
 
-const url = "/api/services";
+const url = "/services";
 
 export const setServicesIsFetching = () => ({
   type: serviceActions.SERVICES_FETCHING

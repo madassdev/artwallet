@@ -7,9 +7,9 @@ function Header() {
                     <a href="#" className="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em className="icon ni ni-menu"></em></a>
                 </div>
                 <div className="nk-header-brand d-xl-none">
-                    <a href="html/index.html" className="logo-link">
-                        <img className="logo-light logo-img" src="./images/logo.png" srcSet="./images/logo2x.png 2x" alt="logo"/>
-                        <img className="logo-dark logo-img" src="./images/logo-dark.png" srcSet="./images/logo-dark2x.png 2x" alt="logo-dark"/>
+                    <a href="#" className="logo-link">
+                        <img className="logo-light logo-img" src={`${ASSET_PATH}images/logo.png`} srcSet={`${ASSET_PATH}images/logo2x.png 2x`} alt="logo"/>
+                        <img className="logo-dark logo-img" src={`${ASSET_PATH}images/logo-dark.png`} srcSet={`${ASSET_PATH}images/logo-dark2x.png 2x`} alt="logo-dark"/>
                     </a>
                 </div>
                 <div className="nk-header-search ml-3 ml-xl-0">

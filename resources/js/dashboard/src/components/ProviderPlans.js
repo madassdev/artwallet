@@ -4,6 +4,12 @@ import styled from "styled-components";
 function ProviderPlans(props) {
     return (
         <div className="my-3">
+            <div className="my-2">
+                <button className="btn btn-primary">
+                    {props.provider.title}
+                </button>
+                <span className="text-primary ml-3" onClick={props.changeProvider}>Change</span>
+            </div>
             <h5>Select Plan</h5>
             <Container className="my-2">
                 {props.provider.plans.map((plan) => (

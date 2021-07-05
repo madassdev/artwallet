@@ -26,15 +26,15 @@ $auth_user = auth()->user();
         const ROUTE_BASENAME = "dashboard"
         const PUBLIC_PATH = "{{ asset('transcorp')}}"
         const IMG_PATH = "{{ asset('images/')}}"
+        const ASSET_PATH = "{{ asset('')}}"
         const AUTH_USER = @json($auth_user);
         const APP_URL = "{{env('APP_URL')}}";
     </script>
-    <script src="{{asset('js/dashboard/index.js')}}"></script>
     <!-- app-root @e -->
     <!-- JavaScript -->
-    <script src="{{('dashlite/js/bundle.js?ver=2.5.0')}}"></script>
-    <script src="{{('dashlite/js/scripts.js?ver=2.5.0')}}"></script>
-    <script src="{{('dashlite/js/charts/chart-ecommerce.js?ver=2.5.0')}}"></script>
+    <script src="{{asset('dashlite/js/bundle.js')}}"></script>
+    <script src="{{asset('dashlite/js/scripts.js')}}"></script>
+    <script src="{{asset('js/dashboard/index.js')}}"></script>
 </body>
 
 </html>

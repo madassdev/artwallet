@@ -2989,7 +2989,7 @@ __webpack_require__.r(__webpack_exports__);
 // redux/product/product.actions.js
 
 
-var url = "/api/providers";
+var url = "/providers";
 var setProvidersIsFetching = function setProvidersIsFetching() {
   return {
     type: _actionType__WEBPACK_IMPORTED_MODULE_0__.providerActions.PROVIDERS_FETCHING
@@ -3080,7 +3080,7 @@ __webpack_require__.r(__webpack_exports__);
 // redux/product/product.actions.js
 
 
-var url = "/api/services";
+var url = "/services";
 var setServicesIsFetching = function setServicesIsFetching() {
   return {
     type: _actionType__WEBPACK_IMPORTED_MODULE_0__.serviceActions.SERVICES_FETCHING
@@ -3483,6 +3483,11 @@ function Data(props) {
       selectedPlan = _useState8[0],
       setSelectedPlan = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isPaying = _useState10[0],
+      setIsPaying = _useState10[1];
+
   var handleProviderSelected = function handleProviderSelected(provider_id) {
     var _props$providers;
 
@@ -3497,42 +3502,80 @@ function Data(props) {
     // console.log(plan)
     setPlanSelected(true);
     setSelectedPlan(plan);
-    console.log('selected plan is', plan);
+  };
+
+  var handlePaymentClicked = function handlePaymentClicked(e) {
+    e.preventDefault();
+    setIsPaying(true);
+  };
+
+  var paymentDone = function paymentDone(e) {
+    e.preventDefault();
+    props.paymentSuccess();
+    alert("Order has been successfully placed");
+    setIsPaying(false);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
-      children: "Select Data Provider"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataContainer, {
-      className: "my-2",
-      children: (_props$providers2 = props.providers) === null || _props$providers2 === void 0 ? void 0 : _props$providers2.map(function (provider) {
-        return provider.plans.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(RadioFormGroup, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            className: "provider-radio",
-            name: "data_id",
-            id: "data" + provider.id,
-            type: "radio",
-            value: provider.id,
-            onChange: function onChange(e) {
-              return handleProviderSelected(provider.id);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-            htmlFor: "data" + provider.id,
-            children: provider.title
-          })]
-        }, provider.id) : "";
+    className: "card col-md-8 mx-auto",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "card-header",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+        children: "Select Data Provider"
       })
-    }), providerSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
-      provider: selectedProvider,
-      planSelected: handlePlanSelected
-    }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      children: "plan is" + selectedPlan.title
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "card-body",
+      children: [providerSelected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
+        provider: selectedProvider,
+        planSelected: handlePlanSelected,
+        changeProvider: function changeProvider() {
+          setProviderSelected(false);
+          setPlanSelected(false);
+        }
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataContainer, {
+        className: "my-2",
+        children: (_props$providers2 = props.providers) === null || _props$providers2 === void 0 ? void 0 : _props$providers2.map(function (provider) {
+          return (
+            /*#__PURE__*/
+            // provider.plans.length ?
+            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(RadioFormGroup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                className: "provider-radio",
+                name: "data_id",
+                id: "data" + provider.id,
+                type: "radio",
+                value: provider.id,
+                onChange: function onChange(e) {
+                  return handleProviderSelected(provider.id);
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                htmlFor: "data" + provider.id,
+                children: provider.title
+              })]
+            }, provider.id)
+          );
+        })
+      }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+          onClick: paymentDone,
+          className: "btn btn-light btn-block",
+          type: "button",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "spinner-border-sm spinner-border text-primary",
+            role: "status"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+          className: "btn btn-primary btn-block",
+          onClick: handlePaymentClicked,
+          children: ["Pay #", selectedPlan.price]
+        })
+      })]
     })]
   });
 }
 
-var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n\n    @media (max-width: 768px) {\n        display: grid;\n        grid-template-columns: auto auto;\n        grid-gap: 20px;\n    }\n"])));
-var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        height: 60px;\n        width: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* pointer-events: none; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n"])));
+var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 20px;\n\n    @media (max-width: 768px) {\n        grid-gap: 10px;\n        display: grid;\n        grid-template-columns: auto auto;\n    }\n"])));
+var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        width: 120px;\n        height: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* padding: 10px; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n    display: grid;\n"])));
 
 var mapStateToProps = function mapStateToProps(state) {
   var _getDataProviders;
@@ -3545,7 +3588,20 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    paymentSuccess: function paymentSuccess() {
+      return dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          header: "PaymentSuccess",
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+            children: "Payment success"
+          })
+        }
+      });
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Data));
@@ -3655,17 +3711,17 @@ function Header() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "nk-header-brand d-xl-none",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-            href: "html/index.html",
+            href: "#",
             className: "logo-link",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
               className: "logo-light logo-img",
-              src: "./images/logo.png",
-              srcSet: "./images/logo2x.png 2x",
+              src: "".concat(ASSET_PATH, "images/logo.png"),
+              srcSet: "".concat(ASSET_PATH, "images/logo2x.png 2x"),
               alt: "logo"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
               className: "logo-dark logo-img",
-              src: "./images/logo-dark.png",
-              srcSet: "./images/logo-dark2x.png 2x",
+              src: "".concat(ASSET_PATH, "images/logo-dark.png"),
+              srcSet: "".concat(ASSET_PATH, "images/logo-dark2x.png 2x"),
               alt: "logo-dark"
             })]
           })
@@ -4578,7 +4634,17 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 function ProviderPlans(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "my-3",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "my-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        className: "btn btn-primary",
+        children: props.provider.title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "text-primary ml-3",
+        onClick: props.changeProvider,
+        children: "Change"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
       children: "Select Plan"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Container, {
       className: "my-2",
@@ -4682,7 +4748,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Sidebar() {
-  console.log(AUTH_USER);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "nk-sidebar nk-sidebar-fixed is-light ",
     "data-content": "sidebarMenu",
@@ -4695,18 +4760,18 @@ function Sidebar() {
           className: "logo-link nk-sidebar-logo",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
             className: "logo-light logo-img",
-            src: "./images/logo.png",
-            srcSet: "./images/logo2x.png 2x",
+            src: "".concat(ASSET_PATH, "images/logo.png"),
+            srcSet: "images/logo2x.png 2x",
             alt: "logo"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
             className: "logo-dark logo-img",
-            src: "./images/logo-dark.png",
-            srcSet: "./images/logo-dark2x.png 2x",
+            src: "".concat(ASSET_PATH, "images/logo-dark.png"),
+            srcSet: "images/logo-dark2x.png 2x",
             alt: "logo-dark"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
             className: "logo-small logo-img logo-img-small",
-            src: "./images/logo-small.png",
-            srcSet: "./images/logo-small2x.png 2x",
+            src: "".concat(ASSET_PATH, "images/logo-small.png"),
+            srcSet: "images/logo-small2x.png 2x",
             alt: "logo-small"
           })]
         })

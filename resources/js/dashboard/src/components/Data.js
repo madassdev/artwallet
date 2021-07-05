@@ -11,6 +11,7 @@ function Data(props) {
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [planSelected, setPlanSelected] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
+    const [isPaying, setIsPaying] = useState(false);
     const handleProviderSelected = (provider_id) => {
         setProviderSelected(true);
         setSelectedProvider(props.providers?.find((p) => p.id === provider_id));
@@ -20,17 +21,40 @@ function Data(props) {
         // console.log(plan)
         setPlanSelected(true);
         setSelectedPlan(plan);
-        console.log('selected plan is', plan)
+    };
+
+    const handlePaymentClicked = (e) => {
+        e.preventDefault();
+        setIsPaying(true);
+    };
+
+    const paymentDone = (e) => {
+        e.preventDefault();
+        props.paymentSuccess();
+        alert("Order has been successfully placed");
+        setIsPaying(false);
     };
 
     return (
-        <div>
-            <h5>Select Data Provider</h5>
+        <div className="card col-md-8 mx-auto">
+            <div className="card-header">
+                <h5>Select Data Provider</h5>
+            </div>
 
-            <DataContainer className="my-2">
-                {props.providers?.map(
-                    (provider) =>
-                        provider.plans.length ? (
+            <div className="card-body">
+                {providerSelected ? (
+                    <ProviderPlans
+                        provider={selectedProvider}
+                        planSelected={handlePlanSelected}
+                        changeProvider={() => {
+                            setProviderSelected(false);
+                            setPlanSelected(false);
+                        }}
+                    />
+                ) : (
+                    <DataContainer className="my-2">
+                        {props.providers?.map((provider) => (
+                            // provider.plans.length ?
                             <RadioFormGroup key={provider.id}>
                                 <input
                                     className="provider-radio"
@@ -46,28 +70,49 @@ function Data(props) {
                                     {provider.title}
                                 </label>
                             </RadioFormGroup>
-                        ) : ("")
+                        ))}
+                    </DataContainer>
                 )}
-            </DataContainer>
-            {providerSelected && (
-                <ProviderPlans
-                    provider={selectedProvider}
-                    planSelected={handlePlanSelected}
-                />
-            )}
 
-            {planSelected && <div>{"plan is" + selectedPlan.title}</div>}
+                {planSelected && (
+                    <div>
+                        {isPaying ? (
+                            <button
+                                onClick={paymentDone}
+                                className="btn btn-light btn-block"
+                                type="button"
+                            >
+                                <div
+                                    className="spinner-border-sm spinner-border text-primary"
+                                    role="status"
+                                >
+                                    {/* <span class="sr-only">Loading...</span> */}
+                                </div>
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-primary btn-block"
+                                onClick={handlePaymentClicked}
+                            >
+                                Pay #{selectedPlan.price}
+                            </button>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
 
 const DataContainer = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 20px;
 
     @media (max-width: 768px) {
+        grid-gap: 10px;
         display: grid;
         grid-template-columns: auto auto;
-        grid-gap: 20px;
     }
 `;
 const RadioFormGroup = styled.div`
@@ -82,12 +127,12 @@ const RadioFormGroup = styled.div`
         }
     }
     label {
-        height: 60px;
-        width: 150px;
+        width: 120px;
+        height: 150px;
         @media (max-width: 768px) {
             margin: auto;
         }
-        /* pointer-events: none; */
+        /* padding: 10px; */
         font-weight: bold;
         font-size: 18px;
         color: #854fff;
@@ -103,6 +148,7 @@ const RadioFormGroup = styled.div`
         margin-right: 30px;
         transition: 0.3s;
     }
+    display: grid;
 `;
 
 const mapStateToProps = (state) => {
@@ -114,6 +160,16 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        paymentSuccess: () =>
+            dispatch({
+                type: "OPEN_MODAL",
+                modal: {
+                    show: 1,
+                    header: "PaymentSuccess",
+                    content: <h1>Payment success</h1>,
+                },
+            }),
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Data);
