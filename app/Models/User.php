@@ -47,11 +47,32 @@ class User extends Authenticatable
         "is_admin"
     ];
 
-    public function getRoleAttribute(){
+    public function getRoleAttribute()
+    {
         return $this->roles->pluck('name')->toArray();
     }
 
-    public function getIsAdminAttribute(){
-        return $this->roles->where('name','admin')->count() ? true : false;
+    public function getIsAdminAttribute()
+    {
+        return $this->roles->where('name', 'admin')->count() ? true : false;
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function credits()
+    {
+        return $this->morphOne(Transaction::class, 'creditable');
+    }
+
+    public function debits()
+    {
+        return $this->morphMany(Transaction::class, 'debitable');
+    } 
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getDataProviders } from "../reducers/serviceReducer";
 import ProviderPlans from "./ProviderPlans";
+import axios from "axios";
 
 // const service_id = 1;
 function Data(props) {
@@ -26,13 +27,18 @@ function Data(props) {
     const handlePaymentClicked = (e) => {
         e.preventDefault();
         setIsPaying(true);
+        axios.post('/orders',{plan_id:selectedPlan.id}).then((res)=>{
+            console.log(res.data)
+            setIsPaying(false);
+            props.paymentSuccess();
+        }).catch((err)=>{
+            console.log(err)
+        })
     };
 
     const paymentDone = (e) => {
         e.preventDefault();
-        props.paymentSuccess();
-        alert("Order has been successfully placed");
-        setIsPaying(false);
+            setIsPaying(false);
     };
 
     return (

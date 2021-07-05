@@ -2867,11 +2867,6 @@ function App(props) {
           path: "/buy",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_3__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-          path: "/buy/data",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
-            children: "eggo"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
           path: "/history",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
             children: "History"
@@ -3430,10 +3425,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _reducers_serviceReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/serviceReducer */ "./resources/js/dashboard/src/reducers/serviceReducer.js");
 /* harmony import */ var _ProviderPlans__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProviderPlans */ "./resources/js/dashboard/src/components/ProviderPlans.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3449,6 +3446,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -3507,39 +3505,46 @@ function Data(props) {
   var handlePaymentClicked = function handlePaymentClicked(e) {
     e.preventDefault();
     setIsPaying(true);
+    axios__WEBPACK_IMPORTED_MODULE_4___default().post('/orders', {
+      plan_id: selectedPlan.id
+    }).then(function (res) {
+      console.log(res.data);
+      setIsPaying(false);
+      props.paymentSuccess();
+    })["catch"](function (err) {
+      console.log(err);
+    });
   };
 
   var paymentDone = function paymentDone(e) {
     e.preventDefault();
-    props.paymentSuccess();
-    alert("Order has been successfully placed");
     setIsPaying(false);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "card col-md-8 mx-auto",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "card-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
         children: "Select Data Provider"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "card-body",
-      children: [providerSelected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
+      children: [providerSelected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
         provider: selectedProvider,
         planSelected: handlePlanSelected,
         changeProvider: function changeProvider() {
           setProviderSelected(false);
           setPlanSelected(false);
         }
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataContainer, {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(DataContainer, {
         className: "my-2",
         children: (_props$providers2 = props.providers) === null || _props$providers2 === void 0 ? void 0 : _props$providers2.map(function (provider) {
           return (
             /*#__PURE__*/
             // provider.plans.length ?
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(RadioFormGroup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(RadioFormGroup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                 className: "provider-radio",
                 name: "data_id",
                 id: "data" + provider.id,
@@ -3548,23 +3553,23 @@ function Data(props) {
                 onChange: function onChange(e) {
                   return handleProviderSelected(provider.id);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
                 htmlFor: "data" + provider.id,
                 children: provider.title
               })]
             }, provider.id)
           );
         })
-      }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+      }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           onClick: paymentDone,
           className: "btn btn-light btn-block",
           type: "button",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "spinner-border-sm spinner-border text-primary",
             role: "status"
           })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
           className: "btn btn-primary btn-block",
           onClick: handlePaymentClicked,
           children: ["Pay #", selectedPlan.price]
@@ -3574,8 +3579,8 @@ function Data(props) {
   });
 }
 
-var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 20px;\n\n    @media (max-width: 768px) {\n        grid-gap: 10px;\n        display: grid;\n        grid-template-columns: auto auto;\n    }\n"])));
-var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        width: 120px;\n        height: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* padding: 10px; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n    display: grid;\n"])));
+var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 20px;\n\n    @media (max-width: 768px) {\n        grid-gap: 10px;\n        display: grid;\n        grid-template-columns: auto auto;\n    }\n"])));
+var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        width: 120px;\n        height: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* padding: 10px; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n    display: grid;\n"])));
 
 var mapStateToProps = function mapStateToProps(state) {
   var _getDataProviders;
@@ -3595,7 +3600,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         modal: {
           show: 1,
           header: "PaymentSuccess",
-          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
             children: "Payment success"
           })
         }

@@ -32,7 +32,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     })->where(['all' => '.*']);
 });
 Route::resource('services', 'ServiceController')->middleware('auth');
-Route::resource('providers', 'ProviderController')->middleware('auth');
+Route::resource('services', 'ServiceController')->middleware('auth');
+Route::resource('orders', 'OrderController')->middleware('auth');
 
 // Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/', 'AdminController@index');

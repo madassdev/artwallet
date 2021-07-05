@@ -34,12 +34,6 @@ function App(props) {
                     <Route path="/buy">
                         <Buy />
                     </Route>
-                    <Route path="/buy/data">
-                        <h2>eggo</h2>
-                    </Route>
-                    {/* <Route path="/buy/:service">
-                        <Data />
-                    </Route> */}
                     <Route path="/history">
                         <h2>History</h2>
                     </Route>

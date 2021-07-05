@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function debitable()
+    {
+        return $this->morphTo();
+    }
+
+    public function purchaseable()
+    {
+        return $this->morphTo();
+    }
 }
