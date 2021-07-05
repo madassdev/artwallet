@@ -9,7 +9,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::with('providers')->get();
+        $services = Service::with('providers.plans')->get();
         // return $services;
         if(request()->wantsJson()){
             return response()->json([

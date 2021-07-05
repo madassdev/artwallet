@@ -6,6 +6,13 @@ const INITIAL_STATE = {
     fetch_failed: undefined,
 };
 
+// selectors
+export const getDataProviders = (service) =>
+    (service?.find(
+        (s) => s.id === 1 || s.title.toLowerCase() === "data"
+    ));
+
+
 const serviceReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case serviceActions.SERVICES_FETCHING:
@@ -17,13 +24,13 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 services: action.payload,
-                isFetching: false
+                isFetching: false,
             };
         case serviceActions.FETCH_FAILED:
             return {
                 ...state,
                 is_fetching: false,
-                fetch_failed: action.payload
+                fetch_failed: action.payload,
             };
         default:
             return state;

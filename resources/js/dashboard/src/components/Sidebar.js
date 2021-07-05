@@ -87,10 +87,24 @@ function Sidebar() {
                                     Dashboards
                                 </h6>
                             </li>
+                            <li className="nk-menu-item">
+                                    <NavLink
+                                        to="/buy"
+                                        activeClassName="nav-active"
+                                        className="nk-menu-link"
+                                    >
+                                        <span className="nk-menu-icon">
+                                            <em className="icon ni ni-wallet"></em>
+                                        </span>
+                                        <span className="nk-menu-text">
+                                            Buy
+                                        </span>
+                                    </NavLink>
+                                </li>
                             {nav_items.map((item) => (
                                 <li className="nk-menu-item" key={item.id}>
                                     <NavLink
-                                        to={item.link}
+                                        to={"/buy"+item.link}
                                         activeClassName="nav-active"
                                         className="nk-menu-link"
                                     >

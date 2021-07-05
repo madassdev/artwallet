@@ -2768,6 +2768,40 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/AdminRoute.js":
+/*!**************************************************!*\
+  !*** ./resources/js/dashboard/src/AdminRoute.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+function AdminRoute(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, _objectSpread(_objectSpread({}, props), {}, {
+    children: AUTH_USER.is_admin ? props.children : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Redirect, {
+      to: "/login"
+    })
+  }));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminRoute);
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/App.js":
 /*!*******************************************!*\
   !*** ./resources/js/dashboard/src/App.js ***!
@@ -2785,10 +2819,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout */ "./resources/js/dashboard/src/components/Layout.js");
 /* harmony import */ var _components_Service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Service */ "./resources/js/dashboard/src/components/Service.js");
 /* harmony import */ var _components_Buy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Buy */ "./resources/js/dashboard/src/components/Buy.js");
-/* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Provider */ "./resources/js/dashboard/src/components/Provider.js");
-/* harmony import */ var _data_NavItems__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./data/NavItems */ "./resources/js/dashboard/src/data/NavItems.js");
-/* harmony import */ var _components_Page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Page */ "./resources/js/dashboard/src/components/Page.js");
-/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/dashboard/src/components/Modal.js");
+/* harmony import */ var _components_Data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Data */ "./resources/js/dashboard/src/components/Data.js");
+/* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Provider */ "./resources/js/dashboard/src/components/Provider.js");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/dashboard/src/components/Modal.js");
+/* harmony import */ var _AdminRoute__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AdminRoute */ "./resources/js/dashboard/src/AdminRoute.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_serviceActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./actions/serviceActions */ "./resources/js/dashboard/src/actions/serviceActions.js");
 /* harmony import */ var _actions_providerActions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./actions/providerActions */ "./resources/js/dashboard/src/actions/providerActions.js");
@@ -2813,7 +2847,6 @@ function App(props) {
     props.getServices();
     props.getProviders(); // props.getPlans();
   }, []);
-  console.log(props);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.BrowserRouter, {
     basename: ROUTE_BASENAME,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -2824,17 +2857,20 @@ function App(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
             children: "Home"
           })
-        }), AUTH_USER.is_admin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Switch, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-            path: "/services",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_2__.default, {})
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-            path: "/providers",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_4__.default, {})
-          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_7__.default, {
+          path: "/services",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_2__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_7__.default, {
+          path: "/providers",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_5__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
           path: "/buy",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          path: "/buy/data",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
+            children: "eggo"
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
           path: "/history",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
@@ -2857,7 +2893,7 @@ function App(props) {
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_7__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_6__.default, {
       show: props.modal.show,
       header: props.modal.header,
       closeModal: function closeModal() {
@@ -3077,6 +3113,58 @@ var fetchServices = function fetchServices() {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/components/Airtime.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/dashboard/src/components/Airtime.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+
+
+
+function Airtime(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+      children: "Select Airtime Provider"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Container, {
+      children: "Airtime providers"
+    })]
+  });
+}
+
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n"])));
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    providers: state.serviceState.services
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Airtime));
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/components/Buy.js":
 /*!******************************************************!*\
   !*** ./resources/js/dashboard/src/components/Buy.js ***!
@@ -3089,17 +3177,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Data */ "./resources/js/dashboard/src/components/Data.js");
+/* harmony import */ var _Airtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Airtime */ "./resources/js/dashboard/src/components/Airtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject, _templateObject2, _templateObject3;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+
+
 
 
 
 function Buy(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: "Buy"
+  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useRouteMatch)(),
+      path = _useRouteMatch.path,
+      url = _useRouteMatch.url;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+        exact: true,
+        path: path,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+          children: "Buy"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(BuyContainer, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+            to: "/buy/data",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+                children: "Data"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+            to: "/buy/airtime",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+                children: "Airtime"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+            to: "/buy/cable",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+                children: "Cable-Tv"
+              })
+            })
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+        path: "".concat(path, "/data"),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Data__WEBPACK_IMPORTED_MODULE_2__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+        path: "".concat(path, "/airtime"),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Airtime__WEBPACK_IMPORTED_MODULE_3__.default, {})
+      })]
+    })
   });
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Buy);
+var BuyContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 30px;\n"])));
+var CommonCard = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    padding: 20px;\n    background: white;\n    border-radius: 5px;\n    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n"])));
+var Card = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__.default)(CommonCard)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral([""])));
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    services: state.serviceState.services
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Buy));
 
 /***/ }),
 
@@ -3255,6 +3414,141 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(CreateProvider));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/Data.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/dashboard/src/components/Data.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _reducers_serviceReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/serviceReducer */ "./resources/js/dashboard/src/reducers/serviceReducer.js");
+/* harmony import */ var _ProviderPlans__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProviderPlans */ "./resources/js/dashboard/src/components/ProviderPlans.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject, _templateObject2;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+ // const service_id = 1;
+
+
+
+
+function Data(props) {
+  var _props$providers2;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      providerSelected = _useState2[0],
+      setProviderSelected = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedProvider = _useState4[0],
+      setSelectedProvider = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      planSelected = _useState6[0],
+      setPlanSelected = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState8 = _slicedToArray(_useState7, 2),
+      selectedPlan = _useState8[0],
+      setSelectedPlan = _useState8[1];
+
+  var handleProviderSelected = function handleProviderSelected(provider_id) {
+    var _props$providers;
+
+    setProviderSelected(true);
+    setSelectedProvider((_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.find(function (p) {
+      return p.id === provider_id;
+    }));
+    setPlanSelected(false);
+  };
+
+  var handlePlanSelected = function handlePlanSelected(plan) {
+    // console.log(plan)
+    setPlanSelected(true);
+    setSelectedPlan(plan);
+    console.log('selected plan is', plan);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+      children: "Select Data Provider"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DataContainer, {
+      className: "my-2",
+      children: (_props$providers2 = props.providers) === null || _props$providers2 === void 0 ? void 0 : _props$providers2.map(function (provider) {
+        return provider.plans.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(RadioFormGroup, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            className: "provider-radio",
+            name: "data_id",
+            id: "data" + provider.id,
+            type: "radio",
+            value: provider.id,
+            onChange: function onChange(e) {
+              return handleProviderSelected(provider.id);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+            htmlFor: "data" + provider.id,
+            children: provider.title
+          })]
+        }, provider.id) : "";
+      })
+    }), providerSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
+      provider: selectedProvider,
+      planSelected: handlePlanSelected
+    }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: "plan is" + selectedPlan.title
+    })]
+  });
+}
+
+var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n\n    @media (max-width: 768px) {\n        display: grid;\n        grid-template-columns: auto auto;\n        grid-gap: 20px;\n    }\n"])));
+var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        height: 60px;\n        width: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* pointer-events: none; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n"])));
+
+var mapStateToProps = function mapStateToProps(state) {
+  var _getDataProviders;
+
+  return {
+    services: state.serviceState.services,
+    providers: (_getDataProviders = (0,_reducers_serviceReducer__WEBPACK_IMPORTED_MODULE_2__.getDataProviders)(state.serviceState.services)) === null || _getDataProviders === void 0 ? void 0 : _getDataProviders.providers // providers: state.providerState.providers
+
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Data));
 
 /***/ }),
 
@@ -4258,6 +4552,67 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/components/ProviderPlans.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/ProviderPlans.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject, _templateObject2;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+
+function ProviderPlans(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "my-3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+      children: "Select Plan"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Container, {
+      className: "my-2",
+      children: props.provider.plans.map(function (plan) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(RadioFormGroup, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            className: "plan-radio",
+            name: "plan_id",
+            id: "plan" + plan.id,
+            type: "radio",
+            value: plan.id,
+            onChange: function onChange() {
+              return props.planSelected(plan);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+            htmlFor: "plan" + plan.id,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+              children: plan.title
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+              children: ["#", plan.price]
+            })]
+          })]
+        }, plan.id);
+      })
+    })]
+  });
+}
+
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n\n    @media (max-width: 768px) {\n        display: grid;\n        grid-template-columns: auto auto;\n        grid-gap: 20px;\n    }\n"])));
+var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .plan-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                /* background: #854fff; */\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        height: 100px;\n        width: 120px;\n        font-weight: bold;\n        p {\n            color: #333;\n            font-size: 14px;\n        }\n        span {\n            color: #854fff;\n        }\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        color: #8091a7;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        /* transition: 0.3s; */\n    }\n"])));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProviderPlans);
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/components/Service.js":
 /*!**********************************************************!*\
   !*** ./resources/js/dashboard/src/components/Service.js ***!
@@ -4420,11 +4775,27 @@ function Sidebar() {
                 className: "overline-title text-primary-alt",
                 children: "Dashboards"
               })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nk-menu-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                to: "/buy",
+                activeClassName: "nav-active",
+                className: "nk-menu-link",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "nk-menu-icon",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                    className: "icon ni ni-wallet"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "nk-menu-text",
+                  children: "Buy"
+                })]
+              })
             }), _data_NavItems__WEBPACK_IMPORTED_MODULE_0__.nav_items.map(function (item) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
                 className: "nk-menu-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-                  to: item.link,
+                  to: "/buy" + item.link,
                   activeClassName: "nav-active",
                   className: "nk-menu-link",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
@@ -4462,11 +4833,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "nav_items": () => (/* binding */ nav_items)
 /* harmony export */ });
 var nav_items = [{
-  id: 0,
-  title: "Buy",
-  icon: "icon ni ni-wallet",
-  link: "/buy"
-}, {
   id: 1,
   title: "Airtime",
   icon: "icon ni ni-cart-fill",
@@ -4768,6 +5134,7 @@ var providerReducer = function providerReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getDataProviders": () => (/* binding */ getDataProviders),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_actionType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/actionType */ "./resources/js/dashboard/src/actions/actionType.js");
@@ -4782,6 +5149,12 @@ var INITIAL_STATE = {
   services: [],
   is_fetching: false,
   fetch_failed: undefined
+}; // selectors
+
+var getDataProviders = function getDataProviders(service) {
+  return service === null || service === void 0 ? void 0 : service.find(function (s) {
+    return s.id === 1 || s.title.toLowerCase() === "data";
+  });
 };
 
 var serviceReducer = function serviceReducer() {

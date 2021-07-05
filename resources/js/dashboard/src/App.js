@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Service from "./components/Service";
 import Buy from "./components/Buy";
+import Data from "./components/Data";
 import Provider from "./components/Provider";
-import { nav_items } from "./data/NavItems";
-import Page from "./components/Page";
 import Modal from "./components/Modal";
+import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
 import { fetchServices } from "./actions/serviceActions";
 import { fetchProviders } from "./actions/providerActions";
@@ -17,7 +17,6 @@ function App(props) {
         props.getProviders();
         // props.getPlans();
     }, []);
-    console.log(props);
     return (
         <Router basename={ROUTE_BASENAME}>
             <Layout>
@@ -25,21 +24,22 @@ function App(props) {
                     <Route exact path="/">
                         <h2>Home</h2>
                     </Route>
-                    {AUTH_USER.is_admin && (
-                        <Switch>
-                            <Route path="/services">
-                                <Service />
-                            </Route>
-
-                            <Route path="/providers">
-                                <Provider />
-                            </Route>
-                        </Switch>
-                    )}
+                    <AdminRoute path="/services">
+                        <Service />
+                    </AdminRoute>
+                    <AdminRoute path="/providers">
+                        <Provider />
+                    </AdminRoute>
 
                     <Route path="/buy">
                         <Buy />
                     </Route>
+                    <Route path="/buy/data">
+                        <h2>eggo</h2>
+                    </Route>
+                    {/* <Route path="/buy/:service">
+                        <Data />
+                    </Route> */}
                     <Route path="/history">
                         <h2>History</h2>
                     </Route>
