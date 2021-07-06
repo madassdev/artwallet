@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Service from "./components/Service";
 import Buy from "./components/Buy";
-import Data from "./components/Data";
 import Provider from "./components/Provider";
+import Deposit from "./components/Deposit";
 import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
@@ -33,6 +33,9 @@ function App(props) {
 
                     <Route path="/buy">
                         <Buy />
+                    </Route>
+                    <Route path="/deposit">
+                        <Deposit />
                     </Route>
                     <Route path="/history">
                         <h2>History</h2>

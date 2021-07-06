@@ -93,10 +93,24 @@ function Sidebar() {
                                         className="nk-menu-link"
                                     >
                                         <span className="nk-menu-icon">
-                                            <em className="icon ni ni-wallet"></em>
+                                            <em className="icon ni ni-cart"></em>
                                         </span>
                                         <span className="nk-menu-text">
                                             Buy
+                                        </span>
+                                    </NavLink>
+                                </li>
+                            <li className="nk-menu-item">
+                                    <NavLink
+                                        to="/deposit"
+                                        activeClassName="nav-active"
+                                        className="nk-menu-link"
+                                    >
+                                        <span className="nk-menu-icon">
+                                            <em className="icon ni ni-wallet"></em>
+                                        </span>
+                                        <span className="nk-menu-text">
+                                            Deposit
                                         </span>
                                     </NavLink>
                                 </li>

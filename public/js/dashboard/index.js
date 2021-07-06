@@ -2819,8 +2819,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout */ "./resources/js/dashboard/src/components/Layout.js");
 /* harmony import */ var _components_Service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Service */ "./resources/js/dashboard/src/components/Service.js");
 /* harmony import */ var _components_Buy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Buy */ "./resources/js/dashboard/src/components/Buy.js");
-/* harmony import */ var _components_Data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Data */ "./resources/js/dashboard/src/components/Data.js");
-/* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Provider */ "./resources/js/dashboard/src/components/Provider.js");
+/* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Provider */ "./resources/js/dashboard/src/components/Provider.js");
+/* harmony import */ var _components_Deposit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Deposit */ "./resources/js/dashboard/src/components/Deposit.js");
 /* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/dashboard/src/components/Modal.js");
 /* harmony import */ var _AdminRoute__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AdminRoute */ "./resources/js/dashboard/src/AdminRoute.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -2862,10 +2862,13 @@ function App(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_2__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_7__.default, {
           path: "/providers",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_5__.default, {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_4__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
           path: "/buy",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          path: "/deposit",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_5__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
           path: "/history",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
@@ -3678,6 +3681,130 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(DeleteProvider));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/Deposit.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/dashboard/src/components/Deposit.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_paystack__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-paystack */ "./node_modules/react-paystack/dist/index.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+function Deposit(props) {
+  console.log(Date.now());
+  var publicKey = "pk_test_ebd6435d808e02ac14eb40d514d9d13bba875309";
+  var amount = 100000;
+  var reference = "AR-" + Date.now();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("favescsskr@gmail.com"),
+      _useState2 = _slicedToArray(_useState, 2),
+      email = _useState2[0],
+      setEmail = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("Favour King"),
+      _useState4 = _slicedToArray(_useState3, 2),
+      name = _useState4[0],
+      setName = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("08136051712"),
+      _useState6 = _slicedToArray(_useState5, 2),
+      phone = _useState6[0],
+      setPhone = _useState6[1];
+
+  var componentProps = {
+    email: email,
+    amount: amount,
+    reference: reference,
+    metadata: {
+      name: name,
+      phone: phone
+    },
+    publicKey: publicKey,
+    text: "Pay Now",
+    onSuccess: function onSuccess(data) {
+      console.log(data);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/payments', {
+        reference: reference
+      }).then(function (response) {
+        return console.log(response.data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    onClose: function onClose() {
+      return alert("Wait! You need this oil, don't go!!!!");
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "col-md-8 mx-auto",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "card",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "card-header text-center",
+        children: "Deposit now"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "card-body",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "col-sm-6 mt-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "form-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+              className: "form-label",
+              htmlFor: "default-01",
+              children: "Title"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "form-control-wrap",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "text",
+                className: "form-control ",
+                id: "default-01" // value={""}
+                // onChange={(e) => setTitle(e.target.value)}
+                ,
+                placeholder: "Enter title eg MTN Data"
+              })
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_paystack__WEBPACK_IMPORTED_MODULE_2__.PaystackButton, _objectSpread({}, componentProps))]
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Deposit);
 
 /***/ }),
 
@@ -4854,11 +4981,27 @@ function Sidebar() {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-icon",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-                    className: "icon ni ni-wallet"
+                    className: "icon ni ni-cart"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-text",
                   children: "Buy"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nk-menu-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                to: "/deposit",
+                activeClassName: "nav-active",
+                className: "nk-menu-link",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "nk-menu-icon",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                    className: "icon ni ni-wallet"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                  className: "nk-menu-text",
+                  children: "Deposit"
                 })]
               })
             }), _data_NavItems__WEBPACK_IMPORTED_MODULE_0__.nav_items.map(function (item) {
@@ -34251,6 +34394,194 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-paystack/dist/index.es.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-paystack/dist/index.es.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PaystackButton": () => (/* binding */ PaystackButton),
+/* harmony export */   "PaystackConsumer": () => (/* binding */ PaystackConsumer),
+/* harmony export */   "usePaystackPayment": () => (/* binding */ usePaystackPayment)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var cachedScripts = [];
+function usePaystackScript() {
+    var src = 'https://js.paystack.co/v1/inline.js';
+    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+        loaded: false,
+        error: false,
+    }), state = _a[0], setState = _a[1];
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        if (cachedScripts.includes(src)) {
+            setState({
+                loaded: true,
+                error: false,
+            });
+        }
+        else {
+            cachedScripts.push(src);
+            var script_1 = document.createElement('script');
+            script_1.src = src;
+            script_1.async = true;
+            var onScriptLoad_1 = function () {
+                setState({
+                    loaded: true,
+                    error: false,
+                });
+            };
+            var onScriptError_1 = function () {
+                var index = cachedScripts.indexOf(src);
+                if (index >= 0)
+                    cachedScripts.splice(index, 1);
+                script_1.remove();
+                setState({
+                    loaded: true,
+                    error: true,
+                });
+            };
+            script_1.addEventListener('load', onScriptLoad_1);
+            script_1.addEventListener('complete', onScriptLoad_1);
+            script_1.addEventListener('error', onScriptError_1);
+            document.body.appendChild(script_1);
+            return function () {
+                script_1.removeEventListener('load', onScriptLoad_1);
+                script_1.removeEventListener('error', onScriptError_1);
+            };
+        }
+    }, [src]);
+    return [state.loaded, state.error];
+}
+
+var callPaystackPop = function (paystackArgs) {
+    //@ts-ignore
+    var handler = window.PaystackPop && window.PaystackPop.setup(paystackArgs);
+    handler && handler.openIframe();
+};
+
+function usePaystackPayment(options) {
+    var _a = usePaystackScript(), scriptLoaded = _a[0], scriptError = _a[1];
+    var publicKey = options.publicKey, firstname = options.firstname, lastname = options.lastname, phone = options.phone, email = options.email, amount = options.amount, reference = options.reference, _b = options.metadata, metadata = _b === void 0 ? {} : _b, _c = options.currency, currency = _c === void 0 ? 'NGN' : _c, channels = options.channels, _d = options.label, label = _d === void 0 ? '' : _d, _e = options.plan, plan = _e === void 0 ? '' : _e, _f = options.quantity, quantity = _f === void 0 ? '' : _f, _g = options.subaccount, subaccount = _g === void 0 ? '' : _g, _h = options.transaction_charge, transaction_charge = _h === void 0 ? 0 : _h, _j = options.bearer, bearer = _j === void 0 ? 'account' : _j, split = options.split, split_code = options.split_code;
+    function initializePayment(callback, onClose) {
+        if (scriptError) {
+            throw new Error('Unable to load paystack inline script');
+        }
+        if (scriptLoaded) {
+            var paystackArgs = {
+                callback: callback ? callback : function () { return null; },
+                onClose: onClose ? onClose : function () { return null; },
+                key: publicKey,
+                ref: reference,
+                email: email,
+                firstname: firstname,
+                lastname: lastname,
+                phone: phone,
+                amount: amount,
+                currency: currency,
+                plan: plan,
+                quantity: quantity,
+                'data-custom-button': options['data-custom-button'] || '',
+                channels: channels,
+                subaccount: subaccount,
+                transaction_charge: transaction_charge,
+                bearer: bearer,
+                label: label,
+                metadata: metadata,
+                split: split,
+                split_code: split_code,
+            };
+            callPaystackPop(paystackArgs);
+        }
+    }
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        if (scriptError) {
+            throw new Error('Unable to load paystack inline script');
+        }
+    }, [scriptError]);
+    return initializePayment;
+}
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+var PaystackButton = function (_a) {
+    var text = _a.text, className = _a.className, children = _a.children, onSuccess = _a.onSuccess, onClose = _a.onClose, others = __rest(_a, ["text", "className", "children", "onSuccess", "onClose"]);
+    var initializePayment = usePaystackPayment(others);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: className, onClick: function () { return initializePayment(onSuccess, onClose); } }, text || children));
+};
+
+var PaystackContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+    initializePayment: function () { return null; },
+    onSuccess: function () { return null; },
+    onClose: function () { return null; },
+});
+
+var PaystackProvider = function (_a) {
+    var children = _a.children, onSuccess = _a.onSuccess, onClose = _a.onClose, others = __rest(_a, ["children", "onSuccess", "onClose"]);
+    var initializePayment = usePaystackPayment(others);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(PaystackContext.Provider, { value: { initializePayment: initializePayment, onSuccess: onSuccess, onClose: onClose } }, children));
+};
+
+var PaystackConsumerChild = function (_a) {
+    var children = _a.children, ref = _a.ref;
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PaystackContext), initializePayment = _b.initializePayment, onSuccess = _b.onSuccess, onClose = _b.onClose;
+    var completeInitializePayment = function () { return initializePayment(onSuccess, onClose); };
+    return children({ initializePayment: completeInitializePayment, ref: ref });
+};
+var PaystackConsumer = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_a, ref) {
+    var children = _a.children, paraSuccess = _a.onSuccess, paraClose = _a.onClose, others = __rest(_a, ["children", "onSuccess", "onClose"]);
+    var onSuccess = paraSuccess ? paraSuccess : function () { return null; };
+    var onClose = paraClose ? paraClose : function () { return null; };
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(PaystackProvider, __assign({}, others, { onSuccess: onSuccess, onClose: onClose }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(PaystackConsumerChild, { ref: ref }, children)));
+});
+
+
+//# sourceMappingURL=index.es.js.map
 
 
 /***/ }),
