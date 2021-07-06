@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getDataProviders } from "../reducers/serviceReducer";
+import { getDataProviders } from "../reducers/providerReducer";
 import ProviderPlans from "./ProviderPlans";
 import axios from "axios";
 
@@ -35,7 +35,7 @@ function Data(props) {
         }
         setIsPaying(true);
         axios
-            .post("/orders", { plan_id: selectedPlan.id })
+            .post("/orders", { plan_id: selectedPlan.id, type: "data", amount: selectedPlan.price })
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
@@ -171,7 +171,7 @@ const RadioFormGroup = styled.div`
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
-        providers: getDataProviders(state.serviceState.services)?.providers,
+        providers: getDataProviders(state.providerState.providers),
         user: state.userState.user,
         // providers: state.providerState.providers
     };

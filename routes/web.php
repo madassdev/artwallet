@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         return view('admin.index');
     })->where(['all' => '.*']);
 });
-// Route::get('/test', 'PaymentController@store');
+Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
 Route::resource('orders', 'OrderController')->middleware('auth');
 Route::resource('providers', 'ProviderController')->middleware('auth');

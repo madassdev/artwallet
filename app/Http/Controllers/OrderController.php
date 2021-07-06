@@ -19,19 +19,28 @@ class OrderController extends Controller
         //         "message" => "User does no have enough balance to purchase this plan"
         //     ], 403);
         // }
-        $user->balance -= $plan->price;
+        $amount = 0;
+        if ($request->type === "data") {
+            $amount = $plan->price;
+        }
+        if ($request->type === "airtime") {
+
+            $amount = $request->amount;
+        }
+        $user->balance -= $amount;
         $user->save();
+
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
-            "amount" => $plan->price,
+            "amount" => $amount,
             "reference" => Order::uniqueRef(),
         ]);
-        
+
         $user->debits()->create([
             "user_id" => $user->id,
-            'creditable_id'=>$order->id,
-            'creditable_type'=>Order::class,
-            'amount'=>$order->amount,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'amount' => $order->amount,
             'type' => 'order',
             'status' => 'complete',
         ]);

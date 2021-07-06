@@ -16,7 +16,6 @@ import { fetchProviders } from "./actions/providerActions";
 function App(props) {
     useEffect(() => {
         props.getServices();
-        props.getProviders();
         props.setUser();
         // props.getPlans();
     }, []);
@@ -79,7 +78,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getServices: () => dispatch(fetchServices()),
-        getProviders: () => dispatch(fetchProviders()),
         closeModal: () =>
             dispatch({
                 type: "CLOSE_MODAL",

@@ -7,6 +7,12 @@ const INITIAL_STATE = {
     fetch_failed: undefined,
 };
 
+export const getDataProviders = (providers) => {
+    const dataProviders = providers?.filter((p) => p.service.slug === "data");
+    console.log(dataProviders)
+    return dataProviders
+};
+
 const providerReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case providerActions.PROVIDERS_FETCHING:
@@ -14,10 +20,10 @@ const providerReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 is_fetching: true,
             };
-        case providerActions.PROVIDERS_FETCHED:
+        case "SET_PROVIDERS":
             return {
                 ...state,
-                providers: action.payload,
+                providers: action.providers,
                 isFetching: false,
             };
         case providerActions.FETCH_FAILED:

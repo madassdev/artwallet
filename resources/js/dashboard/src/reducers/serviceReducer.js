@@ -7,11 +7,14 @@ const INITIAL_STATE = {
 };
 
 // selectors
-export const getDataProviders = (service) =>
-    (service?.find(
-        (s) => s.id === 1 || s.title.toLowerCase() === "data"
-    ));
 
+export const getAirtimeProviders = async (service) => {
+    var airtimePlans = [];
+    await axios.get("/plans/airtime").then((res) => {
+        airtimePlans = res.data.data;
+    });
+    return airtimePlans;
+};
 
 const serviceReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -20,10 +23,10 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 is_fetching: true,
             };
-        case serviceActions.SERVICES_FETCHED:
+        case "SET_SERVICES":
             return {
                 ...state,
-                services: action.payload,
+                services: action.services,
                 isFetching: false,
             };
         case serviceActions.FETCH_FAILED:
