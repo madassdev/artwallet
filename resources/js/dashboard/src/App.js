@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import Home from "./components/Home";
 import Service from "./components/Service";
 import Buy from "./components/Buy";
 import Provider from "./components/Provider";
 import Deposit from "./components/Deposit";
+import SuccessPage from "./components/SuccessPage";
 import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
@@ -15,6 +17,7 @@ function App(props) {
     useEffect(() => {
         props.getServices();
         props.getProviders();
+        props.setUser();
         // props.getPlans();
     }, []);
     return (
@@ -22,7 +25,7 @@ function App(props) {
             <Layout>
                 <Switch>
                     <Route exact path="/">
-                        <h2>Home</h2>
+                        <Home/>
                     </Route>
                     <AdminRoute path="/services">
                         <Service />
@@ -39,6 +42,9 @@ function App(props) {
                     </Route>
                     <Route path="/history">
                         <h2>History</h2>
+                    </Route>
+                    <Route path="/successPage">
+                        <SuccessPage/>
                     </Route>
                     <Route path="/referrals">
                         <h2>Referrals</h2>
@@ -78,6 +84,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "CLOSE_MODAL",
             }),
+        setUser: () => dispatch({
+            type: "SET_USER",
+            user: AUTH_USER
+        })
         // getPlans: () => dispatch(fetchPlans()),
     };
 };

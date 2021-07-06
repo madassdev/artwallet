@@ -8,7 +8,6 @@ use App\Models\Payment;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
-use function GuzzleHttp\json_decode;
 
 class PaymentService
 {
@@ -103,7 +102,7 @@ class PaymentService
         //     throw new PaystackPaymentNotVerifiedException("Unable to verify the transaction from paystack", 400);
         // }
 
-        $transaction = $response;
+        $transaction = json_decode($response);
 
         // if (!$transaction->status) {
         //     throw new PaystackPaymentNotVerifiedException("Payment could not be verifed. $response", 400);
@@ -121,33 +120,34 @@ class PaymentService
     {
         $paystack_secret_key = self::getPaystackSecretKey();
 
+        // dd(openssl_get_cert_locations());
         // reference AmasT234Android_1582026397815
         //secret sk_test_a335450a82025ce1b4143aebfad5351966dd658b
 
         $url = 'https://api.paystack.co/transaction/verify/' . $reference;
+        $response = Http::withToken($paystack_secret_key)->get($url)->json();
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt(
+        //     $ch,
+        //     CURLOPT_HTTPHEADER,
+        //     [
+        //         "Authorization: Bearer $paystack_secret_key"
+        //     ]
+        // );
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            [
-                "Authorization: Bearer $paystack_secret_key"
-            ]
-        );
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-        if ($response === false) {
-            dd([curl_error($ch), curl_errno($ch)]);
-        }
-        dd($response);
+        // $response = curl_exec($ch);
+        // curl_close($ch);
+        // if ($response === false) {
+        //     dd([curl_error($ch), curl_errno($ch)]);
+        // }
+        // dd($response->body());
         // if (!$response) {
         //     throw new PaystackPaymentNotVerifiedException("Unable to verify the transaction from Paystack", 400);
         // }
 
-        $transaction = $response;
+        // $transaction = json_decode($response);
 
         // if (!$transaction->status) {
         //     throw new PaystackPaymentNotVerifiedException("Payment could not be verifed. $response", 400);
@@ -171,7 +171,7 @@ class PaymentService
         //     "account_name": null
         // },
 
-        return $transaction;
+        return $response;
     }
 
     // public static function validatePaystackKey($key)

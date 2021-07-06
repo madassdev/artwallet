@@ -32,7 +32,7 @@ class OrderController extends Controller
             'creditable_id'=>$order->id,
             'creditable_type'=>Order::class,
             'amount'=>$order->amount,
-            'type' => 'order-purchase',
+            'type' => 'order',
             'status' => 'complete',
         ]);
 

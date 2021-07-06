@@ -26,19 +26,30 @@ function Data(props) {
 
     const handlePaymentClicked = (e) => {
         e.preventDefault();
+        if (props.user.balance < selectedPlan.price) {
+            console.log("insufficient balance");
+            alert(
+                "you do not have enough balance to payfor this plan, proceed to deposit!"
+            );
+            return;
+        }
         setIsPaying(true);
-        axios.post('/orders',{plan_id:selectedPlan.id}).then((res)=>{
-            console.log(res.data)
-            setIsPaying(false);
-            props.paymentSuccess();
-        }).catch((err)=>{
-            console.log(err)
-        })
+        axios
+            .post("/orders", { plan_id: selectedPlan.id })
+            .then((res) => {
+                console.log(res.data);
+                setIsPaying(false);
+                props.debitUserBalance(selectedPlan.price);
+                props.paymentSuccess();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const paymentDone = (e) => {
         e.preventDefault();
-            setIsPaying(false);
+        setIsPaying(false);
     };
 
     return (
@@ -161,6 +172,7 @@ const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
         providers: getDataProviders(state.serviceState.services)?.providers,
+        user: state.userState.user,
         // providers: state.providerState.providers
     };
 };
@@ -176,6 +188,13 @@ const mapDispatchToProps = (dispatch) => {
                     content: <h1>Payment success</h1>,
                 },
             }),
+
+        debitUserBalance: (amount) => {
+            dispatch({
+                type: "DEBIT_USER",
+                amount,
+            });
+        },
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Data);

@@ -17,6 +17,7 @@ class CreateProvidersTable extends Migration
             $table->id();
             $table->foreignId('service_id')->constrained();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();

@@ -3,6 +3,7 @@
 @php
 $auth_user = auth()->user();
 @endphp
+
 <head>
     <base href="../">
     <meta charset="utf-8">
@@ -13,6 +14,7 @@ $auth_user = auth()->user();
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
     <title>ArtWallet | Wallet</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('dashlite/css/dashlite.css?ver=2.5.0')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('dashlite/css/theme.css?ver=2.5.0')}}">
@@ -20,7 +22,7 @@ $auth_user = auth()->user();
 
 <body class="nk-body bg-lighter npc-default has-sidebar ">
     <div class="nk-app-root" id="root">
-        
+
     </div>
     <script>
         const ROUTE_BASENAME = "dashboard"

@@ -16,6 +16,10 @@ class Order extends Model
     {
         return $this->morphOne(Transaction::class, 'creditable');
     }
+    public function debit()
+    {
+        return $this->morphOne(Transaction::class, 'debitable');
+    }
 
     public static function uniqueRef()
     {

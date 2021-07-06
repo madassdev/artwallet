@@ -18,6 +18,7 @@ class CreatePlansTable extends Migration
             $table->foreignId('provider_id')->constrained();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->string('slug')->unique();
             $table->integer('price');
             $table->integer('min_price')->default(0);
             $table->integer('max_price')->default(0);

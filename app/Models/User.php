@@ -40,12 +40,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        "balance" => "float"
     ];
 
     protected $appends = [
         "role",
-        "is_admin"
+        "is_admin",
+        "full_name"
     ];
+
 
     public function getRoleAttribute()
     {
@@ -61,6 +64,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
@@ -74,5 +82,10 @@ class User extends Authenticatable
     public function debits()
     {
         return $this->morphMany(Transaction::class, 'debitable');
-    } 
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->name . ' ' . $this->last_name);
+    }
 }

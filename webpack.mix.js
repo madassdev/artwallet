@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .react()
     .js("resources/js/dashboard/src/index.js", "public/js/dashboard")
     .react()
+    .sass("resources/css/app.scss", "public/css")
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

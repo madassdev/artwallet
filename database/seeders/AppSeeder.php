@@ -85,15 +85,18 @@ class AppSeeder extends Seeder
         $services = [
             [
                 "title" => "Data",
-                "description" => "Data Subscription"
+                "description" => "Data Subscription",
+                "slug" => "data",
             ],
             [
                 "title" => "Airtime",
-                "description" => "Airtime Purchase"
+                "description" => "Airtime Purchase",
+                "slug" => "airtime",
             ],
             [
                 "title" => "Cable TV",
-                "description" => "Cable TV Subscription"
+                "description" => "Cable TV Subscription",
+                "slug" => "cable-tv",
             ]
         ];
 
@@ -102,43 +105,53 @@ class AppSeeder extends Seeder
         $providers = [
             [
                 "service_id" => 1,
-                "title" => "MTN Data"
+                "title" => "MTN Data",
+                "slug" => "mtn-data",
             ],
             [
                 "service_id" => 1,
-                "title" => "GLO Data"
+                "title" => "GLO Data",
+                "slug" => "glo-data",
             ],
             [
                 "service_id" => 1,
-                "title" => "AIRTEL Data"
+                "title" => "AIRTEL Data",
+                "slug" => "airtel-data",
             ],
             [
                 "service_id" => 1,
-                "title" => "9mobile Data"
+                "title" => "9mobile Data",
+                "slug" => "9mobile-data",
             ],
             [
                 "service_id" => 2,
-                "title" => "MTN Airtime"
+                "title" => "MTN Airtime",
+                "slug" => "mtn-airtime",
             ],
             [
                 "service_id" => 2,
-                "title" => "GLO Airtime"
+                "title" => "GLO Airtime",
+                "slug" => "glo-airtime",
             ],
             [
                 "service_id" => 2,
-                "title" => "AIRTEL Airtime"
+                "title" => "AIRTEL Airtime",
+                "slug" => "airtel-airtime",
             ],
             [
                 "service_id" => 2,
-                "title" => "9mobile Airtime"
+                "title" => "9mobile Airtime",
+                "slug" => "9mobile-airtime",
             ],
             [
                 "service_id" => 3,
-                "title" => "DSTV"
+                "title" => "DSTV",
+                "slug" => "dstv",
             ],
             [
                 "service_id" => 3,
-                "title" => "GOTV"
+                "title" => "GOTV",
+                "slug" => "gotv",
             ],
         ];
 
@@ -148,41 +161,49 @@ class AppSeeder extends Seeder
             [
                 "provider_id" => 1,
                 "title" => "MTN 1GB",
+                "slug" => "mtn-1gb",
                 "price" => 400
             ],
             [
                 "provider_id" => 1,
                 "title" => "MTN 2GB",
+                "slug" => "mtn-2gb",
                 "price" => 800
             ],
             [
                 "provider_id" => 2,
                 "title" => "GLO 1GB",
+                "slug" => "glo-1gb",
                 "price" => 420
             ],
             [
                 "provider_id" => 2,
                 "title" => "GLO 2GB",
+                "slug" => "glo-2gb",
                 "price" => 820
             ],
             [
-                "provider_id" => 1,
+                "provider_id" => 2,
                 "title" => "GLO 3GB",
+                "slug" => "glo-3gb",
                 "price" => 1200
             ],
             [
                 "provider_id" => 5,
                 "title" => "MTN AIRTIME",
+                "slug" => "mtn-airtime",
                 "price" => 0
             ],
             [
                 "provider_id" => 7,
                 "title" => "AIRTEL AIRTIME",
+                "slug" => "airtel-airtime",
                 "price" => 0
             ],
             [
                 "provider_id" => 10,
                 "title" => "DSTV SUPER SUB 1 MONTH",
+                "slug" => "dstv-super-sub-1-month",
                 "price" => 3000
             ],
         ];
