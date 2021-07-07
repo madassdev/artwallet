@@ -7,31 +7,46 @@ import ProviderPlans from "./ProviderPlans";
 import axios from "axios";
 
 function Airtime(props) {
-    const [planSelected, setPlanSelected] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState(true);
-    const [amount, setAmount] = useState(0);
+    const [selectedPlan, setSelectedPlan] = useState(0);
+    const [amount, setAmount] = useState("");
+    const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
 
-    const handlePlanSelected = (plan) => {
-        setPlanSelected(true);
-        setSelectedPlan(plan);
+    const handlePlanSelected = (e) => {
+        setSelectedPlan(e.target.value);
     };
 
     const handlePaymentClicked = (e) => {
         e.preventDefault();
         if (props.user.balance < amount) {
             console.log("insufficient balance");
-            alert(
-                "you do not have enough balance to payfor this plan, proceed to deposit!"
-            );
+        }
+
+        if (!selectedPlan) {
+            alert("Please select a plan first");
             return;
         }
+        if (
+            !destination ||
+            destination.length.length < 11 ||
+            destination.length === ""
+        ) {
+            alert("Please Enter a valid number");
+            return;
+        }
+        if (!amount || amount === 0 || amount === "") {
+            alert("Please Enter a valid amount");
+            return;
+        }
+
         setIsPaying(true);
+        // return;
         axios
             .post("/orders", {
-                plan_id: selectedPlan.id,
+                plan_id: selectedPlan,
                 type: "airtime",
                 amount,
+                destination,
             })
             .then((res) => {
                 console.log(res.data);
@@ -41,6 +56,8 @@ function Airtime(props) {
             })
             .catch((err) => {
                 console.log(err);
+                setIsPaying(false);
+                console.log(err.message);
             });
     };
 
@@ -49,71 +66,78 @@ function Airtime(props) {
         setIsPaying(false);
     };
     return (
-        <div>
-            <h5>Select Airtime Provider</h5>
+        <div className="w-full md:w-1/2 mx-auto bg-white p-3 my-20 shadow-lg flex flex-col">
+            <h5 className="text-center my-2 text-lg font-bold mb-4">
+                Select Airtime Provider
+            </h5>
 
-            <div className="card-body">
-                <h5>Select Plan</h5>
-                <Container className="my-2">
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Select Provider</p>
+                <select
+                    className="w-full rounded border-gray-300"
+                    value={selectedPlan}
+                    onChange={handlePlanSelected}
+                >
+                    <option value="0" disabled>
+                        SELECT PLAN
+                    </option>
                     {props.plans?.map((plan) => (
-                        <RadioFormGroup key={plan.id}>
-                            <input
-                                className="plan-radio"
-                                name="plan_id"
-                                id={"plan" + plan.id}
-                                type="radio"
-                                value={plan.id}
-                                onChange={() => handlePlanSelected(plan)}
-                            />
-                            <label htmlFor={"plan" + plan.id}>
-                                <p>{plan.title}</p>
-                            </label>
-                        </RadioFormGroup>
+                        <option key={plan.id} value={plan.id}>
+                            {plan.title}
+                        </option>
                     ))}
-                </Container>
-                {planSelected && (
-                    <div>
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="default-01">
-                                Amount
-                            </label>
+                </select>
+            </div>
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Destination Phone Number</p>
 
-                            <div className="form-control-wrap">
-                                <input
-                                    type="number"
-                                    min="100"
-                                    className={"form-control "}
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    placeholder="Enter your phone number"
-                                />
-                            </div>
-                        </div>
+                <div className="form-control-wrap">
+                    <input
+                        type="number"
+                        min="100"
+                        className="w-full rounded border-gray-300"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
+                        placeholder="Enter destination phone number"
+                    />
+                </div>
+            </div>
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Amount</p>
 
-                        <div className="form-group">
-                            {isPaying ? (
-                                <button
-                                    onClick={paymentDone}
-                                    className="btn btn-light btn-block"
-                                    type="button"
-                                >
-                                    <div
-                                        className="spinner-border-sm spinner-border text-primary"
-                                        role="status"
-                                    >
-                                        {/* <span class="sr-only">Loading...</span> */}
-                                    </div>
-                                </button>
-                            ) : (
-                                <button
-                                    className="btn btn-primary btn-block"
-                                    onClick={handlePaymentClicked}
-                                >
-                                    Pay #{amount}
-                                </button>
-                            )}
+                <div className="form-control-wrap">
+                    <input
+                        type="number"
+                        min="100"
+                        className="w-full rounded border-gray-300"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="Enter amount"
+                    />
+                </div>
+            </div>
+
+            <div className="form-group my-2">
+                {isPaying ? (
+                    <button
+                        onClick={paymentDone}
+                        className="btn btn-light btn-block"
+                        type="button"
+                    >
+                        <div
+                            className="spinner-border-sm spinner-border text-primary"
+                            role="status"
+                        >
+                            {/* <span class="sr-only">Loading...</span> */}
                         </div>
-                    </div>
+                    </button>
+                ) : (
+                    <button
+                        className="btn btn-primary btn-block"
+                        onClick={handlePaymentClicked}
+                    >
+                        Pay
+                    </button>
                 )}
             </div>
         </div>

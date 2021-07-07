@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 
 export const getDataProviders = (providers) => {
     const dataProviders = providers?.filter((p) => p.service.slug === "data");
-    console.log(dataProviders)
     return dataProviders
 };
 

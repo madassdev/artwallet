@@ -73,7 +73,7 @@ function Deposit(props) {
                                 <div className="form-control-wrap">
                                     <input
                                         type="text"
-                                        className={"form-control "}
+                                        className="w-full rounded border-gray-300"
                                         id="default-01"
                                         value={email}
                                         onChange={(e) =>
@@ -94,7 +94,7 @@ function Deposit(props) {
                                 <div className="form-control-wrap">
                                     <input
                                         type="text"
-                                        className={"form-control "}
+                                        className="w-full rounded border-gray-300"
                                         value={name}
                                         onChange={(e) =>
                                             setName(e.target.value)
@@ -114,7 +114,7 @@ function Deposit(props) {
                                 <div className="form-control-wrap">
                                     <input
                                         type="text"
-                                        className={"form-control "}
+                                        className="w-full rounded border-gray-300"
                                         value={mobile}
                                         onChange={(e) =>
                                             setMobile(e.target.value)
@@ -135,7 +135,7 @@ function Deposit(props) {
                                     <input
                                         type="number"
                                         min="100"
-                                        className={"form-control "}
+                                        className="w-full rounded border-gray-300"
                                         value={amount}
                                         onChange={(e) =>
                                             handleAmount(e.target.value)

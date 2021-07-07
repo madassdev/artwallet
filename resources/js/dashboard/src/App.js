@@ -10,8 +10,7 @@ import SuccessPage from "./components/SuccessPage";
 import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
-import { fetchServices } from "./actions/serviceActions";
-import { fetchProviders } from "./actions/providerActions";
+import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 
 function App(props) {
     useEffect(() => {
@@ -24,7 +23,7 @@ function App(props) {
             <Layout>
                 <Switch>
                     <Route exact path="/">
-                        <Home/>
+                        <Home />
                     </Route>
                     <AdminRoute path="/services">
                         <Service />
@@ -43,7 +42,7 @@ function App(props) {
                         <h2>History</h2>
                     </Route>
                     <Route path="/successPage">
-                        <SuccessPage/>
+                        <SuccessPage />
                     </Route>
                     <Route path="/referrals">
                         <h2>Referrals</h2>
@@ -77,15 +76,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getServices: () => dispatch(fetchServices()),
+        // getServices: () => dispatch(fetchServices()),
+        getServices: () => {
+            dispatch(setServices(APP_SERVICES.services));
+            dispatch(setProviders(APP_SERVICES.providers));
+            dispatch(setPlans(APP_SERVICES.plans));
+        },
         closeModal: () =>
             dispatch({
                 type: "CLOSE_MODAL",
             }),
-        setUser: () => dispatch({
-            type: "SET_USER",
-            user: AUTH_USER
-        })
+        setUser: () =>
+            dispatch({
+                type: "SET_USER",
+                user: AUTH_USER,
+            }),
         // getPlans: () => dispatch(fetchPlans()),
     };
 };

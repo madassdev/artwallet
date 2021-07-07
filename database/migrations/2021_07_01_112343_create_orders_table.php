@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('plan_id')->constrained();
             $table->decimal('amount', 12,2)->default(0);
+            $table->string('destination');
             $table->string('status')->default('pending');
             $table->string('reference');
             $table->text('order_data')->nullable();

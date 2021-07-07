@@ -13,15 +13,14 @@ export const setServices = (services) => ({
     services: services,
 });
 
-
 export const setProviders = (providers) => ({
-  type: "SET_PROVIDERS",
-  providers: providers,
+    type: "SET_PROVIDERS",
+    providers: providers,
 });
 
 export const setPlans = (plans) => ({
-  type: "SET_PLANS",
-  plans: plans,
+    type: "SET_PLANS",
+    plans: plans,
 });
 
 export const setFetchFailed = (error) => ({
@@ -32,17 +31,17 @@ export const setFetchFailed = (error) => ({
 export const fetchServices = () => {
     //   console.log("Fetching services...")
     return (dispatch) => {
-        dispatch(setServicesIsFetching());
-        axios
-            .get(url)
-            //   .then(response => console.log(response.data))
-            .then((response) =>{
+        // dispatch(setServicesIsFetching());
+        // axios
+        //     .get(url)
+        //     //   .then(response => console.log(response.data))
+        //     .then((response) =>{
 
-              dispatch(setServices(response.data.data.services))
-              dispatch(setProviders(response.data.data.providers))
-              dispatch(setPlans(response.data.data.plans))
-            }
-            )
-            .catch((error) => dispatch(setFetchFailed(error)));
+        dispatch(setServices(action.services));
+        dispatch(setProviders(action.providers));
+        dispatch(setPlans(action.plans));
+        // }
+        // )
+        // .catch((error) => dispatch(setFetchFailed(error)));
     };
 };

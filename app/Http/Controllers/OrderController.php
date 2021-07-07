@@ -33,6 +33,7 @@ class OrderController extends Controller
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
+            "destination" => $request->destination,
             "reference" => Order::uniqueRef(),
         ]);
 

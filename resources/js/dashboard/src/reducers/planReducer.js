@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 
 export const getAirtimePlans = (plans) =>{
-    const airtime_plans = plans?.filter((p) => p.provider.service.slug === 'airtime');
+const airtime_plans = plans?.filter((p) => p.provider.service.slug === 'airtime');
     // console.log(airtime_plans)
     return airtime_plans;
 }

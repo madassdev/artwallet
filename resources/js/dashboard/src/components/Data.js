@@ -2,48 +2,77 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getDataProviders } from "../reducers/providerReducer";
-import ProviderPlans from "./ProviderPlans";
 import axios from "axios";
+import { getDataProviders } from "../reducers/providerReducer";
 
-// const service_id = 1;
 function Data(props) {
-    const [providerSelected, setProviderSelected] = useState(false);
-    const [selectedProvider, setSelectedProvider] = useState(null);
-    const [planSelected, setPlanSelected] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [selectedProvider, setSelectedProvider] = useState(-1);
+    const [selectedPlan, setSelectedPlan] = useState(0);
+    const [providerPlans, setProviderPlans] = useState([]);
+    const [amount, setAmount] = useState("");
+    const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
-    const handleProviderSelected = (provider_id) => {
-        setProviderSelected(true);
-        setSelectedProvider(props.providers?.find((p) => p.id === provider_id));
-        setPlanSelected(false);
+
+    const handlePlanSelected = (e) => {
+        setSelectedPlan(e.target.value);
     };
-    const handlePlanSelected = (plan) => {
-        // console.log(plan)
-        setPlanSelected(true);
-        setSelectedPlan(plan);
+    const handleProviderSelected = (e) => {
+        setSelectedProvider(e.target.value);
+        const provider_plans = props.providers[e.target.value]
+        // console.log('s',selectedProvider)
+        // console.log(provider_plans);
+        
+        setProviderPlans(provider_plans?.plans)
     };
 
     const handlePaymentClicked = (e) => {
         e.preventDefault();
-        if (props.user.balance < selectedPlan.price) {
+        if (props.user.balance < amount) {
             console.log("insufficient balance");
-            alert(
-                "you do not have enough balance to payfor this plan, proceed to deposit!"
-            );
+            alert("Insufficient balance");
+            return
+        }
+
+        if (!selectedProvider) {
+            alert("Please select a Provider first");
             return;
         }
+        if (!selectedPlan) {
+            alert("Please select a Plan first");
+            return;
+        }
+        if (
+            !destination ||
+            destination.length.length < 11 ||
+            destination.length === ""
+        ) {
+            alert("Please Enter a valid number");
+            return;
+        }
+        if (!amount || amount === 0 || amount === "") {
+            alert("Please Enter a valid amount");
+            return;
+        }
+
         setIsPaying(true);
+        // return;
         axios
-            .post("/orders", { plan_id: selectedPlan.id, type: "data", amount: selectedPlan.price })
+            .post("/orders", {
+                plan_id: selectedPlan,
+                type: "airtime",
+                amount,
+                destination,
+            })
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
-                props.debitUserBalance(selectedPlan.price);
+                props.debitUserBalance(amount);
                 props.paymentSuccess();
             })
             .catch((err) => {
                 console.log(err);
+                setIsPaying(false);
+                console.log(err.message);
             });
     };
 
@@ -51,109 +80,143 @@ function Data(props) {
         e.preventDefault();
         setIsPaying(false);
     };
-
     return (
-        <div className="card col-md-8 mx-auto">
-            <div className="card-header">
-                <h5>Select Data Provider</h5>
+        <div className="w-full md:w-1/2 mx-auto bg-white p-3 my-20 shadow-lg flex flex-col">
+            <h5 className="text-center my-2 text-lg font-bold mb-4">
+                Buy Data
+            </h5>
+
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Select Provider</p>
+                <select
+                    name="provider"
+                    className="w-full rounded border-gray-300"
+                    value={selectedProvider}
+                    onChange={handleProviderSelected}
+                >
+                    <option value="-1" disabled>
+                        SELECT PROVIDER
+                    </option>
+                    {props.providers?.map((provider,i) => (
+                        <option key={provider.id} value={i}>
+                            {provider.title}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Select Provider</p>
+                <select
+                    className="w-full rounded border-gray-300"
+                    name="plan"
+                    value={selectedPlan}
+                    onChange={handlePlanSelected}
+                >
+                    <option value="0" disabled>
+                        SELECT PLAN
+                    </option>
+                    {selectedProvider &&
+                        providerPlans?.map((plan) => (
+                            <option key={plan.id} value={plan.id}>
+                                {plan.title}
+                            </option>
+                        ))}
+                </select>
+            </div>
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Destination Phone Number</p>
+
+                <div className="form-control-wrap">
+                    <input
+                        type="number"
+                        min="100"
+                        className="w-full rounded border-gray-300"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
+                        placeholder="Enter destination phone number"
+                    />
+                </div>
+            </div>
+            <div className="form-group flex flex-col space-y-1">
+                <p className="font-bold">Amount</p>
+
+                <div className="form-control-wrap">
+                    <input
+                        type="number"
+                        min="100"
+                        className="w-full rounded border-gray-300"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="Enter amount"
+                    />
+                </div>
             </div>
 
-            <div className="card-body">
-                {providerSelected ? (
-                    <ProviderPlans
-                        provider={selectedProvider}
-                        planSelected={handlePlanSelected}
-                        changeProvider={() => {
-                            setProviderSelected(false);
-                            setPlanSelected(false);
-                        }}
-                    />
+            <div className="form-group my-2">
+                {isPaying ? (
+                    <button
+                        onClick={paymentDone}
+                        className="btn btn-light btn-block"
+                        type="button"
+                    >
+                        <div
+                            className="spinner-border-sm spinner-border text-primary"
+                            role="status"
+                        >
+                            {/* <span class="sr-only">Loading...</span> */}
+                        </div>
+                    </button>
                 ) : (
-                    <DataContainer className="my-2">
-                        {props.providers?.map((provider) => (
-                            // provider.plans.length ?
-                            <RadioFormGroup key={provider.id}>
-                                <input
-                                    className="provider-radio"
-                                    name="data_id"
-                                    id={"data" + provider.id}
-                                    type="radio"
-                                    value={provider.id}
-                                    onChange={(e) =>
-                                        handleProviderSelected(provider.id)
-                                    }
-                                />
-                                <label htmlFor={"data" + provider.id}>
-                                    {provider.title}
-                                </label>
-                            </RadioFormGroup>
-                        ))}
-                    </DataContainer>
-                )}
-
-                {planSelected && (
-                    <div>
-                        {isPaying ? (
-                            <button
-                                onClick={paymentDone}
-                                className="btn btn-light btn-block"
-                                type="button"
-                            >
-                                <div
-                                    className="spinner-border-sm spinner-border text-primary"
-                                    role="status"
-                                >
-                                    {/* <span class="sr-only">Loading...</span> */}
-                                </div>
-                            </button>
-                        ) : (
-                            <button
-                                className="btn btn-primary btn-block"
-                                onClick={handlePaymentClicked}
-                            >
-                                Pay #{selectedPlan.price}
-                            </button>
-                        )}
-                    </div>
+                    <button
+                        className="btn btn-primary btn-block"
+                        onClick={handlePaymentClicked}
+                    >
+                        Pay
+                    </button>
                 )}
             </div>
         </div>
     );
 }
 
-const DataContainer = styled.div`
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 20px;
+const Container = styled.div`
+    display: flex;
 
     @media (max-width: 768px) {
-        grid-gap: 10px;
         display: grid;
         grid-template-columns: auto auto;
+        grid-gap: 20px;
     }
 `;
+
 const RadioFormGroup = styled.div`
-    .provider-radio {
+    .plan-radio {
         display: none;
         &:checked {
             & ~ label {
                 color: white;
-                background: #854fff;
+                /* background: #854fff; */
                 border: 2px solid #854fff;
             }
         }
     }
     label {
+        height: 100px;
         width: 120px;
-        height: 150px;
+        font-weight: bold;
+        p {
+            color: #333;
+            font-size: 14px;
+        }
+        span {
+            color: #854fff;
+        }
         @media (max-width: 768px) {
             margin: auto;
         }
-        /* padding: 10px; */
-        font-weight: bold;
-        font-size: 18px;
-        color: #854fff;
+        color: #8091a7;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         background: white;
@@ -163,17 +226,14 @@ const RadioFormGroup = styled.div`
             font-size: 40px;
         }
         margin-right: 30px;
-        transition: 0.3s;
+        /* transition: 0.3s; */
     }
-    display: grid;
 `;
-
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
         providers: getDataProviders(state.providerState.providers),
         user: state.userState.user,
-        // providers: state.providerState.providers
     };
 };
 
@@ -188,7 +248,6 @@ const mapDispatchToProps = (dispatch) => {
                     content: <h1>Payment success</h1>,
                 },
             }),
-
         debitUserBalance: (amount) => {
             dispatch({
                 type: "DEBIT_USER",

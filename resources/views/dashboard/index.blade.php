@@ -14,10 +14,10 @@ $auth_user = auth()->user();
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
     <title>ArtWallet | Wallet</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('dashlite/css/dashlite.css?ver=2.5.0')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('dashlite/css/theme.css?ver=2.5.0')}}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="nk-body bg-lighter npc-default has-sidebar ">
@@ -31,6 +31,8 @@ $auth_user = auth()->user();
         const ASSET_PATH = "{{ asset('')}}"
         const AUTH_USER = @json($auth_user);
         const APP_URL = "{{env('APP_URL')}}";
+        const APP_SERVICES = @json($app_services);
+
     </script>
     <!-- app-root @e -->
     <!-- JavaScript -->

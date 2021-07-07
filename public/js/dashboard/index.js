@@ -2825,8 +2825,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout */ "./resources/js/dashboard/src/components/Layout.js");
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Home */ "./resources/js/dashboard/src/components/Home.js");
 /* harmony import */ var _components_Service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Service */ "./resources/js/dashboard/src/components/Service.js");
@@ -2838,9 +2838,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminRoute__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AdminRoute */ "./resources/js/dashboard/src/AdminRoute.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_serviceActions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./actions/serviceActions */ "./resources/js/dashboard/src/actions/serviceActions.js");
-/* harmony import */ var _actions_providerActions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./actions/providerActions */ "./resources/js/dashboard/src/actions/providerActions.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -2862,52 +2860,52 @@ function App(props) {
     props.getServices();
     props.setUser(); // props.getPlans();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.BrowserRouter, {
     basename: ROUTE_BASENAME,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Switch, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Switch, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           exact: true,
           path: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_9__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_9__.default, {
           path: "/services",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_3__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_9__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_9__.default, {
           path: "/providers",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_5__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_5__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/buy",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_4__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_4__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/deposit",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_6__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_6__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/history",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h2", {
             children: "History"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/successPage",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_7__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_7__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/referrals",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h2", {
             children: "Referrals"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/withdrawal",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h2", {
             children: "Withdrawals"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/settings",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h2", {
             children: "Settings"
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_8__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_8__.default, {
       show: props.modal.show,
       header: props.modal.header,
       closeModal: function closeModal() {
@@ -2926,8 +2924,11 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
+    // getServices: () => dispatch(fetchServices()),
     getServices: function getServices() {
-      return dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_11__.fetchServices)());
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_11__.setServices)(APP_SERVICES.services));
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_11__.setProviders)(APP_SERVICES.providers));
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_11__.setPlans)(APP_SERVICES.plans));
     },
     closeModal: function closeModal() {
       return dispatch({
@@ -3132,15 +3133,16 @@ var setFetchFailed = function setFetchFailed(error) {
 var fetchServices = function fetchServices() {
   //   console.log("Fetching services...")
   return function (dispatch) {
-    dispatch(setServicesIsFetching());
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get(url) //   .then(response => console.log(response.data))
-    .then(function (response) {
-      dispatch(setServices(response.data.data.services));
-      dispatch(setProviders(response.data.data.providers));
-      dispatch(setPlans(response.data.data.plans));
-    })["catch"](function (error) {
-      return dispatch(setFetchFailed(error));
-    });
+    // dispatch(setServicesIsFetching());
+    // axios
+    //     .get(url)
+    //     //   .then(response => console.log(response.data))
+    //     .then((response) =>{
+    dispatch(setServices(action.services));
+    dispatch(setProviders(action.providers));
+    dispatch(setPlans(action.plans)); // }
+    // )
+    // .catch((error) => dispatch(setFetchFailed(error)));
   };
 };
 
@@ -3194,29 +3196,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Airtime(props) {
   var _props$plans;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
-      planSelected = _useState2[0],
-      setPlanSelected = _useState2[1];
+      selectedPlan = _useState2[0],
+      setSelectedPlan = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      selectedPlan = _useState4[0],
-      setSelectedPlan = _useState4[1];
+      amount = _useState4[0],
+      setAmount = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      amount = _useState6[0],
-      setAmount = _useState6[1];
+      destination = _useState6[0],
+      setDestination = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
       isPaying = _useState8[0],
       setIsPaying = _useState8[1];
 
-  var handlePlanSelected = function handlePlanSelected(plan) {
-    setPlanSelected(true);
-    setSelectedPlan(plan);
+  var handlePlanSelected = function handlePlanSelected(e) {
+    setSelectedPlan(e.target.value);
   };
 
   var handlePaymentClicked = function handlePaymentClicked(e) {
@@ -3224,15 +3225,30 @@ function Airtime(props) {
 
     if (props.user.balance < amount) {
       console.log("insufficient balance");
-      alert("you do not have enough balance to payfor this plan, proceed to deposit!");
+    }
+
+    if (!selectedPlan) {
+      alert("Please select a plan first");
       return;
     }
 
-    setIsPaying(true);
+    if (!destination || destination.length.length < 11 || destination.length === "") {
+      alert("Please Enter a valid number");
+      return;
+    }
+
+    if (!amount || amount === 0 || amount === "") {
+      alert("Please Enter a valid amount");
+      return;
+    }
+
+    setIsPaying(true); // return;
+
     axios__WEBPACK_IMPORTED_MODULE_4___default().post("/orders", {
-      plan_id: selectedPlan.id,
+      plan_id: selectedPlan,
       type: "airtime",
-      amount: amount
+      amount: amount,
+      destination: destination
     }).then(function (res) {
       console.log(res.data);
       setIsPaying(false);
@@ -3240,6 +3256,8 @@ function Airtime(props) {
       props.paymentSuccess();
     })["catch"](function (err) {
       console.log(err);
+      setIsPaying(false);
+      console.log(err.message);
     });
   };
 
@@ -3249,70 +3267,81 @@ function Airtime(props) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "w-full md:w-1/2 mx-auto bg-white p-3 my-20 shadow-lg flex flex-col",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+      className: "text-center my-2 text-lg font-bold mb-4",
       children: "Select Airtime Provider"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "card-body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
-        children: "Select Plan"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Container, {
-        className: "my-2",
-        children: (_props$plans = props.plans) === null || _props$plans === void 0 ? void 0 : _props$plans.map(function (plan) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(RadioFormGroup, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              className: "plan-radio",
-              name: "plan_id",
-              id: "plan" + plan.id,
-              type: "radio",
-              value: plan.id,
-              onChange: function onChange() {
-                return handlePlanSelected(plan);
-              }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-              htmlFor: "plan" + plan.id,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-                children: plan.title
-              })
-            })]
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "font-bold",
+        children: "Select Provider"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+        className: "w-full rounded border-gray-300",
+        value: selectedPlan,
+        onChange: handlePlanSelected,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          value: "0",
+          disabled: true,
+          children: "SELECT PLAN"
+        }), (_props$plans = props.plans) === null || _props$plans === void 0 ? void 0 : _props$plans.map(function (plan) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: plan.id,
+            children: plan.title
           }, plan.id);
-        })
-      }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-            className: "form-label",
-            htmlFor: "default-01",
-            children: "Amount"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-            className: "form-control-wrap",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              type: "number",
-              min: "100",
-              className: "form-control ",
-              value: amount,
-              onChange: function onChange(e) {
-                return setAmount(e.target.value);
-              },
-              placeholder: "Enter your phone number"
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "form-group",
-          children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-            onClick: paymentDone,
-            className: "btn btn-light btn-block",
-            type: "button",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "spinner-border-sm spinner-border text-primary",
-              role: "status"
-            })
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-            className: "btn btn-primary btn-block",
-            onClick: handlePaymentClicked,
-            children: ["Pay #", amount]
-          })
         })]
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "font-bold",
+        children: "Destination Phone Number"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "form-control-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+          type: "number",
+          min: "100",
+          className: "w-full rounded border-gray-300",
+          value: destination,
+          onChange: function onChange(e) {
+            return setDestination(e.target.value);
+          },
+          placeholder: "Enter destination phone number"
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "font-bold",
+        children: "Amount"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "form-control-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+          type: "number",
+          min: "100",
+          className: "w-full rounded border-gray-300",
+          value: amount,
+          onChange: function onChange(e) {
+            return setAmount(e.target.value);
+          },
+          placeholder: "Enter amount"
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "form-group my-2",
+      children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        onClick: paymentDone,
+        className: "btn btn-light btn-block",
+        type: "button",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "spinner-border-sm spinner-border text-primary",
+          role: "status"
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        className: "btn btn-primary btn-block",
+        onClick: handlePaymentClicked,
+        children: "Pay"
+      })
     })]
   });
 }
@@ -3620,12 +3649,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
-/* harmony import */ var _ProviderPlans__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProviderPlans */ "./resources/js/dashboard/src/components/ProviderPlans.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3648,76 +3676,99 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- // const service_id = 1;
-
 
 
 
 function Data(props) {
-  var _props$providers2;
+  var _props$providers;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(-1),
       _useState2 = _slicedToArray(_useState, 2),
-      providerSelected = _useState2[0],
-      setProviderSelected = _useState2[1];
+      selectedProvider = _useState2[0],
+      setSelectedProvider = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
-      selectedProvider = _useState4[0],
-      setSelectedProvider = _useState4[1];
+      selectedPlan = _useState4[0],
+      setSelectedPlan = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      planSelected = _useState6[0],
-      setPlanSelected = _useState6[1];
+      providerPlans = _useState6[0],
+      setProviderPlans = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      selectedPlan = _useState8[0],
-      setSelectedPlan = _useState8[1];
+      amount = _useState8[0],
+      setAmount = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      isPaying = _useState10[0],
-      setIsPaying = _useState10[1];
+      destination = _useState10[0],
+      setDestination = _useState10[1];
 
-  var handleProviderSelected = function handleProviderSelected(provider_id) {
-    var _props$providers;
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isPaying = _useState12[0],
+      setIsPaying = _useState12[1];
 
-    setProviderSelected(true);
-    setSelectedProvider((_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.find(function (p) {
-      return p.id === provider_id;
-    }));
-    setPlanSelected(false);
+  var handlePlanSelected = function handlePlanSelected(e) {
+    setSelectedPlan(e.target.value);
   };
 
-  var handlePlanSelected = function handlePlanSelected(plan) {
-    // console.log(plan)
-    setPlanSelected(true);
-    setSelectedPlan(plan);
+  var handleProviderSelected = function handleProviderSelected(e) {
+    setSelectedProvider(e.target.value);
+    var provider_plans = props.providers[e.target.value]; // console.log('s',selectedProvider)
+    // console.log(provider_plans);
+
+    setProviderPlans(provider_plans === null || provider_plans === void 0 ? void 0 : provider_plans.plans);
   };
 
   var handlePaymentClicked = function handlePaymentClicked(e) {
     e.preventDefault();
 
-    if (props.user.balance < selectedPlan.price) {
+    if (props.user.balance < amount) {
       console.log("insufficient balance");
-      alert("you do not have enough balance to payfor this plan, proceed to deposit!");
+      alert("Insufficient balance");
       return;
     }
 
-    setIsPaying(true);
-    axios__WEBPACK_IMPORTED_MODULE_4___default().post("/orders", {
-      plan_id: selectedPlan.id,
-      type: "data",
-      amount: selectedPlan.price
+    if (!selectedProvider) {
+      alert("Please select a Provider first");
+      return;
+    }
+
+    if (!selectedPlan) {
+      alert("Please select a Plan first");
+      return;
+    }
+
+    if (!destination || destination.length.length < 11 || destination.length === "") {
+      alert("Please Enter a valid number");
+      return;
+    }
+
+    if (!amount || amount === 0 || amount === "") {
+      alert("Please Enter a valid amount");
+      return;
+    }
+
+    setIsPaying(true); // return;
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/orders", {
+      plan_id: selectedPlan,
+      type: "airtime",
+      amount: amount,
+      destination: destination
     }).then(function (res) {
       console.log(res.data);
       setIsPaying(false);
-      props.debitUserBalance(selectedPlan.price);
+      props.debitUserBalance(amount);
       props.paymentSuccess();
     })["catch"](function (err) {
       console.log(err);
+      setIsPaying(false);
+      console.log(err.message);
     });
   };
 
@@ -3726,73 +3777,116 @@ function Data(props) {
     setIsPaying(false);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "card col-md-8 mx-auto",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "card-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
-        children: "Select Data Provider"
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "card-body",
-      children: [providerSelected ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProviderPlans__WEBPACK_IMPORTED_MODULE_3__.default, {
-        provider: selectedProvider,
-        planSelected: handlePlanSelected,
-        changeProvider: function changeProvider() {
-          setProviderSelected(false);
-          setPlanSelected(false);
-        }
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(DataContainer, {
-        className: "my-2",
-        children: (_props$providers2 = props.providers) === null || _props$providers2 === void 0 ? void 0 : _props$providers2.map(function (provider) {
-          return (
-            /*#__PURE__*/
-            // provider.plans.length ?
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(RadioFormGroup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-                className: "provider-radio",
-                name: "data_id",
-                id: "data" + provider.id,
-                type: "radio",
-                value: provider.id,
-                onChange: function onChange(e) {
-                  return handleProviderSelected(provider.id);
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-                htmlFor: "data" + provider.id,
-                children: provider.title
-              })]
-            }, provider.id)
-          );
-        })
-      }), planSelected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-          onClick: paymentDone,
-          className: "btn btn-light btn-block",
-          type: "button",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-            className: "spinner-border-sm spinner-border text-primary",
-            role: "status"
-          })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-          className: "btn btn-primary btn-block",
-          onClick: handlePaymentClicked,
-          children: ["Pay #", selectedPlan.price]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "w-full md:w-1/2 mx-auto bg-white p-3 my-20 shadow-lg flex flex-col",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+      className: "text-center my-2 text-lg font-bold mb-4",
+      children: "Buy Data"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        className: "font-bold",
+        children: "Select Provider"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+        name: "provider",
+        className: "w-full rounded border-gray-300",
+        value: selectedProvider,
+        onChange: handleProviderSelected,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          value: "-1",
+          disabled: true,
+          children: "SELECT PROVIDER"
+        }), (_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.map(function (provider, i) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+            value: i,
+            children: provider.title
+          }, provider.id);
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        className: "font-bold",
+        children: "Select Provider"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+        className: "w-full rounded border-gray-300",
+        name: "plan",
+        value: selectedPlan,
+        onChange: handlePlanSelected,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          value: "0",
+          disabled: true,
+          children: "SELECT PLAN"
+        }), selectedProvider && (providerPlans === null || providerPlans === void 0 ? void 0 : providerPlans.map(function (plan) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+            value: plan.id,
+            children: plan.title
+          }, plan.id);
+        }))]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        className: "font-bold",
+        children: "Destination Phone Number"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "form-control-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+          type: "number",
+          min: "100",
+          className: "w-full rounded border-gray-300",
+          value: destination,
+          onChange: function onChange(e) {
+            return setDestination(e.target.value);
+          },
+          placeholder: "Enter destination phone number"
         })
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "form-group flex flex-col space-y-1",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        className: "font-bold",
+        children: "Amount"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "form-control-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+          type: "number",
+          min: "100",
+          className: "w-full rounded border-gray-300",
+          value: amount,
+          onChange: function onChange(e) {
+            return setAmount(e.target.value);
+          },
+          placeholder: "Enter amount"
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "form-group my-2",
+      children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        onClick: paymentDone,
+        className: "btn btn-light btn-block",
+        type: "button",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "spinner-border-sm spinner-border text-primary",
+          role: "status"
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        className: "btn btn-primary btn-block",
+        onClick: handlePaymentClicked,
+        children: "Pay"
+      })
     })]
   });
 }
 
-var DataContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 20px;\n\n    @media (max-width: 768px) {\n        grid-gap: 10px;\n        display: grid;\n        grid-template-columns: auto auto;\n    }\n"])));
-var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .provider-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                background: #854fff;\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        width: 120px;\n        height: 150px;\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        /* padding: 10px; */\n        font-weight: bold;\n        font-size: 18px;\n        color: #854fff;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        transition: 0.3s;\n    }\n    display: grid;\n"])));
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n\n    @media (max-width: 768px) {\n        display: grid;\n        grid-template-columns: auto auto;\n        grid-gap: 20px;\n    }\n"])));
+var RadioFormGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .plan-radio {\n        display: none;\n        &:checked {\n            & ~ label {\n                color: white;\n                /* background: #854fff; */\n                border: 2px solid #854fff;\n            }\n        }\n    }\n    label {\n        height: 100px;\n        width: 120px;\n        font-weight: bold;\n        p {\n            color: #333;\n            font-size: 14px;\n        }\n        span {\n            color: #854fff;\n        }\n        @media (max-width: 768px) {\n            margin: auto;\n        }\n        color: #8091a7;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        background: white;\n        border-radius: 5px;\n        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n        i {\n            font-size: 40px;\n        }\n        margin-right: 30px;\n        /* transition: 0.3s; */\n    }\n"])));
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     services: state.serviceState.services,
-    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__.getDataProviders)(state.providerState.providers),
-    user: state.userState.user // providers: state.providerState.providers
-
+    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_3__.getDataProviders)(state.providerState.providers),
+    user: state.userState.user
   };
 };
 
@@ -3804,7 +3898,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         modal: {
           show: 1,
           header: "PaymentSuccess",
-          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
             children: "Payment success"
           })
         }
@@ -4041,7 +4135,7 @@ function Deposit(props) {
               className: "form-control-wrap",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                 type: "text",
-                className: "form-control ",
+                className: "w-full rounded border-gray-300",
                 id: "default-01",
                 value: email,
                 onChange: function onChange(e) {
@@ -4060,7 +4154,7 @@ function Deposit(props) {
               className: "form-control-wrap",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                 type: "text",
-                className: "form-control ",
+                className: "w-full rounded border-gray-300",
                 value: name,
                 onChange: function onChange(e) {
                   return setName(e.target.value);
@@ -4078,7 +4172,7 @@ function Deposit(props) {
               className: "form-control-wrap",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                 type: "text",
-                className: "form-control ",
+                className: "w-full rounded border-gray-300",
                 value: mobile,
                 onChange: function onChange(e) {
                   return setMobile(e.target.value);
@@ -4097,7 +4191,7 @@ function Deposit(props) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
                 type: "number",
                 min: "100",
-                className: "form-control ",
+                className: "w-full rounded border-gray-300",
                 value: amount,
                 onChange: function onChange(e) {
                   return handleAmount(e.target.value);
@@ -5826,7 +5920,6 @@ var getDataProviders = function getDataProviders(providers) {
   var dataProviders = providers === null || providers === void 0 ? void 0 : providers.filter(function (p) {
     return p.service.slug === "data";
   });
-  console.log(dataProviders);
   return dataProviders;
 };
 

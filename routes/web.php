@@ -21,15 +21,17 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
-    Route::any('{all?}', function ($slug = null) {
-        return view('dashboard.index');
-    })->where(['all' => '.*']);
+    Route::any(
+        '{all?}',
+        "DashboardController@index"
+    )->where(['all' => '.*']);
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
-    Route::any('{all?}', function ($slug = null) {
-        return view('admin.index');
-    })->where(['all' => '.*']);
+    Route::any(
+        '{all?}',
+        "DashboardController@index"
+    )->where(['all' => '.*']);
 });
 Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
