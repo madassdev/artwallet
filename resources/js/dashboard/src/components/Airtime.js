@@ -52,6 +52,7 @@ function Airtime(props) {
                 console.log(res.data);
                 setIsPaying(false);
                 props.debitUserBalance(amount);
+                props.addTransaction(res.data.transaction);
                 props.paymentSuccess();
             })
             .catch((err) => {
@@ -144,56 +145,6 @@ function Airtime(props) {
     );
 }
 
-const Container = styled.div`
-    display: flex;
-
-    @media (max-width: 768px) {
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: 20px;
-    }
-`;
-
-const RadioFormGroup = styled.div`
-    .plan-radio {
-        display: none;
-        &:checked {
-            & ~ label {
-                color: white;
-                /* background: #854fff; */
-                border: 2px solid #854fff;
-            }
-        }
-    }
-    label {
-        height: 100px;
-        width: 120px;
-        font-weight: bold;
-        p {
-            color: #333;
-            font-size: 14px;
-        }
-        span {
-            color: #854fff;
-        }
-        @media (max-width: 768px) {
-            margin: auto;
-        }
-        color: #8091a7;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: white;
-        border-radius: 5px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        i {
-            font-size: 40px;
-        }
-        margin-right: 30px;
-        /* transition: 0.3s; */
-    }
-`;
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
@@ -213,12 +164,16 @@ const mapDispatchToProps = (dispatch) => {
                     content: <h1>Payment success</h1>,
                 },
             }),
-        debitUserBalance: (amount) => {
+        debitUserBalance: (amount) =>
             dispatch({
                 type: "DEBIT_USER",
                 amount,
-            });
-        },
+            }),
+        addTransaction: (transaction) =>
+            dispatch({
+                type: "ADD_TRANSACTION",
+                transaction: transaction,
+            }),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Airtime);

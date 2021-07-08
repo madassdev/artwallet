@@ -10,21 +10,31 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'type' => "required|in:airtime,data",
+            'amount' => 'required_if:type,airtime|numeric|min:0',
+            "plan_id" => 'required_if:type,data|exists:plans,id',
+            "destination" => 'required'
+        ]);
         $user = auth()->user();
         $plan = Plan::findOrFail($request->plan_id);
-        // if($user->balance < $plan->price)
-        // {
-        //     return response()->json([
-        //         "success" => false,
-        //         "message" => "User does no have enough balance to purchase this plan"
-        //     ], 403);
-        // }
         $amount = 0;
         if ($request->type === "data") {
+            if ($user->balance < $plan->price) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "User does no have enough balance to purchase this plan"
+                ], 403);
+            }
             $amount = $plan->price;
         }
         if ($request->type === "airtime") {
-
+            if ($user->balance < $request->amount) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "User does no have enough balance to purchase this amount"
+                ], 403);
+            }
             $amount = $request->amount;
         }
         $user->balance -= $amount;
@@ -37,12 +47,12 @@ class OrderController extends Controller
             "reference" => Order::uniqueRef(),
         ]);
 
-        $user->debits()->create([
+        $transaction = $user->debits()->create([
             "user_id" => $user->id,
             'creditable_id' => $order->id,
             'creditable_type' => Order::class,
             'amount' => $order->amount,
-            'type' => 'order',
+            'type' => $request->type,
             'status' => 'complete',
         ]);
 
@@ -51,7 +61,7 @@ class OrderController extends Controller
             "message" => "Order placed successfully",
             "data" => [
                 "order" => $order->load('credit'),
-                "user" => $user->load('orders', 'transactions', 'credits', 'debits')
+                "transaction" => $transaction
             ],
         ]);
         // $user

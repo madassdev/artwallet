@@ -14,9 +14,7 @@ import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 
 function App(props) {
     useEffect(() => {
-        props.getServices();
-        props.setUser();
-        // props.getPlans();
+        props.init();
     }, []);
     return (
         <Router basename={ROUTE_BASENAME}>
@@ -44,8 +42,8 @@ function App(props) {
                     <Route path="/successPage">
                         <SuccessPage />
                     </Route>
-                    <Route path="/referrals">
-                        <h2>Referrals</h2>
+                    <Route path="/transactions">
+                        <h2>Transactions</h2>
                     </Route>
                     <Route path="/withdrawal">
                         <h2>Withdrawals</h2>
@@ -71,27 +69,30 @@ function App(props) {
 const mapStateToProps = (state) => {
     return {
         modal: state.appState.modal,
+        transactions: state.transactionState.transactions,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         // getServices: () => dispatch(fetchServices()),
-        getServices: () => {
+        init: () => {
+            dispatch({
+                type: "SET_USER",
+                user: AUTH_USER,
+            }),
             dispatch(setServices(APP_SERVICES.services));
             dispatch(setProviders(APP_SERVICES.providers));
             dispatch(setPlans(APP_SERVICES.plans));
+            dispatch({
+                type: "SET_TRANSACTIONS",
+                transactions: APP_TRANSACTIONS
+            })
         },
         closeModal: () =>
             dispatch({
                 type: "CLOSE_MODAL",
             }),
-        setUser: () =>
-            dispatch({
-                type: "SET_USER",
-                user: AUTH_USER,
-            }),
-        // getPlans: () => dispatch(fetchPlans()),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

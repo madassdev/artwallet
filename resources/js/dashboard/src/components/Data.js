@@ -18,11 +18,11 @@ function Data(props) {
     };
     const handleProviderSelected = (e) => {
         setSelectedProvider(e.target.value);
-        const provider_plans = props.providers[e.target.value]
+        const provider_plans = props.providers[e.target.value];
         // console.log('s',selectedProvider)
         // console.log(provider_plans);
-        
-        setProviderPlans(provider_plans?.plans)
+
+        setProviderPlans(provider_plans?.plans);
     };
 
     const handlePaymentClicked = (e) => {
@@ -30,7 +30,7 @@ function Data(props) {
         if (props.user.balance < amount) {
             console.log("insufficient balance");
             alert("Insufficient balance");
-            return
+            return;
         }
 
         if (!selectedProvider) {
@@ -49,24 +49,20 @@ function Data(props) {
             alert("Please Enter a valid number");
             return;
         }
-        if (!amount || amount === 0 || amount === "") {
-            alert("Please Enter a valid amount");
-            return;
-        }
 
         setIsPaying(true);
         // return;
         axios
             .post("/orders", {
                 plan_id: selectedPlan,
-                type: "airtime",
-                amount,
+                type: "data",
                 destination,
             })
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
                 props.debitUserBalance(amount);
+                props.addTransaction(res.data.transaction)
                 props.paymentSuccess();
             })
             .catch((err) => {
@@ -97,7 +93,7 @@ function Data(props) {
                     <option value="-1" disabled>
                         SELECT PROVIDER
                     </option>
-                    {props.providers?.map((provider,i) => (
+                    {props.providers?.map((provider, i) => (
                         <option key={provider.id} value={i}>
                             {provider.title}
                         </option>
@@ -118,7 +114,7 @@ function Data(props) {
                     {selectedProvider &&
                         providerPlans?.map((plan) => (
                             <option key={plan.id} value={plan.id}>
-                                {plan.title}
+                                {plan.title} @ &#x20A6;{plan.price}
                             </option>
                         ))}
                 </select>
@@ -134,20 +130,6 @@ function Data(props) {
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
                         placeholder="Enter destination phone number"
-                    />
-                </div>
-            </div>
-            <div className="form-group flex flex-col space-y-1">
-                <p className="font-bold">Amount</p>
-
-                <div className="form-control-wrap">
-                    <input
-                        type="number"
-                        min="100"
-                        className="w-full rounded border-gray-300"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        placeholder="Enter amount"
                     />
                 </div>
             </div>
@@ -179,56 +161,6 @@ function Data(props) {
     );
 }
 
-const Container = styled.div`
-    display: flex;
-
-    @media (max-width: 768px) {
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: 20px;
-    }
-`;
-
-const RadioFormGroup = styled.div`
-    .plan-radio {
-        display: none;
-        &:checked {
-            & ~ label {
-                color: white;
-                /* background: #854fff; */
-                border: 2px solid #854fff;
-            }
-        }
-    }
-    label {
-        height: 100px;
-        width: 120px;
-        font-weight: bold;
-        p {
-            color: #333;
-            font-size: 14px;
-        }
-        span {
-            color: #854fff;
-        }
-        @media (max-width: 768px) {
-            margin: auto;
-        }
-        color: #8091a7;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: white;
-        border-radius: 5px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        i {
-            font-size: 40px;
-        }
-        margin-right: 30px;
-        /* transition: 0.3s; */
-    }
-`;
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
@@ -248,12 +180,16 @@ const mapDispatchToProps = (dispatch) => {
                     content: <h1>Payment success</h1>,
                 },
             }),
-        debitUserBalance: (amount) => {
+        debitUserBalance: (amount) =>
             dispatch({
                 type: "DEBIT_USER",
                 amount,
-            });
-        },
+            }),
+        addTransaction: (transaction) =>
+            dispatch({
+                type: "ADD_TRANSACTION",
+                transaction: transaction,
+            }),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Data);

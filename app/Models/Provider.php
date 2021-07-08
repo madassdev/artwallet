@@ -12,6 +12,7 @@ class Provider extends Model
     protected $fillable = [
         'service_id', 'title', 'description'
     ];
+    // protected $with = ['service'];
 
     public function plans()
     {

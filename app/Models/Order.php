@@ -12,6 +12,8 @@ class Order extends Model
 
     protected $guarded = [];
 
+    protected $with = ['plan'];
+
     public function credit()
     {
         return $this->morphOne(Transaction::class, 'creditable');
@@ -19,6 +21,16 @@ class Order extends Model
     public function debit()
     {
         return $this->morphOne(Transaction::class, 'debitable');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 
     public static function uniqueRef()

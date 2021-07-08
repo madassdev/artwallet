@@ -81,55 +81,96 @@ function Sidebar() {
                                     </li>
                                 </>
                             )}
-                            <li className="nk-menu-heading">
+                            {/* <li className="nk-menu-heading">
                                 <h6 className="overline-title text-primary-alt">
                                     Dashboards
                                 </h6>
+                            </li> */}
+                            
+                            <li className="nk-menu-item">
+                                <NavLink
+                                    to={"/"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-speedometer"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Dashboard
+                                    </span>
+                                </NavLink>
                             </li>
                             <li className="nk-menu-item">
-                                    <NavLink
-                                        to="/buy"
-                                        activeClassName="nav-active"
-                                        className="nk-menu-link"
-                                    >
-                                        <span className="nk-menu-icon">
-                                            <em className="icon ni ni-cart"></em>
-                                        </span>
-                                        <span className="nk-menu-text">
-                                            Buy
-                                        </span>
-                                    </NavLink>
-                                </li>
+                                <NavLink
+                                    to={"/deposit"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-wallet"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Deposit
+                                    </span>
+                                </NavLink>
+                            </li>
                             <li className="nk-menu-item">
-                                    <NavLink
-                                        to="/deposit"
-                                        activeClassName="nav-active"
-                                        className="nk-menu-link"
-                                    >
-                                        <span className="nk-menu-icon">
-                                            <em className="icon ni ni-wallet"></em>
-                                        </span>
-                                        <span className="nk-menu-text">
-                                            Deposit
-                                        </span>
-                                    </NavLink>
-                                </li>
-                            {nav_items.map((item) => (
-                                <li className="nk-menu-item" key={item.id}>
-                                    <NavLink
-                                        to={"/buy"+item.link}
-                                        activeClassName="nav-active"
-                                        className="nk-menu-link"
-                                    >
-                                        <span className="nk-menu-icon">
-                                            <em className={item.icon}></em>
-                                        </span>
-                                        <span className="nk-menu-text">
-                                            {item.title}
-                                        </span>
-                                    </NavLink>
-                                </li>
-                            ))}
+                                <NavLink
+                                    to={"/buy/airtime"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-phone"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Buy Airtime
+                                    </span>
+                                </NavLink>
+                            </li>
+                            <li className="nk-menu-item">
+                                <NavLink
+                                    to={"/buy/data"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-wifi"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Buy Data
+                                    </span>
+                                </NavLink>
+                            </li>
+                            <li className="nk-menu-item">
+                                <NavLink
+                                    to={"/transactions"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-history"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Transactions
+                                    </span>
+                                </NavLink>
+                            </li>
+                            <li className="nk-menu-item">
+                                <NavLink
+                                    to={"/settings"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-cogs"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Settings
+                                    </span>
+                                </NavLink>
+                            </li>
                         </ul>
                     </div>
                 </div>

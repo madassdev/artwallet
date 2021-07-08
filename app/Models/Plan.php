@@ -9,6 +9,8 @@ class Plan extends Model
 {
     use HasFactory;
 
+    // protected $with = ['provider'];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);
