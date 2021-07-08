@@ -3691,7 +3691,7 @@ function Data(props) {
       providerPlans = _useState6[0],
       setProviderPlans = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState8 = _slicedToArray(_useState7, 2),
       amount = _useState8[0],
       setAmount = _useState8[1];
@@ -3707,14 +3707,17 @@ function Data(props) {
       setIsPaying = _useState12[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
-    setSelectedPlan(e.target.value);
+    var plan_id = e.target.value;
+    var plan = props.plans.find(function (p) {
+      return p.id == plan_id;
+    });
+    setSelectedPlan(plan.id);
+    setAmount(plan.price); // console.log(amt);
   };
 
   var handleProviderSelected = function handleProviderSelected(e) {
     setSelectedProvider(e.target.value);
-    var provider_plans = props.providers[e.target.value]; // console.log('s',selectedProvider)
-    // console.log(provider_plans);
-
+    var provider_plans = props.providers[e.target.value];
     setProviderPlans(provider_plans === null || provider_plans === void 0 ? void 0 : provider_plans.plans);
   };
 
@@ -3742,6 +3745,8 @@ function Data(props) {
       return;
     }
 
+    console.log(props.user.balance);
+    console.log(selectedPlan.price);
     setIsPaying(true); // return;
 
     axios__WEBPACK_IMPORTED_MODULE_2___default().post("/orders", {
@@ -3808,6 +3813,7 @@ function Data(props) {
         }), selectedProvider && (providerPlans === null || providerPlans === void 0 ? void 0 : providerPlans.map(function (plan) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("option", {
             value: plan.id,
+            "data-price": plan.price,
             children: [plan.title, " @ \u20A6", plan.price]
           }, plan.id);
         }))]
@@ -3840,10 +3846,10 @@ function Data(props) {
           className: "spinner-border-sm spinner-border text-primary",
           role: "status"
         })
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
         className: "btn btn-primary btn-block",
         onClick: handlePaymentClicked,
-        children: "Pay"
+        children: ["Pay \u20A6 ", amount]
       })
     })]
   });
@@ -3852,6 +3858,7 @@ function Data(props) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     services: state.serviceState.services,
+    plans: state.planState.plans,
     providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_3__.getDataProviders)(state.providerState.providers),
     user: state.userState.user
   };

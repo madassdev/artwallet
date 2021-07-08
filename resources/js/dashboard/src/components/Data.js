@@ -9,19 +9,20 @@ function Data(props) {
     const [selectedProvider, setSelectedProvider] = useState(-1);
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [providerPlans, setProviderPlans] = useState([]);
-    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState(0);
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
 
     const handlePlanSelected = (e) => {
-        setSelectedPlan(e.target.value);
+        const plan_id = (e.target.value)
+        const plan = props.plans.find((p) => p.id == plan_id)
+        setSelectedPlan(plan.id);
+        setAmount(plan.price)
+        // console.log(amt);
     };
     const handleProviderSelected = (e) => {
         setSelectedProvider(e.target.value);
         const provider_plans = props.providers[e.target.value];
-        // console.log('s',selectedProvider)
-        // console.log(provider_plans);
-
         setProviderPlans(provider_plans?.plans);
     };
 
@@ -49,6 +50,8 @@ function Data(props) {
             alert("Please Enter a valid number");
             return;
         }
+        console.log(props.user.balance);
+        console.log(selectedPlan.price);
 
         setIsPaying(true);
         // return;
@@ -61,7 +64,7 @@ function Data(props) {
             .then((res) => {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.data.transaction)
+                props.addTransaction(res.data.data.transaction);
                 props.paymentSuccess();
             })
             .catch((err) => {
@@ -112,7 +115,11 @@ function Data(props) {
                     </option>
                     {selectedProvider &&
                         providerPlans?.map((plan) => (
-                            <option key={plan.id} value={plan.id}>
+                            <option
+                                key={plan.id}
+                                value={plan.id}
+                                data-price={plan.price}
+                            >
                                 {plan.title} @ &#x20A6;{plan.price}
                             </option>
                         ))}
@@ -152,7 +159,7 @@ function Data(props) {
                         className="btn btn-primary btn-block"
                         onClick={handlePaymentClicked}
                     >
-                        Pay
+                        Pay &#x20a6; {amount}
                     </button>
                 )}
             </div>
@@ -163,6 +170,7 @@ function Data(props) {
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
+        plans: state.planState.plans,
         providers: getDataProviders(state.providerState.providers),
         user: state.userState.user,
     };
@@ -187,7 +195,7 @@ const mapDispatchToProps = (dispatch) => {
         addTransaction: (transaction) =>
             dispatch({
                 type: "ADD_TRANSACTION",
-                transaction
+                transaction,
             }),
     };
 };

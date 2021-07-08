@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // auth()->user()->balance = 30000;
+        // auth()->user()->balance = 4000;
         // auth()->user()->save();
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
