@@ -3745,8 +3745,6 @@ function Data(props) {
       return;
     }
 
-    console.log(props.user.balance);
-    console.log(selectedPlan.price);
     setIsPaying(true); // return;
 
     axios__WEBPACK_IMPORTED_MODULE_2___default().post("/orders", {

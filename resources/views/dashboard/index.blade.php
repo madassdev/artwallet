@@ -5,6 +5,11 @@ $auth_user = auth()->user();
 @endphp
 
 <head>
+    <script>
+        if (location.protocol !== 'https:') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
     <base href="../">
     <meta charset="utf-8">
     <meta name="author" content="Softnio">
@@ -33,7 +38,6 @@ $auth_user = auth()->user();
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
         const APP_TRANSACTIONS = @json($transactions);
-
     </script>
     <!-- app-root @e -->
     <!-- JavaScript -->

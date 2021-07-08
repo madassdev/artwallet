@@ -50,8 +50,6 @@ function Data(props) {
             alert("Please Enter a valid number");
             return;
         }
-        console.log(props.user.balance);
-        console.log(selectedPlan.price);
 
         setIsPaying(true);
         // return;
