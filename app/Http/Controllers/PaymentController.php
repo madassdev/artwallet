@@ -35,7 +35,7 @@ class PaymentController extends Controller
             $user->balance += $amount_paid;
             $user->save();
 
-            $user->credits()->create([
+            $transaction = $user->credits()->create([
                 "user_id" => $user->id,
                 'debitable_id' => $payment->id,
                 'debitable_type' => Payment::class,
@@ -51,7 +51,7 @@ class PaymentController extends Controller
                 "message" => "Payment verified successfully",
                 "data" => [
                     "payment" => $payment->load('debit'),
-                    "user" => $user->load('payments', 'transactions', 'credits', 'debits')
+                    "transaction" => $transaction,
                 ],
             ]);
         } else {

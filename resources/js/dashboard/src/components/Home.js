@@ -5,35 +5,19 @@ import { Redirect, useLocation } from "react-router-dom";
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
-const tx = {
-    id: 6,
-    user_id: 1,
-    debitable_id: 1,
-    debitable_type: "App\\Models\\User",
-    creditable_id: 5,
-    creditable_type: "App\\Models\\Order",
-    amount: "820.00",
-    type: "data",
-    status: "complete",
-    created_at: "2021-07-08T08:45:27.000000Z",
-    updated_at: "2021-07-08T08:45:27.000000Z",
-    deleted_at: null,
-    date: "08 Jul 2021, 8:45am",
-};
 function Home(props) {
     let query = useQuery();
-    console.log(props.transactions);
     return (
         <div>
             <div className="my-4 cards">
-                <div className="flex items-center space-x-4">
-                    <div className="bg-purple-700 shadow-md rounded p-3 md:w-60">
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-x-4">
+                    <div className="bg-purple-700 shadow-md rounded p-3 w-full md:w-60">
                         <h2 className="text-lg text-white m-0 p-0">Balance</h2>
                         <p className="text-2xl text-white font-bold m-0 p-0">
-                            &#x20A6;{props.user?.balance}
+                            &#x20A6;{parseFloat(props.user?.balance).toLocaleString()}
                         </p>
                     </div>
-                    <div onClick={()=>props.addTransaction(tx)} className="bg-white shadow-md rounded p-3 md:w-60">
+                    <div className="bg-white shadow-md rounded p-3 w-full md:w-60">
                         Balance: {props.user?.balance}
                     </div>
                 </div>
@@ -148,11 +132,11 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
     return {
         addTransaction: (transaction) =>
-        console.log('t', transaction)
-        //     dispatch({
-        //         type: "ADD_TRANSACTION",
-        //         transaction: transaction,
-        //     }),
+        // console.log('t', transaction)
+            dispatch({
+                type: "ADD_TRANSACTION",
+                transaction: transaction,
+            }),
     };
 };
 export default connect(mapState, mapDispatch)(Home);

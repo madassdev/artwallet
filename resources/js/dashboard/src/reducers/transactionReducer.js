@@ -15,9 +15,10 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 isFetching: false,
             };
         case "ADD_TRANSACTION":
+            console.log('settingTransaction', action.transaction)
             return {
                 ...state,
-                transactions: [...state.transactions, action.transaction],
+                transactions: [action.transaction, ...state.transactions],
                 isFetching: false,
             };
 

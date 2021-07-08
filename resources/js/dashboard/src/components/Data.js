@@ -59,10 +59,9 @@ function Data(props) {
                 destination,
             })
             .then((res) => {
-                console.log(res.data);
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.transaction)
+                props.addTransaction(res.data.data.transaction)
                 props.paymentSuccess();
             })
             .catch((err) => {
@@ -188,7 +187,7 @@ const mapDispatchToProps = (dispatch) => {
         addTransaction: (transaction) =>
             dispatch({
                 type: "ADD_TRANSACTION",
-                transaction: transaction,
+                transaction
             }),
     };
 };

@@ -28,11 +28,12 @@ function Deposit(props) {
             axios
                 .post("/payments", { reference: reference })
                 .then((response) => {
+                    props.addTransaction(response.data.data.transaction);
                     handlePaymentSuccess(response.data);
                 })
                 .catch((err) => console.log(err));
         },
-        onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+        onClose: () => alert("Transaction cancelled"),
     };
 
     const handleAmount = (amount) => {
@@ -58,7 +59,9 @@ function Deposit(props) {
                             >
                                 {/* <span class="sr-only">Loading...</span> */}
                             </div>
-                            <p className="text-gray-400">Receiving transaction...</p>
+                            <p className="text-gray-400">
+                                Receiving transaction...
+                            </p>
                         </div>
                     ) : (
                         <div className="col-sm-6 mt-2 mx-auto">
@@ -166,12 +169,16 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        creditUserBalance: (amount) => {
+        creditUserBalance: (amount) =>
             dispatch({
                 type: "CREDIT_USER",
                 amount,
-            });
-        },
+            }),
+        addTransaction: (transaction) =>
+            dispatch({
+                type: "ADD_TRANSACTION",
+                transaction: transaction,
+            }),
     };
 };
 export default connect(mapState, mapDispatch)(Deposit);

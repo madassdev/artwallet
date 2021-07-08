@@ -52,7 +52,7 @@ function Airtime(props) {
                 console.log(res.data);
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.transaction);
+                props.addTransaction(res.data.data.transaction);
                 props.paymentSuccess();
             })
             .catch((err) => {

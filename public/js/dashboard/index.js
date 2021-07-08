@@ -3248,7 +3248,7 @@ function Airtime(props) {
       console.log(res.data);
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.transaction);
+      props.addTransaction(res.data.data.transaction);
       props.paymentSuccess();
     })["catch"](function (err) {
       console.log(err);
@@ -3749,10 +3749,9 @@ function Data(props) {
       type: "data",
       destination: destination
     }).then(function (res) {
-      console.log(res.data);
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.transaction);
+      props.addTransaction(res.data.data.transaction);
       props.paymentSuccess();
     })["catch"](function (err) {
       console.log(err);
@@ -4057,13 +4056,14 @@ function Deposit(props) {
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("/payments", {
         reference: reference
       }).then(function (response) {
+        props.addTransaction(response.data.data.transaction);
         handlePaymentSuccess(response.data);
       })["catch"](function (err) {
         return console.log(err);
       });
     },
     onClose: function onClose() {
-      return alert("Wait! You need this oil, don't go!!!!");
+      return alert("Transaction cancelled");
     }
   };
 
@@ -4194,9 +4194,15 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     creditUserBalance: function creditUserBalance(amount) {
-      dispatch({
+      return dispatch({
         type: "CREDIT_USER",
         amount: amount
+      });
+    },
+    addTransaction: function addTransaction(transaction) {
+      return dispatch({
+        type: "ADD_TRANSACTION",
+        transaction: transaction
       });
     }
   };
@@ -4816,46 +4822,26 @@ function useQuery() {
   return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useLocation)().search);
 }
 
-var tx = {
-  id: 6,
-  user_id: 1,
-  debitable_id: 1,
-  debitable_type: "App\\Models\\User",
-  creditable_id: 5,
-  creditable_type: "App\\Models\\Order",
-  amount: "820.00",
-  type: "data",
-  status: "complete",
-  created_at: "2021-07-08T08:45:27.000000Z",
-  updated_at: "2021-07-08T08:45:27.000000Z",
-  deleted_at: null,
-  date: "08 Jul 2021, 8:45am"
-};
-
 function Home(props) {
   var _props$user, _props$user2, _props$transactions;
 
   var query = useQuery();
-  console.log(props.transactions);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "my-4 cards",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex items-center space-x-4",
+        className: "flex flex-col md:flex-row items-center space-y-4 md:space-x-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "bg-purple-700 shadow-md rounded p-3 md:w-60",
+          className: "bg-purple-700 shadow-md rounded p-3 w-full md:w-60",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
             className: "text-lg text-white m-0 p-0",
             children: "Balance"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
             className: "text-2xl text-white font-bold m-0 p-0",
-            children: ["\u20A6", (_props$user = props.user) === null || _props$user === void 0 ? void 0 : _props$user.balance]
+            children: ["\u20A6", parseFloat((_props$user = props.user) === null || _props$user === void 0 ? void 0 : _props$user.balance).toLocaleString()]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          onClick: function onClick() {
-            return props.addTransaction(tx);
-          },
-          className: "bg-white shadow-md rounded p-3 md:w-60",
+          className: "bg-white shadow-md rounded p-3 w-full md:w-60",
           children: ["Balance: ", (_props$user2 = props.user) === null || _props$user2 === void 0 ? void 0 : _props$user2.balance]
         })]
       })
@@ -4990,12 +4976,13 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     addTransaction: function addTransaction(transaction) {
-      return console.log('t', transaction);
-    } //     dispatch({
-    //         type: "ADD_TRANSACTION",
-    //         transaction: transaction,
-    //     }),
-
+      return (// console.log('t', transaction)
+        dispatch({
+          type: "ADD_TRANSACTION",
+          transaction: transaction
+        })
+      );
+    }
   };
 };
 
@@ -6308,8 +6295,9 @@ var transactionReducer = function transactionReducer() {
       });
 
     case "ADD_TRANSACTION":
+      console.log('settingTransaction', action.transaction);
       return _objectSpread(_objectSpread({}, state), {}, {
-        transactions: [].concat(_toConsumableArray(state.transactions), [action.transaction]),
+        transactions: [action.transaction].concat(_toConsumableArray(state.transactions)),
         isFetching: false
       });
 

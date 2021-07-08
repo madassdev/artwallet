@@ -16,6 +16,10 @@ class Transaction extends Model
         "date"
     ];
 
+    protected $casts = [
+        "amount" => "float"
+    ];
+
 
     public function user()
     {
