@@ -11,6 +11,7 @@ import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
 import { setServices, setProviders, setPlans } from "./actions/serviceActions";
+import Settings from "./components/Settings";
 
 function App(props) {
     useEffect(() => {
@@ -49,7 +50,7 @@ function App(props) {
                         <h2>Withdrawals</h2>
                     </Route>
                     <Route path="/settings">
-                        <h2>Settings</h2>
+                        <Settings/>
                     </Route>
                 </Switch>
             </Layout>
