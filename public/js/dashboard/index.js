@@ -4038,10 +4038,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _BalanceCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BalanceCard */ "./resources/js/dashboard/src/components/BalanceCard.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4053,6 +4055,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -4096,6 +4100,16 @@ function Data(props) {
       isPaying = _useState12[0],
       setIsPaying = _useState12[1];
 
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      isReady = _useState14[0],
+      setIsReady = _useState14[1];
+
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      transactionComplete = _useState16[0],
+      setTransactionComplete = _useState16[1];
+
   var handlePlanSelected = function handlePlanSelected(e) {
     var plan_id = e.target.value;
     var plan = props.plans.find(function (p) {
@@ -4109,6 +4123,31 @@ function Data(props) {
     setSelectedProvider(e.target.value);
     var provider_plans = props.providers[e.target.value];
     setProviderPlans(provider_plans === null || provider_plans === void 0 ? void 0 : provider_plans.plans);
+  };
+
+  var handleProceed = function handleProceed(e) {
+    if (props.user.balance < amount) {
+      console.log("insufficient balance");
+      alert("Insufficient balance");
+      return;
+    }
+
+    if (!selectedProvider) {
+      alert("Please select a Provider first");
+      return;
+    }
+
+    if (!selectedPlan) {
+      alert("Please select a Plan first");
+      return;
+    }
+
+    if (!destination || destination.length.length < 11 || destination.length === "") {
+      alert("Please Enter a valid number");
+      return;
+    }
+
+    setIsReady(true);
   };
 
   var handlePaymentClicked = function handlePaymentClicked(e) {
@@ -4137,7 +4176,7 @@ function Data(props) {
 
     setIsPaying(true); // return;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/orders", {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/orders", {
       plan_id: selectedPlan,
       type: "data",
       destination: destination
@@ -4145,7 +4184,7 @@ function Data(props) {
       setIsPaying(false);
       props.debitUserBalance(amount);
       props.addTransaction(res.data.data.transaction);
-      props.paymentSuccess();
+      setTransactionComplete(true); // props.paymentSuccess();
     })["catch"](function (err) {
       console.log(err);
       setIsPaying(false);
@@ -4158,88 +4197,154 @@ function Data(props) {
     setIsPaying(false);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "w-full md:w-1/2 mx-auto bg-white p-3 my-20 shadow-lg flex flex-col",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
-      className: "text-center my-2 text-lg font-bold mb-4",
-      children: "Buy Data"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "form-group flex flex-col space-y-1",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        className: "font-bold",
-        children: "Select Provider"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-        name: "provider",
-        className: "w-full rounded border-gray-300",
-        value: selectedProvider,
-        onChange: handleProviderSelected,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-          value: "-1",
-          disabled: true,
-          children: "SELECT PROVIDER"
-        }), (_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.map(function (provider, i) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-            value: i,
-            children: provider.title
-          }, provider.id);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "md:w-3/4 mx-auto p-3 md:p-5 bg-white",
+    children: transactionComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "flex flex-col items-center justify-center space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+            className: "mdi mdi-check text-lg"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        className: "text-gray-600 text-center",
+        children: "Transaction successful!"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+          to: "/",
+          className: "text-center text-gray-400 hover:text-gray-600",
+          children: "Done"
+        })
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+        className: "text-purple-500 text-center font-bold text-lg capitalize m-0 p-0",
+        children: "Buy Data"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_BalanceCard__WEBPACK_IMPORTED_MODULE_2__.default, {}), isReady ?
+      /*#__PURE__*/
+
+      /* Summary */
+      (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "my-4 w-full md:w-1/2 mx-auto shadow p-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "flex flex-col space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+            className: "text-center font-bold mb-0",
+            children: "Transaction Summary"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Recipient"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+              className: "text-gray-600",
+              children: destination
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Amount"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+              className: "text-gray-600",
+              children: ["\u20A6", parseFloat(amount).toLocaleString()]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "w-full",
+            children: [isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+              onClick: paymentDone,
+              className: "btn btn-light btn-block",
+              type: "button",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "spinner-border-sm spinner-border text-primary",
+                role: "status"
+              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+              className: "btn btn-primary btn-block font-bold",
+              onClick: handlePaymentClicked,
+              children: ["Pay \u20A6", parseFloat(amount).toLocaleString()]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+              onClick: function onClick() {
+                return setIsReady(false);
+              },
+              className: "text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs",
+              children: ["<<", " Go back"]
+            })]
+          })]
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "my-4 w-full md:w-1/2 mx-auto",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            className: "font-bold",
+            children: "Select Provider"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+            name: "provider",
+            className: "w-full rounded border-gray-300",
+            value: selectedProvider,
+            onChange: handleProviderSelected,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+              value: "-1",
+              disabled: true,
+              children: "SELECT PROVIDER"
+            }), (_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.map(function (provider, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                value: i,
+                children: provider.title
+              }, provider.id);
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            className: "font-bold",
+            children: "Select Provider"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
+            className: "w-full rounded border-gray-300",
+            name: "plan",
+            value: selectedPlan,
+            onChange: handlePlanSelected,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+              value: "0",
+              disabled: true,
+              children: "SELECT PLAN"
+            }), selectedProvider && (providerPlans === null || providerPlans === void 0 ? void 0 : providerPlans.map(function (plan) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("option", {
+                value: plan.id,
+                "data-price": plan.price,
+                children: [plan.title, " @ \u20A6", plan.price]
+              }, plan.id);
+            }))]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            className: "font-bold",
+            children: "Destination Phone Number"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "form-control-wrap",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              type: "number",
+              min: "100",
+              className: "w-full rounded border-gray-300",
+              value: destination,
+              onChange: function onChange(e) {
+                return setDestination(e.target.value);
+              },
+              placeholder: "Enter destination phone number"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "form-group my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+            className: "btn btn-primary btn-block font-bold",
+            onClick: handleProceed,
+            children: ["Proceed ", ">>"]
+          })
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "form-group flex flex-col space-y-1",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        className: "font-bold",
-        children: "Select Provider"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-        className: "w-full rounded border-gray-300",
-        name: "plan",
-        value: selectedPlan,
-        onChange: handlePlanSelected,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-          value: "0",
-          disabled: true,
-          children: "SELECT PLAN"
-        }), selectedProvider && (providerPlans === null || providerPlans === void 0 ? void 0 : providerPlans.map(function (plan) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("option", {
-            value: plan.id,
-            "data-price": plan.price,
-            children: [plan.title, " @ \u20A6", plan.price]
-          }, plan.id);
-        }))]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "form-group flex flex-col space-y-1",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        className: "font-bold",
-        children: "Destination Phone Number"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "form-control-wrap",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-          type: "number",
-          min: "100",
-          className: "w-full rounded border-gray-300",
-          value: destination,
-          onChange: function onChange(e) {
-            return setDestination(e.target.value);
-          },
-          placeholder: "Enter destination phone number"
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "form-group my-2",
-      children: isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-        onClick: paymentDone,
-        className: "btn btn-light btn-block",
-        type: "button",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "spinner-border-sm spinner-border text-primary",
-          role: "status"
-        })
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-        className: "btn btn-primary btn-block",
-        onClick: handlePaymentClicked,
-        children: ["Pay \u20A6 ", amount]
-      })
-    })]
+    })
   });
 }
 
@@ -4247,7 +4352,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     services: state.serviceState.services,
     plans: state.planState.plans,
-    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_3__.getDataProviders)(state.providerState.providers),
+    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_4__.getDataProviders)(state.providerState.providers),
     user: state.userState.user
   };
 };
@@ -4260,7 +4365,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         modal: {
           show: 1,
           header: "PaymentSuccess",
-          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
             children: "Payment success"
           })
         }
