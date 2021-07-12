@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // auth()->user()->balance = 4000;
+        // auth()->user()->balance = 1000;
         // auth()->user()->save();
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
@@ -26,5 +26,15 @@ class DashboardController extends Controller
             "plans" => $plans,
         ];
         return view('dashboard.index', compact('app_services', 'transactions'));
+    }
+
+    public function otpView()
+    {
+        $otp = rand(999, 9999);
+        $time = time();
+        auth()->user()->otp = $otp;
+        auth()->user()->otp_requested_at = $time;
+        return view('auth.request-otp');
+        return $otp;
     }
 }

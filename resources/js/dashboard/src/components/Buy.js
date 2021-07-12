@@ -11,32 +11,26 @@ function Buy(props) {
         <div>
             <Switch>
                 <Route exact path={path}>
-            <h2>Buy</h2>
-            <BuyContainer>
-                <Link
-                    to={`/buy/data`}
-                >
-                    <Card>
-                        <h5>Data</h5>
-                    </Card>
-                </Link>
-                <Link
-                    to={`/buy/airtime`}
-                >
-                    <Card>
-                        <h5>Airtime</h5>
-                    </Card>
-                </Link>
-                <Link
-                    to={`/buy/cable`}
-                >
-                    <Card>
-                        <h5>Cable-Tv</h5>
-                    </Card>
-                </Link>
-            </BuyContainer>
-            </Route>
-            <Route path={`${path}/data`}>
+                    <h2>Buy</h2>
+                    <BuyContainer>
+                        <Link to={`/buy/data`}>
+                            <Card>
+                                <h5>Data</h5>
+                            </Card>
+                        </Link>
+                        <Link to={`/buy/airtime`}>
+                            <Card>
+                                <h5>Airtime</h5>
+                            </Card>
+                        </Link>
+                        <Link to={`/buy/cable`}>
+                            <Card>
+                                <h5>Cable-Tv</h5>
+                            </Card>
+                        </Link>
+                    </BuyContainer>
+                </Route>
+                <Route path={`${path}/data`}>
                     <Data />
                 </Route>
                 <Route path={`${path}/airtime`}>

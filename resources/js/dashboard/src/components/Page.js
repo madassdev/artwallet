@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 function Page(props) {
     return (
@@ -8,4 +9,12 @@ function Page(props) {
     );
 }
 
-export default Page;
+const mapState = (state) => {
+    return {};
+};
+
+const mapDispatch = (dispatch) => {
+    return {};
+};
+
+export default connect(mapState, mapDispatch)(Page);

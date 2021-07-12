@@ -86,7 +86,7 @@ function Sidebar() {
                                     Dashboards
                                 </h6>
                             </li> */}
-                            
+
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/"}
@@ -101,6 +101,137 @@ function Sidebar() {
                                     </span>
                                 </NavLink>
                             </li>
+                            <li className="nk-menu-item has-sub">
+                                <a
+                                    href="#"
+                                    className="nk-menu-link nk-menu-toggle"
+                                    data-original-title=""
+                                    title=""
+                                >
+                                    <span className="nk-menu-icon">
+                                        <em className="icon ni ni-wallet"></em>
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Payment
+                                    </span>
+                                </a>
+                                <ul className="nk-menu-sub">
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/payments/deposit"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Fund wallet
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/payments/report"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Report payment
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/payments/transfer"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Transfer to others
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/payments/history"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Payment history
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li className="nk-menu-item has-sub">
+                                <a
+                                    href="#"
+                                    className="nk-menu-link nk-menu-toggle"
+                                    data-original-title=""
+                                    title=""
+                                >
+                                    <span className="nk-menu-icon">
+                                        <em className="icon ni ni-cart"></em>
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Pay Bills
+                                    </span>
+                                </a>
+                                <ul className="nk-menu-sub">
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/buy/airtime"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Airtime
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/buy/data"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Data
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/buy/cabletv"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Cable TV
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/buy/electricity"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Electricity bill
+                                            </span>
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/deposit"}
@@ -111,7 +242,7 @@ function Sidebar() {
                                         <i className="mdi mdi-wallet"></i>{" "}
                                     </span>
                                     <span className="nk-menu-text">
-                                        Deposit
+                                        Payment
                                     </span>
                                 </NavLink>
                             </li>

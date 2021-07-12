@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Spinner from "./Spinner";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 function Layout(props) {
     return (
@@ -16,9 +18,12 @@ function Layout(props) {
                         <div className="nk-content-inner">
                             <div className="nk-content-body">
                                 <div className="nk-block-head nk-block-head-sm">
-                                    <div className="nk-block-between">
-                                    </div>
-                                        {props.children}
+                                    <div className="nk-block-between"></div>
+                                    {props.isLoading ? (
+                                        <Spinner />
+                                    ) : (
+                                        <>{props.children}</>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -29,4 +34,14 @@ function Layout(props) {
     );
 }
 
-export default Layout;
+const S = (state) => {
+    return {
+        isLoading: state.appState.isLoading,
+    }
+}
+
+const D = (dispatch) => {
+    return {}
+}
+
+export default connect(S, D)(Layout);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
+import Payment from "./components/Payment";
 import Service from "./components/Service";
 import Buy from "./components/Buy";
 import Provider from "./components/Provider";
@@ -36,6 +37,9 @@ function App(props) {
                     </Route>
                     <Route path="/deposit">
                         <Deposit />
+                    </Route>
+                    <Route path="/payments">
+                        <Payment />
                     </Route>
                     <Route path="/history">
                         <h2>History</h2>
@@ -81,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "SET_USER",
                 user: AUTH_USER,
-            }),
+            })
+            // ,
             dispatch(setServices(APP_SERVICES.services));
             dispatch(setProviders(APP_SERVICES.providers));
             dispatch(setPlans(APP_SERVICES.plans));

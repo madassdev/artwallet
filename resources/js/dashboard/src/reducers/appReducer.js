@@ -7,7 +7,7 @@ const INITIAL_STATE = {
         header: "",
         content: "",
     },
-    is_fetching: false,
+    isLoading: false,
     fetch_failed: undefined,
 };
 
@@ -22,6 +22,12 @@ const AppReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 modal: { show: 0, content: "", header: "" },
+            };
+        case "SET_GLOBAL_LOADING":
+            console.log("hit")
+            return {
+                ...state,
+                isLoading: action.value,
             };
         default:
             return state;

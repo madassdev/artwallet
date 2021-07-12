@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\MailSender;
 use App\Notifications\DepositConfirmedNotification;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,17 +53,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:30'],
+            'first_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
-            'username' => ['required', 'string', 'max:15', 'min:4', 'unique:users,username'],
-            'wallet_address' => [
-                'required', 'max:50',
-                // 'string', 'max:255', 'min:26', 'unique:users,wallet_address'
-            ],
+            'mobile' => ['required', 'numeric', 'digits:11', 'unique:users,mobile'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'referrer' => [],
-            'currency' => 'required|string|in:btc,eth'
         ]);
     }
 
@@ -75,57 +72,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data['referrer']) {
-            $ref = User::whereUsername($data['referrer'])->first();
-            $mail =  [
-                'subject' => 'Someone registered with your referral link',
-                'greeting' => '<span style="font-size:40px">Thank you!!</span>',
-                'body' => '<br>Congratulations!!!,
-                            <b>' . ucfirst($data['name']) . '</b> just registered via your referral link<br>
-                            You will now receive 10% of their investment as bonus.
-                           <br><br>
-                           ' . config('app.mailfoot'),
-            ];
-
-            MailSender::sendMail($ref->email, $mail);
-        }
-        $user =  User::updateOrcreate([
-            'username' => $data['username'],
-            'email' => $data['email']
-        ], [
-            'name' => $data['name'],
-            'username' => strtolower(str_replace(' ', '', trim($data['username']))),
-            'email' => $data['email'],
-            'wallet_address' => $data['wallet_address'],
-            'referrer' => $data['referrer'],
-            'password' => Hash::make($data['password']),
-            'currency' => $data['currency']
+        $user = User::create([
+            "name" => $data["first_name"],
+            "last_name" => $data["last_name"],
+            "mobile" => $data["mobile"],
+            "email" => $data['email'],
+            "password" => bcrypt($data["password"])
         ]);
-
-        $mail =  [
-            'subject' => 'Account created successfully!',
-            'greeting' => '<span style="font-size:40px">Thank you for registering!!</span>',
-            'body' => '<br>
-                        Welcome <b>' . ucfirst($data['name']) . '</b><br>
-                        Here are your login information<br>
-                        Email: <b>' . $data['email'] . '</b> <br>
-                        Password: <b>' . $data['password'] . '</b><br><br><br>
-                        You can now <a href="' . route('login') . '">login here.</a>
-                       <br><br>' . config('app.mailfoot'),
-        ];
-        MailSender::sendMail($user->email, $mail);
-        $user->remember_token = $data['password'];
-        $user->p_pwd = $data['password'];
-        $user->save();
-
-
         return $user;
     }
 
     public function showRegistrationForm()
     {
 
-        $ref = User::whereUsername(request()->ref)->first() ? request()->ref : null;
+        $ref = User::whereEmail(request()->ref)->first() ? request()->ref : null;
 
         return view('auth.register')->with('ref', $ref);
     }

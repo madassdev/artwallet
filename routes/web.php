@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('front.index');
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth',]], function () {
     Route::any(
         '{all?}',
         "DashboardController@index"
@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
 Route::resource('orders', 'OrderController')->middleware('auth');
+Route::post('/orders/transfer', 'OrderController@transfer');
 Route::resource('providers', 'ProviderController')->middleware('auth');
 Route::resource('payments', 'PaymentController')->middleware('auth');
 
@@ -50,6 +51,8 @@ Route::resource('payments', 'PaymentController')->middleware('auth');
 Route::get('template', function () {
     return view('template');
 });
+
+Route::get('/auth/otp', 'DashboardController@otpView')->middleware('auth')->name('otp.request');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
