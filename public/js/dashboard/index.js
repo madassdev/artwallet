@@ -3207,12 +3207,12 @@ function Airtime(props) {
       selectedPlan = _useState2[0],
       setSelectedPlan = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("300"),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       amount = _useState4[0],
       setAmount = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("09088776655"),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
       destination = _useState6[0],
       setDestination = _useState6[1];
