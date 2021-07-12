@@ -9,8 +9,8 @@ import axios from "axios";
 
 function Airtime(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
-    const [amount, setAmount] = useState("300");
-    const [destination, setDestination] = useState("09088776655");
+    const [amount, setAmount] = useState("");
+    const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
@@ -28,7 +28,7 @@ function Airtime(props) {
             alert("Please select a provider first");
             return;
         }
-        
+
         if (amount === "") {
             alert("Please enter an amount");
             return;
