@@ -232,48 +232,7 @@ function Sidebar() {
                                 </ul>
                             </li>
 
-                            <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/deposit"}
-                                    activeClassName="nav-active"
-                                    className="nk-menu-link"
-                                >
-                                    <span className="nk-menu-icon">
-                                        <i className="mdi mdi-wallet"></i>{" "}
-                                    </span>
-                                    <span className="nk-menu-text">
-                                        Payment
-                                    </span>
-                                </NavLink>
-                            </li>
-                            <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/buy/airtime"}
-                                    activeClassName="nav-active"
-                                    className="nk-menu-link"
-                                >
-                                    <span className="nk-menu-icon">
-                                        <i className="mdi mdi-phone"></i>{" "}
-                                    </span>
-                                    <span className="nk-menu-text">
-                                        Buy Airtime
-                                    </span>
-                                </NavLink>
-                            </li>
-                            <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/buy/data"}
-                                    activeClassName="nav-active"
-                                    className="nk-menu-link"
-                                >
-                                    <span className="nk-menu-icon">
-                                        <i className="mdi mdi-wifi"></i>{" "}
-                                    </span>
-                                    <span className="nk-menu-text">
-                                        Buy Data
-                                    </span>
-                                </NavLink>
-                            </li>
+                            
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/transactions"}
