@@ -207,7 +207,7 @@ function Sidebar() {
                                     </li>
                                     <li className="nk-menu-item">
                                         <NavLink
-                                            to="/buy/cabletv"
+                                            to="/buy/cable-tv"
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""

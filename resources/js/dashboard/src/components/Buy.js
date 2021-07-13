@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Data from "./Data";
+import CableTv from "./CableTv";
 import Airtime from "./Airtime";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
@@ -23,7 +24,7 @@ function Buy(props) {
                                 <h5>Airtime</h5>
                             </Card>
                         </Link>
-                        <Link to={`/buy/cable`}>
+                        <Link to={`/buy/cable-tv`}>
                             <Card>
                                 <h5>Cable-Tv</h5>
                             </Card>
@@ -35,6 +36,9 @@ function Buy(props) {
                 </Route>
                 <Route path={`${path}/airtime`}>
                     <Airtime />
+                </Route>
+                <Route path={`${path}/cable-tv`}>
+                    <CableTv />
                 </Route>
             </Switch>
         </div>
