@@ -12,6 +12,11 @@ export const getDataProviders = (providers) => {
     return dataProviders
 };
 
+export const getCableTvProviders = (providers) => {
+    const dataProviders = providers?.filter((p) => p.service.slug === "cable-tv");
+    return dataProviders
+};
+
 const providerReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case providerActions.PROVIDERS_FETCHING:

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Data from "./Data";
 import CableTv from "./CableTv";
 import Airtime from "./Airtime";
+import Electricity from "./Electricity";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,6 +40,9 @@ function Buy(props) {
                 </Route>
                 <Route path={`${path}/cable-tv`}>
                     <CableTv />
+                </Route>
+                <Route path={`${path}/electricity`}>
+                    <Electricity />
                 </Route>
             </Switch>
         </div>

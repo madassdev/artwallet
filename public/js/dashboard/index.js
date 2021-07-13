@@ -3253,7 +3253,7 @@ function Airtime(props) {
     }
 
     if (amount > props.user.balance) {
-      alert("Your balance is insufficient for the transfer.");
+      alert("Your balance is insufficient for the transaction.");
       return;
     }
 
@@ -3789,10 +3789,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Data */ "./resources/js/dashboard/src/components/Data.js");
 /* harmony import */ var _CableTv__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CableTv */ "./resources/js/dashboard/src/components/CableTv.js");
 /* harmony import */ var _Airtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Airtime */ "./resources/js/dashboard/src/components/Airtime.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Electricity__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Electricity */ "./resources/js/dashboard/src/components/Electricity.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3807,59 +3808,63 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
 function Buy(props) {
-  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useRouteMatch)(),
+  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useRouteMatch)(),
       path = _useRouteMatch.path,
       url = _useRouteMatch.url;
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         exact: true,
         path: path,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
           children: "Buy"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(BuyContainer, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(BuyContainer, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
             to: "/buy/data",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Card, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h5", {
                 children: "Data"
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
             to: "/buy/airtime",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Card, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h5", {
                 children: "Airtime"
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
             to: "/buy/cable-tv",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Card, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h5", {
                 children: "Cable-Tv"
               })
             })
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: "".concat(path, "/data"),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Data__WEBPACK_IMPORTED_MODULE_2__.default, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Data__WEBPACK_IMPORTED_MODULE_2__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: "".concat(path, "/airtime"),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Airtime__WEBPACK_IMPORTED_MODULE_4__.default, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Airtime__WEBPACK_IMPORTED_MODULE_4__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: "".concat(path, "/cable-tv"),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CableTv__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_CableTv__WEBPACK_IMPORTED_MODULE_3__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        path: "".concat(path, "/electricity"),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Electricity__WEBPACK_IMPORTED_MODULE_5__.default, {})
       })]
     })
   });
 }
 
-var BuyContainer = styled_components__WEBPACK_IMPORTED_MODULE_8__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 30px;\n"])));
-var CommonCard = styled_components__WEBPACK_IMPORTED_MODULE_8__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    padding: 20px;\n    background: white;\n    border-radius: 5px;\n    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n"])));
-var Card = (0,styled_components__WEBPACK_IMPORTED_MODULE_8__.default)(CommonCard)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral([""])));
+var BuyContainer = styled_components__WEBPACK_IMPORTED_MODULE_9__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: grid;\n    grid-template-columns: auto auto auto auto;\n    grid-gap: 30px;\n"])));
+var CommonCard = styled_components__WEBPACK_IMPORTED_MODULE_9__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    padding: 20px;\n    background: white;\n    border-radius: 5px;\n    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;\n"])));
+var Card = (0,styled_components__WEBPACK_IMPORTED_MODULE_9__.default)(CommonCard)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral([""])));
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -4026,9 +4031,9 @@ function CableTv(props) {
 
     setIsPaying(true); // return;
 
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/orders", {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/orders/cable-tv", {
       plan_id: selectedPlan,
-      type: "data",
+      type: "cable-tv",
       destination: destination
     }).then(function (res) {
       setIsPaying(false);
@@ -4128,7 +4133,7 @@ function CableTv(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "font-bold",
-            children: "Select Provider"
+            children: "Select Cable Tv Provider"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
             name: "provider",
             className: "w-full rounded border-gray-300",
@@ -4171,7 +4176,7 @@ function CableTv(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "font-bold",
-            children: "Destination Phone Number"
+            children: "Destination Device Number"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
@@ -4182,7 +4187,7 @@ function CableTv(props) {
               onChange: function onChange(e) {
                 return setDestination(e.target.value);
               },
-              placeholder: "Enter destination phone number"
+              placeholder: "Enter destination device number"
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -4202,7 +4207,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     services: state.serviceState.services,
     plans: state.planState.plans,
-    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_4__.getDataProviders)(state.providerState.providers),
+    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_4__.getCableTvProviders)(state.providerState.providers),
     user: state.userState.user
   };
 };
@@ -4963,6 +4968,345 @@ var mapDispatch = function mapDispatch(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_3__.connect)(mapState, mapDispatch)(Deposit));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/Electricity.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/Electricity.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/planReducer */ "./resources/js/dashboard/src/reducers/planReducer.js");
+/* harmony import */ var _ProviderPlans__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProviderPlans */ "./resources/js/dashboard/src/components/ProviderPlans.js");
+/* harmony import */ var _BalanceCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BalanceCard */ "./resources/js/dashboard/src/components/BalanceCard.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Electricity(props) {
+  var _props$plans;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectedPlan = _useState2[0],
+      setSelectedPlan = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      amount = _useState4[0],
+      setAmount = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      destination = _useState6[0],
+      setDestination = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isPaying = _useState8[0],
+      setIsPaying = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isReady = _useState10[0],
+      setIsReady = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      transactionComplete = _useState12[0],
+      setTransactionComplete = _useState12[1];
+
+  var handlePlanSelected = function handlePlanSelected(e) {
+    setSelectedPlan(e.target.value);
+  };
+
+  var handleProceed = function handleProceed(e) {
+    if (destination === "") {
+      alert("Please enter a valid recipient number");
+      return;
+    }
+
+    if (!selectedPlan) {
+      alert("Please select a provider first");
+      return;
+    }
+
+    if (amount === "") {
+      alert("Please enter an amount");
+      return;
+    }
+
+    if (amount > props.user.balance) {
+      alert("Your balance is insufficient for the transaction.");
+      return;
+    }
+
+    setIsReady(true);
+  };
+
+  var handlePaymentClicked = function handlePaymentClicked(e) {
+    e.preventDefault();
+
+    if (props.user.balance < amount) {
+      console.log("insufficient balance");
+    }
+
+    if (!selectedPlan) {
+      alert("Please select a provider first");
+      return;
+    }
+
+    if (!destination || destination.length.length < 11 || destination.length === "") {
+      alert("Please Enter a valid number");
+      return;
+    }
+
+    if (!amount || amount === 0 || amount === "") {
+      alert("Please Enter a valid amount");
+      return;
+    }
+
+    setIsPaying(true); // return;
+
+    axios__WEBPACK_IMPORTED_MODULE_5___default().post("/orders/electricity", {
+      plan_id: selectedPlan,
+      type: "electricity",
+      amount: amount,
+      destination: destination
+    }).then(function (res) {
+      console.log(res.data);
+      setIsPaying(false);
+      props.debitUserBalance(amount);
+      props.addTransaction(res.data.data.transaction);
+      setTransactionComplete(true);
+    })["catch"](function (err) {
+      console.log(err);
+      setIsPaying(false);
+      console.log(err.message);
+    });
+  };
+
+  var paymentDone = function paymentDone(e) {
+    e.preventDefault();
+    setIsPaying(false);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    className: "md:w-3/4 mx-auto p-3 md:p-5 bg-white",
+    children: transactionComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "flex flex-col items-center justify-center space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+            className: "mdi mdi-check text-lg"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        className: "text-gray-600 text-center",
+        children: "Transaction successful!"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+          to: "/",
+          className: "text-center text-gray-400 hover:text-gray-600",
+          children: "Done"
+        })
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+        className: "text-purple-500 text-center font-bold text-lg capitalize m-0 p-0",
+        children: "Buy Airtime"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_BalanceCard__WEBPACK_IMPORTED_MODULE_4__.default, {}), isReady ?
+      /*#__PURE__*/
+
+      /* Summary */
+      (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "my-4 w-full md:w-1/2 mx-auto shadow p-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "flex flex-col space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+            className: "text-center font-bold mb-0",
+            children: "Transaction Summary"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Recipient"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-gray-600",
+              children: destination
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Amount"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+              className: "text-gray-600",
+              children: ["\u20A6", parseFloat(amount).toLocaleString()]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "w-full",
+            children: [isPaying ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+              onClick: paymentDone,
+              className: "btn btn-light btn-block",
+              type: "button",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "spinner-border-sm spinner-border text-primary",
+                role: "status"
+              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+              className: "btn btn-primary btn-block font-bold",
+              onClick: handlePaymentClicked,
+              children: ["Pay \u20A6", parseFloat(amount).toLocaleString()]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+              onClick: function onClick() {
+                return setIsReady(false);
+              },
+              className: "text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs",
+              children: ["<<", " Go back"]
+            })]
+          })]
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "my-4 w-full md:w-1/2 mx-auto",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "font-bold",
+            children: "Select Electricity Provider"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+            className: "w-full rounded border-gray-300",
+            value: selectedPlan,
+            onChange: handlePlanSelected,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "0",
+              disabled: true,
+              children: "SELECT PROVIDER"
+            }), (_props$plans = props.plans) === null || _props$plans === void 0 ? void 0 : _props$plans.map(function (plan) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: plan.id,
+                children: plan.title
+              }, plan.id);
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "font-bold",
+            children: "Destination Meter Number"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "form-control-wrap",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "number",
+              min: "100",
+              className: "w-full rounded border-gray-300",
+              value: destination,
+              onChange: function onChange(e) {
+                return setDestination(e.target.value);
+              },
+              placeholder: "Enter destination meter number"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "form-group flex flex-col space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "font-bold",
+            children: "Amount"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "form-control-wrap",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "number",
+              min: "100",
+              className: "w-full rounded border-gray-300",
+              value: amount,
+              onChange: function onChange(e) {
+                return setAmount(e.target.value);
+              },
+              placeholder: "Enter amount"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "form-group my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+            className: "btn btn-primary btn-block font-bold",
+            onClick: handleProceed,
+            children: ["Proceed ", ">>"]
+          })
+        })]
+      })]
+    })
+  });
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    services: state.serviceState.services,
+    plans: (0,_reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__.getElectricityPlans)(state.planState.plans),
+    user: state.userState.user
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    paymentSuccess: function paymentSuccess() {
+      return dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          header: "Payment Success",
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+            children: "Payment success"
+          })
+        }
+      });
+    },
+    debitUserBalance: function debitUserBalance(amount) {
+      return dispatch({
+        type: "DEBIT_USER",
+        amount: amount
+      });
+    },
+    addTransaction: function addTransaction(transaction) {
+      return dispatch({
+        type: "ADD_TRANSACTION",
+        transaction: transaction
+      });
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Electricity));
 
 /***/ }),
 
@@ -7475,6 +7819,7 @@ var itemReducer = function itemReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getElectricityPlans": () => (/* binding */ getElectricityPlans),
 /* harmony export */   "getAirtimePlans": () => (/* binding */ getAirtimePlans),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -7502,6 +7847,13 @@ var INITIAL_STATE = {
   is_fetching: false,
   is_creating: false,
   fetch_failed: undefined
+};
+var getElectricityPlans = function getElectricityPlans(plans) {
+  var airtime_plans = plans === null || plans === void 0 ? void 0 : plans.filter(function (p) {
+    return p.provider.service.slug === "electricity";
+  }); // console.log(airtime_plans)
+
+  return airtime_plans;
 };
 var getAirtimePlans = function getAirtimePlans(plans) {
   var airtime_plans = plans === null || plans === void 0 ? void 0 : plans.filter(function (p) {
@@ -7569,6 +7921,7 @@ var planReducer = function planReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getDataProviders": () => (/* binding */ getDataProviders),
+/* harmony export */   "getCableTvProviders": () => (/* binding */ getCableTvProviders),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_actionType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/actionType */ "./resources/js/dashboard/src/actions/actionType.js");
@@ -7600,6 +7953,12 @@ var INITIAL_STATE = {
 var getDataProviders = function getDataProviders(providers) {
   var dataProviders = providers === null || providers === void 0 ? void 0 : providers.filter(function (p) {
     return p.service.slug === "data";
+  });
+  return dataProviders;
+};
+var getCableTvProviders = function getCableTvProviders(providers) {
+  var dataProviders = providers === null || providers === void 0 ? void 0 : providers.filter(function (p) {
+    return p.service.slug === "cable-tv";
   });
   return dataProviders;
 };

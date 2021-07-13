@@ -68,6 +68,56 @@ class OrderController extends Controller
         // $user
     }
 
+    public function electricity(Request $request)
+    {
+        $request->validate([
+            'type' => "required|in:electricity",
+            'amount' => 'required|numeric|min:0',
+            "plan_id" => 'required|exists:plans,id',
+            "destination" => 'required'
+        ]);
+        $user = auth()->user();
+        $plan = Plan::findOrFail($request->plan_id);
+        $amount = 0;
+
+        if ($user->balance < $request->amount) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does no have enough balance to purchase this amount"
+            ], 403);
+        }
+        $amount = $request->amount;
+        $user->balance -= $amount;
+        $user->save();
+
+        $order = $user->orders()->create([
+            "plan_id" => $request->plan_id,
+            "amount" => $amount,
+            "destination" => $request->destination,
+            "reference" => Order::uniqueRef(),
+        ]);
+
+        $transaction = $user->debits()->create([
+            "user_id" => $user->id,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'amount' => $order->amount,
+            'type' => $request->type,
+            'status' => 'complete',
+        ]);
+
+        return response()->json([
+            "success" => true,
+            "message" => "Order placed successfully",
+            "data" => [
+                "order" => $order->load('credit'),
+                "transaction" => $transaction
+            ],
+        ]);
+        // $user
+    }
+
+
 
     public function transfer(Request $request)
     {
@@ -108,5 +158,52 @@ class OrderController extends Controller
             ],
         ]);
         // $user
+    }
+
+    public function cableTv(Request $request)
+    {
+        $request->validate([
+            'type' => "required|in:cable-tv",
+            "plan_id" => 'required|exists:plans,id',
+            "destination" => 'required'
+        ]);
+        $user = auth()->user();
+        $plan = Plan::findOrFail($request->plan_id);
+        $amount = 0;
+        if ($user->balance < $plan->price) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does no have enough balance to purchase this plan"
+            ], 403);
+        }
+        $amount = $plan->price;
+
+        $user->balance -= $amount;
+        $user->save();
+
+        $order = $user->orders()->create([
+            "plan_id" => $request->plan_id,
+            "amount" => $amount,
+            "destination" => $request->destination,
+            "reference" => Order::uniqueRef(),
+        ]);
+
+        $transaction = $user->debits()->create([
+            "user_id" => $user->id,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'amount' => $order->amount,
+            'type' => $request->type,
+            'status' => 'complete',
+        ]);
+
+        return response()->json([
+            "success" => true,
+            "message" => "Order placed successfully",
+            "data" => [
+                "order" => $order->load('credit'),
+                "transaction" => $transaction
+            ],
+        ]);
     }
 }

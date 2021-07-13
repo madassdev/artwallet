@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BalanceCard from "./BalanceCard";
 import axios from "axios";
-import { getDataProviders } from "../reducers/providerReducer";
+import { getCableTvProviders } from "../reducers/providerReducer";
 
 function CableTv(props) {
     const [selectedProvider, setSelectedProvider] = useState(-1);
@@ -83,9 +83,9 @@ function CableTv(props) {
         setIsPaying(true);
         // return;
         axios
-            .post("/orders", {
+            .post("/orders/cable-tv", {
                 plan_id: selectedPlan,
-                type: "data",
+                type: "cable-tv",
                 destination,
             })
             .then((res) => {
@@ -192,7 +192,7 @@ function CableTv(props) {
                     ) : (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
-                                <p className="font-bold">Select Provider</p>
+                                <p className="font-bold">Select Cable Tv Provider</p>
                                 <select
                                     name="provider"
                                     className="w-full rounded border-gray-300"
@@ -235,7 +235,7 @@ function CableTv(props) {
                             </div>
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    Destination Phone Number
+                                    Destination Device Number
                                 </p>
 
                                 <div className="form-control-wrap">
@@ -247,7 +247,7 @@ function CableTv(props) {
                                         onChange={(e) =>
                                             setDestination(e.target.value)
                                         }
-                                        placeholder="Enter destination phone number"
+                                        placeholder="Enter destination device number"
                                     />
                                 </div>
                             </div>
@@ -272,7 +272,7 @@ const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
         plans: state.planState.plans,
-        providers: getDataProviders(state.providerState.providers),
+        providers: getCableTvProviders(state.providerState.providers),
         user: state.userState.user,
     };
 };

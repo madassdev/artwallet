@@ -97,6 +97,11 @@ class AppSeeder extends Seeder
                 "title" => "Cable TV",
                 "description" => "Cable TV Subscription",
                 "slug" => "cable-tv",
+            ],
+            [
+                "title" => "Electricity",
+                "description" => "Electricity",
+                "slug" => "electricity",
             ]
         ];
 
@@ -153,6 +158,16 @@ class AppSeeder extends Seeder
                 "title" => "GOTV",
                 "slug" => "gotv",
             ],
+            [
+                "service_id" => 4,
+                "title" => "IBEDC",
+                "slug" => "ibedc",
+            ],
+            [
+                "service_id" => 4,
+                "title" => "PHCN",
+                "slug" => "phcn",
+            ],
         ];
 
         Provider::insert($providers);
@@ -201,10 +216,28 @@ class AppSeeder extends Seeder
                 "price" => 0
             ],
             [
-                "provider_id" => 10,
+                "provider_id" => 9,
                 "title" => "DSTV SUPER SUB 1 MONTH",
                 "slug" => "dstv-super-sub-1-month",
+                "price" => 5000
+            ],
+            [
+                "provider_id" => 10,
+                "title" => "GOTV SUPER SUB 1 MONTH",
+                "slug" => "gotv-super-sub-1-month",
                 "price" => 3000
+            ],
+            [
+                "provider_id" => 11,
+                "title" => "IBEDC",
+                "slug" => "ibedc",
+                "price" => 0
+            ],
+            [
+                "provider_id" => 12,
+                "title" => "PHCN",
+                "slug" => "phcn",
+                "price" => 0
             ],
         ];
         Plan::insert($plans);

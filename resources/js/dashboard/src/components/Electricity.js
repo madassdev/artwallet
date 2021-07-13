@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getAirtimePlans } from "../reducers/planReducer";
+import { getElectricityPlans } from "../reducers/planReducer";
 import ProviderPlans from "./ProviderPlans";
 import BalanceCard from "./BalanceCard";
 import axios from "axios";
 
-function Airtime(props) {
+function Electricity(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [amount, setAmount] = useState("");
     const [destination, setDestination] = useState("");
@@ -21,7 +21,7 @@ function Airtime(props) {
 
     const handleProceed = (e) => {
         if (destination === "") {
-            alert("Please enter a valid recipient phone number");
+            alert("Please enter a valid recipient number");
             return;
         }
         if (!selectedPlan) {
@@ -67,9 +67,9 @@ function Airtime(props) {
         setIsPaying(true);
         // return;
         axios
-            .post("/orders", {
+            .post("/orders/electricity", {
                 plan_id: selectedPlan,
-                type: "airtime",
+                type: "electricity",
                 amount,
                 destination,
             })
@@ -177,7 +177,7 @@ function Airtime(props) {
                     ) : (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
-                                <p className="font-bold">Select Provider</p>
+                                <p className="font-bold">Select Electricity Provider</p>
                                 <select
                                     className="w-full rounded border-gray-300"
                                     value={selectedPlan}
@@ -195,7 +195,7 @@ function Airtime(props) {
                             </div>
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    Destination Phone Number
+                                    Destination Meter Number
                                 </p>
 
                                 <div className="form-control-wrap">
@@ -207,7 +207,7 @@ function Airtime(props) {
                                         onChange={(e) =>
                                             setDestination(e.target.value)
                                         }
-                                        placeholder="Enter destination phone number"
+                                        placeholder="Enter destination meter number"
                                     />
                                 </div>
                             </div>
@@ -247,7 +247,7 @@ function Airtime(props) {
 const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
-        plans: getAirtimePlans(state.planState.plans),
+        plans: getElectricityPlans(state.planState.plans),
         user: state.userState.user,
     };
 };
@@ -275,4 +275,4 @@ const mapDispatchToProps = (dispatch) => {
             }),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Airtime);
+export default connect(mapStateToProps, mapDispatchToProps)(Electricity);
