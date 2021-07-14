@@ -3239,18 +3239,28 @@ function Airtime(props) {
       isPaying = _useState8[0],
       setIsPaying = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState10 = _slicedToArray(_useState9, 2),
-      isReady = _useState10[0],
-      setIsReady = _useState10[1];
+      plan = _useState10[0],
+      setPlan = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      transactionComplete = _useState12[0],
-      setTransactionComplete = _useState12[1];
+      isReady = _useState12[0],
+      setIsReady = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      transactionComplete = _useState14[0],
+      setTransactionComplete = _useState14[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
     setSelectedPlan(e.target.value);
+    var plan_id = e.target.value;
+    var plan_object = props.plans.find(function (p) {
+      return p.id == plan_id;
+    });
+    setPlan(plan_object);
   };
 
   var handleProceed = function handleProceed(e) {
@@ -3371,6 +3381,14 @@ function Airtime(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
               className: "font-bold m-0",
+              children: "Provider"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-gray-600",
+              children: plan.title
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+              className: "font-bold m-0",
               children: "Amount"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
               className: "text-gray-600",
@@ -3405,7 +3423,7 @@ function Airtime(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
             className: "font-bold",
-            children: "Select Provider"
+            children: "Select Airtime Provider"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
             className: "w-full rounded border-gray-300",
             value: selectedPlan,
@@ -3977,18 +3995,24 @@ function CableTv(props) {
       isReady = _useState14[0],
       setIsReady = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState16 = _slicedToArray(_useState15, 2),
-      transactionComplete = _useState16[0],
-      setTransactionComplete = _useState16[1];
+      plan = _useState16[0],
+      setPlan = _useState16[1];
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      transactionComplete = _useState18[0],
+      setTransactionComplete = _useState18[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
     var plan_id = e.target.value;
-    var plan = props.plans.find(function (p) {
+    var plan_object = props.plans.find(function (p) {
       return p.id == plan_id;
     });
-    setSelectedPlan(plan.id);
-    setAmount(plan.price); // console.log(amt);
+    setPlan(plan_object);
+    setSelectedPlan(plan_object.id);
+    setAmount(plan_object.price); // console.log(amt);
   };
 
   var handleProviderSelected = function handleProviderSelected(e) {
@@ -4112,6 +4136,14 @@ function CableTv(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
               children: destination
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Plan"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+              className: "text-gray-600",
+              children: plan.title
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -4647,18 +4679,24 @@ function Data(props) {
       isReady = _useState14[0],
       setIsReady = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState16 = _slicedToArray(_useState15, 2),
-      transactionComplete = _useState16[0],
-      setTransactionComplete = _useState16[1];
+      plan = _useState16[0],
+      setPlan = _useState16[1];
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      transactionComplete = _useState18[0],
+      setTransactionComplete = _useState18[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
     var plan_id = e.target.value;
-    var plan = props.plans.find(function (p) {
+    var plan_object = props.plans.find(function (p) {
       return p.id == plan_id;
     });
-    setSelectedPlan(plan.id);
-    setAmount(plan.price); // console.log(amt);
+    setPlan(plan_object);
+    setSelectedPlan(plan_object.id);
+    setAmount(plan_object.price); // console.log(amt);
   };
 
   var handleProviderSelected = function handleProviderSelected(e) {
@@ -4782,6 +4820,14 @@ function Data(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
               children: destination
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Plan"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+              className: "text-gray-600",
+              children: plan.title
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -5205,18 +5251,28 @@ function Electricity(props) {
       isPaying = _useState8[0],
       setIsPaying = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState10 = _slicedToArray(_useState9, 2),
-      isReady = _useState10[0],
-      setIsReady = _useState10[1];
+      plan = _useState10[0],
+      setPlan = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      transactionComplete = _useState12[0],
-      setTransactionComplete = _useState12[1];
+      isReady = _useState12[0],
+      setIsReady = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      transactionComplete = _useState14[0],
+      setTransactionComplete = _useState14[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
     setSelectedPlan(e.target.value);
+    var plan_id = e.target.value;
+    var plan_object = props.plans.find(function (p) {
+      return p.id == plan_id;
+    });
+    setPlan(plan_object);
   };
 
   var handleProceed = function handleProceed(e) {
@@ -5314,7 +5370,7 @@ function Electricity(props) {
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
         className: "text-purple-500 text-center font-bold text-lg capitalize m-0 p-0",
-        children: "Buy Airtime"
+        children: "Buy Electricity"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_BalanceCard__WEBPACK_IMPORTED_MODULE_4__.default, {}), isReady ?
       /*#__PURE__*/
 
@@ -5333,6 +5389,14 @@ function Electricity(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               className: "text-gray-600",
               children: destination
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+              className: "font-bold m-0",
+              children: "Provider"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-gray-600",
+              children: plan.title
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
@@ -7319,18 +7383,6 @@ function Sidebar() {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
                 className: "nk-menu-sub",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-                  className: "nk-menu-item",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-                    to: "/buy/airtime",
-                    className: "nk-menu-link",
-                    "data-original-title": "",
-                    title: "",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                      className: "nk-menu-text",
-                      children: "Airtime"
-                    })
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
                   className: "nk-menu-item",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
                     to: "/buy/data",

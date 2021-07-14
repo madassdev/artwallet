@@ -197,18 +197,6 @@ function Sidebar() {
                                 <ul className="nk-menu-sub">
                                     <li className="nk-menu-item">
                                         <NavLink
-                                            to="/buy/airtime"
-                                            className="nk-menu-link"
-                                            data-original-title=""
-                                            title=""
-                                        >
-                                            <span className="nk-menu-text">
-                                                Airtime
-                                            </span>
-                                        </NavLink>
-                                    </li>
-                                    <li className="nk-menu-item">
-                                        <NavLink
                                             to="/buy/data"
                                             className="nk-menu-link"
                                             data-original-title=""

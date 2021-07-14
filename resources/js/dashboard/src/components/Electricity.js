@@ -12,11 +12,15 @@ function Electricity(props) {
     const [amount, setAmount] = useState("");
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
+    const [plan, setPlan] = useState()
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
 
     const handlePlanSelected = (e) => {
         setSelectedPlan(e.target.value);
+        const plan_id = e.target.value;
+        const plan_object = props.plans.find((p) => p.id == plan_id);
+        setPlan(plan_object)
     };
 
     const handleProceed = (e) => {
@@ -37,6 +41,7 @@ function Electricity(props) {
             alert("Your balance is insufficient for the transaction.");
             return;
         }
+        
 
         setIsReady(true);
     };
@@ -115,7 +120,7 @@ function Electricity(props) {
             ) : (
                 <>
                     <h2 className="text-purple-500 text-center font-bold text-lg capitalize m-0 p-0">
-                        Buy Airtime
+                        Buy Electricity
                     </h2>
                     <BalanceCard />
                     {isReady ? (
@@ -131,6 +136,12 @@ function Electricity(props) {
                                     <h2 className="font-bold m-0">Recipient</h2>
                                     <p className="text-gray-600">
                                         {destination}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2 className="font-bold m-0">Provider</h2>
+                                    <p className="text-gray-600">
+                                        {plan.title}
                                     </p>
                                 </div>
                                 <div>

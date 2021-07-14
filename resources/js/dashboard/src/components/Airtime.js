@@ -12,11 +12,15 @@ function Airtime(props) {
     const [amount, setAmount] = useState("");
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
+    const [plan, setPlan] = useState()
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
 
     const handlePlanSelected = (e) => {
         setSelectedPlan(e.target.value);
+        const plan_id = e.target.value;
+        const plan_object = props.plans.find((p) => p.id == plan_id);
+        setPlan(plan_object)
     };
 
     const handleProceed = (e) => {
@@ -134,6 +138,12 @@ function Airtime(props) {
                                     </p>
                                 </div>
                                 <div>
+                                    <h2 className="font-bold m-0">Provider</h2>
+                                    <p className="text-gray-600">
+                                        {plan.title}
+                                    </p>
+                                </div>
+                                <div>
                                     <h2 className="font-bold m-0">Amount</h2>
                                     <p className="text-gray-600">
                                         &#x20A6;
@@ -177,7 +187,7 @@ function Airtime(props) {
                     ) : (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
-                                <p className="font-bold">Select Provider</p>
+                                <p className="font-bold">Select Airtime Provider</p>
                                 <select
                                     className="w-full rounded border-gray-300"
                                     value={selectedPlan}

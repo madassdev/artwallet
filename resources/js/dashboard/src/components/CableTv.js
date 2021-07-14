@@ -14,13 +14,15 @@ function CableTv(props) {
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
+    const [plan, setPlan] = useState()
     const [transactionComplete, setTransactionComplete] = useState(false);
 
     const handlePlanSelected = (e) => {
         const plan_id = e.target.value;
-        const plan = props.plans.find((p) => p.id == plan_id);
-        setSelectedPlan(plan.id);
-        setAmount(plan.price);
+        const plan_object = props.plans.find((p) => p.id == plan_id);
+        setPlan(plan_object)
+        setSelectedPlan(plan_object.id);
+        setAmount(plan_object.price);
         // console.log(amt);
     };
     const handleProviderSelected = (e) => {
@@ -146,6 +148,12 @@ function CableTv(props) {
                                     <h2 className="font-bold m-0">Recipient</h2>
                                     <p className="text-gray-600">
                                         {destination}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2 className="font-bold m-0">Plan</h2>
+                                    <p className="text-gray-600">
+                                        {plan.title}
                                     </p>
                                 </div>
                                 <div>
