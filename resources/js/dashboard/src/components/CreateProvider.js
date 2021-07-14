@@ -22,7 +22,7 @@ function CreateProvider(props) {
     const [titleError, setTitleError] = useState("");
     const [title, setTitle] = useState("");
     return (
-        <div>
+        <div className="w-full md:w-1/2 mx-auto">
             <form onSubmit={handleSubmit}>
                 <div className="col-sm-6">
                     <div className="form-group">

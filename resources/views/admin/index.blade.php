@@ -23,6 +23,10 @@ $auth_user = auth()->user();
         
     </div>
     <script>
+        const naira = (value) => {
+            return "₦" +
+                parseFloat(value).toLocaleString()
+        }
         const ROUTE_BASENAME = "admin"
         const PUBLIC_PATH = "{{ asset('transcorp')}}"
         const IMG_PATH = "{{ asset('images/')}}"

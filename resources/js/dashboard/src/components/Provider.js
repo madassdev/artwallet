@@ -28,7 +28,15 @@ function Provider(props) {
         <Switch>
             <Route exact path={path}>
                 <div>
-                    <h2 onClick={() => props.openCreateModal()}>Providers</h2>
+                    <div className="flex items-center justify-between w-full my-3">
+                        <h2 className="font-bold">Plans</h2>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => props.openCreateModal()}
+                        >
+                            <i className="mdi mdi-plus mr-1"></i>Create Provider
+                        </button>
+                    </div>
                     <table className="table table-tranx">
                         <thead>
                             <tr className="tb-tnx-head">

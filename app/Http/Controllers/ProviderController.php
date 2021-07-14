@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProviderController extends Controller
 {
@@ -25,7 +26,9 @@ class ProviderController extends Controller
         $provider = Provider::create([
             'service_id' => $request->service_id,
             'title' => $request->title,
-            'description' => $request->description
+            'description' => $request->description,
+            "slug" => Str::slug($request->title),
+
         ]);
 
         $provider->load('plans', 'service');

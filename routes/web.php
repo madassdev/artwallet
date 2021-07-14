@@ -40,6 +40,7 @@ Route::post('/orders/transfer', 'OrderController@transfer');
 Route::post('/orders/cable-tv', 'OrderController@cableTv');
 Route::post('/orders/electricity', 'OrderController@electricity');
 Route::resource('providers', 'ProviderController')->middleware('auth');
+Route::resource('plans', 'PlanController')->middleware('auth');
 Route::resource('payments', 'PaymentController')->middleware('auth');
 
 // Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {

@@ -11,6 +11,10 @@ class Plan extends Model
 
     // protected $with = ['provider'];
 
+    protected $fillable = [
+        'provider_id', 'title', 'description', 'price', 'min_price', 'max_price', 'slug'
+    ];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

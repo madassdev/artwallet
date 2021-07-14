@@ -10,7 +10,7 @@ class Provider extends Model
     use HasFactory;
 
     protected $fillable = [
-        'service_id', 'title', 'description'
+        'service_id', 'title', 'description', 'slug'
     ];
     // protected $with = ['service'];
 

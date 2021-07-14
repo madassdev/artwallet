@@ -17,6 +17,13 @@ export const getCableTvProviders = (providers) => {
     return dataProviders
 };
 
+export const getProviderById = (id, providers) => {
+    const provider = providers?.find((p) =>{
+         return p.id == id
+        })
+    return provider
+}
+
 const providerReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case providerActions.PROVIDERS_FETCHING:

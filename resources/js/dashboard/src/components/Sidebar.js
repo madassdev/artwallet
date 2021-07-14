@@ -86,7 +86,6 @@ function Sidebar() {
                                     Dashboards
                                 </h6>
                             </li> */}
-
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/"}
@@ -166,6 +165,21 @@ function Sidebar() {
                                     </li>
                                 </ul>
                             </li>
+
+                            <li className="nk-menu-item">
+                                <NavLink
+                                    to={"/buy/airtime"}
+                                    activeClassName="nav-active"
+                                    className="nk-menu-link"
+                                >
+                                    <span className="nk-menu-icon">
+                                        <i className="mdi mdi-phone"></i>{" "}
+                                    </span>
+                                    <span className="nk-menu-text">
+                                        Airtime
+                                    </span>
+                                </NavLink>
+                            </li>
                             <li className="nk-menu-item has-sub">
                                 <a
                                     href="#"
@@ -231,8 +245,6 @@ function Sidebar() {
                                     </li>
                                 </ul>
                             </li>
-
-                            
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/transactions"}

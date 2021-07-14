@@ -71,3 +71,21 @@ export const deleteProvider = (provider) => {
             .catch((error) => dispatch(setFetchFailed(error)));
     };
 };
+
+export const deleteProviderPlan = (plan) => {
+    return (dispatch) => {
+        axios
+            .delete(`/plans/${plan.id}`)
+            .then((response) => {
+                // console.log(response.data.data)
+                dispatch({
+                    type: "DELETE_PROVIDER_PLAN",
+                    payload: plan,
+                });
+                dispatch({
+                    type: "CLOSE_MODAL",
+                });
+            })
+            .catch((error) => dispatch(setFetchFailed(error)));
+    };
+};
