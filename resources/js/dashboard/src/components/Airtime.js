@@ -6,21 +6,23 @@ import { getAirtimePlans } from "../reducers/planReducer";
 import ProviderPlans from "./ProviderPlans";
 import BalanceCard from "./BalanceCard";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Airtime(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [amount, setAmount] = useState("");
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
-    const [plan, setPlan] = useState()
+    const [plan, setPlan] = useState();
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
+    const [pin, setPin] = useState("");
 
     const handlePlanSelected = (e) => {
         setSelectedPlan(e.target.value);
         const plan_id = e.target.value;
         const plan_object = props.plans.find((p) => p.id == plan_id);
-        setPlan(plan_object)
+        setPlan(plan_object);
     };
 
     const handleProceed = (e) => {
@@ -51,6 +53,11 @@ function Airtime(props) {
             console.log("insufficient balance");
         }
 
+        if (pin.length !== 4) {
+            alert("Please enter 4 digit PIN");
+            return;
+        }
+
         if (!selectedPlan) {
             alert("Please select a provider first");
             return;
@@ -74,6 +81,7 @@ function Airtime(props) {
             .post("/orders", {
                 plan_id: selectedPlan,
                 type: "airtime",
+                pin,
                 amount,
                 destination,
             })
@@ -82,12 +90,19 @@ function Airtime(props) {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
                 props.addTransaction(res.data.data.transaction);
-                setTransactionComplete(true)
+                toast.success(res.data.message, {
+                    position: "bottom-center",
+                });
+                setTransactionComplete(true);
             })
             .catch((err) => {
-                console.log(err);
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "bottom-center",
+                    });
+                }
                 setIsPaying(false);
-                console.log(err.message);
             });
     };
 
@@ -150,44 +165,73 @@ function Airtime(props) {
                                         {parseFloat(amount).toLocaleString()}
                                     </p>
                                 </div>
-                                <div className="w-full">
-                                    {isPaying ? (
-                                        <button
-                                            onClick={paymentDone}
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
+                                <form autoComplete="off">
+                                    <div className="form-group flex flex-col space-y-1">
+                                        <p className="font-bold">PIN</p>
+
+                                        <div className="form-control-wrap">
+                                            <a
+                                                className="form-icon form-icon-right passcode-switch lg"
+                                                data-target="pin"
                                             >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn btn-primary btn-block font-bold"
-                                            onClick={handlePaymentClicked}
+                                                <em className="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em className="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                            <input
+                                                type="password"
+                                                name="pin"
+                                                className="w-full rounded border-gray-300"
+                                                value={pin}
+                                                onChange={(e) =>
+                                                    setPin(e.target.value)
+                                                }
+                                                id="pin"
+                                                maxLength="4"
+                                                placeholder="Enter 4 digit PIN"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full">
+                                        {isPaying ? (
+                                            <button
+                                                onClick={paymentDone}
+                                                className="btn btn-light btn-block"
+                                                type="button"
+                                            >
+                                                <div
+                                                    className="spinner-border-sm spinner-border text-primary"
+                                                    role="status"
+                                                >
+                                                    {/* <span class="sr-only">Loading...</span> */}
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-primary btn-block font-bold"
+                                                onClick={handlePaymentClicked}
+                                            >
+                                                Pay &#x20A6;
+                                                {parseFloat(
+                                                    amount
+                                                ).toLocaleString()}
+                                            </button>
+                                        )}
+                                        <p
+                                            onClick={() => setIsReady(false)}
+                                            className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
                                         >
-                                            Pay &#x20A6;
-                                            {parseFloat(
-                                                amount
-                                            ).toLocaleString()}
-                                        </button>
-                                    )}
-                                    <p
-                                        onClick={() => setIsReady(false)}
-                                        className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
-                                    >
-                                        {"<<"} Go back
-                                    </p>
-                                </div>
+                                            {"<<"} Go back
+                                        </p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     ) : (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
-                                <p className="font-bold">Select Airtime Provider</p>
+                                <p className="font-bold">
+                                    Select Airtime Provider
+                                </p>
                                 <select
                                     className="w-full rounded border-gray-300"
                                     value={selectedPlan}

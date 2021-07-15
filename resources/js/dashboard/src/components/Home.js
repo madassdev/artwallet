@@ -57,8 +57,8 @@ function Home(props) {
                             </td>
                             <td className="tb-odr-amount">
                                 <span className="tb-odr-total">
-                                    <span className="amount font-bold text-lg text-gray-600">
-                                        &#x20A6;{t.amount}
+                                    <span className="amount font-bold text-gray-600">
+                                        {naira(t.amount)}
                                     </span>
                                 </span>
                                 <span className="tb-odr-status">

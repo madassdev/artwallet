@@ -5,6 +5,7 @@ import styled from "styled-components";
 import BalanceCard from "./BalanceCard";
 import axios from "axios";
 import { getCableTvProviders } from "../reducers/providerReducer";
+import toast from "react-hot-toast";
 
 function CableTv(props) {
     const [selectedProvider, setSelectedProvider] = useState(-1);
@@ -14,13 +15,14 @@ function CableTv(props) {
     const [destination, setDestination] = useState("");
     const [isPaying, setIsPaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
-    const [plan, setPlan] = useState()
+    const [plan, setPlan] = useState();
     const [transactionComplete, setTransactionComplete] = useState(false);
+    const [pin, setPin] = useState("");
 
     const handlePlanSelected = (e) => {
         const plan_id = e.target.value;
         const plan_object = props.plans.find((p) => p.id == plan_id);
-        setPlan(plan_object)
+        setPlan(plan_object);
         setSelectedPlan(plan_object.id);
         setAmount(plan_object.price);
         // console.log(amt);
@@ -65,6 +67,11 @@ function CableTv(props) {
             return;
         }
 
+        if (pin.length !== 4) {
+            alert("Please enter 4 digit PIN");
+            return;
+        }
+
         if (!selectedProvider) {
             alert("Please select a Provider first");
             return;
@@ -88,19 +95,27 @@ function CableTv(props) {
             .post("/orders/cable-tv", {
                 plan_id: selectedPlan,
                 type: "cable-tv",
+                pin,
                 destination,
             })
             .then((res) => {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
                 props.addTransaction(res.data.data.transaction);
+                toast.success(res.data.message, {
+                    position: "bottom-center",
+                });
                 setTransactionComplete(true);
                 // props.paymentSuccess();
             })
             .catch((err) => {
-                console.log(err);
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "bottom-center",
+                    });
+                }
                 setIsPaying(false);
-                console.log(err.message);
             });
     };
 
@@ -163,44 +178,73 @@ function CableTv(props) {
                                         {parseFloat(amount).toLocaleString()}
                                     </p>
                                 </div>
-                                <div className="w-full">
-                                    {isPaying ? (
-                                        <button
-                                            onClick={paymentDone}
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
+                                <form autoComplete="off">
+                                    <div className="form-group flex flex-col space-y-1">
+                                        <p className="font-bold">PIN</p>
+
+                                        <div className="form-control-wrap">
+                                            <a
+                                                className="form-icon form-icon-right passcode-switch lg"
+                                                data-target="pin"
                                             >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn btn-primary btn-block font-bold"
-                                            onClick={handlePaymentClicked}
+                                                <em className="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em className="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                            <input
+                                                type="password"
+                                                name="pin"
+                                                className="w-full rounded border-gray-300"
+                                                value={pin}
+                                                onChange={(e) =>
+                                                    setPin(e.target.value)
+                                                }
+                                                id="pin"
+                                                maxLength="4"
+                                                placeholder="Enter 4 digit PIN"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full">
+                                        {isPaying ? (
+                                            <button
+                                                onClick={paymentDone}
+                                                className="btn btn-light btn-block"
+                                                type="button"
+                                            >
+                                                <div
+                                                    className="spinner-border-sm spinner-border text-primary"
+                                                    role="status"
+                                                >
+                                                    {/* <span class="sr-only">Loading...</span> */}
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-primary btn-block font-bold"
+                                                onClick={handlePaymentClicked}
+                                            >
+                                                Pay &#x20A6;
+                                                {parseFloat(
+                                                    amount
+                                                ).toLocaleString()}
+                                            </button>
+                                        )}
+                                        <p
+                                            onClick={() => setIsReady(false)}
+                                            className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
                                         >
-                                            Pay &#x20A6;
-                                            {parseFloat(
-                                                amount
-                                            ).toLocaleString()}
-                                        </button>
-                                    )}
-                                    <p
-                                        onClick={() => setIsReady(false)}
-                                        className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
-                                    >
-                                        {"<<"} Go back
-                                    </p>
-                                </div>
+                                            {"<<"} Go back
+                                        </p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     ) : (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
-                                <p className="font-bold">Select Cable Tv Provider</p>
+                                <p className="font-bold">
+                                    Select Cable Tv Provider
+                                </p>
                                 <select
                                     name="provider"
                                     className="w-full rounded border-gray-300"

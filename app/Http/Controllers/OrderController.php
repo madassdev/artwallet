@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
@@ -18,13 +19,21 @@ class OrderController extends Controller
             "destination" => 'required'
         ]);
         $user = auth()->user();
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
         $plan = Plan::findOrFail($request->plan_id);
         $amount = 0;
         if ($request->type === "data") {
             if ($user->balance < $plan->price) {
                 return response()->json([
                     "success" => false,
-                    "message" => "User does no have enough balance to purchase this plan"
+                    "message" => "User does not have enough balance to purchase this plan"
                 ], 403);
             }
             $amount = $plan->price;
@@ -33,7 +42,7 @@ class OrderController extends Controller
             if ($user->balance < $request->amount) {
                 return response()->json([
                     "success" => false,
-                    "message" => "User does no have enough balance to purchase this amount"
+                    "message" => "User does not have enough balance to purchase this amount"
                 ], 403);
             }
             $amount = $request->amount;
@@ -70,20 +79,30 @@ class OrderController extends Controller
 
     public function electricity(Request $request)
     {
+        $user = auth()->user();
         $request->validate([
             'type' => "required|in:electricity",
             'amount' => 'required|numeric|min:0',
             "plan_id" => 'required|exists:plans,id',
             "destination" => 'required'
         ]);
-        $user = auth()->user();
+
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
+
         $plan = Plan::findOrFail($request->plan_id);
         $amount = 0;
 
         if ($user->balance < $request->amount) {
             return response()->json([
                 "success" => false,
-                "message" => "User does no have enough balance to purchase this amount"
+                "message" => "User does not have enough balance to purchase this amount"
             ], 403);
         }
         $amount = $request->amount;
@@ -124,15 +143,32 @@ class OrderController extends Controller
         $request->validate([
             'type' => "required|in:transfer",
             'amount' => 'required|numeric|min:0',
-            "recipient" => 'required|exists:users,mobile'
+            "recipient" => 'required'
         ]);
+
+
         $recipient = User::whereMobile($request->recipient)->first();
+        if (!$recipient) {
+            return response()->json([
+                "success" => false,
+                "message" => "Recipient Not Found",
+                "code" => "RECIPIENT_NOT_FOUND"
+            ], 403);
+        }
         // return $recipient;
         $user = auth()->user();
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
         // if ($user->balance < $request->amount) {
         //     return response()->json([
         //         "success" => false,
-        //         "message" => "User does no have enough balance to purchase this amount"
+        //         "message" => "User does not have enough balance to purchase this amount"
         //     ], 403);
         // }
         $amount = $request->amount;
@@ -168,12 +204,20 @@ class OrderController extends Controller
             "destination" => 'required'
         ]);
         $user = auth()->user();
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
         $plan = Plan::findOrFail($request->plan_id);
         $amount = 0;
         if ($user->balance < $plan->price) {
             return response()->json([
                 "success" => false,
-                "message" => "User does no have enough balance to purchase this plan"
+                "message" => "User does not have enough balance to purchase this plan"
             ], 403);
         }
         $amount = $plan->price;

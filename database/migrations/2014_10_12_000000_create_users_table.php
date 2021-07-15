@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('otp')->nullable();
             $table->datetime('otp_requested_at')->nullable();
+            $table->boolean('pin_set')->default(false);
+            $table->string('pin')->default(bcrypt("0000"));
+            $table->timestamp('pin_updated_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

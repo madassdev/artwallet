@@ -13,6 +13,7 @@ import AdminRoute from "./AdminRoute";
 import { connect } from "react-redux";
 import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 import Settings from "./components/Settings";
+import { Toaster } from "react-hot-toast";
 
 function App(props) {
     useEffect(() => {
@@ -54,9 +55,10 @@ function App(props) {
                         <h2>Withdrawals</h2>
                     </Route>
                     <Route path="/settings">
-                        <Settings/>
+                        <Settings />
                     </Route>
                 </Switch>
+                <Toaster />
             </Layout>
             <Modal
                 show={props.modal.show}
@@ -85,15 +87,15 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "SET_USER",
                 user: AUTH_USER,
-            })
+            });
             // ,
             dispatch(setServices(APP_SERVICES.services));
             dispatch(setProviders(APP_SERVICES.providers));
             dispatch(setPlans(APP_SERVICES.plans));
             dispatch({
                 type: "SET_TRANSACTIONS",
-                transactions: APP_TRANSACTIONS
-            })
+                transactions: APP_TRANSACTIONS,
+            });
         },
         closeModal: () =>
             dispatch({

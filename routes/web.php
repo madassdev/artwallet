@@ -27,6 +27,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth',]], function () {
     )->where(['all' => '.*']);
 });
 
+Route::group(['prefix' => 'auth', 'middleware' =>[ 'auth',]], function () {
+    Route::post('update-pin', 'DashboardController@updatePin');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
     Route::any(
         '{all?}',

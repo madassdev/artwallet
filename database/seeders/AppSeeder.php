@@ -28,6 +28,7 @@ class AppSeeder extends Seeder
                 "mobile" => "08088008808",
                 "balance" => 200,
                 "password" => bcrypt("password"),
+                "pin" => bcrypt("1122")
             ],
             [
                 "name" => "User",
@@ -36,6 +37,7 @@ class AppSeeder extends Seeder
                 "mobile" => "08088008808",
                 "balance" => 0,
                 "password" => bcrypt("password"),
+                "pin" => bcrypt("1122")
             ],
             [
                 "name" => "Level 1",
@@ -44,6 +46,7 @@ class AppSeeder extends Seeder
                 "mobile" => "08088008808",
                 "balance" => 100,
                 "password" => bcrypt("password"),
+                "pin" => bcrypt("1122")
             ],
             [
                 "name" => "Level 2",
@@ -52,6 +55,7 @@ class AppSeeder extends Seeder
                 "mobile" => "08088008808",
                 "balance" => 100,
                 "password" => bcrypt("password"),
+                "pin" => bcrypt("1122")
             ],
         ];
 

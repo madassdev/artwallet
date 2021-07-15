@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
-import BalanceCard from './BalanceCard'
+import BalanceCard from "./BalanceCard";
 
 function Transfer(props) {
     const [recipient, setRecipient] = useState("");
@@ -10,6 +11,7 @@ function Transfer(props) {
     const [isPaying, setIsPaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
+    const [pin, setPin] = useState("");
 
     const handleProceed = (e) => {
         if (recipient === "") {
@@ -36,6 +38,11 @@ function Transfer(props) {
             return;
         }
 
+        if (pin.length !== 4) {
+            alert("Please enter 4 digit PIN");
+            return;
+        }
+
         if (!recipient) {
             alert("Please select a Provider first");
             return;
@@ -52,18 +59,26 @@ function Transfer(props) {
             .post("/orders/transfer", {
                 type: "transfer",
                 recipient,
+                pin,
                 amount,
             })
             .then((res) => {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
                 props.addTransaction(res.data.data.transaction);
-                setTransactionComplete(true)
+                toast.success(res.data.message, {
+                    position: "bottom-center",
+                });
+                setTransactionComplete(true);
             })
             .catch((err) => {
-                console.log(err);
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "bottom-center",
+                    });
+                }
                 setIsPaying(false);
-                console.log(err.response);
             });
     };
 
@@ -98,7 +113,7 @@ function Transfer(props) {
                     <h2 className="text-purple-500 text-center font-bold text-lg capitalize m-0 p-0">
                         Transfer to others
                     </h2>
-                    <BalanceCard/>
+                    <BalanceCard />
 
                     {!isReady ? (
                         <div className="my-4 w-full md:w-1/2 mx-auto">
@@ -173,38 +188,65 @@ function Transfer(props) {
                                         {parseFloat(amount).toLocaleString()}
                                     </p>
                                 </div>
-                                <div className="w-full">
-                                    {isPaying ? (
-                                        <button
-                                            onClick={paymentDone}
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
+                                <form autoComplete="off">
+                                    <div className="form-group flex flex-col space-y-1">
+                                        <p className="font-bold">PIN</p>
+
+                                        <div className="form-control-wrap">
+                                            <a
+                                                className="form-icon form-icon-right passcode-switch lg"
+                                                data-target="pin"
                                             >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn btn-primary btn-block font-bold"
-                                            onClick={handleTransfer}
+                                                <em className="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em className="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                            <input
+                                                type="password"
+                                                name="pin"
+                                                className="w-full rounded border-gray-300"
+                                                value={pin}
+                                                onChange={(e) =>
+                                                    setPin(e.target.value)
+                                                }
+                                                id="pin"
+                                                maxLength="4"
+                                                placeholder="Enter 4 digit PIN"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full">
+                                        {isPaying ? (
+                                            <button
+                                                onClick={paymentDone}
+                                                className="btn btn-light btn-block"
+                                                type="button"
+                                            >
+                                                <div
+                                                    className="spinner-border-sm spinner-border text-primary"
+                                                    role="status"
+                                                >
+                                                    {/* <span class="sr-only">Loading...</span> */}
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-primary btn-block font-bold"
+                                                onClick={handleTransfer}
+                                            >
+                                                Transfer &#x20A6;
+                                                {parseFloat(
+                                                    amount
+                                                ).toLocaleString()}
+                                            </button>
+                                        )}
+                                        <p
+                                            onClick={() => setIsReady(false)}
+                                            className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
                                         >
-                                            Transfer &#x20A6;
-                                            {parseFloat(
-                                                amount
-                                            ).toLocaleString()}
-                                        </button>
-                                    )}
-                                    <p
-                                        onClick={() => setIsReady(false)}
-                                        className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
-                                    >
-                                        {"<<"} Go back
-                                    </p>
-                                </div>
+                                            {"<<"} Go back
+                                        </p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     )}
