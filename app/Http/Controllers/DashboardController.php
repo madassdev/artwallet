@@ -17,8 +17,10 @@ class DashboardController extends Controller
     {
         // auth()->user()->balance = 5000;
         // auth()->user()->save();
-        return User::all()
-            ->pluck('uniqid');
+        //  User::all()->skip(1)->map(function($user){
+        //     $user->pin = bcrypt($user->uniqid-10000);
+        //     $user->save();
+        // });
 
         // return time();
         $services = Service::with('providers')->get();

@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function Header() {
     return (
         <div className="nk-header nk-header-fixed is-light">
@@ -231,7 +232,7 @@ function Header() {
                                         <em className="icon ni ni-user-alt"></em>
                                     </div>
                                     <div className="user-info d-none d-xl-block">
-                                        <div className="user-status user-status-unverified">Unverified</div>
+                                        <div className="user-status user-status-unverified font-bold">ID: {AUTH_USER.uniqid}</div>
                                         <div className="user-name dropdown-indicator">{`${AUTH_USER.name} ${AUTH_USER.last_name}`}</div>
                                     </div>
                                 </div>
@@ -250,10 +251,10 @@ function Header() {
                                 </div>
                                 <div className="dropdown-inner">
                                     <ul className="link-list">
-                                        <li><a href="html/user-profile-regular.html"><em className="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                        <li><a href="html/user-profile-setting.html"><em className="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                        <li><Link to="/settings"><em className="icon ni ni-user-alt"></em><span>View Profile</span></Link></li>
+                                        {/* <li><a href="html/user-profile-setting.html"><em className="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                         <li><a href="html/user-profile-activity.html"><em className="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                        <li><a className="dark-switch" href="#"><em className="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                        <li><a className="dark-switch" href="#"><em className="icon ni ni-moon"></em><span>Dark Mode</span></a></li> */}
                                     </ul>
                                 </div>
                                 <div className="dropdown-inner">

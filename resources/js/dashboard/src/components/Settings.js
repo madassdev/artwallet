@@ -5,7 +5,7 @@ import PinInput from "./PinInput";
 import toast, { Toaster } from "react-hot-toast";
 
 function Settings(props) {
-    const [settingsTab, setSettingsTab] = useState("security");
+    const [settingsTab, setSettingsTab] = useState("profile");
     const [pin, setPin] = useState("");
     const [confirmPin, setConfirmPin] = useState("");
     const [oldPin, setOldPin] = useState("");

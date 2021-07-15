@@ -18,7 +18,7 @@ function Home(props) {
                         </p>
                     </div>
                     <div className="bg-white shadow-md rounded p-3 w-full md:w-60">
-                        Balance: {props.user?.balance}
+                        User ID: {props.user?.uniqid}
                     </div>
                 </div>
             </div>
