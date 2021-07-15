@@ -22,37 +22,41 @@ class AppSeeder extends Seeder
 
         $users = [
             [
+                "uniqid" => 15170,
                 "name" => "Admin",
                 "last_name" => "account",
                 "email" => "admin@app.dev",
-                "mobile" => "08088008808",
+                "mobile" => "08000000000",
                 "balance" => 200,
                 "password" => bcrypt("password"),
                 "pin" => bcrypt("1122")
             ],
             [
+                "uniqid" => 15171,
                 "name" => "User",
                 "last_name" => "account",
                 "email" => "user@app.dev",
-                "mobile" => "08088008808",
+                "mobile" => "08011111111",
                 "balance" => 0,
                 "password" => bcrypt("password"),
                 "pin" => bcrypt("1122")
             ],
             [
+                "uniqid" => 15172,
                 "name" => "Level 1",
                 "last_name" => "account",
                 "email" => "level1@app.dev",
-                "mobile" => "08088008808",
-                "balance" => 100,
+                "mobile" => "08022222222",
+                "balance" => 500,
                 "password" => bcrypt("password"),
                 "pin" => bcrypt("1122")
             ],
             [
+                "uniqid" => 15173,
                 "name" => "Level 2",
                 "last_name" => "account",
                 "email" => "level2@app.dev",
-                "mobile" => "08088008808",
+                "mobile" => "08033333333",
                 "balance" => 100,
                 "password" => bcrypt("password"),
                 "pin" => bcrypt("1122")

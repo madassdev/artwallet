@@ -20,6 +20,8 @@ class CreateTransactionsTable extends Migration
             $table->string('debitable_type');
             $table->unsignedBigInteger('creditable_id');
             $table->string('creditable_type');
+            $table->text('credit_data')->nullable();
+            $table->text('debit_data')->nullable();
             $table->decimal('amount', 12, 2)->default(0);
             $table->string('type')->default('balance-deposit');
             $table->string('status')->default('pending');

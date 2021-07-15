@@ -8,6 +8,7 @@ use App\Models\Plan;
 use App\Models\Provider;
 use App\Models\Service;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
@@ -16,9 +17,9 @@ class DashboardController extends Controller
     {
         // auth()->user()->balance = 5000;
         // auth()->user()->save();
-        // dd(auth()->user());
-        // return bcrypt($pin);
-        // return 
+        return User::all()
+            ->pluck('uniqid');
+
         // return time();
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();

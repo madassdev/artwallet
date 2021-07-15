@@ -61,6 +61,8 @@ class OrderController extends Controller
             "user_id" => $user->id,
             'creditable_id' => $order->id,
             'creditable_type' => Order::class,
+            'debit_data' => $user,
+            'credit_data' => $order->load('plan.provider.service'),
             'amount' => $order->amount,
             'type' => $request->type,
             'status' => 'complete',
@@ -121,6 +123,8 @@ class OrderController extends Controller
             'creditable_id' => $order->id,
             'creditable_type' => Order::class,
             'amount' => $order->amount,
+            'debit_data' => $user,
+            'credit_data' => $order->load('plan.provider.service'),
             'type' => $request->type,
             'status' => 'complete',
         ]);
@@ -181,10 +185,25 @@ class OrderController extends Controller
             "user_id" => $user->id,
             'creditable_id' => $recipient->id,
             'creditable_type' => User::class,
+            'debit_data' => $user,
+            'credit_data' => $recipient,
             'amount' => $request->amount,
             'type' => $request->type,
             'status' => 'complete',
         ]);
+
+        $recipient->credits()->create([
+            "user_id" => $recipient->id,
+            'debitable_id' => $user->id,
+            'debitable_type' => User::class,
+            'debit_data' => $user,
+            'credit_data' => $recipient,
+            'amount' => $request->amount,
+            'type' => 'credit',
+            'status' => 'complete',
+        ]);
+
+        // Send Mail
 
         return response()->json([
             "success" => true,
