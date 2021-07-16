@@ -7,6 +7,7 @@ import Service from "./components/Service";
 import Buy from "./components/Buy";
 import Provider from "./components/Provider";
 import Deposit from "./components/Deposit";
+import ProductDashboard from "./components/ProductDashboard";
 import SuccessPage from "./components/SuccessPage";
 import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
@@ -31,6 +32,9 @@ function App(props) {
                     </AdminRoute>
                     <AdminRoute path="/providers">
                         <Provider />
+                    </AdminRoute>
+                    <AdminRoute path="/products">
+                        <ProductDashboard />
                     </AdminRoute>
 
                     <Route path="/buy">

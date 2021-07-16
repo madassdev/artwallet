@@ -53,18 +53,247 @@ function Sidebar() {
                         <ul className="nk-menu">
                             {AUTH_USER.is_admin && (
                                 <>
+                                    <li className="nk-menu-heading">
+                                        <h6 className="overline-title text-primary-alt">
+                                            Admin Menu
+                                        </h6>
+                                    </li>
                                     <li className="nk-menu-item">
                                         <NavLink
-                                            to="/services"
+                                            to="/customers"
                                             className="nk-menu-link"
                                         >
                                             <span className="nk-menu-icon">
-                                                <em className="icon ni ni-cart-fill"></em>
+                                                <em className="mdi mdi-account-group"></em>
                                             </span>
                                             <span className="nk-menu-text">
-                                                Services
+                                                Customer Management
                                             </span>
                                         </NavLink>
+                                    </li>
+                                    <li className="nk-menu-item has-sub">
+                                        <a
+                                            href="#"
+                                            className="nk-menu-link nk-menu-toggle"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="icon mdi mdi-shield-home"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Product Management
+                                            </span>
+                                        </a>
+                                        <ul className="nk-menu-sub">
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/products/data"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Data Plans
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/products/airtime"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Airtime
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/products/cable-tv"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Cable Tv Plans
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/products/electricity"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Electricity Plans
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li className="nk-menu-item has-sub">
+                                        <a
+                                            href="#"
+                                            className="nk-menu-link nk-menu-toggle"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="mdi mdi-cash-multiple"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Sales Management
+                                            </span>
+                                        </a>
+                                        <ul className="nk-menu-sub">
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/sales/data"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Data Sales
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/sales/airtime"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Airtime Sales
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/sales/cable-tv"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Cable Tv Sales
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/sales/electricity"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        ELectricity Sales
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li className="nk-menu-item has-sub">
+                                        <a
+                                            href="#"
+                                            className="nk-menu-link nk-menu-toggle"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="mdi mdi-chart-gantt"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Activities and Transactions
+                                            </span>
+                                        </a>
+                                        <ul className="nk-menu-sub">
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/activities/profiles"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Customer Profiles
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/activities/credit-user"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Credit a User
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/activities/report"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        User Log report
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li className="nk-menu-item has-sub">
+                                        <a
+                                            href="#"
+                                            className="nk-menu-link nk-menu-toggle"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="mdi mdi-shield-account"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Admin Management
+                                            </span>
+                                        </a>
+                                        <ul className="nk-menu-sub">
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/admin/add"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Add Admin
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
+                                                    to="/admin/report"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Admin Transactions
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li className="nk-menu-item">
                                         <NavLink
@@ -81,11 +310,12 @@ function Sidebar() {
                                     </li>
                                 </>
                             )}
-                            {/* <li className="nk-menu-heading">
+                            
+                            <li className="nk-menu-heading">
                                 <h6 className="overline-title text-primary-alt">
-                                    Dashboards
+                                    User Menu
                                 </h6>
-                            </li> */}
+                            </li>
                             <li className="nk-menu-item">
                                 <NavLink
                                     to={"/"}
@@ -108,7 +338,7 @@ function Sidebar() {
                                     title=""
                                 >
                                     <span className="nk-menu-icon">
-                                        <em className="icon ni ni-wallet"></em>
+                                        <em className="mdi mdi-credit-card-outline"></em>
                                     </span>
                                     <span className="nk-menu-text">
                                         Payment
@@ -188,7 +418,7 @@ function Sidebar() {
                                     title=""
                                 >
                                     <span className="nk-menu-icon">
-                                        <em className="icon ni ni-cart"></em>
+                                        <em className="mdi mdi-wallet"></em>
                                     </span>
                                     <span className="nk-menu-text">
                                         Pay Bills

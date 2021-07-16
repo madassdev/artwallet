@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createPlan } from "../reducers/planReducer";
+import { updatePlan } from "../reducers/planReducer";
 
-function CreatePlan(props) {
+function EditPlan(props) {
+    
+    const [titleError, setTitleError] = useState(null);
+    const [title, setTitle] = useState(props.plan.title);
+    const [validity, setValidity] = useState(props.plan.validity ?? "");
+    const [price, setPrice] = useState(props.plan.price);
     const handleSubmit = (e) => {
         e.preventDefault();
         if (title === "") {
             setTitleError("error");
             return;
         } else {
-            setTitleError();
-            props.createPlan({
-                title: title,
-                provider_id,
+            props.updatePlan({
+                id: props.plan.id,
+                title,
                 price,
                 validity
             });
@@ -20,17 +24,12 @@ function CreatePlan(props) {
 
         // console.log(title);
     };
-    const [titleError, setTitleError] = useState(null);
-    const [title, setTitle] = useState("");
-    const [validity, setValidity] = useState("");
-    const [price, setPrice] = useState("");
-    const [provider_id, setProviderId] = useState(props.provider.id);
     return (
         <div className="w-full md:w-1/2 mx-auto">
             <form onSubmit={handleSubmit} className="flrx flex-col space-y-4">
                 <div className="form-group">
                     <h5 className="text-center font-bold text-lg">
-                        {props.provider.title}
+                        {props.plan.title}
                     </h5>
                 </div>
                 <div className="w-full">
@@ -79,7 +78,7 @@ function CreatePlan(props) {
                 </div>
 
                 <div className="w-full mt-2">
-                    {props.is_creating ? (
+                    {props.is_updating ? (
                         <button
                             className="btn btn-light float-right"
                             type="button"
@@ -93,7 +92,7 @@ function CreatePlan(props) {
                         </button>
                     ) : (
                         <button className="btn btn-primary float-right">
-                            Create
+                            Update
                         </button>
                     )}
                 </div>
@@ -104,14 +103,14 @@ function CreatePlan(props) {
 
 const mapStateToProps = (state) => {
     return {
-        is_creating: state.planState.is_creating,
+        is_updating: state.planState.is_updating,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createPlan: (plan) => dispatch(createPlan(plan)),
+        updatePlan: (plan) => dispatch(updatePlan(plan)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePlan);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPlan);

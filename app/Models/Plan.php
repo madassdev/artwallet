@@ -12,7 +12,7 @@ class Plan extends Model
     // protected $with = ['provider'];
 
     protected $fillable = [
-        'provider_id', 'title', 'description', 'price', 'min_price', 'max_price', 'slug'
+        'provider_id', 'title', 'description', 'price', 'min_price', 'max_price', 'slug', 'validity'
     ];
 
     public function provider()

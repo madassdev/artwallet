@@ -1,10 +1,12 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const INITIAL_STATE = {
     plans: [],
     airtimePlans: [],
     is_fetching: false,
     is_creating: false,
+    is_updating: false,
     fetch_failed: undefined,
 };
 
@@ -33,12 +35,14 @@ export const createPlan = (plan) => {
         axios
             .post("/plans", plan)
             .then((response) => {
-                console.log(response.data.data.provider);
+                toast.success(response.data.message, {
+                    position: "bottom-center",
+                });
                 dispatch({
                     type: "PLAN_CREATED",
                 });
                 dispatch({
-                    type: "SET_NEW_PROVIDER",
+                    type: "UPDATE_PROVIDER",
                     payload: response.data.data.provider,
                 });
                 dispatch({
@@ -54,22 +58,50 @@ export const createPlan = (plan) => {
     };
 };
 
-
-export const deletePlan = (provider) => {
+export const deletePlan = (plan) => {
     return (dispatch) => {
         axios
-            .delete(`${url}/${provider.id}`)
+            .delete(`/plans/${plan.id}`)
             .then((response) => {
-                // console.log(response.data.data)
+                toast.success(response.data.message, {
+                    position: "bottom-center",
+                });
                 dispatch({
-                    type: "DELETE_PROVIDER",
-                    payload: provider,
+                    type: "UPDATE_PROVIDER",
+                    payload: response.data.data.provider,
                 });
                 dispatch({
                     type: "CLOSE_MODAL",
                 });
             })
-            .catch((error) => dispatch(setFetchFailed(error)));
+            .catch((error) => console.log(error));
+    };
+};
+
+export const updatePlan = (plan) => {
+    console.log(plan);
+    return (dispatch) => {
+        dispatch({
+            type: "PLAN_UPDATING",
+        });
+        axios
+            .put(`/plans/${plan.id}`, plan)
+            .then((response) => {
+                toast.success(response.data.message, {
+                    position: "bottom-center",
+                });
+                dispatch({
+                    type: "UPDATE_PROVIDER",
+                    payload: response.data.data.provider,
+                });
+                dispatch({
+                    type: "PLAN_UPDATED",
+                });
+                dispatch({
+                    type: "CLOSE_MODAL",
+                });
+            })
+            .catch((error) => console.log(error));
     };
 };
 
@@ -106,6 +138,16 @@ const planReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 is_creating: true,
+            };
+        case "PLAN_UPDATING":
+            return {
+                ...state,
+                is_updating: true,
+            };
+        case "PLAN_UPDATED":
+            return {
+                ...state,
+                is_updating: false,
             };
         case "PLAN_CREATED":
             return {

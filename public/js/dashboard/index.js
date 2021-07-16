@@ -2825,8 +2825,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout */ "./resources/js/dashboard/src/components/Layout.js");
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Home */ "./resources/js/dashboard/src/components/Home.js");
 /* harmony import */ var _components_Payment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Payment */ "./resources/js/dashboard/src/components/Payment.js");
@@ -2834,14 +2834,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Buy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Buy */ "./resources/js/dashboard/src/components/Buy.js");
 /* harmony import */ var _components_Provider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Provider */ "./resources/js/dashboard/src/components/Provider.js");
 /* harmony import */ var _components_Deposit__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Deposit */ "./resources/js/dashboard/src/components/Deposit.js");
-/* harmony import */ var _components_SuccessPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/SuccessPage */ "./resources/js/dashboard/src/components/SuccessPage.js");
-/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/dashboard/src/components/Modal.js");
-/* harmony import */ var _AdminRoute__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AdminRoute */ "./resources/js/dashboard/src/AdminRoute.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_serviceActions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./actions/serviceActions */ "./resources/js/dashboard/src/actions/serviceActions.js");
-/* harmony import */ var _components_Settings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Settings */ "./resources/js/dashboard/src/components/Settings.js");
-/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-hot-toast */ "./node_modules/react-hot-toast/dist/react-hot-toast.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_ProductDashboard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ProductDashboard */ "./resources/js/dashboard/src/components/ProductDashboard.js");
+/* harmony import */ var _components_SuccessPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/SuccessPage */ "./resources/js/dashboard/src/components/SuccessPage.js");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/dashboard/src/components/Modal.js");
+/* harmony import */ var _AdminRoute__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./AdminRoute */ "./resources/js/dashboard/src/AdminRoute.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./actions/serviceActions */ "./resources/js/dashboard/src/actions/serviceActions.js");
+/* harmony import */ var _components_Settings__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Settings */ "./resources/js/dashboard/src/components/Settings.js");
+/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-hot-toast */ "./node_modules/react-hot-toast/dist/react-hot-toast.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -2865,53 +2867,56 @@ function App(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.init();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.BrowserRouter, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.BrowserRouter, {
     basename: ROUTE_BASENAME,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Switch, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Switch, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           exact: true,
           path: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_10__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/services",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_4__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_10__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_4__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/providers",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_6__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_6__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          path: "/products",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_ProductDashboard__WEBPACK_IMPORTED_MODULE_8__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/buy",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_5__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_5__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/deposit",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_7__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_7__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/payments",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Payment__WEBPACK_IMPORTED_MODULE_3__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Payment__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/history",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h2", {
             children: "History"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/successPage",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_8__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_9__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/transactions",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h2", {
             children: "Transactions"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/withdrawal",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h2", {
             children: "Withdrawals"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Route, {
           path: "/settings",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Settings__WEBPACK_IMPORTED_MODULE_13__.default, {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Settings__WEBPACK_IMPORTED_MODULE_14__.default, {})
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_17__.Toaster, {})]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_9__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_18__.Toaster, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_10__.default, {
       show: props.modal.show,
       header: props.modal.header,
       closeModal: function closeModal() {
@@ -2938,9 +2943,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         user: AUTH_USER
       }); // ,
 
-      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_12__.setServices)(APP_SERVICES.services));
-      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_12__.setProviders)(APP_SERVICES.providers));
-      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_12__.setPlans)(APP_SERVICES.plans));
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setServices)(APP_SERVICES.services));
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setProviders)(APP_SERVICES.providers));
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setPlans)(APP_SERVICES.plans));
       dispatch({
         type: "SET_TRANSACTIONS",
         transactions: APP_TRANSACTIONS
@@ -2954,7 +2959,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_11__.connect)(mapStateToProps, mapDispatchToProps)(App)); // export default App;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_12__.connect)(mapStateToProps, mapDispatchToProps)(App)); // export default App;
 
 /***/ }),
 
@@ -4400,6 +4405,190 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/components/CableTvManagement.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/CableTvManagement.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
+/* harmony import */ var _CreatePlan__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreatePlan */ "./resources/js/dashboard/src/components/CreatePlan.js");
+/* harmony import */ var _DeletePlan__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DeletePlan */ "./resources/js/dashboard/src/components/DeletePlan.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+
+function CableTvManagement(props) {
+  var _props$providers;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "w-full p-5 bg-white",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+      className: "font-bold text-lg text-primary text-center",
+      children: "Data Management"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "w-full flex items-center my-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "w-1/6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "font-bold text-lg text-center text-gray-600",
+          children: "Providers"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "w-5/6 px-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "font-bold text-lg text-center text-gray-600",
+          children: "Plans"
+        })
+      })]
+    }), (_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.map(function (provider) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "w-full flex items-center my-4 px-3 rounded shadow-sm border-gray-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "w-1/6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "p-3 rounded flex items-center justify-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+              className: "font-bold text-primary",
+              children: provider.title
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "w-5/6 px-5",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "grid grid-cols-4 w-full",
+            children: [provider.plans.map(function (plan) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "mx-auto py-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "w-24 h-24 shadow-sm rounded flex items-center justify-center flex-col",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                    className: "text-center text-sm uppercase",
+                    children: plan.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                    className: "font-bold text-primary",
+                    children: naira(plan.price)
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                    className: "dropdown",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                      className: "text-soft dropdown-toggle btn btn-icon btn-trigger",
+                      "data-toggle": "dropdown",
+                      "aria-expanded": "false",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("em", {
+                        className: "icon ni ni-more-h"
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                      className: "dropdown-menu dropdown-menu-right dropdown-menu-xs",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("ul", {
+                        className: "link-list-plain",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                            href: "#",
+                            children: "View"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                            href: "#",
+                            children: "Edit"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                            href: "#",
+                            onClick: function onClick(e) {
+                              e.preventDefault();
+                              props.deletePlan(plan);
+                            },
+                            children: "Delete"
+                          })
+                        })]
+                      })
+                    })]
+                  })]
+                })
+              }, plan.id);
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "mx-auto py-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex flex-col items-center cursor-pointer",
+                onClick: function onClick() {
+                  return props.openCreateModal(provider);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "h-12 w-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-700",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    className: "mdi mdi-plus text-2xl"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                  className: "text-center text-xs text-gray-400 mt-1",
+                  children: "Add plan"
+                })]
+              })
+            })]
+          })
+        })]
+      }, provider.id);
+    })]
+  });
+}
+
+var mapState = function mapState(state) {
+  return {
+    services: state.serviceState.services,
+    plans: state.planState.plans,
+    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__.getCableTvProviders)(state.providerState.providers)
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    openCreateModal: function openCreateModal(provider) {
+      dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CreatePlan__WEBPACK_IMPORTED_MODULE_3__.default, {
+            provider: provider
+          }),
+          header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+            children: "Create Plan"
+          })
+        }
+      });
+    },
+    deletePlan: function deletePlan(plan) {
+      dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_DeletePlan__WEBPACK_IMPORTED_MODULE_4__.default, {
+            plan: plan
+          }),
+          header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+            children: "Delete Provider"
+          })
+        }
+      });
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(CableTvManagement));
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/components/CreatePlan.js":
 /*!*************************************************************!*\
   !*** ./resources/js/dashboard/src/components/CreatePlan.js ***!
@@ -4436,7 +4625,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function CreatePlan(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(e);
 
     if (title === "") {
       setTitleError("error");
@@ -4446,7 +4634,8 @@ function CreatePlan(props) {
       props.createPlan({
         title: title,
         provider_id: provider_id,
-        price: price
+        price: price,
+        validity: validity
       });
     } // console.log(title);
 
@@ -4464,13 +4653,18 @@ function CreatePlan(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      price = _useState6[0],
-      setPrice = _useState6[1];
+      validity = _useState6[0],
+      setValidity = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.provider.id),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      provider_id = _useState8[0],
-      setProviderId = _useState8[1];
+      price = _useState8[0],
+      setPrice = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.provider.id),
+      _useState10 = _slicedToArray(_useState9, 2),
+      provider_id = _useState10[0],
+      setProviderId = _useState10[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "w-full md:w-1/2 mx-auto",
@@ -4496,7 +4690,7 @@ function CreatePlan(props) {
           onChange: function onChange(e) {
             return setTitle(e.target.value);
           },
-          placeholder: "Enter title eg MTN Data"
+          placeholder: "Enter title eg 1GB"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "w-full",
@@ -4512,6 +4706,20 @@ function CreatePlan(props) {
             return setPrice(e.target.value);
           },
           placeholder: "Enter plan price"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Validity"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          className: "form-control w-full rounded border " + titleError || 0,
+          value: validity,
+          onChange: function onChange(e) {
+            return setValidity(e.target.value);
+          },
+          placeholder: "Enter validity eg 14 days"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "w-full mt-2",
@@ -5136,6 +5344,305 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/components/DataManagement.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/DataManagement.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/providerReducer */ "./resources/js/dashboard/src/reducers/providerReducer.js");
+/* harmony import */ var _CreatePlan__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreatePlan */ "./resources/js/dashboard/src/components/CreatePlan.js");
+/* harmony import */ var _DeletePlan__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DeletePlan */ "./resources/js/dashboard/src/components/DeletePlan.js");
+/* harmony import */ var _EditPlan__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EditPlan */ "./resources/js/dashboard/src/components/EditPlan.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+
+
+function DataManagement(props) {
+  var _props$providers;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "w-full p-5 bg-white",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+      className: "font-bold text-lg text-primary text-center",
+      children: "Data Management"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "w-full flex items-center my-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "w-1/6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+          className: "font-bold text-lg text-center text-gray-600",
+          children: "Providers"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "w-5/6 px-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+          className: "font-bold text-lg text-center text-gray-600",
+          children: "Plans"
+        })
+      })]
+    }), (_props$providers = props.providers) === null || _props$providers === void 0 ? void 0 : _props$providers.map(function (provider) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "w-full flex items-center my-4 px-3 rounded shadow-sm border-gray-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-1/6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "p-3 rounded flex items-center justify-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "font-bold text-primary",
+              children: provider.title
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-5/6 px-5",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "grid grid-cols-4 w-full",
+            children: [provider.plans.map(function (plan) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "mx-auto py-2",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                  className: "w-24 h-24 shadow-sm rounded flex items-center justify-center flex-col",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+                    className: "text-center text-sm uppercase",
+                    children: plan.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+                    className: "font-bold text-primary",
+                    children: naira(plan.price)
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                    className: "dropdown",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                      className: "text-soft dropdown-toggle btn btn-icon btn-trigger",
+                      "data-toggle": "dropdown",
+                      "aria-expanded": "false",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("em", {
+                        className: "icon ni ni-more-h"
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "dropdown-menu dropdown-menu-right dropdown-menu-xs",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
+                        className: "link-list-plain",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                            href: "#",
+                            children: "View"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                            href: "#",
+                            onClick: function onClick(e) {
+                              e.preventDefault();
+                              props.editPlan(plan);
+                            },
+                            children: "Edit"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                            href: "#",
+                            onClick: function onClick(e) {
+                              e.preventDefault();
+                              props.deletePlan(plan);
+                            },
+                            children: "Delete"
+                          })
+                        })]
+                      })
+                    })]
+                  })]
+                })
+              }, plan.id);
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mx-auto py-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                className: "flex flex-col items-center cursor-pointer",
+                onClick: function onClick() {
+                  return props.openCreateModal(provider);
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                  className: "h-12 w-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-700",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                    className: "mdi mdi-plus text-2xl"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+                  className: "text-center text-xs text-gray-400 mt-1",
+                  children: "Add plan"
+                })]
+              })
+            })]
+          })
+        })]
+      }, provider.id);
+    })]
+  });
+}
+
+var mapState = function mapState(state) {
+  return {
+    services: state.serviceState.services,
+    plans: state.planState.plans,
+    providers: (0,_reducers_providerReducer__WEBPACK_IMPORTED_MODULE_2__.getDataProviders)(state.providerState.providers)
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    openCreateModal: function openCreateModal(provider) {
+      dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_CreatePlan__WEBPACK_IMPORTED_MODULE_3__.default, {
+            provider: provider
+          }),
+          header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+            children: "Create Plan"
+          })
+        }
+      });
+    },
+    editPlan: function editPlan(plan) {
+      dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_EditPlan__WEBPACK_IMPORTED_MODULE_5__.default, {
+            plan: plan
+          }),
+          header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+            children: "Edit Plan"
+          })
+        }
+      });
+    },
+    deletePlan: function deletePlan(plan) {
+      dispatch({
+        type: "OPEN_MODAL",
+        modal: {
+          show: 1,
+          content: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_DeletePlan__WEBPACK_IMPORTED_MODULE_4__.default, {
+            plan: plan
+          }),
+          header: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+            children: "Delete Plan"
+          })
+        }
+      });
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(DataManagement));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/DeletePlan.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/DeletePlan.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/planReducer */ "./resources/js/dashboard/src/reducers/planReducer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function DeletePlan(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isDeleting = _useState2[0],
+      setIsDeleting = _useState2[1];
+
+  var deletePlan = function deletePlan(e) {
+    setIsDeleting(true);
+    props.deletePlan(props.plan);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "p-1 text-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h5", {
+        className: "",
+        children: ["Are you sure you want to delete", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "text-danger ml-2",
+          children: props.plan.title
+        }), "?"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("small", {
+        className: "text-muted text-sm",
+        children: "Action cannot be reversed"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "p-3 d-flex justify-content-between align-items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "btn btn-light",
+        children: "Cancel"
+      }), isDeleting ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "btn btn-light",
+        type: "button",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "spinner-border-sm spinner-border text-primary",
+          role: "status"
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "btn btn-danger",
+        onClick: deletePlan,
+        children: "Delete"
+      })]
+    })]
+  });
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    deletePlan: function deletePlan(plan) {
+      dispatch((0,_reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__.deletePlan)(plan));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(DeletePlan));
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/components/DeleteProvider.js":
 /*!*****************************************************************!*\
   !*** ./resources/js/dashboard/src/components/DeleteProvider.js ***!
@@ -5339,6 +5846,170 @@ var mapDispatch = function mapDispatch(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_3__.connect)(mapState, mapDispatch)(Deposit));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/EditPlan.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/dashboard/src/components/EditPlan.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/planReducer */ "./resources/js/dashboard/src/reducers/planReducer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+function EditPlan(props) {
+  var _props$plan$validity;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      titleError = _useState2[0],
+      setTitleError = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.plan.title),
+      _useState4 = _slicedToArray(_useState3, 2),
+      title = _useState4[0],
+      setTitle = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((_props$plan$validity = props.plan.validity) !== null && _props$plan$validity !== void 0 ? _props$plan$validity : ""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      validity = _useState6[0],
+      setValidity = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.plan.price),
+      _useState8 = _slicedToArray(_useState7, 2),
+      price = _useState8[0],
+      setPrice = _useState8[1];
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+
+    if (title === "") {
+      setTitleError("error");
+      return;
+    } else {
+      props.updatePlan({
+        id: props.plan.id,
+        title: title,
+        price: price,
+        validity: validity
+      });
+    } // console.log(title);
+
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "w-full md:w-1/2 mx-auto",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      className: "flrx flex-col space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "form-group",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
+          className: "text-center font-bold text-lg",
+          children: props.plan.title
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Title"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          className: "form-control w-full rounded border " + titleError || 0,
+          value: title,
+          required: true,
+          onChange: function onChange(e) {
+            return setTitle(e.target.value);
+          },
+          placeholder: "Enter title eg 1GB"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Price"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "number",
+          className: "form-control w-full rounded border " + titleError || 0,
+          value: price,
+          required: true,
+          onChange: function onChange(e) {
+            return setPrice(e.target.value);
+          },
+          placeholder: "Enter plan price"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Validity"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          className: "form-control w-full rounded border " + titleError || 0,
+          value: validity,
+          onChange: function onChange(e) {
+            return setValidity(e.target.value);
+          },
+          placeholder: "Enter validity eg 14 days"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "w-full mt-2",
+        children: props.is_updating ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn btn-light float-right",
+          type: "button",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "spinner-border-sm spinner-border text-primary",
+            role: "status"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "btn btn-primary float-right",
+          children: "Update"
+        })
+      })]
+    })
+  });
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    is_updating: state.planState.is_updating
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updatePlan: function updatePlan(plan) {
+      return dispatch((0,_reducers_planReducer__WEBPACK_IMPORTED_MODULE_2__.updatePlan)(plan));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(EditPlan));
 
 /***/ }),
 
@@ -6780,6 +7451,63 @@ function PinInput(props) {
 
 /***/ }),
 
+/***/ "./resources/js/dashboard/src/components/ProductDashboard.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/ProductDashboard.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _DataManagement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DataManagement */ "./resources/js/dashboard/src/components/DataManagement.js");
+/* harmony import */ var _CableTvManagement__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CableTvManagement */ "./resources/js/dashboard/src/components/CableTvManagement.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+function ProductDashboard(props) {
+  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useRouteMatch)(),
+      path = _useRouteMatch.path,
+      url = _useRouteMatch.url;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+      exact: true,
+      path: path,
+      children: "Product Dashboard"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+      path: "".concat(path, "/data"),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_DataManagement__WEBPACK_IMPORTED_MODULE_2__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+      path: "".concat(path, "/cable-tv"),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CableTvManagement__WEBPACK_IMPORTED_MODULE_3__.default, {})
+    })]
+  });
+}
+
+var mapState = function mapState(state) {
+  return {};
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(ProductDashboard));
+
+/***/ }),
+
 /***/ "./resources/js/dashboard/src/components/Provider.js":
 /*!***********************************************************!*\
   !*** ./resources/js/dashboard/src/components/Provider.js ***!
@@ -7603,20 +8331,262 @@ function Sidebar() {
             className: "nk-menu",
             children: [AUTH_USER.is_admin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                className: "nk-menu-heading",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h6", {
+                  className: "overline-title text-primary-alt",
+                  children: "Admin Menu"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
                 className: "nk-menu-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
-                  to: "/services",
+                  to: "/customers",
                   className: "nk-menu-link",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                     className: "nk-menu-icon",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-                      className: "icon ni ni-cart-fill"
+                      className: "mdi mdi-account-group"
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                     className: "nk-menu-text",
-                    children: "Services"
+                    children: "Customer Management"
                   })]
                 })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+                className: "nk-menu-item has-sub",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+                  href: "#",
+                  className: "nk-menu-link nk-menu-toggle",
+                  "data-original-title": "",
+                  title: "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-icon",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                      className: "icon mdi mdi-shield-home"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-text",
+                    children: "Product Management"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+                  className: "nk-menu-sub",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/products/data",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Data Plans"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/products/airtime",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Airtime"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/products/cable-tv",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Cable Tv Plans"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/products/electricity",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Electricity Plans"
+                      })
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+                className: "nk-menu-item has-sub",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+                  href: "#",
+                  className: "nk-menu-link nk-menu-toggle",
+                  "data-original-title": "",
+                  title: "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-icon",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                      className: "mdi mdi-cash-multiple"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-text",
+                    children: "Sales Management"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+                  className: "nk-menu-sub",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/sales/data",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Data Sales"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/sales/airtime",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Airtime Sales"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/sales/cable-tv",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Cable Tv Sales"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/sales/electricity",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "ELectricity Sales"
+                      })
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+                className: "nk-menu-item has-sub",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+                  href: "#",
+                  className: "nk-menu-link nk-menu-toggle",
+                  "data-original-title": "",
+                  title: "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-icon",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                      className: "mdi mdi-chart-gantt"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-text",
+                    children: "Activities and Transactions"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+                  className: "nk-menu-sub",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/activities/profiles",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Customer Profiles"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/activities/credit-user",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Credit a User"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/activities/report",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "User Log report"
+                      })
+                    })
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+                className: "nk-menu-item has-sub",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+                  href: "#",
+                  className: "nk-menu-link nk-menu-toggle",
+                  "data-original-title": "",
+                  title: "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-icon",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+                      className: "mdi mdi-shield-account"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "nk-menu-text",
+                    children: "Admin Management"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+                  className: "nk-menu-sub",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/admin/add",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Add Admin"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                    className: "nk-menu-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                      to: "/admin/report",
+                      className: "nk-menu-link",
+                      "data-original-title": "",
+                      title: "",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "nk-menu-text",
+                        children: "Admin Transactions"
+                      })
+                    })
+                  })]
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
                 className: "nk-menu-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
@@ -7633,6 +8603,12 @@ function Sidebar() {
                   })]
                 })
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nk-menu-heading",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h6", {
+                className: "overline-title text-primary-alt",
+                children: "User Menu"
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
               className: "nk-menu-item",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
@@ -7659,7 +8635,7 @@ function Sidebar() {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-icon",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-                    className: "icon ni ni-wallet"
+                    className: "mdi mdi-credit-card-outline"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-text",
@@ -7743,7 +8719,7 @@ function Sidebar() {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-icon",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-                    className: "icon ni ni-cart"
+                    className: "mdi mdi-wallet"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                   className: "nk-menu-text",
@@ -8530,10 +9506,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getAirtimePlans": () => (/* binding */ getAirtimePlans),
 /* harmony export */   "createPlan": () => (/* binding */ createPlan),
 /* harmony export */   "deletePlan": () => (/* binding */ deletePlan),
+/* harmony export */   "updatePlan": () => (/* binding */ updatePlan),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-hot-toast */ "./node_modules/react-hot-toast/dist/react-hot-toast.esm.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -8553,11 +9531,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
 var INITIAL_STATE = {
   plans: [],
   airtimePlans: [],
   is_fetching: false,
   is_creating: false,
+  is_updating: false,
   fetch_failed: undefined
 };
 var getElectricityPlans = function getElectricityPlans(plans) {
@@ -8581,12 +9561,14 @@ var createPlan = function createPlan(plan) {
       type: "PLAN_CREATING"
     });
     axios__WEBPACK_IMPORTED_MODULE_0___default().post("/plans", plan).then(function (response) {
-      console.log(response.data.data.provider);
+      react_hot_toast__WEBPACK_IMPORTED_MODULE_1__.default.success(response.data.message, {
+        position: "bottom-center"
+      });
       dispatch({
         type: "PLAN_CREATED"
       });
       dispatch({
-        type: "SET_NEW_PROVIDER",
+        type: "UPDATE_PROVIDER",
         payload: response.data.data.provider
       });
       dispatch({
@@ -8600,19 +9582,46 @@ var createPlan = function createPlan(plan) {
     });
   };
 };
-var deletePlan = function deletePlan(provider) {
+var deletePlan = function deletePlan(plan) {
   return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default().delete("".concat(url, "/").concat(provider.id)).then(function (response) {
-      // console.log(response.data.data)
+    axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/plans/".concat(plan.id)).then(function (response) {
+      react_hot_toast__WEBPACK_IMPORTED_MODULE_1__.default.success(response.data.message, {
+        position: "bottom-center"
+      });
       dispatch({
-        type: "DELETE_PROVIDER",
-        payload: provider
+        type: "UPDATE_PROVIDER",
+        payload: response.data.data.provider
       });
       dispatch({
         type: "CLOSE_MODAL"
       });
     })["catch"](function (error) {
-      return dispatch(setFetchFailed(error));
+      return console.log(error);
+    });
+  };
+};
+var updatePlan = function updatePlan(plan) {
+  console.log(plan);
+  return function (dispatch) {
+    dispatch({
+      type: "PLAN_UPDATING"
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().put("/plans/".concat(plan.id), plan).then(function (response) {
+      react_hot_toast__WEBPACK_IMPORTED_MODULE_1__.default.success(response.data.message, {
+        position: "bottom-center"
+      });
+      dispatch({
+        type: "UPDATE_PROVIDER",
+        payload: response.data.data.provider
+      });
+      dispatch({
+        type: "PLAN_UPDATED"
+      });
+      dispatch({
+        type: "CLOSE_MODAL"
+      });
+    })["catch"](function (error) {
+      return console.log(error);
     });
   };
 };
@@ -8659,6 +9668,16 @@ var planReducer = function planReducer() {
     case "PLAN_CREATING":
       return _objectSpread(_objectSpread({}, state), {}, {
         is_creating: true
+      });
+
+    case "PLAN_UPDATING":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        is_updating: true
+      });
+
+    case "PLAN_UPDATED":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        is_updating: false
       });
 
     case "PLAN_CREATED":
@@ -8781,16 +9800,28 @@ var providerReducer = function providerReducer() {
         return provider.id === action.payload.id;
       });
 
-      var newProviders = _toConsumableArray(state.providers);
+      var nnewProviders = _toConsumableArray(state.providers);
 
       if (index >= 0) {
-        newProviders.splice(index, 1);
+        nnewProviders.splice(index, 1);
       } else {
         console.warn("Not found in basket");
       }
 
       return _objectSpread(_objectSpread({}, state), {}, {
-        providers: newProviders
+        providers: [action.payload].concat(_toConsumableArray(newProviders))
+      });
+
+    case "UPDATE_PROVIDER":
+      var i = state.providers.findIndex(function (provider) {
+        return provider.id === action.payload.id;
+      });
+
+      var np = _toConsumableArray(state.providers);
+
+      np[i] = action.payload;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        providers: np
       });
 
     default:

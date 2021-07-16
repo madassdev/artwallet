@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,14 +22,14 @@ Route::get('/', function () {
     return view('front.index');
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth',]], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth', 'verified']], function () {
     Route::any(
         '{all?}',
         "DashboardController@index"
     )->where(['all' => '.*']);
 });
 
-Route::group(['prefix' => 'auth', 'middleware' =>[ 'auth',]], function () {
+Route::group(['prefix' => 'auth', 'middleware' =>[ 'auth', 'verified']], function () {
     Route::post('update-pin', 'DashboardController@updatePin');
 });
 
@@ -46,6 +48,23 @@ Route::post('/orders/electricity', 'OrderController@electricity');
 Route::resource('providers', 'ProviderController')->middleware('auth');
 Route::resource('plans', 'PlanController')->middleware('auth');
 Route::resource('payments', 'PaymentController')->middleware('auth');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
 
 // Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/', 'AdminController@index');

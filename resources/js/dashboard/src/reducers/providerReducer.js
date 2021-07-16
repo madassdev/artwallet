@@ -9,20 +9,22 @@ const INITIAL_STATE = {
 
 export const getDataProviders = (providers) => {
     const dataProviders = providers?.filter((p) => p.service.slug === "data");
-    return dataProviders
+    return dataProviders;
 };
 
 export const getCableTvProviders = (providers) => {
-    const dataProviders = providers?.filter((p) => p.service.slug === "cable-tv");
-    return dataProviders
+    const dataProviders = providers?.filter(
+        (p) => p.service.slug === "cable-tv"
+    );
+    return dataProviders;
 };
 
 export const getProviderById = (id, providers) => {
-    const provider = providers?.find((p) =>{
-         return p.id == id
-        })
-    return provider
-}
+    const provider = providers?.find((p) => {
+        return p.id == id;
+    });
+    return provider;
+};
 
 const providerReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -62,14 +64,23 @@ const providerReducer = (state = INITIAL_STATE, action) => {
             const index = state.providers.findIndex(
                 (provider) => provider.id === action.payload.id
             );
-            let newProviders = [...state.providers];
+            let nnewProviders = [...state.providers];
             if (index >= 0) {
-                newProviders.splice(index, 1);
+                nnewProviders.splice(index, 1);
             } else {
                 console.warn("Not found in basket");
             }
 
-            return { ...state, providers: newProviders };
+            return { ...state, providers: [action.payload, ...newProviders] };
+        case "UPDATE_PROVIDER":
+            const i = state.providers.findIndex(
+                (provider) => provider.id === action.payload.id
+            );
+
+            const np = [...state.providers];
+            np[i] = action.payload;
+
+            return { ...state, providers: np };
         default:
             return state;
     }
