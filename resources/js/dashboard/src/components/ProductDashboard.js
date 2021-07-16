@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import DataManagement from "./DataManagement";
 import CableTvManagement from "./CableTvManagement";
+import AirtimeManagement from "./AirtimeManagement";
 import {
     Link,
     useRouteMatch,
@@ -23,12 +24,15 @@ function ProductDashboard(props) {
             <Route path={`${path}/cable-tv`}>
                 <CableTvManagement />
             </Route>
+            <Route path={`${path}/airtime`}>
+                <AirtimeManagement />
+            </Route>
         </Switch>
     );
 }
 
 const mapState = (state) => {
-    return {}
+    return {};
 };
 
 const mapDispatch = (dispatch) => {

@@ -16,7 +16,7 @@ function CableTvManagement(props) {
     return (
         <div className="w-full p-5 bg-white">
             <h2 className="font-bold text-lg text-primary text-center">
-                Data Management
+                Cable Tv Management
             </h2>
 
             <div className="w-full flex items-center my-2">
