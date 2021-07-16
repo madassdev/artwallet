@@ -65,15 +65,17 @@ function DataManagement(props) {
                                             <div className="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                                 <ul className="link-list-plain">
                                                     <li>
-                                                        <a href="#">View</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" onClick={(e) => {
+                                                        <a
+                                                            href="#"
+                                                            onClick={(e) => {
                                                                 e.preventDefault();
                                                                 props.editPlan(
                                                                     plan
                                                                 );
-                                                            }}>Edit</a>
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </a>
                                                     </li>
                                                     <li>
                                                         <a

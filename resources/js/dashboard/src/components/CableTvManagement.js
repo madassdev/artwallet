@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getCableTvProviders } from "../reducers/providerReducer";
 import CreatePlan from "./CreatePlan";
 import DeletePlan from "./DeletePlan";
+import EditPlan from "./EditPlan";
 import {
     Link,
     useRouteMatch,
@@ -12,7 +13,6 @@ import {
 } from "react-router-dom";
 
 function CableTvManagement(props) {
-    
     return (
         <div className="w-full p-5 bg-white">
             <h2 className="font-bold text-lg text-primary text-center">
@@ -65,10 +65,17 @@ function CableTvManagement(props) {
                                             <div className="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                                 <ul className="link-list-plain">
                                                     <li>
-                                                        <a href="#">View</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Edit</a>
+                                                        <a
+                                                            href="#"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                props.editPlan(
+                                                                    plan
+                                                                );
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </a>
                                                     </li>
                                                     <li>
                                                         <a
@@ -112,7 +119,6 @@ function CableTvManagement(props) {
     );
 }
 
-
 const mapState = (state) => {
     return {
         services: state.serviceState.services,
@@ -133,12 +139,22 @@ const mapDispatch = (dispatch) => {
                 },
             });
         },
+        editPlan: (plan) => {
+            dispatch({
+                type: "OPEN_MODAL",
+                modal: {
+                    show: 1,
+                    content: <EditPlan plan={plan} />,
+                    header: <h3>Edit Plan</h3>,
+                },
+            });
+        },
         deletePlan: (plan) => {
             dispatch({
                 type: "OPEN_MODAL",
                 modal: {
                     show: 1,
-                    content: <DeletePlan plan={plan}/>,
+                    content: <DeletePlan plan={plan} />,
                     header: <h3>Delete Provider</h3>,
                 },
             });

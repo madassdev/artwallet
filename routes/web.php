@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('front.index');
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth', 'verified']], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth',]], function () {
     Route::any(
         '{all?}',
         "DashboardController@index"
