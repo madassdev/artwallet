@@ -16,7 +16,7 @@ class OrderController extends Controller
             'type' => "required|in:airtime,data",
             'amount' => 'required_if:type,airtime|numeric|min:0',
             "plan_id" => 'required_if:type,data|exists:plans,id',
-            "destination" => 'required'
+            "recipient" => 'required'
         ]);
         $user = auth()->user();
         if (!Hash::check($request->pin, $user->pin)) {
@@ -53,7 +53,7 @@ class OrderController extends Controller
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
-            "destination" => $request->destination,
+            "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
         ]);
 
@@ -63,6 +63,7 @@ class OrderController extends Controller
             'creditable_type' => Order::class,
             'debit_data' => $user,
             'credit_data' => $order->load('plan.provider.service'),
+            'recipient' => $request->recipient,
             'amount' => $order->amount,
             'type' => $request->type,
             'status' => 'complete',
@@ -86,7 +87,7 @@ class OrderController extends Controller
             'type' => "required|in:electricity",
             'amount' => 'required|numeric|min:0',
             "plan_id" => 'required|exists:plans,id',
-            "destination" => 'required'
+            "recipient" => 'required'
         ]);
 
         if (!Hash::check($request->pin, $user->pin)) {
@@ -114,7 +115,7 @@ class OrderController extends Controller
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
-            "destination" => $request->destination,
+            "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
         ]);
 
@@ -124,6 +125,7 @@ class OrderController extends Controller
             'creditable_type' => Order::class,
             'amount' => $order->amount,
             'debit_data' => $user,
+            'recipient' => $request->recipient,
             'credit_data' => $order->load('plan.provider.service'),
             'type' => $request->type,
             'status' => 'complete',
@@ -189,6 +191,7 @@ class OrderController extends Controller
             'credit_data' => $recipient,
             'amount' => $request->amount,
             'type' => $request->type,
+            'recipient' => $request->recipient,
             'status' => 'complete',
         ]);
 
@@ -198,6 +201,7 @@ class OrderController extends Controller
             'debitable_type' => User::class,
             'debit_data' => $user,
             'credit_data' => $recipient,
+            'recipient' => $user->mobile,
             'amount' => $request->amount,
             'type' => 'credit',
             'status' => 'complete',
@@ -220,7 +224,7 @@ class OrderController extends Controller
         $request->validate([
             'type' => "required|in:cable-tv",
             "plan_id" => 'required|exists:plans,id',
-            "destination" => 'required'
+            "recipient" => 'required'
         ]);
         $user = auth()->user();
         if (!Hash::check($request->pin, $user->pin)) {
@@ -247,7 +251,7 @@ class OrderController extends Controller
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
-            "destination" => $request->destination,
+            "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
         ]);
 
@@ -256,6 +260,7 @@ class OrderController extends Controller
             'creditable_id' => $order->id,
             'creditable_type' => Order::class,
             'amount' => $order->amount,
+            'recipient' => $request->recipient,
             'type' => $request->type,
             'status' => 'complete',
         ]);

@@ -41,7 +41,6 @@ $auth_user = auth()->user();
         const AUTH_USER = @json($auth_user);
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
-        const APP_TRANSACTIONS = @json($transactions);
     </script>
     <!-- app-root @e -->
     <!-- JavaScript -->

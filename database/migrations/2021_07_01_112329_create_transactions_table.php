@@ -23,6 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->text('credit_data')->nullable();
             $table->text('debit_data')->nullable();
             $table->decimal('amount', 12, 2)->default(0);
+            $table->string('recipient');
             $table->string('type')->default('balance-deposit');
             $table->string('status')->default('pending');
             $table->timestamps();

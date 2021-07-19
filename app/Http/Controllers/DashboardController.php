@@ -23,17 +23,31 @@ class DashboardController extends Controller
         // });
 
         // return time();
+        // Transaction::with('creditable')->get()->map(function ($t) {
+        //     $t->recipient = $t->creditable->recipient;
+        //     if ($t->type == "deposit") {
+        //         $t->recipient = "wallet";
+        //     }
+        //     if ($t->type == "credit") {
+        //         $t->recipient = $t->debitable->mobile;
+        //     }
+        //     if ($t->type == "transfer") {
+        //         $t->recipient = $t->creditable->mobile;
+        //     }
+        //     $t->save();
+        // });
+
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
         $plans = Plan::with('provider.service')->get();
-        $transactions = Transaction::whereUserId(auth()->user()->id)->latest()->get();
+        // $transactions = Transaction::whereUserId(auth()->user()->id)->latest()->get();
         // return $transactions;
         $app_services = [
             "services" => $services,
             "providers" => $providers,
             "plans" => $plans,
         ];
-        return view('dashboard.index', compact('app_services', 'transactions'));
+        return view('dashboard.index', compact('app_services'));
     }
 
     public function otpView()

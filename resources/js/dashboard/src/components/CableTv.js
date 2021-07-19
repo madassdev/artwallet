@@ -12,7 +12,7 @@ function CableTv(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [providerPlans, setProviderPlans] = useState([]);
     const [amount, setAmount] = useState(0);
-    const [destination, setDestination] = useState("");
+    const [recipient, setRecipient] = useState("");
     const [isPaying, setIsPaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [plan, setPlan] = useState();
@@ -49,9 +49,9 @@ function CableTv(props) {
             return;
         }
         if (
-            !destination ||
-            destination.length.length < 11 ||
-            destination.length === ""
+            !recipient ||
+            recipient.length.length < 11 ||
+            recipient.length === ""
         ) {
             alert("Please Enter a valid number");
             return;
@@ -81,9 +81,9 @@ function CableTv(props) {
             return;
         }
         if (
-            !destination ||
-            destination.length.length < 11 ||
-            destination.length === ""
+            !recipient ||
+            recipient.length.length < 11 ||
+            recipient.length === ""
         ) {
             alert("Please Enter a valid number");
             return;
@@ -96,12 +96,11 @@ function CableTv(props) {
                 plan_id: selectedPlan,
                 type: "cable-tv",
                 pin,
-                destination,
+                recipient,
             })
             .then((res) => {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.data.transaction);
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
@@ -162,7 +161,7 @@ function CableTv(props) {
                                 <div>
                                     <h2 className="font-bold m-0">Recipient</h2>
                                     <p className="text-gray-600">
-                                        {destination}
+                                        {recipient}
                                     </p>
                                 </div>
                                 <div>
@@ -287,7 +286,7 @@ function CableTv(props) {
                             </div>
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    Destination Device Number
+                                    Recipient Device Number
                                 </p>
 
                                 <div className="form-control-wrap">
@@ -295,11 +294,11 @@ function CableTv(props) {
                                         type="number"
                                         min="100"
                                         className="w-full rounded border-gray-300"
-                                        value={destination}
+                                        value={recipient}
                                         onChange={(e) =>
-                                            setDestination(e.target.value)
+                                            setRecipient(e.target.value)
                                         }
-                                        placeholder="Enter destination device number"
+                                        placeholder="Enter recipient device number"
                                     />
                                 </div>
                             </div>

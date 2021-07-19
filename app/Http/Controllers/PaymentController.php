@@ -39,6 +39,7 @@ class PaymentController extends Controller
                 "user_id" => $user->id,
                 'debitable_id' => $payment->id,
                 'debitable_type' => Payment::class,
+                'recipient' => "wallet",
                 'amount' => $payment->amount,
                 'type' => 'deposit',
                 'status' => 'complete',

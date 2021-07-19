@@ -96,10 +96,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(setServices(APP_SERVICES.services));
             dispatch(setProviders(APP_SERVICES.providers));
             dispatch(setPlans(APP_SERVICES.plans));
-            dispatch({
-                type: "SET_TRANSACTIONS",
-                transactions: APP_TRANSACTIONS,
-            });
+            // dispatch({
+            //     type: "SET_TRANSACTIONS",
+            //     transactions: APP_TRANSACTIONS,
+            // });
         },
         closeModal: () =>
             dispatch({

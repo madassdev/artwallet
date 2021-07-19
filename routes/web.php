@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
 Route::resource('orders', 'OrderController')->middleware('auth');
+Route::resource('transactions', 'TransactionController')->middleware('auth');
 Route::post('/orders/transfer', 'OrderController@transfer');
 Route::post('/orders/cable-tv', 'OrderController@cableTv');
 Route::post('/orders/electricity', 'OrderController@electricity');

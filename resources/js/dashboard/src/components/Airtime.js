@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 function Airtime(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [amount, setAmount] = useState("");
-    const [destination, setDestination] = useState("");
+    const [recipient, setRecipient] = useState("");
     const [isPaying, setIsPaying] = useState(false);
     const [plan, setPlan] = useState();
     const [isReady, setIsReady] = useState(false);
@@ -26,7 +26,7 @@ function Airtime(props) {
     };
 
     const handleProceed = (e) => {
-        if (destination === "") {
+        if (recipient === "") {
             alert("Please enter a valid recipient phone number");
             return;
         }
@@ -63,9 +63,9 @@ function Airtime(props) {
             return;
         }
         if (
-            !destination ||
-            destination.length.length < 11 ||
-            destination.length === ""
+            !recipient ||
+            recipient.length.length < 11 ||
+            recipient.length === ""
         ) {
             alert("Please Enter a valid number");
             return;
@@ -83,13 +83,12 @@ function Airtime(props) {
                 type: "airtime",
                 pin,
                 amount,
-                destination,
+                recipient,
             })
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.data.transaction);
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
@@ -149,7 +148,7 @@ function Airtime(props) {
                                 <div>
                                     <h2 className="font-bold m-0">Recipient</h2>
                                     <p className="text-gray-600">
-                                        {destination}
+                                        {recipient}
                                     </p>
                                 </div>
                                 <div>
@@ -249,7 +248,7 @@ function Airtime(props) {
                             </div>
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    Destination Phone Number
+                                    Recipient Phone Number
                                 </p>
 
                                 <div className="form-control-wrap">
@@ -257,11 +256,11 @@ function Airtime(props) {
                                         type="number"
                                         min="100"
                                         className="w-full rounded border-gray-300"
-                                        value={destination}
+                                        value={recipient}
                                         onChange={(e) =>
-                                            setDestination(e.target.value)
+                                            setRecipient(e.target.value)
                                         }
-                                        placeholder="Enter destination phone number"
+                                        placeholder="Enter recipient phone number"
                                     />
                                 </div>
                             </div>
@@ -321,11 +320,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "DEBIT_USER",
                 amount,
-            }),
-        addTransaction: (transaction) =>
-            dispatch({
-                type: "ADD_TRANSACTION",
-                transaction: transaction,
             }),
     };
 };

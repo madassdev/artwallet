@@ -65,7 +65,6 @@ function Transfer(props) {
             .then((res) => {
                 setIsPaying(false);
                 props.debitUserBalance(amount);
-                props.addTransaction(res.data.data.transaction);
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });

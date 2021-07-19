@@ -2945,11 +2945,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
       dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setServices)(APP_SERVICES.services));
       dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setProviders)(APP_SERVICES.providers));
-      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setPlans)(APP_SERVICES.plans));
-      dispatch({
-        type: "SET_TRANSACTIONS",
-        transactions: APP_TRANSACTIONS
-      });
+      dispatch((0,_actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__.setPlans)(APP_SERVICES.plans)); // dispatch({
+      //     type: "SET_TRANSACTIONS",
+      //     transactions: APP_TRANSACTIONS,
+      // });
     },
     closeModal: function closeModal() {
       return dispatch({
@@ -3240,8 +3239,8 @@ function Airtime(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      destination = _useState6[0],
-      setDestination = _useState6[1];
+      recipient = _useState6[0],
+      setRecipient = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -3278,7 +3277,7 @@ function Airtime(props) {
   };
 
   var handleProceed = function handleProceed(e) {
-    if (destination === "") {
+    if (recipient === "") {
       alert("Please enter a valid recipient phone number");
       return;
     }
@@ -3318,7 +3317,7 @@ function Airtime(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -3335,12 +3334,11 @@ function Airtime(props) {
       type: "airtime",
       pin: pin,
       amount: amount,
-      destination: destination
+      recipient: recipient
     }).then(function (res) {
       console.log(res.data);
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.data.transaction);
       react_hot_toast__WEBPACK_IMPORTED_MODULE_7__.default.success(res.data.message, {
         position: "bottom-center"
       });
@@ -3404,7 +3402,7 @@ function Airtime(props) {
               children: "Recipient"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               className: "text-gray-600",
-              children: destination
+              children: recipient
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
@@ -3502,18 +3500,18 @@ function Airtime(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
             className: "font-bold",
-            children: "Destination Phone Number"
+            children: "Recipient Phone Number"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "number",
               min: "100",
               className: "w-full rounded border-gray-300",
-              value: destination,
+              value: recipient,
               onChange: function onChange(e) {
-                return setDestination(e.target.value);
+                return setRecipient(e.target.value);
               },
-              placeholder: "Enter destination phone number"
+              placeholder: "Enter recipient phone number"
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -3573,12 +3571,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch({
         type: "DEBIT_USER",
         amount: amount
-      });
-    },
-    addTransaction: function addTransaction(transaction) {
-      return dispatch({
-        type: "ADD_TRANSACTION",
-        transaction: transaction
       });
     }
   };
@@ -3852,7 +3844,6 @@ function AutoDeposit(props) {
     axios__WEBPACK_IMPORTED_MODULE_0___default().post("/payments", {
       reference: reference
     }).then(function (response) {
-      props.addTransaction(response.data.data.transaction);
       handlePaymentSuccess(response.data);
     })["catch"](function (err) {
       return console.log(err);
@@ -4207,8 +4198,8 @@ function CableTv(props) {
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      destination = _useState10[0],
-      setDestination = _useState10[1];
+      recipient = _useState10[0],
+      setRecipient = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -4268,7 +4259,7 @@ function CableTv(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -4300,7 +4291,7 @@ function CableTv(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -4311,11 +4302,10 @@ function CableTv(props) {
       plan_id: selectedPlan,
       type: "cable-tv",
       pin: pin,
-      destination: destination
+      recipient: recipient
     }).then(function (res) {
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.data.transaction);
       react_hot_toast__WEBPACK_IMPORTED_MODULE_6__.default.success(res.data.message, {
         position: "bottom-center"
       });
@@ -4379,7 +4369,7 @@ function CableTv(props) {
               children: "Recipient"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
-              children: destination
+              children: recipient
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -4500,18 +4490,18 @@ function CableTv(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "font-bold",
-            children: "Destination Device Number"
+            children: "Recipient Device Number"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
               type: "number",
               min: "100",
               className: "w-full rounded border-gray-300",
-              value: destination,
+              value: recipient,
               onChange: function onChange(e) {
-                return setDestination(e.target.value);
+                return setRecipient(e.target.value);
               },
-              placeholder: "Enter destination device number"
+              placeholder: "Enter recipient device number"
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -5295,8 +5285,8 @@ function Data(props) {
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      destination = _useState10[0],
-      setDestination = _useState10[1];
+      recipient = _useState10[0],
+      setRecipient = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -5356,7 +5346,7 @@ function Data(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -5388,7 +5378,7 @@ function Data(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -5399,15 +5389,14 @@ function Data(props) {
       plan_id: selectedPlan,
       type: "data",
       pin: pin,
-      destination: destination
+      recipient: recipient
     }).then(function (res) {
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.data.transaction);
       react_hot_toast__WEBPACK_IMPORTED_MODULE_6__.default.success(res.data.message, {
         position: "bottom-center"
       });
-      setTransactionComplete(true); // props.paymentSuccess();
+      setTransactionComplete(true);
     })["catch"](function (err) {
       if (err.response.status === 403) {
         console.log(err.response.data);
@@ -5467,7 +5456,7 @@ function Data(props) {
               children: "Recipient"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
-              children: destination
+              children: recipient
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -5588,18 +5577,18 @@ function Data(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "font-bold",
-            children: "Destination Phone Number"
+            children: "recipient Phone Number"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
               type: "number",
               min: "100",
               className: "w-full rounded border-gray-300",
-              value: destination,
+              value: recipient,
               onChange: function onChange(e) {
-                return setDestination(e.target.value);
+                return setRecipient(e.target.value);
               },
-              placeholder: "Enter destination phone number"
+              placeholder: "Enter recipient phone number"
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -5642,12 +5631,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch({
         type: "DEBIT_USER",
         amount: amount
-      });
-    },
-    addTransaction: function addTransaction(transaction) {
-      return dispatch({
-        type: "ADD_TRANSACTION",
-        transaction: transaction
       });
     }
   };
@@ -6511,8 +6494,8 @@ function Electricity(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      destination = _useState6[0],
-      setDestination = _useState6[1];
+      recipient = _useState6[0],
+      setRecipient = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -6549,7 +6532,7 @@ function Electricity(props) {
   };
 
   var handleProceed = function handleProceed(e) {
-    if (destination === "") {
+    if (recipient === "") {
       alert("Please enter a valid recipient number");
       return;
     }
@@ -6589,7 +6572,7 @@ function Electricity(props) {
       return;
     }
 
-    if (!destination || destination.length.length < 11 || destination.length === "") {
+    if (!recipient || recipient.length.length < 11 || recipient.length === "") {
       alert("Please Enter a valid number");
       return;
     }
@@ -6606,12 +6589,11 @@ function Electricity(props) {
       type: "electricity",
       amount: amount,
       pin: pin,
-      destination: destination
+      recipient: recipient
     }).then(function (res) {
       console.log(res.data);
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.data.transaction);
       react_hot_toast__WEBPACK_IMPORTED_MODULE_7__.default.success(res.data.message, {
         position: "bottom-center"
       });
@@ -6675,7 +6657,7 @@ function Electricity(props) {
               children: "Recipient"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               className: "text-gray-600",
-              children: destination
+              children: recipient
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
@@ -6773,18 +6755,18 @@ function Electricity(props) {
           className: "form-group flex flex-col space-y-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
             className: "font-bold",
-            children: "Destination Meter Number"
+            children: "Recipient Meter Number"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "number",
               min: "100",
               className: "w-full rounded border-gray-300",
-              value: destination,
+              value: recipient,
               onChange: function onChange(e) {
-                return setDestination(e.target.value);
+                return setRecipient(e.target.value);
               },
-              placeholder: "Enter destination meter number"
+              placeholder: "Enter recipient meter number"
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -6921,414 +6903,9 @@ function Header() {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "nk-header-tools",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("ul", {
             className: "nk-quick-nav",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
-              className: "dropdown chats-dropdown hide-mb-xs",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                href: "#",
-                className: "dropdown-toggle nk-quick-nav-icon",
-                "data-toggle": "dropdown",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "icon-status icon-status-na",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                    className: "icon ni ni-comments"
-                  })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "dropdown-menu dropdown-menu-xl dropdown-menu-right",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                  className: "dropdown-head",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                    className: "sub-title nk-dropdown-title",
-                    children: "Recent Chats"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                    href: "#",
-                    children: "Setting"
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "dropdown-body",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-                    className: "chat-list",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-media user-avatar",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "IH"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            className: "status dot dot-lg dot-gray"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "Iliash Hossain"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "Now"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-context",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "You: Please confrim if you got my last messages."
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "status delivered",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                                className: "icon ni ni-check-circle-fill"
-                              })
-                            })]
-                          })]
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item is-unread",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-media user-avatar bg-pink",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "AB"
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            className: "status dot dot-lg dot-success"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "Abu Bin Ishtiyak"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "4:49 AM"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-context",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "Hi, I am Ishtiyak, can you help me with this problem ?"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "status unread",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                                className: "icon ni ni-bullet-fill"
-                              })
-                            })]
-                          })]
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "chat-media user-avatar",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-                            src: "./images/avatar/b-sm.jpg",
-                            alt: ""
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "George Philips"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "6 Apr"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                            className: "chat-context",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "Have you seens the claim from Rose?"
-                            })
-                          })]
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-media user-avatar user-avatar-multiple",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                            className: "user-avatar",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-                              src: "./images/avatar/c-sm.jpg",
-                              alt: ""
-                            })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                            className: "user-avatar",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              children: "AB"
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "Softnio Group"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "27 Mar"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-context",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "You: I just bought a new computer but i am having some problem"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "status sent",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                                className: "icon ni ni-check-circle"
-                              })
-                            })]
-                          })]
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-media user-avatar",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-                            src: "./images/avatar/a-sm.jpg",
-                            alt: ""
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            className: "status dot dot-lg dot-success"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "Larry Hughes"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "3 Apr"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                            className: "chat-context",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "Hi Frank! How is you doing?"
-                            })
-                          })]
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-                      className: "chat-item",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        className: "chat-link",
-                        href: "html/apps-chats.html",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "chat-media user-avatar bg-purple",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "TW"
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "chat-info",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-from",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "name",
-                              children: "Tammy Wilson"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                              className: "time",
-                              children: "27 Mar"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "chat-context",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "text",
-                              children: "You: I just bought a new computer but i am having some problem"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                              className: "status sent",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                                className: "icon ni ni-check-circle"
-                              })
-                            })]
-                          })]
-                        })]
-                      })
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "dropdown-foot center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                    href: "html/apps-chats.html",
-                    children: "View All"
-                  })
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
-              className: "dropdown notification-dropdown",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                href: "#",
-                className: "dropdown-toggle nk-quick-nav-icon",
-                "data-toggle": "dropdown",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "icon-status icon-status-info",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                    className: "icon ni ni-bell"
-                  })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "dropdown-menu dropdown-menu-xl dropdown-menu-right",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                  className: "dropdown-head",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                    className: "sub-title nk-dropdown-title",
-                    children: "Notifications"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                    href: "#",
-                    children: "Mark All as Read"
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "dropdown-body",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "nk-notification",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-warning-dim ni ni-curve-down-right"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["You have requested to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Widthdrawl"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-success-dim ni ni-curve-down-left"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["Your ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Deposit Order"
-                          }), " is placed"]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-warning-dim ni ni-curve-down-right"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["You have requested to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Widthdrawl"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-success-dim ni ni-curve-down-left"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["Your ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Deposit Order"
-                          }), " is placed"]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-warning-dim ni ni-curve-down-right"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["You have requested to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Widthdrawl"
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                      className: "nk-notification-item dropdown-inner",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "nk-notification-icon",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-                          className: "icon icon-circle bg-success-dim ni ni-curve-down-left"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "nk-notification-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                          className: "nk-notification-text",
-                          children: ["Your ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                            children: "Deposit Order"
-                          }), " is placed"]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "nk-notification-time",
-                          children: "2 hrs ago"
-                        })]
-                      })]
-                    })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "dropdown-foot center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                    href: "#",
-                    children: "View All"
-                  })
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
               className: "dropdown user-dropdown",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
                 href: "#",
@@ -7395,7 +6972,7 @@ function Header() {
                     className: "link-list",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                        href: APP_URL + '/logout',
+                        href: APP_URL + "/logout",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
                           className: "icon ni ni-signout"
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
@@ -7406,7 +6983,7 @@ function Header() {
                   })
                 })]
               })]
-            })]
+            })
           })
         })]
       })
@@ -7431,8 +7008,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _reducers_transactionReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/transactionReducer */ "./resources/js/dashboard/src/reducers/transactionReducer.js");
+/* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Spinner */ "./resources/js/dashboard/src/components/Spinner.js");
+/* harmony import */ var react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-laravel-paginex */ "./node_modules/react-laravel-paginex/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 
 
@@ -7440,149 +7023,127 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function useQuery() {
-  return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useLocation)().search);
+  return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)().search);
 }
 
 function Home(props) {
-  var _props$user, _props$user2, _props$transactions;
+  var _props$user, _props$user2, _props$transactions, _props$transactions$d;
 
   var query = useQuery();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.fetchTransactions(1);
+  }, []);
+
+  var getData = function getData(data) {
+    // console.log(data)
+    props.fetchTransactions(data.page);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "my-4 cards",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex flex-col md:flex-row items-center space-y-4 md:space-x-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "bg-purple-700 shadow-md rounded p-3 w-full md:w-60",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
             className: "text-lg text-white m-0 p-0",
             children: "Balance"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
             className: "text-2xl text-white font-bold m-0 p-0",
             children: ["\u20A6", parseFloat((_props$user = props.user) === null || _props$user === void 0 ? void 0 : _props$user.balance).toLocaleString()]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "bg-white shadow-md rounded p-3 w-full md:w-60",
           children: ["User ID: ", (_props$user2 = props.user) === null || _props$user2 === void 0 ? void 0 : _props$user2.uniqid]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "my-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
         className: "text-lg font-bold",
         children: "Transactions"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+    }), props.isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Spinner__WEBPACK_IMPORTED_MODULE_3__.default, {
+      text: "Loading..."
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
       className: "table table-orders bg-white",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
         className: "tb-odr-head",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
           className: "tb-odr-item",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             className: "tb-odr-info",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "tb-odr-id",
               children: "TYPE"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "tb-odr-date d-none d-md-inline-block",
               children: "Date"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("th", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             className: "tb-odr-amount",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "tb-odr-total",
               children: "Amount"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "tb-odr-status d-none d-md-inline-block",
               children: "Status"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            className: "tb-odr-action",
-            children: "\xA0"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
         className: "tb-odr-body",
-        children: (_props$transactions = props.transactions) === null || _props$transactions === void 0 ? void 0 : _props$transactions.map(function (t) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: (_props$transactions = props.transactions) === null || _props$transactions === void 0 ? void 0 : (_props$transactions$d = _props$transactions.data) === null || _props$transactions$d === void 0 ? void 0 : _props$transactions$d.map(function (t) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
             className: "tb-odr-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
               className: "tb-odr-info",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "tb-odr-id font-bold text-purple-500 uppercase",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
                   href: "#",
                   className: "font-bold",
                   children: t.type
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "tb-odr-date",
                 children: t.date
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
               className: "tb-odr-amount",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
                 className: "tb-odr-total",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "amount font-bold text-gray-600",
                   children: naira(t.amount)
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                  className: "text-gray-400 uppercase",
+                  children: t.recipient
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                 className: "tb-odr-status",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "badge badge-dot badge-success capitalize",
                   children: t.status
                 })
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
-              className: "tb-odr-action",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                className: "tb-odr-btns d-none d-md-inline",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                  href: "#",
-                  className: "btn btn-sm btn-primary",
-                  children: "View"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                className: "dropdown",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                  className: "text-soft dropdown-toggle btn btn-icon btn-trigger",
-                  "data-toggle": "dropdown",
-                  "data-offset": "-8,0",
-                  "aria-expanded": "false",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("em", {
-                    className: "icon ni ni-more-h"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "dropdown-menu dropdown-menu-right dropdown-menu-xs",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
-                    className: "link-list-plain",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                        href: "#",
-                        className: "text-primary",
-                        children: "Edit"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                        href: "#",
-                        className: "text-primary",
-                        children: "View"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                        href: "#",
-                        className: "text-danger",
-                        children: "Remove"
-                      })
-                    })]
-                  })
-                })]
               })]
             })]
           }, t.id);
         })
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "my-8 flex items-center justify-center w-full",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__.Pagination, {
+        buttonIcons: true,
+        numberClass: "bg-light rounded p-2 mx-1",
+        activeClass: "active text-primary font-bold",
+        prevButtonIcon: "mdi mdi-chevron-left",
+        nextButtonIcon: "mdi mdi-chevron-right",
+        containerClass: "flex items-center space-x-2",
+        changePage: getData,
+        data: props.transactions
+      })
     })]
   });
 }
@@ -7590,7 +7151,8 @@ function Home(props) {
 var mapState = function mapState(state) {
   return {
     user: state.userState.user,
-    transactions: state.transactionState.transactions
+    transactions: state.transactionState.transactions,
+    isLoading: state.transactionState.isFetching
   };
 };
 
@@ -7603,6 +7165,9 @@ var mapDispatch = function mapDispatch(dispatch) {
           transaction: transaction
         })
       );
+    },
+    fetchTransactions: function fetchTransactions(page) {
+      dispatch((0,_reducers_transactionReducer__WEBPACK_IMPORTED_MODULE_2__.fetchTransactions)(page));
     }
   };
 };
@@ -9339,14 +8904,10 @@ function SuccessPage(props) {
       path = _useRouteMatch.path,
       url = _useRouteMatch.url;
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "col-md-6 mx-auto card",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "col-md-6 mx-auto card",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
-        exact: true,
-        path: path,
-        children: "Here you go..."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
         path: "".concat(path, "/depositSuccess"),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(Container, {
           className: "p-3 text-center",
@@ -9371,7 +8932,7 @@ function SuccessPage(props) {
   });
 }
 
-var Container = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-direction: column;\n    margin-left: auto; \n    margin-right: auto; \n    span{\n        width: 120px;\n        height: 120px;\n        border-radius: 1000px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        i{\n            font-size: 36px;\n        }\n    }\n"])));
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-direction: column;\n    margin-left: auto;\n    margin-right: auto;\n    span {\n        width: 120px;\n        height: 120px;\n        border-radius: 1000px;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        i {\n            font-size: 36px;\n        }\n    }\n"])));
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -9512,7 +9073,6 @@ function Transfer(props) {
     }).then(function (res) {
       setIsPaying(false);
       props.debitUserBalance(amount);
-      props.addTransaction(res.data.data.transaction);
       react_hot_toast__WEBPACK_IMPORTED_MODULE_5__.default.success(res.data.message, {
         position: "bottom-center"
       });
@@ -10385,8 +9945,11 @@ var serviceReducer = function serviceReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchTransactions": () => (/* binding */ fetchTransactions),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10405,11 +9968,39 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+
 var INITIAL_STATE = {
   transactions: [],
-  is_fetching: false,
+  isFetching: false,
   fetch_failed: undefined
 }; // selectors
+
+var fetchTransactions = function fetchTransactions() {
+  var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  console.log(page);
+  return function (dispatch) {
+    dispatch({
+      type: "SET_FETCHING",
+      status: true
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/transactions?page=" + page).then(function (response) {
+      dispatch({
+        type: "SET_TRANSACTIONS",
+        transactions: response.data.data.transactions
+      });
+      dispatch({
+        type: "SET_FETCHING",
+        status: false
+      });
+    })["catch"](function (error) {
+      console.log(error.response);
+      dispatch({
+        type: "SET_FETCHING",
+        status: true
+      });
+    });
+  };
+};
 
 var transactionReducer = function transactionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
@@ -10417,16 +10008,22 @@ var transactionReducer = function transactionReducer() {
 
   switch (action.type) {
     case "SET_TRANSACTIONS":
+      console.log(action.transactions);
       return _objectSpread(_objectSpread({}, state), {}, {
         transactions: action.transactions,
         isFetching: false
       });
 
     case "ADD_TRANSACTION":
-      console.log('settingTransaction', action.transaction);
+      console.log("settingTransaction", action.transaction);
       return _objectSpread(_objectSpread({}, state), {}, {
         transactions: [action.transaction].concat(_toConsumableArray(state.transactions)),
         isFetching: false
+      });
+
+    case "SET_FETCHING":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isFetching: action.status
       });
 
     default:
@@ -40223,6 +39820,304 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-laravel-paginex/dist/Pagination.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-laravel-paginex/dist/Pagination.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Pagination = /*#__PURE__*/function (_Component) {
+  _inherits(Pagination, _Component);
+
+  var _super = _createSuper(Pagination);
+
+  function Pagination(_props) {
+    var _this;
+
+    _classCallCheck(this, Pagination);
+
+    _this = _super.call(this, _props);
+
+    _defineProperty(_assertThisInitialized(_this), "getProps", function (props) {
+      var defaultProps = Pagination.defaultProps.options;
+      var options = _this.props.options;
+      Object.keys(defaultProps).forEach(function (key) {
+        options[key] = props[key] ? props[key] : props['options'][key] ? props['options'][key] : defaultProps[key];
+      });
+
+      _this.setState({
+        options: options,
+        paginationData: props.data
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "isCurrent", function (page) {
+      var currentPage = _this.state.paginationData.meta ? _this.state.paginationData.meta.current_page : _this.state.paginationData.current_page;
+      return currentPage === page;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleClick", function (page) {
+      var parameters = {};
+
+      if (_this.props.requestParams) {
+        parameters = _this.props.requestParams;
+      }
+
+      parameters.page = page;
+
+      _this.props.changePage(parameters);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "generateButtonsPrev", function () {
+      var options = _this.state.options;
+
+      if (options.buttonIcons) {
+        return /*#__PURE__*/_react["default"].createElement("i", {
+          className: options.prevButtonIcon
+        });
+      }
+
+      return options.prevButtonText;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "generateButtonsNext", function () {
+      var options = _this.state.options;
+
+      if (options.buttonIcons) {
+        return /*#__PURE__*/_react["default"].createElement("i", {
+          className: options.nextButtonIcon
+        });
+      }
+
+      return options.nextButtonText;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "generatePagination", function () {
+      var paginationData = _this.state.paginationData;
+      var pagination;
+
+      if (Object.keys(paginationData).length) {
+        var options = _this.state.options;
+        var current = paginationData.hasOwnProperty('current_page') ? paginationData.current_page : paginationData.meta.current_page,
+            last = paginationData.hasOwnProperty('last_page') ? paginationData.last_page : paginationData.meta.last_page,
+            delta = parseInt(options.numbersCountForShow),
+            left = current - delta,
+            right = current + delta + 1,
+            range = [],
+            rangeWithDots = [],
+            l;
+
+        for (var i = 1; i <= last; i++) {
+          if (i === 1 || i === last || i >= left && i < right) {
+            range.push(i);
+          }
+        }
+
+        for (var _i = 0, _range = range; _i < _range.length; _i++) {
+          var _i2 = _range[_i];
+
+          if (l) {
+            if (_i2 - l === 2) {
+              rangeWithDots.push(l + 1);
+            } else if (_i2 - l !== 1) {
+              rangeWithDots.push('...');
+            }
+          }
+
+          rangeWithDots.push(_i2);
+          l = _i2;
+        }
+
+        var nextPageUrl = paginationData.hasOwnProperty('next_page_url') ? paginationData.next_page_url : paginationData.links.next;
+        var prevPageUrl = paginationData.hasOwnProperty('prev_page_url') ? paginationData.prev_page_url : paginationData.links.prev;
+        pagination = /*#__PURE__*/_react["default"].createElement("ul", {
+          className: options.containerClass
+        }, prevPageUrl ? /*#__PURE__*/_react["default"].createElement("li", {
+          className: options.prevButtonClass,
+          onClick: function onClick(event) {
+            event.preventDefault();
+
+            _this.handleClick(current - 1);
+          }
+        }, /*#__PURE__*/_react["default"].createElement("a", {
+          href: "",
+          className: options.numberClass
+        }, _this.generateButtonsPrev())) : "", rangeWithDots.map(function (page, index) {
+          return _this.generateNumber(page, index);
+        }), nextPageUrl ? /*#__PURE__*/_react["default"].createElement("li", {
+          className: options.nextButtonClass,
+          onClick: function onClick(event) {
+            event.preventDefault();
+
+            _this.handleClick(current + 1);
+          }
+        }, /*#__PURE__*/_react["default"].createElement("a", {
+          href: "",
+          className: options.numberClass
+        }, _this.generateButtonsNext())) : "");
+      }
+
+      return pagination;
+    });
+
+    _this.state = {
+      options: {},
+      paginationData: {},
+      nextPageUrl: null,
+      prevPageUrl: null,
+      currentPage: null
+    };
+    return _this;
+  }
+
+  _createClass(Pagination, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getProps(this.props);
+    }
+  }, {
+    key: "UNSAFE_componentWillReceiveProps",
+    value: function UNSAFE_componentWillReceiveProps(props, nextContext) {
+      this.getProps(props);
+    } // Transform props
+
+  }, {
+    key: "generateNumber",
+    value: function generateNumber(page, index) {
+      var _this2 = this;
+
+      var options = this.state.options;
+      return /*#__PURE__*/_react["default"].createElement("li", {
+        className: this.isCurrent(page) ? options.numberButtonClass + " " + options.activeClass : options.numberButtonClass,
+        key: index
+      }, /*#__PURE__*/_react["default"].createElement("a", {
+        href: "",
+        className: options.numberClass,
+        onClick: function onClick(event) {
+          event.preventDefault();
+
+          _this2.handleClick(page === '...' ? index + 1 : page);
+        }
+      }, page));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, this.generatePagination());
+    }
+  }]);
+
+  return Pagination;
+}(_react.Component);
+
+Pagination.defaultProps = {
+  options: {
+    containerClass: "pagination",
+    buttonIcons: false,
+    prevButtonClass: "page-item",
+    prevButtonText: "Prev",
+    prevButtonIcon: "fa fa-chevron-left",
+    nextButtonClass: "page-item",
+    nextButtonText: "Next",
+    nextButtonIcon: "fa fa-chevron-right",
+    numberButtonClass: "page-item",
+    numberClass: "page-link",
+    numbersCountForShow: 2,
+    activeClass: 'active'
+  },
+  data: {}
+};
+Pagination.propTypes = {
+  options: _propTypes["default"].shape({
+    containerClass: _propTypes["default"].string,
+    buttonIcons: _propTypes["default"].bool,
+    nextButtonClass: _propTypes["default"].string,
+    nextButtonText: _propTypes["default"].string,
+    nextButtonIcon: _propTypes["default"].string,
+    prevButtonClass: _propTypes["default"].string,
+    prevButtonText: _propTypes["default"].string,
+    prevButtonIcon: _propTypes["default"].string,
+    numberButtonClass: _propTypes["default"].string,
+    numberClass: _propTypes["default"].string,
+    numberCountForShow: _propTypes["default"].number,
+    activeClass: _propTypes["default"].string
+  }),
+  data: _propTypes["default"].object
+};
+var _default = Pagination;
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9QYWdpbmF0aW9uLmpzeCJdLCJuYW1lcyI6WyJQYWdpbmF0aW9uIiwicHJvcHMiLCJkZWZhdWx0UHJvcHMiLCJvcHRpb25zIiwiT2JqZWN0Iiwia2V5cyIsImZvckVhY2giLCJrZXkiLCJzZXRTdGF0ZSIsInBhZ2luYXRpb25EYXRhIiwiZGF0YSIsInBhZ2UiLCJjdXJyZW50UGFnZSIsInN0YXRlIiwibWV0YSIsImN1cnJlbnRfcGFnZSIsInBhcmFtZXRlcnMiLCJyZXF1ZXN0UGFyYW1zIiwiY2hhbmdlUGFnZSIsImJ1dHRvbkljb25zIiwicHJldkJ1dHRvbkljb24iLCJwcmV2QnV0dG9uVGV4dCIsIm5leHRCdXR0b25JY29uIiwibmV4dEJ1dHRvblRleHQiLCJwYWdpbmF0aW9uIiwibGVuZ3RoIiwiY3VycmVudCIsImhhc093blByb3BlcnR5IiwibGFzdCIsImxhc3RfcGFnZSIsImRlbHRhIiwicGFyc2VJbnQiLCJudW1iZXJzQ291bnRGb3JTaG93IiwibGVmdCIsInJpZ2h0IiwicmFuZ2UiLCJyYW5nZVdpdGhEb3RzIiwibCIsImkiLCJwdXNoIiwibmV4dFBhZ2VVcmwiLCJuZXh0X3BhZ2VfdXJsIiwibGlua3MiLCJuZXh0IiwicHJldlBhZ2VVcmwiLCJwcmV2X3BhZ2VfdXJsIiwicHJldiIsImNvbnRhaW5lckNsYXNzIiwicHJldkJ1dHRvbkNsYXNzIiwiZXZlbnQiLCJwcmV2ZW50RGVmYXVsdCIsImhhbmRsZUNsaWNrIiwibnVtYmVyQ2xhc3MiLCJnZW5lcmF0ZUJ1dHRvbnNQcmV2IiwibWFwIiwiaW5kZXgiLCJnZW5lcmF0ZU51bWJlciIsIm5leHRCdXR0b25DbGFzcyIsImdlbmVyYXRlQnV0dG9uc05leHQiLCJnZXRQcm9wcyIsIm5leHRDb250ZXh0IiwiaXNDdXJyZW50IiwibnVtYmVyQnV0dG9uQ2xhc3MiLCJhY3RpdmVDbGFzcyIsImdlbmVyYXRlUGFnaW5hdGlvbiIsIkNvbXBvbmVudCIsInByb3BUeXBlcyIsIlByb3BUeXBlcyIs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RUFBRTZDLHNCQUFVRSxNQUxMO0FBTXJCckIsSUFBQUEsZUFBZSxFQUFFbUIsc0JBQVVFLE1BTk47QUFPckJoRCxJQUFBQSxjQUFjLEVBQUU4QyxzQkFBVUUsTUFQTDtBQVFyQmpELElBQUFBLGNBQWMsRUFBRStDLHNCQUFVRSxNQVJMO0FBU3JCUCxJQUFBQSxpQkFBaUIsRUFBRUssc0JBQVVFLE1BVFI7QUFVckJqQixJQUFBQSxXQUFXLEVBQUVlLHNCQUFVRSxNQVZGO0FBV3JCRSxJQUFBQSxrQkFBa0IsRUFBRUosc0JBQVVLLE1BWFQ7QUFZckJULElBQUFBLFdBQVcsRUFBRUksc0JBQVVFO0FBWkYsR0FBaEIsQ0FEVTtBQWVuQjNELEVBQUFBLElBQUksRUFBRXlELHNCQUFVTTtBQWZHLENBQXZCO2VBaUJlekUsVSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge0NvbXBvbmVudH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgUHJvcFR5cGVzIGZyb20gJ3Byb3AtdHlwZXMnO1xuXG5jbGFzcyBQYWdpbmF0aW9uIGV4dGVuZHMgQ29tcG9uZW50IHtcbiAgICBjb25zdHJ1Y3Rvcihwcm9wcykge1xuICAgICAgICBzdXBlcihwcm9wcyk7XG4gICAgICAgIHRoaXMuc3RhdGUgPSB7XG4gICAgICAgICAgICBvcHRpb25zOiB7fSxcbiAgICAgICAgICAgIHBhZ2luYXRpb25EYXRhOiB7fSxcbiAgICAgICAgICAgIG5leHRQYWdlVXJsOiBudWxsLFxuICAgICAgICAgICAgcHJldlBhZ2VVcmw6IG51bGwsXG4gICAgICAgICAgICBjdXJyZW50UGFnZTogbnVsbFxuICAgICAgICB9O1xuICAgIH1cblxuICAgIGNvbXBvbmVudERpZE1vdW50KCkge1xuICAgICAgICB0aGlzLmdldFByb3BzKHRoaXMucHJvcHMpO1xuICAgIH1cblxuICAgIFVOU0FGRV9jb21wb25lbnRXaWxsUmVjZWl2ZVByb3BzKHByb3BzLCBuZXh0Q29udGV4dCkge1xuICAgICAgICB0aGlzLmdldFByb3BzKHByb3BzKTtcbiAgICB9XG5cbiAgICAvLyBUcmFuc2Zvcm0gcHJvcHNcbiAgICBnZXRQcm9wcyA9IChwcm9wcykgPT4ge1xuICAgICAgICBsZXQgZGVmYXVsdFByb3BzID0gUGFnaW5hdGlvbi5kZWZhdWx0UHJvcHMub3B0aW9ucztcbiAgICAgICAgbGV0IG9wdGlvbnMgPSB0aGlzLnByb3BzLm9wdGlvbnM7XG4gICAgICAgIE9iamVjdC5rZXlzKGRlZmF1bHRQcm9wcykuZm9yRWFjaChmdW5jdGlvbiAoa2V5KSB7XG4gICAgICAgICAgICBvcHRpb25zW2tleV0gPSBwcm9wc1trZXldID8gcHJvcHNba2V5XSA6IHByb3BzWydvcHRpb25zJ11ba2V5XSA/IHByb3BzWydvcHRpb25zJ11ba2V5XSA6IGRlZmF1bHRQcm9wc1trZXldO1xuICAgICAgICB9KTtcbiAgICAgICAgdGhpcy5zZXRTdGF0ZSh7b3B0aW9uczogb3B0aW9ucywgcGFnaW5hdGlvbkRhdGE6IHByb3BzLmRhdGF9KTtcbiAgICB9O1xuXG4gICAgLy8gQ2hlY2sgaWYgcGFnZSBpcyBhY3RpdmVcbiAgICBpc0N1cnJlbnQgPSAocGFnZSkgPT4ge1xuICAgICAgICBsZXQgY3VycmVudFBhZ2UgPSB0aGlzLnN0YXRlLnBhZ2luYXRpb25EYXRhLm1ldGEgPyB0aGlzLnN0YXRlLnBhZ2luYXRpb25EYXRhLm1ldGEuY3VycmVudF9wYWdlIDogdGhpcy5zdGF0ZS5wYWdpbmF0aW9uRGF0YS5jdXJyZW50X3BhZ2U7XG4gICAgICAgIHJldHVybiBjdXJyZW50UGFnZSA9PT0gcGFnZTtcbiAgICB9O1xuXG4gICAgLy8gSGFuZGxlIHBhZ2luYXRpb24gYnV0dG9ucyBjbGljayBldmVudFxuICAgIGhhbmRsZUNsaWNrID0gKHBhZ2UpID0+IHtcbiAgICAgICAgbGV0IHBhcmFtZXRlcnMgPSB7fTtcbiAgICAgICAgaWYgKHRoaXMucHJvcHMucmVxdWVzdFBhcmFtcykge1xuICAgICAgICAgICAgcGFyYW1ldGVycyA9IHRoaXMucHJvcHMucmVxdWVzdFBhcmFtcztcbiAgICAgICAgfVxuICAgICAgICBwYXJhbWV0ZXJzLnBhZ2UgPSBwYWdlO1xuICAgICAgICB0aGlzLnByb3BzLmNoYW5nZVBhZ2UocGFyYW1ldGVycyk7XG4gICAgfTtcblxuICAgIC8vIEdlbmVyYXRlIFByZXYgSWNvbiBPciBUZXh0IEJ1dHRvbnNcbiAgICBnZW5lcmF0ZUJ1dHRvbnNQcmV2ID0gKCkgPT4ge1xuICAgICAgICBsZXQgb3B0aW9ucyA9IHRoaXMuc3RhdGUub3B0aW9ucztcbiAgICAgICAgaWYgKG9wdGlvbnMuYnV0dG9uSWNvbnMpIHtcbiAgICAgICAgICAgIHJldHVybiA8aSBjbGFzc05hbWU9e29wdGlvbnMucHJldkJ1dHRvbkljb259Lz5cbiAgICAgICAgfVxuICAgICAgICByZXR1cm4gb3B0aW9ucy5wcmV2QnV0dG9uVGV4dDtcbiAgICB9O1xuXG4gICAgLy8gR2VuZXJhdGUgTmV4dCBJY29uIE9yIFRleHQgQnV0dG9uc1xuICAgIGdlbmVyYXRlQnV0dG9uc05leHQgPSAoKSA9PiB7XG4gICAgICAgIGxldCBvcHRpb25zID0gdGhpcy5zdGF0ZS5vcHRpb25zO1xuICAgICAgICBpZiAob3B0aW9ucy5idXR0b25JY29ucykge1xuICAgICAgICAgICAgcmV0dXJuIDxpIGNsYXNzTmFtZT17b3B0aW9ucy5uZXh0QnV0dG9uSWNvbn0vPlxuICAgICAgICB9XG4gICAgICAgIHJldHVybiBvcHRpb25zLm5leHRCdXR0b25UZXh0O1xuICAgIH07XG5cbiAgICAvLyBHZW5lcmF0ZSBwYWdpbmF0aW9uIGJ1dHRvbnNcbiAgICBnZW5lcmF0ZVBhZ2luYXRpb24gPSAoKSA9PiB7XG4gICAgICAgIGxldCBwYWdpbmF0aW9uRGF0YSA9IHRoaXMuc3RhdGUucGFnaW5hdGlvbkRhdGE7XG4gICAgICAgIGxldCBwYWdpbmF0aW9uO1xuICAgICAgICBpZiAoT2JqZWN0LmtleXMocGFnaW5hdGlvbkRhdGEpLmxlbmd0aCkge1xuICAgICAgICAgICAgbGV0IG9wdGlvbnMgPSB0aGlzLnN0YXRlLm9wdGlvbnM7XG4gICAgICAgICAgICBsZXQgY3VycmVudCA9IHBhZ2luYXRpb25EYXRhLmhhc093blByb3BlcnR5KCdjdXJyZW50X3BhZ2UnKSA/IHBhZ2luYXRpb25EYXRhLmN1cnJlbnRfcGFnZSA6IHBhZ2luYXRpb25EYXRhLm1ldGEuY3VycmVudF9wYWdlLFxuICAgICAgICAgICAgICAgIGxhc3QgPSBwYWdpbmF0aW9uRGF0YS5oYXNPd25Qcm9wZXJ0eSgnbGFzdF9wYWdlJykgPyBwYWdpbmF0aW9uRGF0YS5sYXN0X3BhZ2UgOiBwYWdpbmF0aW9uRGF0YS5tZXRhLmxhc3RfcGFnZSxcbiAgICAgICAgICAgICAgICBkZWx0YSA9IHBhcnNlSW50KG9wdGlvbnMubnVtYmVyc0NvdW50Rm9yU2hvdyksXG4gICAgICAgICAgICAgICAgbGVmdCA9IGN1cnJlbnQgLSBkZWx0YSxcbiAgICAgICAgICAgICAgICByaWdodCA9IGN1cnJlbnQgKyBkZWx0YSArIDEsXG4gICAgICAgICAgICAgICAgcmFuZ2UgPSBbXSxcbiAgICAgICAgICAgICAgICByYW5nZVdpdGhEb3RzID0gW10sXG4gICAgICAgICAgICAgICAgbDtcbiAgICAgICAgICAgIGZvciAobGV0IGkgPSAxOyBpIDw9IGxhc3Q7IGkrKykge1xuICAgICAgICAgICAgICAgIGlmICgoaSA9PT0gMSB8fCBpID09PSBsYXN0KSB8fCAoaSA+PSBsZWZ0ICYmIGkgPCByaWdodCkpIHtcbiAgICAgICAgICAgICAgICAgICAgcmFuZ2UucHVzaChpKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9XG4gICAgICAgICAgICBmb3IgKGxldCBpIG9mIHJhbmdlKSB7XG4gICAgICAgICAgICAgICAgaWYgKGwpIHtcbiAgICAgICAgICAgICAgICAgICAgaWYgKGkgLSBsID09PSAyKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICByYW5nZVdpdGhEb3RzLnB1c2gobCArIDEpO1xuICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKGkgLSBsICE9PSAxKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICByYW5nZVdpdGhEb3RzLnB1c2goJy4uLicpO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIHJhbmdlV2l0aERvdHMucHVzaChpKTtcbiAgICAgICAgICAgICAgICBsID0gaTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgbGV0IG5leHRQYWdlVXJsID0gcGFnaW5hdGlvbkRhdGEuaGFzT3duUHJvcGVydHkoJ25leHRfcGFnZV91cmwnKSA/IHBhZ2luYXRpb25EYXRhLm5leHRfcGFnZV91cmwgOiBwYWdpbmF0aW9uRGF0YS5saW5rcy5uZXh0O1xuICAgICAgICAgICAgbGV0IHByZXZQYWdlVXJsID0gcGFnaW5hdGlvbkRhdGEuaGFzT3duUHJvcGVydHkoJ3ByZXZfcGFnZV91cmwnKSA/IHBhZ2luYXRpb25EYXRhLnByZXZfcGFnZV91cmwgOiBwYWdpbmF0aW9uRGF0YS5saW5rcy5wcmV2O1xuICAgICAgICAgICAgcGFnaW5hdGlvbiA9IChcbiAgICAgICAgICAgICAgICA8dWwgY2xhc3NOYW1lPXtvcHRpb25zLmNvbnRhaW5lckNsYXNzfT5cbiAgICAgICAgICAgICAgICAgICAge3ByZXZQYWdlVXJsID9cbiAgICAgICAgICAgICAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9e29wdGlvbnMucHJldkJ1dHRvbkNsYXNzfSBvbkNsaWNrPXsoZXZlbnQpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBldmVudC5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuaGFuZGxlQ2xpY2soY3VycmVudCAtIDEpXG4gICAgICAgICAgICAgICAgICAgICAgICB9fT5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YSBocmVmPVwiXCIgY2xhc3NOYW1lPXtvcHRpb25zLm51bWJlckNsYXNzfT5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAge3RoaXMuZ2VuZXJhdGVCdXR0b25zUHJldigpfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvbGk+IDogXCJcIn1cbiAgICAgICAgICAgICAgICAgICAge3JhbmdlV2l0aERvdHMubWFwKChwYWdlLCBpbmRleCkgPT5cbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuZ2VuZXJhdGVOdW1iZXIocGFnZSwgaW5kZXgpXG4gICAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgICAgIHtuZXh0UGFnZVVybCA/XG4gICAgICAgICAgICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPXtvcHRpb25zLm5leHRCdXR0b25DbGFzc30gb25DbGljaz17KGV2ZW50KSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmhhbmRsZUNsaWNrKGN1cnJlbnQgKyAxKVxuICAgICAgICAgICAgICAgICAgICAgICAgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj1cIlwiIGNsYXNzTmFtZT17b3B0aW9ucy5udW1iZXJDbGFzc30+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHt0aGlzLmdlbmVyYXRlQnV0dG9uc05leHQoKX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2E+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICAgICAgICAgICAgOiBcIlwifVxuICAgICAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICApO1xuICAgICAgICB9XG4gICAgICAgIHJldHVybiBwYWdpbmF0aW9uO1xuICAgIH07XG5cbiAgICBnZW5lcmF0ZU51bWJlcihwYWdlLCBpbmRleCkge1xuICAgICAgICBsZXQgb3B0aW9ucyA9IHRoaXMuc3RhdGUub3B0aW9ucztcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9e3RoaXMuaXNDdXJyZW50KHBhZ2UpID8gb3B0aW9ucy5udW1iZXJCdXR0b25DbGFzcyArIFwiIFwiICsgb3B0aW9ucy5hY3RpdmVDbGFzcyA6XG4gICAgICAgICAgICAgICAgb3B0aW9ucy5udW1iZXJCdXR0b25DbGFzc30ga2V5PXtpbmRleH0+XG4gICAgICAgICAgICAgICAgPGEgaHJlZj1cIlwiIGNsYXNzTmFtZT17b3B0aW9ucy5udW1iZXJDbGFzc31cbiAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoZXZlbnQpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5oYW5kbGVDbGljayhwYWdlID09PSAnLi4uJyA/IGluZGV4ICsgMSA6IHBhZ2UpXG4gICAgICAgICAgICAgICAgICAgfX0+e3BhZ2V9PC9hPlxuICAgICAgICAgICAgPC9saT5cbiAgICAgICAgKTtcbiAgICB9XG5cbiAgICByZW5kZXIoKSB7XG4gICAgICAgIHJldHVybiAoXG4gICAgICAgICAgICA8UmVhY3QuRnJhZ21lbnQ+XG4gICAgICAgICAgICAgICAge3RoaXMuZ2VuZXJhdGVQYWdpbmF0aW9uKCl9XG4gICAgICAgICAgICA8L1JlYWN0LkZyYWdtZW50PlxuICAgICAgICApO1xuICAgIH1cbn1cblxuUGFnaW5hdGlvbi5kZWZhdWx0UHJvcHMgPSB7XG4gICAgb3B0aW9uczoge1xuICAgICAgICBjb250YWluZXJDbGFzczogXCJwYWdpbmF0aW9uXCIsXG4gICAgICAgIGJ1dHRvbkljb25zOiBmYWxzZSxcbiAgICAgICAgcHJldkJ1dHRvbkNsYXNzOiBcInBhZ2UtaXRlbVwiLFxuICAgICAgICBwcmV2QnV0dG9uVGV4dDogXCJQcmV2XCIsXG4gICAgICAgIHByZXZCdXR0b25JY29uOiBcImZhIGZhLWNoZXZyb24tbGVmdFwiLFxuICAgICAgICBuZXh0QnV0dG9uQ2xhc3M6IFwicGFnZS1pdGVtXCIsXG4gICAgICAgIG5leHRCdXR0b25UZXh0OiBcIk5leHRcIixcbiAgICAgICAgbmV4dEJ1dHRvbkljb246IFwiZmEgZmEtY2hldnJvbi1yaWdodFwiLFxuICAgICAgICBudW1iZXJCdXR0b25DbGFzczogXCJwYWdlLWl0ZW1cIixcbiAgICAgICAgbnVtYmVyQ2xhc3M6IFwicGFnZS1saW5rXCIsXG4gICAgICAgIG51bWJlcnNDb3VudEZvclNob3c6IDIsXG4gICAgICAgIGFjdGl2ZUNsYXNzOiAnYWN0aXZlJ1xuICAgIH0sXG4gICAgZGF0YToge31cbn07XG5cblBhZ2luYXRpb24ucHJvcFR5cGVzID0ge1xuICAgIG9wdGlvbnM6IFByb3BUeXBlcy5zaGFwZSh7XG4gICAgICAgIGNvbnRhaW5lckNsYXNzOiBQcm9wVHlwZXMuc3RyaW5nLFxuICAgICAgICBidXR0b25JY29uczogUHJvcFR5cGVzLmJvb2wsXG4gICAgICAgIG5leHRCdXR0b25DbGFzczogUHJvcFR5cGVzLnN0cmluZyxcbiAgICAgICAgbmV4dEJ1dHRvblRleHQ6IFByb3BUeXBlcy5zdHJpbmcsXG4gICAgICAgIG5leHRCdXR0b25JY29uOiBQcm9wVHlwZXMuc3RyaW5nLFxuICAgICAgICBwcmV2QnV0dG9uQ2xhc3M6IFByb3BUeXBlcy5zdHJpbmcsXG4gICAgICAgIHByZXZCdXR0b25UZXh0OiBQcm9wVHlwZXMuc3RyaW5nLFxuICAgICAgICBwcmV2QnV0dG9uSWNvbjogUHJvcFR5cGVzLnN0cmluZyxcbiAgICAgICAgbnVtYmVyQnV0dG9uQ2xhc3M6IFByb3BUeXBlcy5zdHJpbmcsXG4gICAgICAgIG51bWJlckNsYXNzOiBQcm9wVHlwZXMuc3RyaW5nLFxuICAgICAgICBudW1iZXJDb3VudEZvclNob3c6IFByb3BUeXBlcy5udW1iZXIsXG4gICAgICAgIGFjdGl2ZUNsYXNzOiBQcm9wVHlwZXMuc3RyaW5nXG4gICAgfSksXG4gICAgZGF0YTogUHJvcFR5cGVzLm9iamVjdFxufTtcbmV4cG9ydCBkZWZhdWx0IFBhZ2luYXRpb247XG4iXX0=
+
+/***/ }),
+
+/***/ "./node_modules/react-laravel-paginex/dist/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-laravel-paginex/dist/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+Object.defineProperty(exports, "Pagination", ({
+  enumerable: true,
+  get: function get() {
+    return _Pagination["default"];
+  }
+}));
+
+var _Pagination = _interopRequireDefault(__webpack_require__(/*! ./Pagination */ "./node_modules/react-laravel-paginex/dist/Pagination.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBQYWdpbmF0aW9uIGZyb20gJy4vUGFnaW5hdGlvbic7XG5cbmV4cG9ydCB7XG4gICAgUGFnaW5hdGlvblxufSJdfQ==
 
 /***/ }),
 

@@ -30,7 +30,6 @@ function AutoDeposit(props) {
             axios
                 .post("/payments", { reference: reference })
                 .then((response) => {
-                    props.addTransaction(response.data.data.transaction);
                     handlePaymentSuccess(response.data);
                 })
                 .catch((err) => console.log(err));
