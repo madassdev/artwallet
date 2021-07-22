@@ -52,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         "role",
         "is_admin",
+        "is_super_admin",
         "full_name",
         "date"
     ];
@@ -65,6 +66,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsAdminAttribute()
     {
         return $this->roles->where('name', 'admin')->count() ? true : false;
+    }
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->roles->where('name', 'super_admin')->count() ? true : false;
     }
 
     public function orders()
@@ -102,7 +108,8 @@ class User extends Authenticatable implements MustVerifyEmail
         // 10 Jan 2020, 10:45pm
     }
 
-    public function getRouteKeyName(){
+    public function getRouteKeyName()
+    {
         return "uniqid";
     }
 }

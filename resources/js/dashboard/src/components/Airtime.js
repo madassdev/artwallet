@@ -88,7 +88,10 @@ function Airtime(props) {
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
-                props.debitUserBalance(amount);
+                if(res.data.order_success)
+                {
+                    props.debitUserBalance(amount);
+                }
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });

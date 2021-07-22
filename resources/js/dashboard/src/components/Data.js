@@ -7,6 +7,17 @@ import axios from "axios";
 import { getDataProviders } from "../reducers/providerReducer";
 import toast from "react-hot-toast";
 
+const data_plans = [
+    { data: "100MB(1day)", amount: 100 },
+    { data: "200MB(1day)", amount: 200 },
+    { data: "1GB(1day)", amount: 350 },
+    { data: "750MB(7days)", amount: 500 },
+    { data: "1.5GB(30days)", amount: 1000 },
+    { data: "2GB(30days)", amount: 1200 },
+    { data: "4.5GB(30days)", amount: 2000 },
+    { data: "8GB(30days)", amount: 3000 },
+    { data: "15GB(30days)", amount: 5000 },
+];
 function Data(props) {
     const [selectedProvider, setSelectedProvider] = useState(-1);
     const [selectedPlan, setSelectedPlan] = useState(0);
@@ -92,7 +103,7 @@ function Data(props) {
         setIsPaying(true);
         // return;
         axios
-            .post("/orders", {
+            .post("/orders/data", {
                 plan_id: selectedPlan,
                 type: "data",
                 pin,
@@ -100,7 +111,9 @@ function Data(props) {
             })
             .then((res) => {
                 setIsPaying(false);
-                props.debitUserBalance(amount);
+                if (res.data.order_success) {
+                    props.debitUserBalance(amount);
+                }
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
@@ -159,9 +172,7 @@ function Data(props) {
 
                                 <div>
                                     <h2 className="font-bold m-0">Recipient</h2>
-                                    <p className="text-gray-600">
-                                        {recipient}
-                                    </p>
+                                    <p className="text-gray-600">{recipient}</p>
                                 </div>
                                 <div>
                                     <h2 className="font-bold m-0">Plan</h2>

@@ -12,6 +12,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Services\MobileAirtimeService;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,17 @@ class DashboardController extends Controller
     {
         // return MobileAirtimeService::buyAirtime('mtn', '08136051712', 10, Order::uniqueRef());
         // return MobileAirtimeService::verifyElectricity('ibsedc', '9987657');
+        // $roles = [
+        //     [
+        //         "name" => "super_admin",
+        //         "guard_name" => "web"
+        //     ],
+        // ];
+        // Role::insert($roles);
+        // User::find(1)->assignRole('super_admin');
+        // $str = file_get_contents(base_path('database/seeders/data_plans.json'));
+        // $json = json_decode($str, true);
+        //  dd($json);
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
         $plans = Plan::with('provider.service')->get();

@@ -65,6 +65,10 @@ class AppSeeder extends Seeder
 
         $roles = [
             [
+                "name" => "super_admin",
+                "guard_name" => "web"
+            ],
+            [
                 "name" => "admin",
                 "guard_name" => "web"
             ],

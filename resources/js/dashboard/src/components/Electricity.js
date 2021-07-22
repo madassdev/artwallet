@@ -117,11 +117,14 @@ function Electricity(props) {
                 amount,
                 pin,
                 recipient,
+                meter_type: meterType,
             })
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
-                props.debitUserBalance(amount);
+                if (res.data.order_success) {
+                    props.debitUserBalance(amount);
+                }
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
@@ -328,7 +331,9 @@ function Electricity(props) {
                                     <input
                                         type="radio"
                                         name="meter_type"
-                                        onChange={() => setMeterType("postpaid")}
+                                        onChange={() =>
+                                            setMeterType("postpaid")
+                                        }
                                         value="postpaid"
                                     />
                                     <p className="font-bold">Postpaid</p>

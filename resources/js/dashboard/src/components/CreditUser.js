@@ -44,7 +44,7 @@ function CreditUser() {
         e.preventDefault();
         setIsUpdating(true)
         axios
-            .put("/admin/users/"+user.uniqid, { balance: userBalance })
+            .put("/admin/users/"+user.uniqid + "/updateBalance", { balance: userBalance })
             .then((res) => {
                 console.log(res.data);
                 setUser(res.data.data.user);

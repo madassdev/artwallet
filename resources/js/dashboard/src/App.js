@@ -16,6 +16,7 @@ import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 import Settings from "./components/Settings";
 import { Toaster } from "react-hot-toast";
 import Activities from "./components/Activities";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App(props) {
     useEffect(() => {
@@ -37,6 +38,11 @@ function App(props) {
                     <AdminRoute path="/products">
                         <ProductDashboard />
                     </AdminRoute>
+                    {AUTH_USER.is_super_admin && (
+                        <AdminRoute path="/admin">
+                            <AdminDashboard />
+                        </AdminRoute>
+                    )}
                     <AdminRoute path="/activities">
                         <Activities />
                     </AdminRoute>

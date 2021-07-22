@@ -38,6 +38,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::get('/users/search', 'AdminController@searchUsers');
     Route::post('/users/find', 'AdminController@findUser');
     Route::put('/users/{user}', 'AdminController@updateUser');
+    Route::put('/users/{user}/updateBalance', 'AdminController@updateUserBalance');
+    Route::group(['middleware' => 'role:super_admin'], function () {
+        Route::post('/make-admin', 'AdminController@makeAdmin');
+        Route::get('/admin-activities', 'AdminController@adminActivities');
+    });
 });
 Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
@@ -47,6 +52,7 @@ Route::post('/orders/transfer', 'OrderController@transfer');
 Route::post('/orders/cable-tv', 'OrderController@cableTv');
 Route::post('/orders/airtime', 'OrderController@airtime');
 Route::post('/orders/electricity', 'OrderController@electricity');
+Route::post('/orders/data', 'OrderController@data');
 Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
 Route::resource('providers', 'ProviderController')->middleware('auth');
 Route::resource('plans', 'PlanController')->middleware('auth');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminActivity;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class AdminController extends Controller
 
     public function findUser(Request $request)
     {
-        $user = User::whereEmail($request->term)->orWhere('uniqid', $request->term)->orWhere('mobile',$request->term)->first();
+        $user = User::whereEmail($request->term)->orWhere('uniqid', $request->term)->orWhere('mobile', $request->term)->first();
         if ($user) {
             return response()->json([
                 "success" => true,
@@ -30,12 +31,23 @@ class AdminController extends Controller
         }
     }
 
-    public function updateUser(Request $request, User $user)
+    public function updateUserBalance(Request $request, User $user)
     {
-        if($request->has('balance')){
-            $user->balance = $request->balance;
-            $user->save();
-        }
+        $user_copy = $user;
+        $user->balance = $request->balance;
+        $user->save();
+
+        AdminActivity::create([
+            "user_id" => auth()->id(),
+            "targetable_id" => $user->id,
+            "targetable_type" => User::class,
+            "target_data" => [
+                "before" => $user_copy,
+                "after" => $user,
+            ],
+            "type" => "user-balance-update",
+            "status" => "success"
+        ]);
 
         return response()->json([
             "success" => true,
@@ -44,5 +56,17 @@ class AdminController extends Controller
                 "user" => $user
             ]
         ]);
+    }
+
+    public function adminActivities()
+    {
+        $activities = AdminActivity::with('user', 'targetable')->latest()->paginate(3);
+        return response()->json(
+            [
+                "data" => [
+                    "activities"=>$activities
+                ]
+            ]
+        );
     }
 }

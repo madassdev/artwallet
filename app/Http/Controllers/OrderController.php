@@ -11,11 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
-    public function store(Request $request)
+    public function data(Request $request)
     {
         $request->validate([
-            'type' => "required|in:airtime,data",
-            'amount' => 'required_if:type,airtime|numeric|min:0',
+            'type' => "required|in:data",
             "plan_id" => 'required_if:type,data|exists:plans,id',
             "recipient" => 'required'
         ]);
@@ -29,36 +28,35 @@ class OrderController extends Controller
                 "code" => "PIN_INCORRECT"
             ], 403);
         }
-        $plan = Plan::findOrFail($request->plan_id);
-        $amount = 0;
-        if ($request->type === "data") {
-            if ($user->balance < $plan->price) {
-                return response()->json([
-                    "success" => false,
-                    "message" => "User does not have enough balance to purchase this plan"
-                ], 403);
-            }
-            $amount = $plan->price;
+        $plan = Plan::findOrFail($request->plan_id)->load('provider');
+        if ($user->balance < $plan->price) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does not have enough balance to purchase this plan"
+            ], 403);
         }
-        if ($request->type === "airtime") {
-            //https://mobileairtimeng.com/httpapi/?userid=xxxx&pass=xxxx&network=x&phone=xxxxx&amt=xx&user_ref=xxx&jsn=json
-            if ($user->balance < $request->amount) {
-                return response()->json([
-                    "success" => false,
-                    "message" => "User does not have enough balance to purchase this amount"
-                ], 403);
-            }
-            $amount = $request->amount;
-        }
-        $user->balance -= $amount;
-        $user->save();
-
+        $amount = $plan->price;
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
             "recipient" => $request->recipient,
             "reference" => $reference
         ]);
+        $txn = MobileAirtimeService::buyData($plan->provider->slug, $order->recipient, $plan, $order->reference);
+        
+        if ($txn['code'] === 100) {
+            $order_success = true;
+            $status = "complete";
+            $user->balance -= $amount;
+            $user->save();
+        } else {
+            $order_success = false;
+            $status = "failed";
+        }
+
+        $order->order_data = $txn;
+        $order->status = $status;
+
 
         $transaction = $user->debits()->create([
             "user_id" => $user->id,
@@ -69,11 +67,12 @@ class OrderController extends Controller
             'recipient' => $request->recipient,
             'amount' => $order->amount,
             'type' => $request->type,
-            'status' => 'complete',
+            'status' => $order->status,
         ]);
 
         return response()->json([
             "success" => true,
+            "order_success" => $order_success,
             "message" => "Order placed successfully",
             "data" => [
                 "order" => $order->load('credit'),
@@ -165,7 +164,8 @@ class OrderController extends Controller
             'type' => "required|in:electricity",
             'amount' => 'required|numeric|min:0',
             "plan_id" => 'required|exists:plans,id',
-            "recipient" => 'required'
+            "recipient" => 'required',
+            "meter_type" => 'required|in:prepaid,postpaid'
         ]);
 
         if (!Hash::check($request->pin, $user->pin)) {
@@ -186,16 +186,16 @@ class OrderController extends Controller
         }
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
-            "amount" => $amount,
+            "amount" => $request->amount,
             "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
         ]);
 
-        $txn = MobileAirtimeService::buyElectricity($plan->provider->slug, $request->recipient);
+        $txn = MobileAirtimeService::buyElectricity($plan->provider->slug, $order->recipient, $request->meter_type, $request->amount, $order->reference);
         if ($txn['code'] === 100) {
             $order_success = true;
             $status = "complete";
-            $user->balance -= $amount;
+            $user->balance -= $request->amount;
             $user->save();
         } else {
             $order_success = false;
@@ -205,7 +205,7 @@ class OrderController extends Controller
         $order->order_data = $txn;
         $order->status = $status;
         $order->save();
-        $user->balance -= $amount;
+        $user->balance -= $request->amount;
         $user->save();
 
 
@@ -218,11 +218,12 @@ class OrderController extends Controller
             'recipient' => $request->recipient,
             'credit_data' => $order->load('plan.provider.service'),
             'type' => $request->type,
-            'status' => 'complete',
+            'status' => $order->status,
         ]);
 
         return response()->json([
             "success" => true,
+            "order_success" => $order_success,
             "message" => "Order placed successfully",
             "data" => [
                 "order" => $order->load('credit'),
@@ -246,15 +247,14 @@ class OrderController extends Controller
                 "recipient" => $valid_response["message"]
             ]);
         } else {
-        $plan = Plan::findOrFail($request->plan_id);
-        $txn = MobileAirtimeService::verifyElectricity($plan->provider->slug, $request->recipient);
+            $plan = Plan::findOrFail($request->plan_id);
+            $txn = MobileAirtimeService::verifyElectricity($plan->provider->slug, $request->recipient);
             return response()->json([
                 "success" => false,
                 "message" => "Electricity Meter Number Validation Failed",
                 "data" => $txn
             ], 403);
         }
-
     }
 
 

@@ -1,0 +1,76 @@
+[
+    {
+        "provider": "mtn",
+        "plans": [
+            [
+                { "data": "100MB(1day)", "amount": 100 },
+                { "data": "200MB(1day)", "amount": 200 },
+                { "data": "1GB(1day)", "amount": 350 },
+                { "data": "750MB(7days)", "amount": 500 },
+                { "data": "1.5GB(30days)", "amount": 1000 },
+                { "data": "2GB(30days)", "amount": 1200 },
+                { "data": "4.5GB(30days)", "amount": 2000 },
+                { "data": "8GB(30days)", "amount": 3000 },
+                { "data": "15GB(30days)", "amount": 5000 }
+            ]
+        ]
+    },
+    {
+        "provider": "glo",
+        "plans": [
+            { "data": "92MB-24hrs", "amount": 100 },
+            { "data": "262MB-2days", "amount": 200 },
+            { "data": "920MB-14days", "amount": 500 },
+            { "data": "1.8GB-30days", "amount": 1000 },
+            { "data": "4.5GB-30days", "amount": 2000 },
+            { "data": "7.2GB-30days", "amount": 2500 },
+            { "data": "8.75GB-30days", "amount": 3000 },
+            { "data": "12.5GB-30days", "amount": 4000 },
+            { "data": "15.6GB-30days", "amount": 5000 },
+            { "data": "25GB-30days", "amount": 8000 },
+            { "data": "32.5GB-30days", "amount": 10000 }
+        ]
+    },
+    {
+        "provider": "airtel",
+        "plans": [
+            { "data": "25MB-1Day", "amount": "49.99" },
+            { "data": "75MB-1Day", "amount": "99" },
+            { "data": "200MB-3Days", "amount": "199.03" },
+            { "data": "350MB-7Days", "amount": "299.02" },
+            { "data": "750MB-14Days", "amount": "499" },
+            { "data": "1.5GB-30Days", "amount": "999" },
+            { "data": "3GB-30Days", "amount": "1499.01" },
+            { "data": "4.5GB-30Days", "amount": "1999" },
+            { "data": "6GB-30Days", "amount": "2499.01" },
+            { "data": "10GB -30Days", "amount": "2999.02" },
+            { "data": "11GB-30Days", "amount": "3999.01" },
+            { "data": "20GB-30Days", "amount": "4999" },
+            { "data": "40GB-30Days", "amount": "9999" },
+            { "data": "75GB-30Days", "amount": "14999" },
+            { "data": "120GB-30Days", "amount": "19999.02" },
+            { "data": "1GB-1Day", "amount": "299.03" },
+            { "data": "2GB-1Day", "amount": "499.03" },
+            { "data": "6GB-7Days", "amount": "1499.03" },
+            { "data": "25GB-30Days", "amount": "7999.02" }
+        ]
+    },
+    {
+        "provider": "9mobile",
+        "plans": [
+            { "data": "25MB (1 Days)", "amount": 50 },
+            { "data": "100MB (1 Days)", "amount": 100 },
+            { "data": "650MB (1 Days)", "amount": 200 },
+            { "data": "1GB (1 Days)", "amount": 300 },
+            { "data": "500MB (30 Days)", "amount": 500 },
+            { "data": "1.5GB (30 Days)", "amount": 1000 },
+            { "data": "2GB (30 Days)", "amount": 1200 },
+            { "data": "7GB (7 Days)", "amount": 1500 },
+            { "data": "4.5GB (30 Days)", "amount": 2000 },
+            { "data": "11GB (30 Days)", "amount": 4000 },
+            { "data": "15GB (30 Days)", "amount": 5000 },
+            { "data": "40GB (30 Days)", "amount": 10000 },
+            { "data": "75GB (30 Days)", "amount": 15000 }
+        ]
+    }
+]

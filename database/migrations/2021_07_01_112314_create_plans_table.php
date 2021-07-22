@@ -19,6 +19,7 @@ class CreatePlansTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('slug')->unique();
+            $table->string('validity')->nullable();
             $table->integer('price');
             $table->integer('min_price')->default(0);
             $table->integer('max_price')->default(0);
