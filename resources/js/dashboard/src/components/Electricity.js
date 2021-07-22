@@ -10,13 +10,16 @@ import toast from "react-hot-toast";
 
 function Electricity(props) {
     const [selectedPlan, setSelectedPlan] = useState(0);
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState("");
     const [recipient, setRecipient] = useState("");
     const [isPaying, setIsPaying] = useState(false);
+    const [isValidating, setIsValidating] = useState(false);
     const [plan, setPlan] = useState();
     const [isReady, setIsReady] = useState(false);
     const [transactionComplete, setTransactionComplete] = useState(false);
     const [pin, setPin] = useState("");
+    const [meterDetails, setMeterDetails] = useState();
+    const [meterType, setMeterType] = useState(0);
 
     const handlePlanSelected = (e) => {
         setSelectedPlan(e.target.value);
@@ -27,11 +30,15 @@ function Electricity(props) {
 
     const handleProceed = (e) => {
         if (recipient === "") {
-            alert("Please enter a valid recipient number");
+            alert("Please enter a valid meter number");
             return;
         }
         if (!selectedPlan) {
             alert("Please select a provider first");
+            return;
+        }
+        if (!meterType) {
+            alert("Please select a meter type first");
             return;
         }
 
@@ -44,7 +51,33 @@ function Electricity(props) {
             return;
         }
 
-        setIsReady(true);
+        setIsValidating(true);
+        axios
+            .post("/orders/electricity/verify", {
+                plan_id: selectedPlan,
+                type: "electricity",
+                recipient,
+            })
+            .then((res) => {
+                console.log(res.data);
+                setMeterDetails(res.data.recipient);
+                setIsValidating(false);
+                setIsReady(true);
+            })
+            .catch((err) => {
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "top-center",
+                        style: {
+                            background: "rgba(185, 16, 16,1)",
+                            color: "#fff",
+                            padding: "20px",
+                        },
+                    });
+                }
+                setIsValidating(false);
+            });
     };
 
     const handlePaymentClicked = (e) => {
@@ -147,8 +180,9 @@ function Electricity(props) {
 
                                 <div>
                                     <h2 className="font-bold m-0">Recipient</h2>
-                                    <p className="text-gray-600">
-                                        {recipient}
+                                    <p className="text-gray-600">{recipient}</p>
+                                    <p className="text-primary text-xs">
+                                        {meterDetails}
                                     </p>
                                 </div>
                                 <div>
@@ -253,8 +287,7 @@ function Electricity(props) {
 
                                 <div className="form-control-wrap">
                                     <input
-                                        type="number"
-                                        min="100"
+                                        type="text"
                                         className="w-full rounded border-gray-300"
                                         value={recipient}
                                         onChange={(e) =>
@@ -280,14 +313,52 @@ function Electricity(props) {
                                     />
                                 </div>
                             </div>
+                            <p className="font-bold mb-1">Meter type</p>
+                            <div className="flex space-x-8">
+                                <div className="flex space-x-2">
+                                    <input
+                                        type="radio"
+                                        name="meter_type"
+                                        onChange={() => setMeterType("prepaid")}
+                                        value="prepaid"
+                                    />
+                                    <p className="font-bold">Prepaid</p>
+                                </div>
+                                <div className="flex space-x-2">
+                                    <input
+                                        type="radio"
+                                        name="meter_type"
+                                        onChange={() => setMeterType("postpaid")}
+                                        value="postpaid"
+                                    />
+                                    <p className="font-bold">Postpaid</p>
+                                </div>
+                            </div>
 
                             <div className="form-group my-2">
-                                <button
-                                    className="btn btn-primary btn-block font-bold"
-                                    onClick={handleProceed}
-                                >
-                                    Proceed {">>"}
-                                </button>
+                                {isValidating ? (
+                                    <button
+                                        onClick={() => {
+                                            setIsValidating(false);
+                                        }}
+                                        className="btn btn-light btn-block"
+                                        type="button"
+                                    >
+                                        <div
+                                            className="spinner-border-sm spinner-border text-primary"
+                                            role="status"
+                                        >
+                                            {/* <span class="sr-only">Loading...</span> */}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn btn-primary btn-block font-bold"
+                                        onClick={handleProceed}
+                                    >
+                                        Proceed {">>"}
+                                    </button>
+                                )}
                             </div>
                         </div>
                     )}

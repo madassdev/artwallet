@@ -14,26 +14,26 @@ class RecipientUpdatesToTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->string('recipient')->default('wallet');
-        });
-        Schema::table('orders', function (Blueprint $table) {
-            $table->renameColumn('destination', 'recipient');
-        });
+        // Schema::table('transactions', function (Blueprint $table) {
+        //     $table->string('recipient')->default('wallet');
+        // });
+        // Schema::table('orders', function (Blueprint $table) {
+        //     $table->renameColumn('destination', 'recipient');
+        // });
 
-        Transaction::with('creditable')->get()->map(function ($t) {
-            $t->recipient = $t->creditable->recipient;
-            if ($t->type == "deposit") {
-                $t->recipient = "wallet";
-            }
-            if ($t->type == "credit") {
-                $t->recipient = $t->debitable->mobile;
-            }
-            if ($t->type == "transfer") {
-                $t->recipient = $t->creditable->mobile;
-            }
-            $t->save();
-        });
+        // Transaction::with('creditable')->get()->map(function ($t) {
+        //     $t->recipient = $t->creditable->recipient;
+        //     if ($t->type == "deposit") {
+        //         $t->recipient = "wallet";
+        //     }
+        //     if ($t->type == "credit") {
+        //         $t->recipient = $t->debitable->mobile;
+        //     }
+        //     if ($t->type == "transfer") {
+        //         $t->recipient = $t->creditable->mobile;
+        //     }
+        //     $t->save();
+        // });
     }
 
     /**

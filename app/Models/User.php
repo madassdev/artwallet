@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,7 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         "role",
         "is_admin",
-        "full_name"
+        "full_name",
+        "date"
     ];
 
 
@@ -92,5 +94,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFullNameAttribute()
     {
         return ucfirst($this->name . ' ' . $this->last_name);
+    }
+
+    public function getDateAttribute($value)
+    {
+        return (new Carbon($this->created_at))->format('d M Y, g:ia');
+        // 10 Jan 2020, 10:45pm
+    }
+
+    public function getRouteKeyName(){
+        return "uniqid";
     }
 }

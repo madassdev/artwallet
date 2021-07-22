@@ -83,7 +83,13 @@ function Home(props) {
                                         <p className="text-gray-400 uppercase">{t.recipient}</p>
                                     </span>
                                     <span className="tb-odr-status">
-                                        <span className="badge badge-dot badge-success capitalize">
+                                        <span className={`badge badge-dot capitalize ${
+                                            t.status === "complete"
+                                            ? "badge-success"
+                                            : t.status === "failed"
+                                            ? "badge-danger"
+                                            : "badge-warning"
+                                        }`}>
                                             {t.status}
                                         </span>
                                     </span>

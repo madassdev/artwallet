@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 use App\Models\Plan;
@@ -9,34 +10,15 @@ use App\Models\Provider;
 use App\Models\Service;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Services\MobileAirtimeService;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // auth()->user()->balance = 5000;
-        // auth()->user()->save();
-        //  User::all()->skip(1)->map(function($user){
-        //     $user->pin = bcrypt($user->uniqid-10000);
-        //     $user->save();
-        // });
-
-        // return time();
-        // Transaction::with('creditable')->get()->map(function ($t) {
-        //     $t->recipient = $t->creditable->recipient;
-        //     if ($t->type == "deposit") {
-        //         $t->recipient = "wallet";
-        //     }
-        //     if ($t->type == "credit") {
-        //         $t->recipient = $t->debitable->mobile;
-        //     }
-        //     if ($t->type == "transfer") {
-        //         $t->recipient = $t->creditable->mobile;
-        //     }
-        //     $t->save();
-        // });
-
+        // return MobileAirtimeService::buyAirtime('mtn', '08136051712', 10, Order::uniqueRef());
+        // return MobileAirtimeService::verifyElectricity('ibsedc', '9987657');
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
         $plans = Plan::with('provider.service')->get();

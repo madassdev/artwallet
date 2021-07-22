@@ -34,10 +34,10 @@ Route::group(['prefix' => 'auth', 'middleware' =>[ 'auth', 'verified']], functio
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
-    Route::any(
-        '{all?}',
-        "DashboardController@index"
-    )->where(['all' => '.*']);
+    Route::get('/users', 'AdminController@getUsers');
+    Route::get('/users/search', 'AdminController@searchUsers');
+    Route::post('/users/find', 'AdminController@findUser');
+    Route::put('/users/{user}', 'AdminController@updateUser');
 });
 Route::get('/test', 'ServiceController@index');
 Route::resource('services', 'ServiceController')->middleware('auth');
@@ -45,7 +45,9 @@ Route::resource('orders', 'OrderController')->middleware('auth');
 Route::resource('transactions', 'TransactionController')->middleware('auth');
 Route::post('/orders/transfer', 'OrderController@transfer');
 Route::post('/orders/cable-tv', 'OrderController@cableTv');
+Route::post('/orders/airtime', 'OrderController@airtime');
 Route::post('/orders/electricity', 'OrderController@electricity');
+Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
 Route::resource('providers', 'ProviderController')->middleware('auth');
 Route::resource('plans', 'PlanController')->middleware('auth');
 Route::resource('payments', 'PaymentController')->middleware('auth');

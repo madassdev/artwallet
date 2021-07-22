@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Plan;
 use App\Models\User;
+use App\Services\MobileAirtimeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,6 +20,7 @@ class OrderController extends Controller
             "recipient" => 'required'
         ]);
         $user = auth()->user();
+        $reference = Order::uniqueRef();
         if (!Hash::check($request->pin, $user->pin)) {
 
             return response()->json([
@@ -39,6 +41,7 @@ class OrderController extends Controller
             $amount = $plan->price;
         }
         if ($request->type === "airtime") {
+            //https://mobileairtimeng.com/httpapi/?userid=xxxx&pass=xxxx&network=x&phone=xxxxx&amt=xx&user_ref=xxx&jsn=json
             if ($user->balance < $request->amount) {
                 return response()->json([
                     "success" => false,
@@ -54,7 +57,7 @@ class OrderController extends Controller
             "plan_id" => $request->plan_id,
             "amount" => $amount,
             "recipient" => $request->recipient,
-            "reference" => Order::uniqueRef(),
+            "reference" => $reference
         ]);
 
         $transaction = $user->debits()->create([
@@ -80,6 +83,81 @@ class OrderController extends Controller
         // $user
     }
 
+    public function airtime(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            'type' => "required|in:airtime",
+            'amount' => 'required|numeric|min:0',
+            "plan_id" => 'required|exists:plans,id',
+            "recipient" => 'required'
+        ]);
+
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
+
+        $plan = Plan::findOrFail($request->plan_id);
+
+        if ($user->balance < $request->amount) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does not have enough balance to purchase this amount"
+            ], 403);
+        }
+        $order = $user->orders()->create([
+            "plan_id" => $request->plan_id,
+            "amount" => $request->amount,
+            "recipient" => $request->recipient,
+            "reference" => Order::uniqueRef(),
+        ]);
+        $txn = MobileAirtimeService::buyAirtime($plan->provider->slug, $order->recipient, $order->amount, $order->reference);
+        $amount = $request->amount;
+        if ($txn['code'] === 100) {
+            $order_success = true;
+            $status = "complete";
+            $user->balance -= $amount;
+            $user->save();
+        } else {
+            $order_success = false;
+            $status = "failed";
+        }
+
+        $order->order_data = $txn;
+        $order->status = $status;
+        $order->save();
+
+
+        //Buy Airtime
+
+        $transaction = $user->debits()->create([
+            "user_id" => $user->id,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'amount' => $order->amount,
+            'debit_data' => $user,
+            'recipient' => $order->recipient,
+            'credit_data' => $order->load('plan.provider.service'),
+            'type' => $request->type,
+            'status' => $order->status,
+        ]);
+
+        return response()->json([
+            "success" => true,
+            "order_success" => $order_success,
+            "message" => "Order placed successfully",
+            "data" => [
+                "order" => $order,
+            ],
+        ]);
+        // $user
+    }
+
     public function electricity(Request $request)
     {
         $user = auth()->user();
@@ -100,24 +178,36 @@ class OrderController extends Controller
         }
 
         $plan = Plan::findOrFail($request->plan_id);
-        $amount = 0;
-
         if ($user->balance < $request->amount) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this amount"
             ], 403);
         }
-        $amount = $request->amount;
-        $user->balance -= $amount;
-        $user->save();
-
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
             "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
         ]);
+
+        $txn = MobileAirtimeService::buyElectricity($plan->provider->slug, $request->recipient);
+        if ($txn['code'] === 100) {
+            $order_success = true;
+            $status = "complete";
+            $user->balance -= $amount;
+            $user->save();
+        } else {
+            $order_success = false;
+            $status = "failed";
+        }
+
+        $order->order_data = $txn;
+        $order->status = $status;
+        $order->save();
+        $user->balance -= $amount;
+        $user->save();
+
 
         $transaction = $user->debits()->create([
             "user_id" => $user->id,
@@ -140,6 +230,31 @@ class OrderController extends Controller
             ],
         ]);
         // $user
+    }
+
+    public function verifyElectricity(Request $request)
+    {
+        if (strtolower($request->recipient) == "valid") {
+
+            $valid_response = [
+                "code" => 100,
+                "message" => "Test User"
+            ];
+
+            return response()->json([
+                "success" => true,
+                "recipient" => $valid_response["message"]
+            ]);
+        } else {
+        $plan = Plan::findOrFail($request->plan_id);
+        $txn = MobileAirtimeService::verifyElectricity($plan->provider->slug, $request->recipient);
+            return response()->json([
+                "success" => false,
+                "message" => "Electricity Meter Number Validation Failed",
+                "data" => $txn
+            ], 403);
+        }
+
     }
 
 

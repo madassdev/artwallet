@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 import Settings from "./components/Settings";
 import { Toaster } from "react-hot-toast";
+import Activities from "./components/Activities";
 
 function App(props) {
     useEffect(() => {
@@ -35,6 +36,9 @@ function App(props) {
                     </AdminRoute>
                     <AdminRoute path="/products">
                         <ProductDashboard />
+                    </AdminRoute>
+                    <AdminRoute path="/activities">
+                        <Activities />
                     </AdminRoute>
 
                     <Route path="/buy">
