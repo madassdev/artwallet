@@ -278,7 +278,7 @@ function Sidebar() {
                                                         title=""
                                                     >
                                                         <span className="nk-menu-text">
-                                                            Add Admin
+                                                            Manage Admin
                                                         </span>
                                                     </NavLink>
                                                 </li>

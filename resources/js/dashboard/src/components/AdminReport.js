@@ -56,7 +56,7 @@ function AdminReport() {
                                     <td className="tb-odr-amount">
                                         <span className="tb-odr-id font-bold text-purple-500 uppercase">
                                             <a href="#" className="font-bold">
-                                                {a.type}
+                                                {deslug(a.type)}
                                             </a>
                                         </span>
                                         <span className="tb-odr-date">

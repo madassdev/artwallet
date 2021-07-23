@@ -45,7 +45,7 @@ class AdminController extends Controller
                 "before" => $user_copy,
                 "after" => $user,
             ],
-            "type" => "admin-create",
+            "type" => "user-balance-update",
             "status" => "success"
         ]);
 
@@ -91,7 +91,7 @@ class AdminController extends Controller
                 "before" => $user_copy,
                 "after" => $user->load('roles'),
             ],
-            "type" => "user-balance-update",
+            "type" => "admin-create",
             "status" => "success"
         ]);
 
@@ -146,7 +146,7 @@ class AdminController extends Controller
 
     public function adminActivities()
     {
-        $activities = AdminActivity::with('user', 'targetable')->latest()->paginate(3);
+        $activities = AdminActivity::with('user', 'targetable')->latest()->paginate(20);
         return response()->json(
             [
                 "data" => [

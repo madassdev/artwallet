@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate(10);
+        if($request->type){
+            $type= $request->type;
+            $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
+        }else{
+
+            $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate(10);
+        }
         return response()->json(
             [
                 "data" => [

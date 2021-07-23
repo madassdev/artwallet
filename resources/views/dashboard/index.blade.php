@@ -43,7 +43,7 @@ $auth_user = auth()->user();
         const APP_SERVICES = @json($app_services);
 
         const deslug = (value) => {
-            return value.replace('_', ' ')
+            return value.replace(/_/g, ' ').replace(/-/g, ' ')
         }
     </script>
     <!-- app-root @e -->

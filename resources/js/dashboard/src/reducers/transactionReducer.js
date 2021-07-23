@@ -8,15 +8,14 @@ const INITIAL_STATE = {
 
 // selectors
 
-export const fetchTransactions = (page = 1) => {
-    console.log(page);
+export const fetchTransactions = (page = 1, type=null) => {
     return (dispatch) => {
         dispatch({
             type: "SET_FETCHING",
             status: true,
         });
         axios
-            .get("/transactions?page=" + page)
+            .get(`/transactions?page=${page}${type&&"&type="+type}`)
             .then((response) => {
                 dispatch({
                     type: "SET_TRANSACTIONS",

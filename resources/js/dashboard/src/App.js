@@ -17,6 +17,7 @@ import Settings from "./components/Settings";
 import { Toaster } from "react-hot-toast";
 import Activities from "./components/Activities";
 import AdminDashboard from "./components/AdminDashboard";
+import Transactions from "./components/Transactions";
 
 function App(props) {
     useEffect(() => {
@@ -63,7 +64,7 @@ function App(props) {
                         <SuccessPage />
                     </Route>
                     <Route path="/transactions">
-                        <h2>Transactions</h2>
+                        <Transactions/>
                     </Route>
                     <Route path="/withdrawal">
                         <h2>Withdrawals</h2>

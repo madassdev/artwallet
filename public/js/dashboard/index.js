@@ -2804,7 +2804,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function AdminRoute(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, _objectSpread(_objectSpread({}, props), {}, {
     children: AUTH_USER.is_admin ? props.children : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Redirect, {
-      to: "/login"
+      to: "/dashboard"
     })
   }));
 }
@@ -2825,8 +2825,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Layout */ "./resources/js/dashboard/src/components/Layout.js");
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Home */ "./resources/js/dashboard/src/components/Home.js");
 /* harmony import */ var _components_Payment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Payment */ "./resources/js/dashboard/src/components/Payment.js");
@@ -2841,10 +2841,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_serviceActions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./actions/serviceActions */ "./resources/js/dashboard/src/actions/serviceActions.js");
 /* harmony import */ var _components_Settings__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Settings */ "./resources/js/dashboard/src/components/Settings.js");
-/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-hot-toast */ "./node_modules/react-hot-toast/dist/react-hot-toast.esm.js");
+/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react-hot-toast */ "./node_modules/react-hot-toast/dist/react-hot-toast.esm.js");
 /* harmony import */ var _components_Activities__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Activities */ "./resources/js/dashboard/src/components/Activities.js");
 /* harmony import */ var _components_AdminDashboard__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/AdminDashboard */ "./resources/js/dashboard/src/components/AdminDashboard.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_Transactions__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Transactions */ "./resources/js/dashboard/src/components/Transactions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -2871,62 +2873,60 @@ function App(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.init();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.BrowserRouter, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.BrowserRouter, {
     basename: ROUTE_BASENAME,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Switch, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_components_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Switch, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           exact: true,
           path: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_2__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/services",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_4__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Service__WEBPACK_IMPORTED_MODULE_4__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/providers",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_6__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Provider__WEBPACK_IMPORTED_MODULE_6__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/products",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_ProductDashboard__WEBPACK_IMPORTED_MODULE_8__.default, {})
-        }), AUTH_USER.is_super_admin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_ProductDashboard__WEBPACK_IMPORTED_MODULE_8__.default, {})
+        }), AUTH_USER.is_super_admin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/admin",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_AdminDashboard__WEBPACK_IMPORTED_MODULE_16__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_AdminDashboard__WEBPACK_IMPORTED_MODULE_16__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_AdminRoute__WEBPACK_IMPORTED_MODULE_11__.default, {
           path: "/activities",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Activities__WEBPACK_IMPORTED_MODULE_15__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Activities__WEBPACK_IMPORTED_MODULE_15__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/buy",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_5__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Buy__WEBPACK_IMPORTED_MODULE_5__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/deposit",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_7__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Deposit__WEBPACK_IMPORTED_MODULE_7__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/payments",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Payment__WEBPACK_IMPORTED_MODULE_3__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Payment__WEBPACK_IMPORTED_MODULE_3__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/history",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
             children: "History"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/successPage",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_9__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_SuccessPage__WEBPACK_IMPORTED_MODULE_9__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/transactions",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
-            children: "Transactions"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Transactions__WEBPACK_IMPORTED_MODULE_17__.default, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/withdrawal",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h2", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
             children: "Withdrawals"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Route, {
           path: "/settings",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Settings__WEBPACK_IMPORTED_MODULE_14__.default, {})
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Settings__WEBPACK_IMPORTED_MODULE_14__.default, {})
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_20__.Toaster, {})]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_10__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_21__.Toaster, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_Modal__WEBPACK_IMPORTED_MODULE_10__.default, {
       show: props.modal.show,
       header: props.modal.header,
       closeModal: function closeModal() {
@@ -3586,7 +3586,7 @@ function AdminReport() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
                     href: "#",
                     className: "font-bold",
-                    children: a.type
+                    children: deslug(a.type)
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                   className: "tb-odr-date",
@@ -7942,12 +7942,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _reducers_transactionReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/transactionReducer */ "./resources/js/dashboard/src/reducers/transactionReducer.js");
-/* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Spinner */ "./resources/js/dashboard/src/components/Spinner.js");
-/* harmony import */ var react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-laravel-paginex */ "./node_modules/react-laravel-paginex/dist/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
+/* harmony import */ var _Transactions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Transactions */ "./resources/js/dashboard/src/components/Transactions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -7957,128 +7955,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function useQuery() {
-  return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)().search);
+  return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useLocation)().search);
 }
 
 function Home(props) {
-  var _props$user, _props$user2, _props$transactions, _props$transactions$d;
+  var _props$user, _props$user2;
 
   var query = useQuery();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.fetchTransactions(1);
-  }, []);
-
-  var getData = function getData(data) {
-    // console.log(data)
-    props.fetchTransactions(data.page);
-  };
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "my-4 cards",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "flex flex-col md:flex-row items-center space-y-4 md:space-x-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "bg-purple-700 shadow-md rounded p-3 w-full md:w-60",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
             className: "text-lg text-white m-0 p-0",
             children: "Balance"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
             className: "text-2xl text-white font-bold m-0 p-0",
             children: ["\u20A6", parseFloat((_props$user = props.user) === null || _props$user === void 0 ? void 0 : _props$user.balance).toLocaleString()]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "bg-white shadow-md rounded p-3 w-full md:w-60",
           children: ["User ID: ", (_props$user2 = props.user) === null || _props$user2 === void 0 ? void 0 : _props$user2.uniqid]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "my-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
         className: "text-lg font-bold",
         children: "Transactions"
       })
-    }), props.isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Spinner__WEBPACK_IMPORTED_MODULE_3__.default, {
-      text: "Loading..."
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-      className: "table table-orders bg-white",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
-        className: "tb-odr-head",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-          className: "tb-odr-item",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
-            className: "tb-odr-info",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              className: "tb-odr-id",
-              children: "TYPE"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              className: "tb-odr-date d-none d-md-inline-block",
-              children: "Date"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
-            className: "tb-odr-amount",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              className: "tb-odr-total",
-              children: "Amount"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              className: "tb-odr-status d-none d-md-inline-block",
-              children: "Status"
-            })]
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
-        className: "tb-odr-body",
-        children: (_props$transactions = props.transactions) === null || _props$transactions === void 0 ? void 0 : (_props$transactions$d = _props$transactions.data) === null || _props$transactions$d === void 0 ? void 0 : _props$transactions$d.map(function (t) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-            className: "tb-odr-item",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
-              className: "tb-odr-info",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "tb-odr-id font-bold text-purple-500 uppercase",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                  href: "#",
-                  className: "font-bold",
-                  children: t.type
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "tb-odr-date",
-                children: t.date
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
-              className: "tb-odr-amount",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-                className: "tb-odr-total",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                  className: "amount font-bold text-gray-600",
-                  children: naira(t.amount)
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-                  className: "text-gray-400 uppercase",
-                  children: t.recipient
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "tb-odr-status",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                  className: "badge badge-dot capitalize ".concat(t.status === "complete" ? "badge-success" : t.status === "failed" ? "badge-danger" : "badge-warning"),
-                  children: t.status
-                })
-              })]
-            })]
-          }, t.id);
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "my-8 flex items-center justify-center w-full",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__.Pagination, {
-        buttonIcons: true,
-        numberClass: "bg-light rounded p-2 mx-1",
-        activeClass: "active text-primary font-bold",
-        prevButtonIcon: "mdi mdi-chevron-left",
-        nextButtonIcon: "mdi mdi-chevron-right",
-        containerClass: "flex items-center space-x-2",
-        changePage: getData,
-        data: props.transactions
-      })
-    })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Transactions__WEBPACK_IMPORTED_MODULE_3__.default, {})]
   });
 }
 
@@ -8287,10 +8196,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _Deposit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Deposit */ "./resources/js/dashboard/src/components/Deposit.js");
-/* harmony import */ var _Transfer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Transfer */ "./resources/js/dashboard/src/components/Transfer.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Transactions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Transactions */ "./resources/js/dashboard/src/components/Transactions.js");
+/* harmony import */ var _Transfer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Transfer */ "./resources/js/dashboard/src/components/Transfer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -8300,21 +8211,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Payment(props) {
-  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useRouteMatch)(),
+  var _useRouteMatch = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useRouteMatch)(),
       path = _useRouteMatch.path,
       url = _useRouteMatch.url;
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
       exact: true,
       path: path,
       children: "Select option"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
       path: "".concat(path, "/deposit"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Deposit__WEBPACK_IMPORTED_MODULE_2__.default, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Deposit__WEBPACK_IMPORTED_MODULE_2__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
       path: "".concat(path, "/transfer"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Transfer__WEBPACK_IMPORTED_MODULE_3__.default, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Transfer__WEBPACK_IMPORTED_MODULE_4__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+      path: "".concat(path, "/history"),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "text-center font-bold text-lg text-primary",
+          children: "Payment Transactions"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Transactions__WEBPACK_IMPORTED_MODULE_3__.default, {
+          type: "deposit"
+        })]
+      })
     })]
   });
 }
@@ -9631,7 +9552,7 @@ function Sidebar() {
                       title: "",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
                         className: "nk-menu-text",
-                        children: "Add Admin"
+                        children: "Manage Admin"
                       })
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
@@ -10051,6 +9972,156 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(SuccessPage));
+
+/***/ }),
+
+/***/ "./resources/js/dashboard/src/components/Transactions.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/dashboard/src/components/Transactions.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Spinner */ "./resources/js/dashboard/src/components/Spinner.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_transactionReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/transactionReducer */ "./resources/js/dashboard/src/reducers/transactionReducer.js");
+/* harmony import */ var react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-laravel-paginex */ "./node_modules/react-laravel-paginex/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+function Transactions(props) {
+  var _props$transactions, _props$transactions$d;
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.fetchTransactions(1, props.type);
+  }, []);
+
+  var getData = function getData(data) {
+    // console.log(data)
+    props.fetchTransactions(data.page);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [props.isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Spinner__WEBPACK_IMPORTED_MODULE_1__.default, {
+      text: "Loading..."
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+      className: "table table-orders bg-white",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        className: "tb-odr-head",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+          className: "tb-odr-item",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
+            className: "tb-odr-info",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "tb-odr-id",
+              children: "TYPE"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "tb-odr-date d-none d-md-inline-block",
+              children: "Date"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
+            className: "tb-odr-amount",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "tb-odr-total",
+              children: "Amount"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+              className: "tb-odr-status d-none d-md-inline-block",
+              children: "Status"
+            })]
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+        className: "tb-odr-body",
+        children: (_props$transactions = props.transactions) === null || _props$transactions === void 0 ? void 0 : (_props$transactions$d = _props$transactions.data) === null || _props$transactions$d === void 0 ? void 0 : _props$transactions$d.map(function (t) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+            className: "tb-odr-item",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+              className: "tb-odr-info",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "tb-odr-id font-bold text-purple-500 uppercase",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                  href: "#",
+                  className: "font-bold",
+                  children: t.type
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "tb-odr-date",
+                children: t.date
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+              className: "tb-odr-amount",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                className: "tb-odr-total",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "amount font-bold text-gray-600",
+                  children: naira(t.amount)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                  className: "text-gray-400 uppercase",
+                  children: t.recipient
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "tb-odr-status",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "badge badge-dot capitalize ".concat(t.status === "complete" ? "badge-success" : t.status === "failed" ? "badge-danger" : "badge-warning"),
+                  children: t.status
+                })
+              })]
+            })]
+          }, t.id);
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "my-8 flex items-center justify-center w-full",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_laravel_paginex__WEBPACK_IMPORTED_MODULE_4__.Pagination, {
+        buttonIcons: true,
+        numberClass: "bg-light rounded p-2 mx-1",
+        activeClass: "active text-primary font-bold",
+        prevButtonIcon: "mdi mdi-chevron-left",
+        nextButtonIcon: "mdi mdi-chevron-right",
+        containerClass: "flex items-center space-x-2",
+        changePage: getData,
+        data: props.transactions
+      })
+    })]
+  });
+}
+
+var mapState = function mapState(state) {
+  return {
+    user: state.userState.user,
+    transactions: state.transactionState.transactions,
+    isLoading: state.transactionState.isFetching
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    addTransaction: function addTransaction(transaction) {
+      return (// console.log('t', transaction)
+        dispatch({
+          type: "ADD_TRANSACTION",
+          transaction: transaction
+        })
+      );
+    },
+    fetchTransactions: function fetchTransactions(page, type) {
+      dispatch((0,_reducers_transactionReducer__WEBPACK_IMPORTED_MODULE_3__.fetchTransactions)(page, type));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapState, mapDispatch)(Transactions));
 
 /***/ }),
 
@@ -11083,13 +11154,13 @@ var INITIAL_STATE = {
 
 var fetchTransactions = function fetchTransactions() {
   var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-  console.log(page);
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   return function (dispatch) {
     dispatch({
       type: "SET_FETCHING",
       status: true
     });
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/transactions?page=" + page).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/transactions?page=".concat(page).concat(type && "&type=" + type)).then(function (response) {
       dispatch({
         type: "SET_TRANSACTIONS",
         transactions: response.data.data.transactions
