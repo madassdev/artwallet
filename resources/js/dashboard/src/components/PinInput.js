@@ -19,8 +19,8 @@ function PinInput(props) {
                 value={props.pin}
                 onChange={(e) => props.setPinValue(e.target.value)}
                 id={props.eid}
-                maxLength="4"
-                minLength="4"
+                maxLength={props.type === 'password' ? 30 : 4}
+                minLength={props.type === 'password' ? 4 : null}
                 required
                 placeholder={props.placeholder ?? "Enter 4 digit PIN"}
                 autoComplete="new_password"

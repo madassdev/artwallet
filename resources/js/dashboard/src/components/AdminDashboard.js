@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Switch, useRouteMatch, Route } from 'react-router-dom'
+import AddAdmin from "./AddAdmin";
 import AdminReport from "./AdminReport";
 
 function AdminDashboard() {
@@ -12,7 +13,7 @@ function AdminDashboard() {
             </Route>
             <Route path={`${path}/add`}>
                 {/* <UserProfiles /> */}
-                Add Admin
+                <AddAdmin/>
             </Route>
             <Route path={`${path}/report`}>
                 <AdminReport/>

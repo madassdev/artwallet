@@ -41,6 +41,10 @@ $auth_user = auth()->user();
         const AUTH_USER = @json($auth_user);
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
+
+        const deslug = (value) => {
+            return value.replace('_', ' ')
+        }
     </script>
     <!-- app-root @e -->
     <!-- JavaScript -->

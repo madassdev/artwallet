@@ -45,7 +45,7 @@ class AdminController extends Controller
                 "before" => $user_copy,
                 "after" => $user,
             ],
-            "type" => "user-balance-update",
+            "type" => "admin-create",
             "status" => "success"
         ]);
 
@@ -58,13 +58,99 @@ class AdminController extends Controller
         ]);
     }
 
+    public function getAdmins()
+    {
+        $admins = User::role(['admin', 'super_admin'])->get();
+        return response()->json([
+            "data" => [
+                "admins" => $admins
+            ]
+        ]);
+    }
+
+    public function createAdmin(Request $request)
+    {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response()->json([
+                "success" => false,
+                "message" => "User not found",
+            ], 404);
+        }
+        $user_copy = $user->load('roles');
+        if (!$user->hasRole('admin')) {
+            
+            $user->assignRole('admin');
+        }
+
+        $activity = AdminActivity::create([
+            "user_id" => auth()->id(),
+            "targetable_id" => $user->id,
+            "targetable_type" => User::class,
+            "target_data" => [
+                "before" => $user_copy,
+                "after" => $user->load('roles'),
+            ],
+            "type" => "user-balance-update",
+            "status" => "success"
+        ]);
+
+
+        return response()->json([
+            "success" => true,
+            "message" => "User Account Updated Successfully",
+            "data" => [
+                "user" => $user,
+                "activity" => $activity,
+            ]
+        ]);
+    }
+    
+    public function removeAdmin($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json([
+                "success" => false,
+                "message" => "User not found",
+            ], 404);
+        }
+        $user_copy = $user->load('roles');
+        if ($user->hasRole('admin')) {
+
+            $user->removeRole('admin');
+        }
+
+        $activity = AdminActivity::create([
+            "user_id" => auth()->id(),
+            "targetable_id" => $user->id,
+            "targetable_type" => User::class,
+            "target_data" => [
+                "before" => $user_copy,
+                "after" => $user->load('roles'),
+            ],
+            "type" => "admin-remove",
+            "status" => "success"
+        ]);
+
+
+        return response()->json([
+            "success" => true,
+            "message" => "User Account Updated Successfully",
+            "data" => [
+                "user" => $user,
+                "activity" => $activity,
+            ]
+        ]);
+    }
+
     public function adminActivities()
     {
         $activities = AdminActivity::with('user', 'targetable')->latest()->paginate(3);
         return response()->json(
             [
                 "data" => [
-                    "activities"=>$activities
+                    "activities" => $activities
                 ]
             ]
         );

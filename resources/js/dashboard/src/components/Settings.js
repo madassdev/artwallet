@@ -7,9 +7,13 @@ import toast, { Toaster } from "react-hot-toast";
 function Settings(props) {
     const [settingsTab, setSettingsTab] = useState("profile");
     const [pin, setPin] = useState("");
-    const [confirmPin, setConfirmPin] = useState("");
-    const [oldPin, setOldPin] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPin, setConfirmPin] = useState("");    
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [oldPin, setOldPin] = useState("");    
+    const [oldPassword, setOldPassword] = useState("");
     const [isSavingPin, setIsSavingPin] = useState(false);
+    const [isSavingPassword, setIsSavingPassword] = useState(false);
 
     const savePin = () => {
         if (pin !== confirmPin) {
@@ -45,8 +49,42 @@ function Settings(props) {
                 setIsSavingPin(false);
             });
     };
+    const savePassword = () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+        if (
+            password.length < 4 ||
+            oldPassword.length < 4 ||
+            confirmPassword.length < 4
+        ) {
+            alert("Passwords must be at least 4 characters");
+            return;
+        }
+
+        setIsSavingPassword(true);
+        axios
+            .post("/auth/update-password", { password, old_password: oldPassword })
+            .then((res) => {
+                toast.success(res.data.message, {
+                    position: "bottom-center",
+                });
+                window.location.reload();
+                setIsSavingPassword(false);
+            })
+            .catch((err) => {
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "bottom-center",
+                    });
+                }
+                setIsSavingPassword(false);
+            });
+    };
     return (
-        <div className="bg-white p-5">
+        <div className="bg-white p-3 md:p-5">
             <h2 className="text-purple-500 text-center font-bold text-lg capitalize">
                 Accont Settings
             </h2>
@@ -96,10 +134,10 @@ function Settings(props) {
                         <p className="font-bold">Phone number</p>
                         <p>{props.user?.mobile}</p>
                     </div>
-                    <div className="w-full">
+                    {/* <div className="w-full">
                         <p className="font-bold">Email</p>
                         <p>{props.user?.email}</p>
-                    </div>
+                    </div> */}
 
                     <div className="w-full mt-8">
                         <button
@@ -145,68 +183,148 @@ function Settings(props) {
                     </div>
                 )) ||
                 (settingsTab === "security" && (
-                    <div className="flex flex-col space-y-4 text-gray-600 p-3 md:w-1/2 mx-auto">
-                        <h2 className="font-bold text-center">Update PIN</h2>
-                        <form
-                            autoComplete="off"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                            }}
-                        >
-                            <div className="w-full space-y-1 form-group">
-                                <p className="font-bold">Old PIN</p>
-                                <PinInput
-                                    pin={oldPin}
-                                    setPinValue={(value) => setOldPin(value)}
-                                    placeholder="Enter old PIN"
-                                    eid="settings_old_pin"
-                                />
-                            </div>
-                            <div className="w-full space-y-1 form-group">
-                                <p className="font-bold">New PIN</p>
-                                <PinInput
-                                    pin={pin}
-                                    setPinValue={(value) => setPin(value)}
-                                    placeholder="Enter new 4 digit PIN"
-                                    eid="settings_pin"
-                                />
-                            </div>
-                            <div className="w-full space-y-1 form-group">
-                                <p className="font-bold">Confirm PIN</p>
-                                <PinInput
-                                    pin={confirmPin}
-                                    setPinValue={(value) =>
-                                        setConfirmPin(value)
-                                    }
-                                    placeholder="Enter PIN again"
-                                    eid="settings_confirm_pin"
-                                />
-                            </div>
-                            <div className="w-full flex justify-between items-center mt-8">
-                                {isSavingPin ? (
-                                    <button
-                                        onClick={() => setIsSavingPin(false)}
-                                        className="btn btn-light btn-block"
-                                        type="button"
-                                    >
-                                        <div
-                                            className="spinner-border-sm spinner-border text-primary"
-                                            role="status"
+                    <div className="flex-col space-y-8">
+                        <div className="flex flex-col space-y-4 text-gray-600 p-3 md:w-1/2 mx-auto">
+                            <h2 className="font-bold text-center">
+                                Update PIN
+                            </h2>
+                            <form
+                                autoComplete="off"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                }}
+                            >
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">Old PIN</p>
+                                    <PinInput
+                                        pin={oldPin}
+                                        setPinValue={(value) =>
+                                            setOldPin(value)
+                                        }
+                                        placeholder="Enter old PIN"
+                                        eid="settings_old_pin"
+                                    />
+                                </div>
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">New PIN</p>
+                                    <PinInput
+                                        pin={pin}
+                                        setPinValue={(value) => setPin(value)}
+                                        placeholder="Enter new 4 digit PIN"
+                                        eid="settings_pin"
+                                    />
+                                </div>
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">Confirm PIN</p>
+                                    <PinInput
+                                        pin={confirmPin}
+                                        setPinValue={(value) =>
+                                            setConfirmPin(value)
+                                        }
+                                        placeholder="Enter PIN again"
+                                        eid="settings_confirm_pin"
+                                    />
+                                </div>
+                                <div className="w-full flex justify-between items-center mt-8">
+                                    {isSavingPin ? (
+                                        <button
+                                            onClick={() =>
+                                                setIsSavingPin(false)
+                                            }
+                                            className="btn btn-light btn-block"
+                                            type="button"
                                         >
-                                            {/* <span class="sr-only">Loading...</span> */}
-                                        </div>
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn btn-primary btn-block font-bold"
-                                        onClick={savePin}
-                                        type=""
-                                    >
-                                        Save PIN
-                                    </button>
-                                )}
-                            </div>
-                        </form>
+                                            <div
+                                                className="spinner-border-sm spinner-border text-primary"
+                                                role="status"
+                                            >
+                                                {/* <span class="sr-only">Loading...</span> */}
+                                            </div>
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-primary btn-block font-bold"
+                                            onClick={savePin}
+                                            type=""
+                                        >
+                                            Save PIN
+                                        </button>
+                                    )}
+                                </div>
+                            </form>
+                        </div>
+                        <div className="flex flex-col space-y-4 text-gray-600 p-3 md:w-1/2 mx-auto">
+                            <h2 className="font-bold text-center">
+                                Update Password
+                            </h2>
+                            <form
+                                autoComplete="off"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                }}
+                            >
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">Old Password</p>
+                                    <PinInput
+                                        pin={oldPassword}
+                                        setPinValue={(value) =>
+                                            setOldPassword(value)
+                                        }
+                                        placeholder="Enter old Password"
+                                        eid="settings_old_password"
+                                        type="password"
+                                    />
+                                </div>
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">New Password</p>
+                                    <PinInput
+                                        pin={password}
+                                        setPinValue={(value) => setPassword(value)}
+                                        placeholder="Enter new Password"
+                                        eid="settings_password"
+                                        type="password"
+                                    />
+                                </div>
+                                <div className="w-full space-y-1 form-group">
+                                    <p className="font-bold">Confirm Password</p>
+                                    <PinInput
+                                        pin={confirmPassword}
+                                        setPinValue={(value) =>
+                                            setConfirmPassword(value)
+                                        }
+                                        placeholder="Enter Password again"
+                                        eid="settings_confirm_password"
+                                        type="password"
+                                    />
+                                </div>
+                                <div className="w-full flex justify-between items-center mt-8">
+                                    {isSavingPassword ? (
+                                        <button
+                                            onClick={() =>
+                                                setIsSavingPassword(false)
+                                            }
+                                            className="btn btn-light btn-block"
+                                            type="button"
+                                        >
+                                            <div
+                                                className="spinner-border-sm spinner-border text-primary"
+                                                role="status"
+                                            >
+                                                {/* <span class="sr-only">Loading...</span> */}
+                                            </div>
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-primary btn-block font-bold"
+                                            onClick={savePassword}
+                                            type=""
+                                        >
+                                            Save Password
+                                        </button>
+                                    )}
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 ))}
         </div>

@@ -31,6 +31,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' =>[ 'auth',]], function () {
 
 Route::group(['prefix' => 'auth', 'middleware' =>[ 'auth', 'verified']], function () {
     Route::post('update-pin', 'DashboardController@updatePin');
+    Route::post('update-password', 'DashboardController@updatePassword');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
@@ -42,6 +43,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::group(['middleware' => 'role:super_admin'], function () {
         Route::post('/make-admin', 'AdminController@makeAdmin');
         Route::get('/admin-activities', 'AdminController@adminActivities');
+        Route::get('/admins', 'AdminController@getAdmins');
+        Route::post('/admins', 'AdminController@createAdmin');
+        Route::delete('/admins/{id}', 'AdminController@removeAdmin');
     });
 });
 Route::get('/test', 'ServiceController@index');

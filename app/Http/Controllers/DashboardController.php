@@ -69,12 +69,38 @@ class DashboardController extends Controller
                 "code" => "PIN_INCORRECT"
             ], 403);
         }
-        // return $request;
         $user->pin = bcrypt($request->pin);
         $user->save();
+
         return response()->json([
             "success" => true,
             "message" => "PIN updated successfully",
+        ],);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            "old_password" => "required|string|min:4",
+            "password" => "required|string|min:4"
+        ]);
+        if (!Hash::check($request->old_password, $user->password)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect Password",
+                "code" => "PASSWORD_INCORRECT"
+            ], 403);
+        }
+        $user->password = bcrypt($request->password);
+
+        $user->save();
+        
+        //Dispatch event
+        return response()->json([
+            "success" => true,
+            "message" => "Password updated successfully",
         ],);
     }
 }
