@@ -51,12 +51,14 @@ function Deposit(props) {
                                 details
                             </p>
                             <div className="text-center p-3 bg-gray-100 rounded my-2">
-                                <p>Account name</p>
-                                <span className="text-2xl text-gray-600">1234567890 <i className="text-primary text-sm mdi mdi-content-copy ml-2"></i></span>
-                                <p className="font-bold">UBA</p>
+                                <p>{PUBLIC_CONFIG.deposit_account_name}</p>
+                                <span className="text-2xl text-gray-600">
+                                    {PUBLIC_CONFIG.deposit_account_number}{" "}
+                                    <i className="text-primary text-sm mdi mdi-content-copy ml-2"></i>
+                                </span>
+                                <p className="font-bold">{PUBLIC_CONFIG.deposit_account_bank}</p>
                             </div>
                         </div>
-                        
                     </div>
                 ))}
         </div>

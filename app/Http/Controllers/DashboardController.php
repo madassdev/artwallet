@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\Provider;
 use App\Models\Service;
+use App\Models\SiteConfig;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\MobileAirtimeService;
@@ -18,24 +19,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // return MobileAirtimeService::buyAirtime('mtn', '08136051712', 10, Order::uniqueRef());
-        // return MobileAirtimeService::verifyElectricity('ibsedc', '9987657');
-        // $roles = [
-        //     [
-        //         "name" => "super_admin",
-        //         "guard_name" => "web"
-        //     ],
-        // ];
-        // Role::insert($roles);
         // User::find(1)->assignRole('super_admin');
-        // $str = file_get_contents(base_path('database/seeders/data_plans.json'));
-        // $json = json_decode($str, true);
-        //  dd($json);
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
         $plans = Plan::with('provider.service')->get();
-        // $transactions = Transaction::whereUserId(auth()->user()->id)->latest()->get();
-        // return $transactions;
         $app_services = [
             "services" => $services,
             "providers" => $providers,
@@ -61,6 +48,7 @@ class DashboardController extends Controller
             "old_pin" => "required|numeric|digits:4",
             "pin" => "required|numeric|digits:4"
         ]);
+        // return $request;
         if (!Hash::check($request->old_pin, $user->pin)) {
 
             return response()->json([
@@ -70,6 +58,7 @@ class DashboardController extends Controller
             ], 403);
         }
         $user->pin = bcrypt($request->pin);
+        $user->pin_set = true;
         $user->save();
 
         return response()->json([

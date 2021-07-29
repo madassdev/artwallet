@@ -6,6 +6,7 @@ use App\Models\Provider;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Plan;
+use App\Models\SiteConfig;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -20,15 +21,63 @@ class AppSeeder extends Seeder
     {
         //User
 
+        $configs = [
+            [
+                'key' => 'mobile_airtime_user',
+                'value' => '08054659872'
+            ],
+            [
+                'key' => 'mobile_airtime_password',
+                'value' => 'd741e1a4d8530de4e2d0216'
+            ],
+            [
+                'key' => 'paystack_secret_key_test',
+                'value' => 'sk_test_a335450a82025ce1b4143aebfad5351966dd658b'
+            ],
+            [
+                'key' => 'paystack_secret_key_live',
+                'value' => 'sk_test_a335450a82025ce1b4143aebfad5351966dd658b'
+            ],
+            [
+                'key' => 'paystack_public_key_test',
+                'value' => 'pk_test_ebd6435d808e02ac14eb40d514d9d13bba875309',
+                'public' => true,
+            ],
+            [
+                'key' => 'paystack_public_key_live',
+                'value' => 'pk_test_ebd6435d808e02ac14eb40d514d9d13bba875309',
+                'public' => true,
+            ],
+            [
+                "key" => "deposit_account_bank",
+                "value" => "UBA",
+                "public" => true,
+            ],
+            [
+                "key" => "deposit_account_name",
+                "value" => "John Doe",
+                "public" => true,
+            ],
+            [
+                "key" => "deposit_account_number",
+                "value" => "1122334455",
+                "public" => true,
+            ],
+        ];
+
+        collect($configs)->map(function ($config){
+           return SiteConfig::updateOrCreate(['key' => $config['key']],$config+['status'=>'active']);
+        });
+
         $users = [
             [
                 "uniqid" => 15170,
                 "name" => "Admin",
                 "last_name" => "account",
-                "email" => "admin@app.dev",
+                "email" => "admin@artwallet.com.ng",
                 "mobile" => "08000000000",
                 "balance" => 200,
-                "password" => bcrypt("password"),
+                "password" => bcrypt("inter123..."),
                 "pin" => bcrypt("1122")
             ],
             [
@@ -90,6 +139,7 @@ class AppSeeder extends Seeder
 
         User::insert($users);
         User::find(1)->assignRole('admin');
+        User::find(1)->assignRole('super_admin');
         User::find(2)->assignRole('user');
         User::find(3)->assignRole('level1');
         User::find(4)->assignRole('level2');

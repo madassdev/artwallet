@@ -13,7 +13,8 @@ class Transaction extends Model
     protected $guarded = [];
 
     protected $appends = [
-        "date"
+        "date",
+        "reference",
     ];
 
     protected $casts = [
@@ -39,11 +40,30 @@ class Transaction extends Model
         return $this->morphTo();
     }
 
-    public function getDateAttribute( $value ) {
+    public function getDateAttribute($value)
+    {
         return (new Carbon($this->created_at))->format('d M Y, g:ia');
         // 10 Jan 2020, 10:45pm
-      }
-      
+    }
+
+    public function getReferenceAttribute()
+    {
+        $reference = null;
+        $reference = @$this->credit_data['reference'];
+        // switch ($this->type) {
+        //     case 'airtime':
+        //         break;
+
+        //     case 'data':
+        //         $reference = @$this->credit_data['reference'];
+        //         break;
+
+        //     default:
+        //         # code...
+        //         break;
+        // }
+        return $reference;
+    }
 
     // public function getHistorableTypeAttribute($value)
     // {

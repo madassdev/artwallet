@@ -5,7 +5,7 @@ import { PaystackButton } from "react-paystack";
 import { connect } from "react-redux";
 
 function AutoDeposit(props) {
-    const publicKey = "pk_test_ebd6435d808e02ac14eb40d514d9d13bba875309";
+    const publicKey = PUBLIC_CONFIG.paystack_public_key_live;
     const reference = "AR-" + Date.now();
     const [amount, setAmount] = useState(100);
     const [paymentAmount, setPaymentAmount] = useState(amount * 100);

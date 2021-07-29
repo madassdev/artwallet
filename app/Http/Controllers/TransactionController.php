@@ -24,4 +24,22 @@ class TransactionController extends Controller
             ]
         );
     }
+    
+    public function adminTransactions(Request $request)
+    {
+        if($request->type){
+            $type= $request->type;
+            $transactions = Transaction::whereType($type)->latest()->paginate(10);
+        }else{
+
+            $transactions = Transaction::latest()->paginate(10);
+        }
+        return response()->json(
+            [
+                "data" => [
+                    "transactions"=>$transactions
+                ]
+            ]
+        );
+    }
 }

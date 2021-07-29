@@ -287,14 +287,14 @@ function Data(props) {
                                                 data-price={plan.price}
                                             >
                                                 {plan.title} @ &#x20A6;
-                                                {plan.price}
+                                                {plan.price} - {plan.validity}
                                             </option>
                                         ))}
                                 </select>
                             </div>
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    recipient Phone Number
+                                    Recipient Phone Number
                                 </p>
 
                                 <div className="form-control-wrap">

@@ -36,7 +36,7 @@ function Settings(props) {
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
-                window.location.reload();
+                // window.location.reload();
                 setIsSavingPin(false);
             })
             .catch((err) => {
@@ -101,14 +101,14 @@ function Settings(props) {
                 >
                     <i className="mdi mdi-account mr-1"></i>Profile
                 </div>
-                <div
+                {/* <div
                     onClick={() => setSettingsTab("edit")}
                     className={`text-center cursor-pointer rounded p-1 px-2 ${
                         settingsTab == "edit" && "text-purple-500 bg-purple-100"
                     }`}
                 >
                     <i className="mdi mdi-pencil mr-1"></i>Edit
-                </div>
+                </div> */}
                 <div
                     onClick={() => setSettingsTab("security")}
                     className={`text-center cursor-pointer rounded p-1 px-2 ${

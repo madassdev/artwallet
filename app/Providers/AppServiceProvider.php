@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\SiteConfig;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         URL::forceScheme('https');
-        //
+        Schema::defaultStringLength(191);
+
+        $sc = SiteConfig::wherePublic(true)->pluck('value', 'key');
+        // dd($sc);
+        config()->set(['sc' => $sc]);
     }
 }

@@ -120,7 +120,7 @@ function AddAdmin() {
                                             {admin.role.map((role, i) => (
                                                 <span
                                                     key={i}
-                                                    className="mr-2 capitalize badge-xs badge bg-red-300"
+                                                    className="mr-2 capitalize badge-xs badge-success"
                                                 >
                                                     {deslug(role)}
                                                 </span>

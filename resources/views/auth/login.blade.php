@@ -48,8 +48,13 @@
                                             <label class="form-label" for="default-01">Email</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="email" name="email" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address or username">
+                                            <input type="email" name="email" class="form-control form-control-lg @error('email') error @enderror" id="default-01" value="{{old('email')}}" placeholder="Enter your email address or username">
                                         </div>
+                                        @error('email')
+                                        <p class="text-danger font-bold">
+                                            {{$message}}
+                                        </p>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="form-label-group">
@@ -61,8 +66,13 @@
                                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                                 <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                             </a>
-                                            <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+                                            <input type="password" name="password" class="form-control form-control-lg @error('password') error @enderror" id="password" placeholder="Enter your password">
                                         </div>
+                                        @error('password')
+                                        <p class="text-danger font-bold">
+                                            {{$message}}
+                                        </p>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <button typr="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>

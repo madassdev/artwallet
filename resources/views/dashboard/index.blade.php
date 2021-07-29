@@ -2,6 +2,7 @@
 <html lang="zxx" class="js">
 @php
 $auth_user = auth()->user();
+$sc = config('sc');
 @endphp
 
 <head>
@@ -41,7 +42,8 @@ $auth_user = auth()->user();
         const AUTH_USER = @json($auth_user);
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
-
+        const PUBLIC_CONFIG = @json($sc);
+        console.log(PUBLIC_CONFIG)
         const deslug = (value) => {
             return value.replace(/_/g, ' ').replace(/-/g, ' ')
         }

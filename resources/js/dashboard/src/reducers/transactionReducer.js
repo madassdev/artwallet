@@ -36,6 +36,34 @@ export const fetchTransactions = (page = 1, type=null) => {
     };
 };
 
+export const fetchAdminTransactions = (page = 1, type=null) => {
+    return (dispatch) => {
+        dispatch({
+            type: "SET_FETCHING",
+            status: true,
+        });
+        axios
+            .get(`/admin/transactions?page=${page}${type&&"&type="+type}`)
+            .then((response) => {
+                dispatch({
+                    type: "SET_TRANSACTIONS",
+                    transactions: response.data.data.transactions,
+                });
+                dispatch({
+                    type: "SET_FETCHING",
+                    status: false,
+                });
+            })
+            .catch((error) => {
+                console.log(error.response);
+                dispatch({
+                    type: "SET_FETCHING",
+                    status: true,
+                });
+            });
+    };
+};
+
 const transactionReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "SET_TRANSACTIONS":

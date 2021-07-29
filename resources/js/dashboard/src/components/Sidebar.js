@@ -359,7 +359,7 @@ function Sidebar() {
                                             </span>
                                         </NavLink>
                                     </li>
-                                    <li className="nk-menu-item">
+                                    {/* <li className="nk-menu-item">
                                         <NavLink
                                             to="/payments/report"
                                             className="nk-menu-link"
@@ -370,7 +370,7 @@ function Sidebar() {
                                                 Report payment
                                             </span>
                                         </NavLink>
-                                    </li>
+                                    </li> */}
                                     <li className="nk-menu-item">
                                         <NavLink
                                             to="/payments/transfer"

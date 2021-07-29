@@ -9,13 +9,11 @@ function Modal(props) {
                     <Content>
                         <Header>
                             <div>{props.header}</div>
-                            <span
-                                onClick={() =>
-                                    props.closeModal()
-                                }
-                            >
-                                <em className="icon ni ni-cross"></em>
-                            </span>
+                            {props.noClose || (
+                                <span onClick={() => props.closeModal()}>
+                                    <em className="icon ni ni-cross"></em>
+                                </span>
+                            )}
                         </Header>
                         <Body>{props.children}</Body>
                     </Content>

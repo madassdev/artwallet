@@ -17,7 +17,8 @@ class CreateSiteConfigsTable extends Migration
             $table->id();
             $table->string('key');
             $table->text('value')->nullable();
-            $table->string('status');
+            $table->string('status')->default('active');
+            $table->boolean('public')->default(false);
             $table->timestamps();
         });
     }
