@@ -22,7 +22,7 @@ class TransactionController extends Controller
                 $transactions = Transaction::latest()->paginate(10);
             } else {
 
-                $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
+                $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate(10);
             }
 
         }
