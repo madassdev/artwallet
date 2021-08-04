@@ -17,14 +17,14 @@ function Header() {
                         <a href="#" className="logo-link">
                             <img
                                 className="logo-light logo-img"
-                                src={`${ASSET_PATH}images/logo.png`}
-                                srcSet={`${ASSET_PATH}images/logo2x.png 2x`}
+                                src={`${ASSET_PATH}images/artwallet.png`}
+                                srcSet={`${ASSET_PATH}images/artwallet.png 2x`}
                                 alt="logo"
                             />
                             <img
                                 className="logo-dark logo-img"
-                                src={`${ASSET_PATH}images/logo-dark.png`}
-                                srcSet={`${ASSET_PATH}images/logo-dark2x.png 2x`}
+                                src={`${ASSET_PATH}images/artwallet.png`}
+                                srcSet={`${ASSET_PATH}images/artwallet.png 2x`}
                                 alt="logo-dark"
                             />
                         </a>
@@ -60,7 +60,7 @@ function Header() {
                                         <div className="user-avatar sm">
                                             <em className="icon ni ni-user-alt"></em>
                                         </div>
-                                        <div className="user-info d-none d-xl-block">
+                                        <div className="user-info d-none d-xl-block capitalize">
                                             <div className="user-status user-status-unverified font-bold">
                                                 ID: {AUTH_USER.uniqid}
                                             </div>
@@ -75,7 +75,7 @@ function Header() {
                                                 <span>AB</span>
                                             </div>
                                             <div className="user-info">
-                                                <span className="lead-text">
+                                                <span className="lead-text capitalize">
                                                     {AUTH_USER.name}
                                                 </span>
                                                 <span className="sub-text">

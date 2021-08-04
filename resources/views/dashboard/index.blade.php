@@ -43,7 +43,7 @@ $sc = config('sc');
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
         const PUBLIC_CONFIG = @json($sc);
-        console.log(PUBLIC_CONFIG)
+        console.log(AUTH_USER)
         const deslug = (value) => {
             return value.replace(/_/g, ' ').replace(/-/g, ' ')
         }

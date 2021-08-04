@@ -6,6 +6,7 @@ import Airtime from "./Airtime";
 import Electricity from "./Electricity";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
+import PinRoute from "../PinRoute";
 
 function Buy(props) {
     let { path, url } = useRouteMatch();
@@ -32,18 +33,18 @@ function Buy(props) {
                         </Link>
                     </BuyContainer>
                 </Route>
-                <Route path={`${path}/data`}>
+                <PinRoute path={`${path}/data`}>
                     <Data />
-                </Route>
-                <Route path={`${path}/airtime`}>
+                </PinRoute>
+                <PinRoute path={`${path}/airtime`}>
                     <Airtime />
-                </Route>
-                <Route path={`${path}/cable-tv`}>
+                </PinRoute>
+                <PinRoute path={`${path}/cable-tv`}>
                     <CableTv />
-                </Route>
-                <Route path={`${path}/electricity`}>
+                </PinRoute>
+                <PinRoute path={`${path}/electricity`}>
                     <Electricity />
-                </Route>
+                </PinRoute>
             </Switch>
         </div>
     );

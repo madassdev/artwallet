@@ -29,8 +29,13 @@ class AppServiceProvider extends ServiceProvider
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
 
-        $sc = SiteConfig::wherePublic(true)->pluck('value', 'key');
-        // dd($sc);
-        config()->set(['sc' => $sc]);
+        try {
+            //code...
+            $sc = SiteConfig::wherePublic(true)->pluck('value', 'key');
+            // dd($sc);
+            config()->set(['sc' => $sc]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

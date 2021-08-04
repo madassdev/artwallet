@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PasswordUpdated;
+use App\Events\PinSet;
+use App\Events\PinUpdated;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -19,7 +22,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // User::find(1)->assignRole('super_admin');
+        // auth()->user()->pin_set = 0;
+        // auth()->user()->save();
+
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans')->get();
         $plans = Plan::with('provider.service')->get();
@@ -41,6 +46,25 @@ class DashboardController extends Controller
         return $otp;
     }
 
+
+    public function setPin(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            "pin" => "required|numeric|digits:4"
+        ]);
+
+        $user->pin = bcrypt($request->pin);
+        $user->pin_set = true;
+        $user->save();
+
+        PinSet::dispatch($user);
+        return response()->json([
+            "success" => true,
+            "message" => "PIN created successfully",
+        ],);
+    }
+
     public function updatePin(Request $request)
     {
         $user = auth()->user();
@@ -60,12 +84,14 @@ class DashboardController extends Controller
         $user->pin = bcrypt($request->pin);
         $user->pin_set = true;
         $user->save();
-
+        
+        PinUpdated::dispatch($user);
         return response()->json([
             "success" => true,
             "message" => "PIN updated successfully",
         ],);
     }
+
 
     public function updatePassword(Request $request)
     {
@@ -85,8 +111,8 @@ class DashboardController extends Controller
         $user->password = bcrypt($request->password);
 
         $user->save();
-        
-        //Dispatch event
+
+        PasswordUpdated::dispatch($user);
         return response()->json([
             "success" => true,
             "message" => "Password updated successfully",

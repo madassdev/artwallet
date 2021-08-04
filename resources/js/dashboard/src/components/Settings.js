@@ -6,12 +6,12 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Settings(props) {
     const [settingsTab, setSettingsTab] = useState("profile");
-    const [pin, setPin] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPin, setConfirmPin] = useState("");    
     const [confirmPassword, setConfirmPassword] = useState("");
     const [oldPin, setOldPin] = useState("");    
     const [oldPassword, setOldPassword] = useState("");
+    const [pin, setPin] = useState("");
+    const [confirmPin, setConfirmPin] = useState("");    
     const [isSavingPin, setIsSavingPin] = useState(false);
     const [isSavingPassword, setIsSavingPassword] = useState(false);
 
@@ -36,7 +36,7 @@ function Settings(props) {
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
-                // window.location.reload();
+                window.location.reload();
                 setIsSavingPin(false);
             })
             .catch((err) => {

@@ -18,6 +18,27 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\AccountVerified::class => [
+            \App\Listeners\SendAccountVerifiedNotification::class,
+        ],
+        \App\Events\PinSet::class => [
+            \App\Listeners\SendPinSetNotification::class
+        ],
+        \App\Events\PinUpdated::class => [
+            \App\Listeners\SendPinUpdatedNotification::class
+        ],
+        \App\Events\PasswordUpdated::class => [
+            \App\Listeners\SendPasswordUpdatedNotification::class
+        ],
+        \App\Events\OrderSuccess::class => [
+            \App\Listeners\SendOrderSuccessNotification::class,
+        ],
+        \App\Events\OrderFailed::class => [
+            \App\Listeners\SendOrderFailedNotification::class,
+        ],
+        \App\Events\DepositSuccess::class => [
+            \App\Listeners\SendDepositSuccessNotification::class,
+        ],
     ];
 
     /**

@@ -14,6 +14,10 @@ class Order extends Model
 
     protected $with = ['plan'];
 
+    protected $casts = [
+        'order_data' => 'array'
+    ];
+
     public function credit()
     {
         return $this->morphOne(Transaction::class, 'creditable');

@@ -48,7 +48,7 @@ function Deposit(props) {
                         <div className="my-4">
                             <p className="text-center">
                                 Please make payment to the following account
-                                details
+                                details, your payment will be confirmed and your balance will be credited within 24 hours.
                             </p>
                             <div className="text-center p-3 bg-gray-100 rounded my-2">
                                 <p>{PUBLIC_CONFIG.deposit_account_name}</p>

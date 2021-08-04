@@ -12,20 +12,20 @@ function Sidebar() {
                     <NavLink to="/" className="logo-link nk-sidebar-logo">
                         <img
                             className="logo-light logo-img"
-                            src={`${ASSET_PATH}images/logo.png`}
-                            srcSet="images/logo2x.png 2x"
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo"
                         />
                         <img
                             className="logo-dark logo-img"
-                            src={`${ASSET_PATH}images/logo-dark.png`}
-                            srcSet="images/logo-dark2x.png 2x"
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo-dark"
                         />
                         <img
                             className="logo-small logo-img logo-img-small"
-                            src={`${ASSET_PATH}images/logo-small.png`}
-                            srcSet="images/logo-small2x.png 2x"
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo-small"
                         />
                     </NavLink>

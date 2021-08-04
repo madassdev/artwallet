@@ -74,7 +74,7 @@ class AppSeeder extends Seeder
                 "uniqid" => 15170,
                 "name" => "Admin",
                 "last_name" => "account",
-                "email" => "admin@artwallet.com.ng",
+                "email" => "artwallet@artwallet.com.ng",
                 "mobile" => "08000000000",
                 "balance" => 200,
                 "password" => bcrypt("inter123..."),
@@ -138,11 +138,15 @@ class AppSeeder extends Seeder
         Role::insert($roles);
 
         User::insert($users);
-        User::find(1)->assignRole('admin');
         User::find(1)->assignRole('super_admin');
+        User::find(1)->assignRole('admin');
         User::find(2)->assignRole('user');
         User::find(3)->assignRole('level1');
         User::find(4)->assignRole('level2');
+        $user =User::find(1);
+        $user->email_verified_at = "2021-07-29 00:00:00";
+        $user->pin_set = true;
+        $user->save();
 
         $services = [
             [

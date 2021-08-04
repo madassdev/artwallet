@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderFailed;
+use App\Events\OrderSuccess;
 use App\Models\Order;
 use App\Models\Plan;
 use App\Models\User;
@@ -43,19 +45,22 @@ class OrderController extends Controller
             "reference" => $reference
         ]);
         $txn = MobileAirtimeService::buyData($plan->provider->slug, $order->recipient, $plan, $order->reference);
-        
+        $order->order_data = $txn;
+        $order->save();
         if ($txn['code'] === 100) {
             $order_success = true;
             $status = "complete";
             $user->balance -= $amount;
             $user->save();
+            OrderSuccess::dispatch($user, $order);
         } else {
             $order_success = false;
             $status = "failed";
+            OrderFailed::dispatch($user, $order);
         }
 
-        $order->order_data = $txn;
         $order->status = $status;
+        $order->save();
 
 
         $transaction = $user->debits()->create([
@@ -84,6 +89,7 @@ class OrderController extends Controller
 
     public function airtime(Request $request)
     {
+        // return 123;
         $user = auth()->user();
         $request->validate([
             'type' => "required|in:airtime",
@@ -122,9 +128,11 @@ class OrderController extends Controller
             $status = "complete";
             $user->balance -= $amount;
             $user->save();
+            OrderSuccess::dispatch($user, $order);
         } else {
             $order_success = false;
             $status = "failed";
+            OrderFailed::dispatch($user, $order);
         }
 
         $order->order_data = $txn;

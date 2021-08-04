@@ -4,6 +4,7 @@ namespace App\Services;
 
 // use App\FlutterwaveConfig;
 use App\Models\Payment;
+use App\Models\SiteConfig;
 // use App\Models\PaystackConfig;
 use Illuminate\Support\Facades\Http;
 use Throwable;
@@ -43,7 +44,7 @@ class PaymentService
 
     public static function getPaystackSecretKey()
     {
-        $paystack_secret_key = "sk_test_a335450a82025ce1b4143aebfad5351966dd658b";
+        $paystack_secret_key = SiteConfig::where('key', 'paystack_secret_key_live')->first()->value;
         // if(config()->get('env') == "live")
         // {
         //     // Get key from config variable.

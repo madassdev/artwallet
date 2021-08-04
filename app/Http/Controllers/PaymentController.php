@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DepositSuccess;
 use App\Models\Payment;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class PaymentController extends Controller
             ]);
 
             $user->balance += $amount_paid;
+            
             $user->save();
 
             $transaction = $user->credits()->create([
@@ -45,6 +47,7 @@ class PaymentController extends Controller
                 'status' => 'complete',
             ]);
 
+            DepositSuccess::dispatch($user, $payment);
 
 
             return response()->json([

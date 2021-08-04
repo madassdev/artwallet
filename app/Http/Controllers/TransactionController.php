@@ -9,35 +9,45 @@ class TransactionController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->type){
-            $type= $request->type;
-            $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
-        }else{
+        if ($request->type) {
+            $type = $request->type;
+            if (auth()->user()->is_admin) {
+                $transactions = Transaction::whereType($type)->latest()->paginate(10);
+            } else {
 
-            $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate(10);
+                $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
+            }
+        } else {
+            if (auth()->user()->is_admin) {
+                $transactions = Transaction::latest()->paginate(10);
+            } else {
+
+                $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
+            }
+
         }
         return response()->json(
             [
                 "data" => [
-                    "transactions"=>$transactions
+                    "transactions" => $transactions
                 ]
             ]
         );
     }
-    
+
     public function adminTransactions(Request $request)
     {
-        if($request->type){
-            $type= $request->type;
+        if ($request->type) {
+            $type = $request->type;
             $transactions = Transaction::whereType($type)->latest()->paginate(10);
-        }else{
+        } else {
 
             $transactions = Transaction::latest()->paginate(10);
         }
         return response()->json(
             [
                 "data" => [
-                    "transactions"=>$transactions
+                    "transactions" => $transactions
                 ]
             ]
         );

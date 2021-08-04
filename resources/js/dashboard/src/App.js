@@ -11,6 +11,7 @@ import ProductDashboard from "./components/ProductDashboard";
 import SuccessPage from "./components/SuccessPage";
 import Modal from "./components/Modal";
 import AdminRoute from "./AdminRoute";
+import PinRoute from "./PinRoute";
 import { connect } from "react-redux";
 import { setServices, setProviders, setPlans } from "./actions/serviceActions";
 import Settings from "./components/Settings";
@@ -22,6 +23,7 @@ import Transactions from "./components/Transactions";
 import AdminSettings from "./components/AdminSettings";
 import VerifyEmail from "./components/VerifyEmail";
 import VerificationSuccess from "./components/VerificationSuccess";
+import SetPin from "./components/SetPin";
 
 function App(props) {
     useEffect(() => {
@@ -49,7 +51,9 @@ function App(props) {
                             <Route path="/auth/verify">
                                 <Redirect to="/" />
                             </Route>
-
+                            <Route path="/set-pin">
+                                <SetPin/>
+                            </Route>
                             <Route exact path="/">
                                 <Home />
                             </Route>
