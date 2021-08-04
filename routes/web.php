@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AccountVerified;
 use App\Models\User;
 use App\Notifications\TestNotification;
 use Illuminate\Foundation\Application;
@@ -21,18 +22,27 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show');
+Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+Route::get('/email/verify/{id}/{hash}', function ($user_id, Request $request) {
+    if (!$request->hasValidSignature()) {
+        return response()->json(["msg" => "Invalid/Expired url provided."], 401);
+    }
 
+    $user = User::findOrFail($user_id);
+
+    if (!$user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+        Auth::login($user);
+        AccountVerified::dispatch($user);
+    }
     return redirect('/dashboard/verification-success');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['signed'])->name('verification.verify');
 
 
 Route::get('/email/verify', function () {
@@ -82,6 +92,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'verified']], function () {
     Route::post('update-pin', 'DashboardController@updatePin');
+    Route::post('set-pin', 'DashboardController@setPin');
     Route::post('update-password', 'DashboardController@updatePassword');
 });
 
@@ -100,7 +111,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         Route::delete('/admins/{id}', 'AdminController@removeAdmin');
     });
 });
-Route::group(['middleware' => ['auth', 'verified']], function (){
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('services', 'ServiceController')->middleware('auth');
     Route::resource('orders', 'OrderController')->middleware('auth');
     Route::resource('transactions', 'TransactionController')->middleware('auth');
