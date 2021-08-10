@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminActivity;
 use App\Models\Plan;
+use App\Models\PlanMeta;
 use App\Models\Provider;
+use App\Services\MobileAirtimeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -12,19 +14,32 @@ class PlanController extends Controller
 {
     public function store(Request $request)
     {
+        // return 123;
         $request->validate([
             "provider_id" => "required|exists:providers,id",
             "price" => "required|numeric|min:0",
             "title" => "required|max:100",
-            "validity" => "string|max:100"
+            "validity" => "string|max:100",
+            "meta" => "array"
         ]);
+
+
+        
+
         $provider = Provider::find($request->provider_id)->load('plans');
+
         $plan = $provider->plans()->create([
             "title" => $request->title,
             "price" => $request->price,
             "slug" => Str::slug($request->title),
             "validity" => $request->validity
         ]);
+
+        if ($request->meta) {
+            $api_provider = @$request['api_provider'] ?? "CLUBKONNECT";
+            PlanMeta::createForPlan($plan, $api_provider, $request->meta['api_ref']);
+        }
+
         AdminActivity::create([
             "user_id" => auth()->id(),
             "targetable_id" => $plan->id,
@@ -46,16 +61,24 @@ class PlanController extends Controller
     {
         $plan_copy = $plan;
         $request->validate([
-            "price" => "required|numeric|min:0",
+            "price" => "required|sometimes|numeric|min:0",
             "title" => "required|max:100",
             "validity" => "string|max:100"
         ]);
 
         $provider = Provider::find($plan->provider_id)->load('plans');
 
-        $plan->update($request->all());
+        // return $plan->meta;
+        if ($request->meta) {
+            $api_provider = 'CLUBKONNECT';
+            PlanMeta::createForPlan($plan, $api_provider, $request->meta['api_ref']);
+            
+        }
 
+        $plan->update($request->all());
+        $plan->save();
         
+
         AdminActivity::create([
             "user_id" => auth()->id(),
             "targetable_id" => $plan->id,

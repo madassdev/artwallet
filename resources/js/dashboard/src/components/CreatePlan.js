@@ -14,7 +14,11 @@ function CreatePlan(props) {
                 title: title,
                 provider_id,
                 price,
-                validity
+                validity,
+                meta:{
+                    api_provider: selectedApiProvider,
+                    api_ref: apiRef,
+                }
             });
         }
 
@@ -25,6 +29,9 @@ function CreatePlan(props) {
     const [validity, setValidity] = useState("");
     const [price, setPrice] = useState("");
     const [provider_id, setProviderId] = useState(props.provider.id);
+    const [apiRef, setApiRef] = useState("");
+    const [selectedApiProvider, setSelectedApiProvider] = useState("CLUBKONNECT");
+
     return (
         <div className="w-full md:w-1/2 mx-auto">
             <form onSubmit={handleSubmit} className="flrx flex-col space-y-4">
@@ -75,6 +82,19 @@ function CreatePlan(props) {
                         value={validity}
                         onChange={(e) => setValidity(e.target.value)}
                         placeholder="Enter validity eg 14 days"
+                    />
+                </div>
+                <div className="w-full">
+                    <p className="text-gray-600 mb-1 font-bold">
+                        Plan API reference
+                    </p>
+
+                    <input
+                        type="text"
+                        className={"form-control w-full rounded border "}
+                        value={apiRef}
+                        onChange={(e) => setApiRef(e.target.value)}
+                        placeholder="Enter the API ref for this plan eg 'mtn-900-mb'"
                     />
                 </div>
 

@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\Http;
 
 class MobileAirtimeService
 {
-
+    public static function getClubAuthDetails()
+    {
+        return [
+            "UserID" => "CK100321230",
+            "APIKey" => "3M53K9PG0V5S0602FWFLF1Y399W9L34NEPH3JR290J612950J7L6S6C9WVHH0YAQ"
+        ];
+    }
     public static function checkBalance()
     {
         $params = [
@@ -17,6 +23,211 @@ class MobileAirtimeService
         $url = "https://mobileairtimeng.com/httpapi/balance.php?";
         $response = Http::get($url, $params)->json();
         return $response;
+    }
+
+    public static function buyClubAirtime($providerSlug, $mobile, $amount, $reference = null)
+    {
+        $url = "https://www.nellobytesystems.com/APIAirtimeV1.asp";
+
+        $params = [
+            "MobileNetwork" => self::getClubProviderCode($providerSlug),
+            "Amount" => $amount,
+            "MobileNumber" => $mobile,
+            "RequestID" => $reference,
+
+        ] + self::getClubAuthDetails();
+
+        // return $params;
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => $response['status'] === "ORDER_RECEIVED",
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+        return $response;
+    }
+
+    public static function buyClubData($network, $mobile, $plan, $ref)
+    {
+        $url = "https://www.nellobytesystems.com/APIDatabundleV1.asp";
+        $params = [
+            "MobileNetwork" => self::getClubProviderCode($network),
+            "DataPlan" => self::getClubDataPlan($network, $plan),
+            "MobileNumber" => $mobile,
+            "RequestID" => $ref,
+
+        ] + self::getClubAuthDetails();
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => $response['status'] === "ORDER_RECEIVED",
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+        return $response;
+    }
+
+    public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null)
+    {
+        $url = "https://www.nellobytesystems.com/APIElectricityV1.asp";
+
+        $params = [
+            "ElectricCompany" => self::getClubElectricityProvider($service),
+            "MeterNo" => $meterno,
+            "MeterType" => $mtype,
+            "Amount" => $amount,
+            "RequestID" => $ref
+        ] + self::getClubAuthDetails();
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => $response['status'] === "ORDER_RECEIVED",
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+
+        return $params;
+    }
+
+    public static function verifyClubElectricity($service, $meterno)
+    {
+        $url = "https://www.nellobytesystems.com/APIVerifyElectricityV1.asp";
+
+        $params = [
+            "ElectricCompany" => self::getClubElectricityProvider($service),
+            "MeterNo" => $meterno,
+        ] + self::getClubAuthDetails();
+
+        $response = Http::get($url, $params)->json();
+        $count = str_word_count($response['customer_name']);
+
+        return [
+            "success" =>  $response['customer_name'] !== "INVALID_SMARTCARDNO" && $count <= 4,
+            "message" => $response["customer_name"],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+
+        // return $params;
+
+    }
+    
+    public static function verifyClubCable($service, $recipient)
+    {
+        $url = "https://www.nellobytesystems.com/APIVerifyCableTVV1.0.asp";
+
+        $params = [
+            "cabletv" => self::getClubCableProvider($service),
+            "smartcardno" => $recipient,
+        ] + self::getClubAuthDetails();
+
+        $response = Http::get($url, $params)->json();
+        $count = str_word_count($response['customer_name']);
+
+        return [
+            "success" =>  $response['customer_name'] !== "INVALID_SMARTCARDNO" && $count <= 4,
+            "message" => $response["customer_name"],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+
+        // return $params;
+
+    }
+
+    public static function buyClubCable($network, $recipient, $plan, $ref)
+    {
+        $url = "https://www.nellobytesystems.com/APICableTVV1.asp";
+        $params = [
+            "CableTV" => self::getClubCableProvider($network),
+            "Package" => self::getClubCablePlan($network, $plan->slug),
+            "SmartCardNo" => $recipient,
+            "RequestID" => $ref,
+        ] + self::getClubAuthDetails();
+
+        // return $params;
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => $response['status'] === "ORDER_RECEIVED",
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+    }
+
+    public static function getClubElectricityProvider($string)
+    {
+        $providers = [
+            "EKEDC" => "01",
+            "IKEDC" => "02",
+            "AEDC" => "03",
+            "KEDC" => "04",
+            "PHEDC" => "05",
+            "JEDC" => "06",
+            "IBEDC" => "07",
+            "KAEDC" => "08",
+            "EEDC" => "09",
+        ];
+
+        return @$providers[strtoupper($string)];
+    }
+
+    public static function getClubDataPlan($provider, $plan)
+    {
+        return $plan->api_ref;
+        $mtn = [
+            "mtn-500mb" => "500",
+            "mtn-1gb" => "1000",
+            "mtn-1.5gb" => "1500.01",
+            "mtn-2gb" => "2000",
+            "mtn-3gb" => "3000",
+            "mtn-3.5gb" => "3500.01",
+            "mtn-5gb" => "5000",
+            "mtn-10gb" => "10000.01",
+            "mtn-22gb" => "22000.01",
+        ];
+        $clubPlans = ["mtn-data" => $mtn, "mtn" => $mtn];
+        return @$clubPlans[$provider][$plan];
+    }
+
+    public static function getClubCablePlan($provider, $plan)
+    {
+        $dstv = [
+            "dstv-padi" => 'dstv-padi',
+            "dstv-yanga" => 'dstv-yanga',
+            "dstv-confam" => 'dstv-confam',
+            "dstv-79" => 'dstv-79',
+            "dstv-3" => 'dstv-3',
+            "dstv-7" => 'dstv-7',
+            "dstv-9" => 'dstv-9',
+            "dstv-10" => 'dstv-10',
+            "dstv-super-sub-1-month" => "dstv-padi",
+            "confam-extra" => 'confam-extra',
+            "yanga-extra" => 'yanga-extra',
+            "padi-extra" => 'padi-extra',
+        ];
+
+
+        $packages = [
+            "dstv" => $dstv,
+        ];
+
+        return @$packages[$provider][$plan];
+
+    }
+
+    public static function getClubCableProvider($provider)
+    {
+        $providers = [
+            "dstv" => "dstv",
+            "gotv" => 'gotv',
+            'startimes' => 'startimes'
+        ];
+        return $providers[strtolower($provider)];
     }
 
     public static function buyAirtime($providerSlug, $mobile, $amount, $reference = null)
@@ -35,6 +246,12 @@ class MobileAirtimeService
 
         $response = Http::get($url, $params)->json();
 
+        return [
+            "success" => $response['code'] === 100,
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
         return $response;
     }
 
@@ -103,6 +320,7 @@ class MobileAirtimeService
                 break;
         }
     }
+
     public static function getProviderCode($providerSlug)
     {
         switch (strtolower($providerSlug)) {
@@ -129,6 +347,27 @@ class MobileAirtimeService
                 return $providerSlug;
                 break;
         }
+    }
+    public static function getClubProviderCode($providerSlug)
+    {
+        $clubProviders = [
+            "mtn" => "01",
+            "mtn-data" => "01",
+            "mtn-airtime" => "01",
+            "glo" => "02",
+            "glo-data" => "02",
+            "glo-airtime" => "02",
+            "9mobile" => "03",
+            "9mobile-data" => "03",
+            "9mobile-airtime" => "03",
+            "etisalat" => "03",
+            "etisalat-data" => "03",
+            "etisalat-airtime" => "03",
+            "airtel" => "04",
+            "airtel-data" => "04",
+            "airtel-airtime" => "04",
+        ];
+        return @$clubProviders[$providerSlug];
     }
 
     public static function verifyElectricity($providerSlug, $meterno)

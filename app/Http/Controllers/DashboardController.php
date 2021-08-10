@@ -22,11 +22,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // auth()->user()->pin_set = 0;
+        // auth()->user()->email_verified_at = null;
         // auth()->user()->save();
 
         $services = Service::with('providers')->get();
-        $providers = Provider::with('service', 'plans')->get();
+        $providers = Provider::with('service', 'plans.meta')->get();
         $plans = Plan::with('provider.service')->get();
         $app_services = [
             "services" => $services,

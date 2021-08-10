@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('intent')->nullable();
             $table->string('status')->default('pending');
             $table->text('payment_data')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('status')->default('pending');
             $table->string('reference');
             $table->text('order_data')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

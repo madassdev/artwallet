@@ -17,6 +17,8 @@ function CableTv(props) {
     const [isReady, setIsReady] = useState(false);
     const [plan, setPlan] = useState();
     const [transactionComplete, setTransactionComplete] = useState(false);
+    const [isValidating, setIsValidating] = useState(false);
+    const [cableDetails, setCableDetails] = useState();
     const [pin, setPin] = useState("");
 
     const handlePlanSelected = (e) => {
@@ -56,7 +58,39 @@ function CableTv(props) {
             alert("Please Enter a valid number");
             return;
         }
-        setIsReady(true);
+
+        setIsValidating(true);
+
+        console.log("valiadting");
+        // return;
+        axios
+            .post("/orders/cable-tv/verify", {
+                plan_id: selectedPlan,
+                type: "electricity",
+                recipient,
+            })
+            .then((res) => {
+                console.log(res.data);
+                setCableDetails(res.data.recipient);
+                setIsValidating(false);
+                setIsReady(true);
+            })
+            .catch((err) => {
+                if (err.response.status === 403) {
+                    console.log(err.response.data);
+                    toast.error(err.response.data.message, {
+                        position: "top-center",
+                        style: {
+                            background: "rgba(185, 16, 16,1)",
+                            color: "#fff",
+                            padding: "20px",
+                        },
+                    });
+                }
+                setIsValidating(false);
+            });
+
+        // setIsReady(true);
     };
 
     const handlePaymentClicked = (e) => {
@@ -127,13 +161,16 @@ function CableTv(props) {
             {transactionComplete ? (
                 <div className="flex flex-col items-center justify-center space-y-4">
                     <div>
-                        <div className="bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ">
+                        <div className="bg-primary text-white h-16 w-16 rounded-full mx-auto flex items-center justify-center ">
                             <i className="mdi mdi-check text-lg"></i>
                         </div>
+                        <p className="text-gray-600 font-bold text-lg uppercase text-center mt-4">
+                            Order request submitted
+                        </p>
+                        <p className="text-center text-xs text-gray-400">
+                            Your request is being processed
+                        </p>
                     </div>
-                    <p className="text-gray-600 text-center">
-                        Transaction successful!
-                    </p>
                     <div>
                         <Link
                             to="/"
@@ -160,14 +197,15 @@ function CableTv(props) {
 
                                 <div>
                                     <h2 className="font-bold m-0">Recipient</h2>
-                                    <p className="text-gray-600">
-                                        {recipient}
+                                    <p className="text-gray-600">{recipient}</p>
+                                    <p className="text-primary text-xs">
+                                        {cableDetails}
                                     </p>
                                 </div>
                                 <div>
                                     <h2 className="font-bold m-0">Plan</h2>
                                     <p className="text-gray-600">
-                                        {plan.title}
+                                        {plan?.title}
                                     </p>
                                 </div>
                                 <div>
@@ -291,7 +329,7 @@ function CableTv(props) {
 
                                 <div className="form-control-wrap">
                                     <input
-                                        type="number"
+                                        type="text"
                                         min="100"
                                         className="w-full rounded border-gray-300"
                                         value={recipient}
@@ -304,12 +342,29 @@ function CableTv(props) {
                             </div>
 
                             <div className="form-group my-2">
-                                <button
-                                    className="btn btn-primary btn-block font-bold"
-                                    onClick={handleProceed}
-                                >
-                                    Proceed {">>"}
-                                </button>
+                                {isValidating ? (
+                                    <button
+                                        onClick={() => {
+                                            setIsValidating(false);
+                                        }}
+                                        className="btn btn-light btn-block"
+                                        type="button"
+                                    >
+                                        <div
+                                            className="spinner-border-sm spinner-border text-primary"
+                                            role="status"
+                                        >
+                                            {/* <span class="sr-only">Loading...</span> */}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn btn-primary btn-block font-bold"
+                                        onClick={handleProceed}
+                                    >
+                                        Proceed {">>"}
+                                    </button>
+                                )}
                             </div>
                         </div>
                     )}

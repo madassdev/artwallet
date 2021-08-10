@@ -231,48 +231,24 @@ class AppSeeder extends Seeder
             ],
             [
                 "service_id" => 4,
-                "title" => "PHCN",
-                "slug" => "phcn",
+                "title" => "EKEDC",
+                "slug" => "ekedc",
             ],
         ];
 
         Provider::insert($providers);
 
-        $plans = [
-            [
-                "provider_id" => 1,
-                "title" => "MTN 1GB",
-                "slug" => "mtn-1gb",
-                "price" => 400
-            ],
-            [
-                "provider_id" => 1,
-                "title" => "MTN 2GB",
-                "slug" => "mtn-2gb",
-                "price" => 800
-            ],
-            [
-                "provider_id" => 2,
-                "title" => "GLO 1GB",
-                "slug" => "glo-1gb",
-                "price" => 420
-            ],
-            [
-                "provider_id" => 2,
-                "title" => "GLO 2GB",
-                "slug" => "glo-2gb",
-                "price" => 820
-            ],
-            [
-                "provider_id" => 2,
-                "title" => "GLO 3GB",
-                "slug" => "glo-3gb",
-                "price" => 1200
-            ],
+        $airtime_plans = [
+            
             [
                 "provider_id" => 5,
                 "title" => "MTN AIRTIME",
                 "slug" => "mtn-airtime",
+                "price" => 0
+            ], [
+                "provider_id" => 6,
+                "title" => "GLO AIRTIME",
+                "slug" => "glo-airtime",
                 "price" => 0
             ],
             [
@@ -280,32 +256,14 @@ class AppSeeder extends Seeder
                 "title" => "AIRTEL AIRTIME",
                 "slug" => "airtel-airtime",
                 "price" => 0
-            ],
-            [
-                "provider_id" => 9,
-                "title" => "DSTV SUPER SUB 1 MONTH",
-                "slug" => "dstv-super-sub-1-month",
-                "price" => 5000
-            ],
-            [
-                "provider_id" => 10,
-                "title" => "GOTV SUPER SUB 1 MONTH",
-                "slug" => "gotv-super-sub-1-month",
-                "price" => 3000
-            ],
-            [
-                "provider_id" => 11,
-                "title" => "IBEDC",
-                "slug" => "ibedc",
-                "price" => 0
-            ],
-            [
-                "provider_id" => 12,
-                "title" => "PHCN",
-                "slug" => "phcn",
+            ], [
+                "provider_id" => 8,
+                "title" => "9MOBILE AIRTIME",
+                "slug" => "9mobile-airtime",
                 "price" => 0
             ],
         ];
-        Plan::insert($plans);
+        
+        Plan::insert($airtime_plans);
     }
 }

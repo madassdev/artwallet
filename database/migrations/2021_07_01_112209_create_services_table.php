@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->text('description')->nullable();
             $table->string('slug')->unique();
             $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

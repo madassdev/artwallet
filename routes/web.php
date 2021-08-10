@@ -22,6 +22,8 @@ use Inertia\Inertia;
 |
 */
 
+
+
 Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -121,6 +123,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/orders/electricity', 'OrderController@electricity');
     Route::post('/orders/data', 'OrderController@data');
     Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
+    Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');
     Route::resource('providers', 'ProviderController')->middleware('auth');
     Route::resource('plans', 'PlanController')->middleware('auth');
     Route::resource('payments', 'PaymentController')->middleware('auth');

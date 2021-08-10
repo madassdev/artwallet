@@ -20,6 +20,7 @@ class CreateProvidersTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

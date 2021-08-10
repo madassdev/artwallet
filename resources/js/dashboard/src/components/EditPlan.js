@@ -3,13 +3,18 @@ import { connect } from "react-redux";
 import { updatePlan } from "../reducers/planReducer";
 
 function EditPlan(props) {
-    
     const [titleError, setTitleError] = useState(null);
     const [title, setTitle] = useState(props.plan.title);
     const [validity, setValidity] = useState(props.plan.validity ?? "");
     const [price, setPrice] = useState(props.plan.price);
+    const [selectedApiProvider, setSelectedApiProvider] = useState("CLUBKONNECT");
+    const [apiRef, setApiRef] = useState(props.plan.api_ref ?? "");
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (apiRef === "") {
+            alert("please enter plan api reference");
+            return;
+        }
         if (title === "") {
             setTitleError("error");
             return;
@@ -18,15 +23,24 @@ function EditPlan(props) {
                 id: props.plan.id,
                 title,
                 price,
-                validity
+                validity,
+                meta:{
+                    api_provider: selectedApiProvider,
+                    api_ref: apiRef,
+                }
             });
         }
 
         // console.log(title);
     };
+
+    const changeApiProvider = (e) => {
+        setSelectedApiProvider(e.target.value);
+    };
+
     return (
         <div className="w-full md:w-1/2 mx-auto">
-            <form onSubmit={handleSubmit} className="flrx flex-col space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                 <div className="form-group">
                     <h5 className="text-center font-bold text-lg">
                         {props.plan.title}
@@ -76,7 +90,29 @@ function EditPlan(props) {
                         placeholder="Enter validity eg 14 days"
                     />
                 </div>
+                {/* <div className="w-full">
+                    <p className="text-gray-600 mb-1 font-bold">API Provider</p>
+                    <select
+                        className="w-full rounded border-gray-300"
+                        value={selectedApiProvider}
+                        onChange={changeApiProvider}
+                    >
+                        <option value="clubKonnect">ClubKonnect</option>
+                    </select>
+                </div> */}
+                <div className="w-full">
+                    <p className="text-gray-600 mb-1 font-bold">
+                        Plan API reference
+                    </p>
 
+                    <input
+                        type="text"
+                        className={"form-control w-full rounded border "}
+                        value={apiRef}
+                        onChange={(e) => setApiRef(e.target.value)}
+                        placeholder="Enter the API ref for this plan eg 'mtn-900-mb'"
+                    />
+                </div>
                 <div className="w-full mt-2">
                     {props.is_updating ? (
                         <button

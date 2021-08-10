@@ -39,6 +39,11 @@ function Airtime(props) {
             alert("Please enter an amount");
             return;
         }
+
+        if (parseInt(amount) < 50) {
+            alert("Please enter a minimum amount of ₦50");
+            return;
+        }
         if (amount > props.user.balance) {
             alert("Your balance is insufficient for the transaction.");
             return;
@@ -88,8 +93,7 @@ function Airtime(props) {
             .then((res) => {
                 console.log(res.data);
                 setIsPaying(false);
-                if(res.data.order_success)
-                {
+                if (res.data.order_success) {
                     props.debitUserBalance(amount);
                 }
                 toast.success(res.data.message, {

@@ -1,33 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
 use App\Models\Plan;
 use App\Models\PlanMeta;
 use App\Models\Provider;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-
-class SubAdminController extends Controller
+class MtnDataSeeder extends Seeder
 {
-    public function index()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        return inertia('Admin/Index');
-    }
-
-    public function test()
-    {
-        // return naira();
-
-        return dataPlans();
         $network = "mtn";
         $provider = Provider::whereSlug($network)->orWhere('slug', $network . '-data')->first();
         // return $provider;
-        return Plan::whereProviderId($provider->id)->get()->map(function ($p){
-            $p->delete();
-        });
+        // return Plan::whereProviderId($provider->id)->get()->map(function ($p){
+        //     $p->delete();
+        // });
         $url = "https://www.nellobytesystems.com/APIDatabundlePlansV1.asp";
 
         $response = Http::get($url)->json();
@@ -46,7 +42,7 @@ class SubAdminController extends Controller
             $plan->price = $price;
             $plan->slug = $slug;
             $plan->save();
-            PlanMeta::createForPlan($plan, $provider, $ref);
+            PlanMeta::createForPlan($plan, "CLUBKONNECT", $ref);
             return $plan;
         });
     }

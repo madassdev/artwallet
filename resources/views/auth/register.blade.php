@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="nk-block-content text-center text-lg-left">
-                                        <p class="text-soft">&copy; 2019 CryptoLite. All Rights Reserved.</p>
+                                        <p class="text-soft">&copy; 2021 Artwallet. All Rights Reserved.</p>
                                     </div>
                                 </div>
                             </div>

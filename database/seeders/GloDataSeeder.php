@@ -1,42 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
 use App\Models\Plan;
 use App\Models\PlanMeta;
 use App\Models\Provider;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-
-class SubAdminController extends Controller
+class GloDataSeeder extends Seeder
 {
-    public function index()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        return inertia('Admin/Index');
-    }
-
-    public function test()
-    {
-        // return naira();
-
-        return dataPlans();
-        $network = "mtn";
+        $network = "glo";
         $provider = Provider::whereSlug($network)->orWhere('slug', $network . '-data')->first();
         // return $provider;
-        return Plan::whereProviderId($provider->id)->get()->map(function ($p){
-            $p->delete();
-        });
+        // return Plan::whereProviderId($provider->id)->get()->map(function ($p){
+        //     $p->delete();
+        // });
         $url = "https://www.nellobytesystems.com/APIDatabundlePlansV1.asp";
 
         $response = Http::get($url)->json();
-        $mtn = $response['MOBILE_NETWORK']["MTN"];
+        $mtn = $response['MOBILE_NETWORK']["Glo"];
 
         // return $mtn;
         return collect($mtn[0]["PRODUCT"])->map(function ($p) use ($provider) {
             $plan = new Plan();
-            [$title, $validity] = explode('-', str_replace(" - ", "-", $p["PRODUCT_NAME"]));
+            $title =$p["PRODUCT_NAME"];
+            $validity = "DAYS";
             $ref = $p["PRODUCT_ID"];
             $price = $p["PRODUCT_AMOUNT"];
             $slug =  Str::slug($title.' '.$validity);
@@ -46,7 +43,7 @@ class SubAdminController extends Controller
             $plan->price = $price;
             $plan->slug = $slug;
             $plan->save();
-            PlanMeta::createForPlan($plan, $provider, $ref);
+            PlanMeta::createForPlan($plan, "CLUBKONNECT", $ref);
             return $plan;
         });
     }

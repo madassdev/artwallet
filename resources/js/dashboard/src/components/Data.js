@@ -139,13 +139,16 @@ function Data(props) {
             {transactionComplete ? (
                 <div className="flex flex-col items-center justify-center space-y-4">
                     <div>
-                        <div className="bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ">
+                        <div className="bg-primary text-white h-16 w-16 rounded-full mx-auto flex items-center justify-center ">
                             <i className="mdi mdi-check text-lg"></i>
                         </div>
+                        <p className="text-gray-600 font-bold text-lg uppercase text-center mt-4">
+                            Order request submitted
+                        </p>
+                        <p className="text-center text-xs text-gray-400">
+                            Your request is being processed
+                        </p>
                     </div>
-                    <p className="text-gray-600 text-center">
-                        Transaction successful!
-                    </p>
                     <div>
                         <Link
                             to="/"

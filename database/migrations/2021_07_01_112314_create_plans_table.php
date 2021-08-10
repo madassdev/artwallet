@@ -24,6 +24,7 @@ class CreatePlansTable extends Migration
             $table->integer('min_price')->default(0);
             $table->integer('max_price')->default(0);
             $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
 }

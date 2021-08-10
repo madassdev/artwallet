@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 function VerifyEmail() {
     const [isLoading, setIsLoading] = useState(false);
-    const [hasRequested, setHasRequested] = useState(false)
+    const [hasRequested, setHasRequested] = useState(false);
     const resendMail = () => {
         setIsLoading(true);
         axios
@@ -55,6 +55,11 @@ function VerifyEmail() {
                     Resend verification mail
                 </button>
             )}
+            <p className="float-right my-2">
+                <a href="/logout" className="text-primary font-bold">
+                    Logout
+                </a>
+            </p>
         </div>
     );
 }

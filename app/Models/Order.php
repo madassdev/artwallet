@@ -15,7 +15,8 @@ class Order extends Model
     protected $with = ['plan'];
 
     protected $casts = [
-        'order_data' => 'array'
+        'order_data' => 'array',
+        'amount' => 'integer'
     ];
 
     public function credit()
