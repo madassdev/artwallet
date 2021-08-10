@@ -23,7 +23,7 @@ $sc = config('sc');
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('dashlite/css/dashlite.css?ver=2.5.0')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('dashlite/css/theme.css?ver=2.5.0')}}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 
 <body class="nk-body bg-lighter npc-default has-sidebar ">
@@ -52,7 +52,7 @@ $sc = config('sc');
     <!-- JavaScript -->
     <script src="{{asset('dashlite/js/bundle.js')}}"></script>
     <script src="{{asset('dashlite/js/scripts.js')}}"></script>
-    <script src="{{asset('js/dashboard/index.js')}}"></script>
+    <script src="{{mix('js/dashboard/index.js')}}"></script>
 </body>
 
 </html>
