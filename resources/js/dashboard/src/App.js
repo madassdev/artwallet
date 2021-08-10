@@ -24,6 +24,7 @@ import AdminSettings from "./components/AdminSettings";
 import VerifyEmail from "./components/VerifyEmail";
 import VerificationSuccess from "./components/VerificationSuccess";
 import SetPin from "./components/SetPin";
+import PasswordResetSuccess from "./components/PasswordResetSuccess";
 
 function App(props) {
     useEffect(() => {
@@ -88,6 +89,9 @@ function App(props) {
                             </Route>
                             <Route path="/verification-success">
                                 <VerificationSuccess />
+                            </Route>
+                            <Route path="/password-reset-success">
+                                <PasswordResetSuccess />
                             </Route>
                             <Route path="/deposit">
                                 <Deposit />

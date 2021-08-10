@@ -100,7 +100,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'verified']], functio
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/users', 'AdminController@getUsers');
-    Route::get('/transactions', 'TransactionCOntroller@adminTransactions');
+    Route::get('/transactions', 'TransactionController@adminTransactions');
     Route::get('/users/search', 'AdminController@searchUsers');
     Route::post('/users/find', 'AdminController@findUser');
     Route::put('/users/{user}', 'AdminController@updateUser');

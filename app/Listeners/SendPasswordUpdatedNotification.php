@@ -26,7 +26,7 @@ class SendPasswordUpdatedNotification
      * @param  PasswordUpdated  $event
      * @return void
      */
-    public function handle(PasswordUpdated $event)
+    public function handle($event)
     {
         // $admins = User::role('admin')->get();
         // Notification::send($admins, new PinUpdatedNotification($event->user));
