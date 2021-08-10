@@ -63,7 +63,7 @@ class OrderController extends Controller
         } else {
             $order_success = false;
             $status = "failed";
-            OrderFailed::dispatch($user, $order);
+            OrderFailed::dispatch($user, $order, $txn);
         }
 
         $order->status = $status;
@@ -148,7 +148,7 @@ class OrderController extends Controller
         } else {
             $order_success = false;
             $status = "failed";
-            OrderFailed::dispatch($user, $order);
+            OrderFailed::dispatch($user, $order, $txn);
         }
 
         $order->order_data = $txn;
@@ -234,7 +234,7 @@ class OrderController extends Controller
         } else {
             $order_success = false;
             $status = "failed";
-            OrderFailed::dispatch($user, $order);
+            OrderFailed::dispatch($user, $order, $txn);
         }
 
         $order->order_data = $txn;
@@ -447,7 +447,7 @@ class OrderController extends Controller
         } else {
             $order_success = false;
             $status = "failed";
-            OrderFailed::dispatch($user, $order);
+            OrderFailed::dispatch($user, $order, $txn);
         }
 
         $order->status = $status;

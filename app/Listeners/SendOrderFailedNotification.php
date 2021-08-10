@@ -32,6 +32,6 @@ class SendOrderFailedNotification
     public function handle(OrderFailed $event)
     {
         $admins = User::role('admin')->get();
-        Notification::send($admins, new OrderFailedNotification($event->user, $event->order, 'admin'));
+        Notification::send($admins, new OrderFailedNotification($event->user, $event->order, $event->txn, 'admin'));
     }
 }

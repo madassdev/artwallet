@@ -23,10 +23,16 @@ class OrderFailed
      */
     public $user;
     public $order;
-    public function __construct(User $user, Order $order)
+    public function __construct(User $user, Order $order, $txn = null)
     {
         $this->user = $user;
-        $this->order = $order;   
+        $this->order = $order; 
+        $this->txn = $txn ?? [
+            "success" => false,
+            "message" => "FALLBACK_MESSAGE_DEFAULT",
+            "code" => "FALLBACK_ERROR_CODE",
+            "api_response" =>'FALLBACK_API_RESPONSE'
+        ];  
     }
 
     /**

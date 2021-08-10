@@ -18,10 +18,11 @@ class OrderFailedNotification extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, Order $order, $context = "admin")
+    public function __construct(User $user, Order $order, $txn, $context = "admin")
     {
         $this->user = $user;
         $this->order = $order;
+        $this->txn = $txn;
         $this->context = $context;
     }
 
@@ -49,14 +50,15 @@ class OrderFailedNotification extends Notification
             return (new MailMessage)
                 ->subject("Failed {$type} Order from {$this->user->email}")
                 ->greeting('Order Failed')
-                ->line("{$type} order of ₦{$this->order->amount} which was made by {$this->user->email} failed.")
+                ->line("{$type} order of ₦".number_format($this->order->amount)." which was made by {$this->user->email} failed.")
                 ->line('The transaction details are:')
                 ->line('Type: ' . "**{$type}**")
                 ->line('Plan: ' . "**{$this->order->plan->title}**")
                 ->line('Recipient: ' . "**{$this->order->recipient}**")
                 ->line('Amount: ' . "**₦" . number_format($this->order->amount) . "**")
-                ->line('Error code: ' . "**" . @$this->order->order_data['code'] . "**")
-                ->line('Error Message: ' . "**" . @$this->order->order_data['message'] . "**")
+                ->line('Error code: ' . "**" . @$this->txn['code'] . "**")
+                ->line('Error Message: ' . "**" . @$this->txn['message'] . "**")
+                ->line('Error Data: ' . "**" . @json_encode($this->txn). "**")
                 // ->action('Notification Action', url('/'))
                 // ->line('Thank you for using our application!')
             ;

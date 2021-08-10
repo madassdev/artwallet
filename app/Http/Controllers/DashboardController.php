@@ -25,6 +25,7 @@ class DashboardController extends Controller
         // auth()->user()->email_verified_at = null;
         // auth()->user()->save();
 
+
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans.meta')->get();
         $plans = Plan::with('provider.service')->get();
