@@ -3884,6 +3884,11 @@ function Airtime(props) {
       return;
     }
 
+    if (parseInt(amount) < 50) {
+      alert("Please enter a minimum amount of ₦50");
+      return;
+    }
+
     if (amount > props.user.balance) {
       alert("Your balance is insufficient for the transaction.");
       return;
@@ -4975,10 +4980,20 @@ function CableTv(props) {
       transactionComplete = _useState18[0],
       setTransactionComplete = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState20 = _slicedToArray(_useState19, 2),
-      pin = _useState20[0],
-      setPin = _useState20[1];
+      isValidating = _useState20[0],
+      setIsValidating = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState22 = _slicedToArray(_useState21, 2),
+      cableDetails = _useState22[0],
+      setCableDetails = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState24 = _slicedToArray(_useState23, 2),
+      pin = _useState24[0],
+      setPin = _useState24[1];
 
   var handlePlanSelected = function handlePlanSelected(e) {
     var plan_id = e.target.value;
@@ -5018,7 +5033,33 @@ function CableTv(props) {
       return;
     }
 
-    setIsReady(true);
+    setIsValidating(true);
+    console.log("valiadting"); // return;
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/orders/cable-tv/verify", {
+      plan_id: selectedPlan,
+      type: "electricity",
+      recipient: recipient
+    }).then(function (res) {
+      console.log(res.data);
+      setCableDetails(res.data.recipient);
+      setIsValidating(false);
+      setIsReady(true);
+    })["catch"](function (err) {
+      if (err.response.status === 403) {
+        console.log(err.response.data);
+        react_hot_toast__WEBPACK_IMPORTED_MODULE_6__.default.error(err.response.data.message, {
+          position: "top-center",
+          style: {
+            background: "rgba(185, 16, 16,1)",
+            color: "#fff",
+            padding: "20px"
+          }
+        });
+      }
+
+      setIsValidating(false);
+    }); // setIsReady(true);
   };
 
   var handlePaymentClicked = function handlePaymentClicked(e) {
@@ -5085,16 +5126,19 @@ function CableTv(props) {
     className: "md:w-3/4 mx-auto p-3 md:p-5 bg-white",
     children: transactionComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "flex flex-col items-center justify-center space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "bg-primary text-white h-16 w-16 rounded-full mx-auto flex items-center justify-center ",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
             className: "mdi mdi-check text-lg"
           })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-        className: "text-gray-600 text-center",
-        children: "Transaction successful!"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "text-gray-600 font-bold text-lg uppercase text-center mt-4",
+          children: "Order request submitted"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "text-center text-xs text-gray-400",
+          children: "Your request is being processed"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
           to: "/",
@@ -5124,6 +5168,9 @@ function CableTv(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
               children: recipient
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+              className: "text-primary text-xs",
+              children: cableDetails
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -5131,7 +5178,7 @@ function CableTv(props) {
               children: "Plan"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-gray-600",
-              children: plan.title
+              children: plan === null || plan === void 0 ? void 0 : plan.title
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
@@ -5248,7 +5295,7 @@ function CableTv(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "form-control-wrap",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              type: "number",
+              type: "text",
               min: "100",
               className: "w-full rounded border-gray-300",
               value: recipient,
@@ -5260,7 +5307,17 @@ function CableTv(props) {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "form-group my-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+          children: isValidating ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            onClick: function onClick() {
+              setIsValidating(false);
+            },
+            className: "btn btn-light btn-block",
+            type: "button",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "spinner-border-sm spinner-border text-primary",
+              role: "status"
+            })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
             className: "btn btn-primary btn-block font-bold",
             onClick: handleProceed,
             children: ["Proceed ", ">>"]
@@ -5692,7 +5749,11 @@ function CreatePlan(props) {
         title: title,
         provider_id: provider_id,
         price: price,
-        validity: validity
+        validity: validity,
+        meta: {
+          api_provider: selectedApiProvider,
+          api_ref: apiRef
+        }
       });
     } // console.log(title);
 
@@ -5722,6 +5783,16 @@ function CreatePlan(props) {
       _useState10 = _slicedToArray(_useState9, 2),
       provider_id = _useState10[0],
       setProviderId = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState12 = _slicedToArray(_useState11, 2),
+      apiRef = _useState12[0],
+      setApiRef = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("CLUBKONNECT"),
+      _useState14 = _slicedToArray(_useState13, 2),
+      selectedApiProvider = _useState14[0],
+      setSelectedApiProvider = _useState14[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "w-full md:w-1/2 mx-auto",
@@ -5777,6 +5848,20 @@ function CreatePlan(props) {
             return setValidity(e.target.value);
           },
           placeholder: "Enter validity eg 14 days"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Plan API reference"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          className: "form-control w-full rounded border ",
+          value: apiRef,
+          onChange: function onChange(e) {
+            return setApiRef(e.target.value);
+          },
+          placeholder: "Enter the API ref for this plan eg 'mtn-900-mb'"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "w-full mt-2",
@@ -6343,16 +6428,19 @@ function Data(props) {
     className: "md:w-3/4 mx-auto p-3 md:p-5 bg-white",
     children: transactionComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "flex flex-col items-center justify-center space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "bg-primary text-white h-16 w-16 rounded-full mx-auto flex items-center justify-center ",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
             className: "mdi mdi-check text-lg"
           })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-        className: "text-gray-600 text-center",
-        children: "Transaction successful!"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "text-gray-600 font-bold text-lg uppercase text-center mt-4",
+          children: "Order request submitted"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "text-center text-xs text-gray-400",
+          children: "Your request is being processed"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
           to: "/",
@@ -7381,7 +7469,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function EditPlan(props) {
-  var _props$plan$validity;
+  var _props$plan$validity, _props$plan$api_ref;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7403,8 +7491,23 @@ function EditPlan(props) {
       price = _useState8[0],
       setPrice = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("CLUBKONNECT"),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectedApiProvider = _useState10[0],
+      setSelectedApiProvider = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((_props$plan$api_ref = props.plan.api_ref) !== null && _props$plan$api_ref !== void 0 ? _props$plan$api_ref : ""),
+      _useState12 = _slicedToArray(_useState11, 2),
+      apiRef = _useState12[0],
+      setApiRef = _useState12[1];
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
+
+    if (apiRef === "") {
+      alert("please enter plan api reference");
+      return;
+    }
 
     if (title === "") {
       setTitleError("error");
@@ -7414,17 +7517,25 @@ function EditPlan(props) {
         id: props.plan.id,
         title: title,
         price: price,
-        validity: validity
+        validity: validity,
+        meta: {
+          api_provider: selectedApiProvider,
+          api_ref: apiRef
+        }
       });
     } // console.log(title);
 
+  };
+
+  var changeApiProvider = function changeApiProvider(e) {
+    setSelectedApiProvider(e.target.value);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "w-full md:w-1/2 mx-auto",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       onSubmit: handleSubmit,
-      className: "flrx flex-col space-y-4",
+      className: "flex flex-col space-y-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "form-group",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
@@ -7474,6 +7585,20 @@ function EditPlan(props) {
             return setValidity(e.target.value);
           },
           placeholder: "Enter validity eg 14 days"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "text-gray-600 mb-1 font-bold",
+          children: "Plan API reference"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          className: "form-control w-full rounded border ",
+          value: apiRef,
+          onChange: function onChange(e) {
+            return setApiRef(e.target.value);
+          },
+          placeholder: "Enter the API ref for this plan eg 'mtn-900-mb'"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "w-full mt-2",
@@ -7645,6 +7770,11 @@ function Electricity(props) {
       return;
     }
 
+    if (parseInt(amount) < 50) {
+      alert("Please enter a minimum amount of ₦50");
+      return;
+    }
+
     if (amount > props.user.balance) {
       alert("Your balance is insufficient for the transaction.");
       return;
@@ -7746,16 +7876,19 @@ function Electricity(props) {
     className: "md:w-3/4 mx-auto p-3 md:p-5 bg-white",
     children: transactionComplete ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "flex flex-col items-center justify-center space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "bg-green-200 h-16 w-16 rounded-full text-green-700 mx-auto flex items-center justify-center ",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "bg-primary text-white h-16 w-16 rounded-full mx-auto flex items-center justify-center ",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
             className: "mdi mdi-check text-lg"
           })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-        className: "text-gray-600 text-center",
-        children: "Transaction successful!"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "text-gray-600 font-bold text-lg uppercase text-center mt-4",
+          children: "Order request submitted"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "text-center text-xs text-gray-400",
+          children: "Your request is being processed"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
           to: "/",
@@ -10565,6 +10698,18 @@ function Sidebar() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
                   className: "nk-menu-item",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
+                    to: "/buy/cable-tv",
+                    className: "nk-menu-link",
+                    "data-original-title": "",
+                    title: "",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                      className: "nk-menu-text",
+                      children: "Cable TV"
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+                  className: "nk-menu-item",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.NavLink, {
                     to: "/buy/electricity",
                     className: "nk-menu-link",
                     "data-original-title": "",
@@ -11423,6 +11568,13 @@ function VerifyEmail() {
       className: "btn btn-primary btn-block font-bold",
       onClick: resendMail,
       children: "Resend verification mail"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+      className: "float-right my-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+        href: "/logout",
+        className: "text-primary font-bold",
+        children: "Logout"
+      })
     })]
   });
 }
