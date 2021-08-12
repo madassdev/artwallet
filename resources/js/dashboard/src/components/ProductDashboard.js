@@ -10,6 +10,7 @@ import {
     Route,
     useParams,
 } from "react-router-dom";
+import ElectricityManagement from "./ElectricityManagement";
 
 function ProductDashboard(props) {
     let { path, url } = useRouteMatch();
@@ -23,6 +24,9 @@ function ProductDashboard(props) {
             </Route>
             <Route path={`${path}/cable-tv`}>
                 <CableTvManagement />
+            </Route>
+            <Route path={`${path}/electricity`}>
+                <ElectricityManagement />
             </Route>
             <Route path={`${path}/airtime`}>
                 <AirtimeManagement />

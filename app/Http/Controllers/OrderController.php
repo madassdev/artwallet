@@ -66,6 +66,7 @@ class OrderController extends Controller
             OrderFailed::dispatch($user, $order, $txn);
         }
 
+        $order->order_data = ["api_data"=>$txn, "plan" => $plan->load('provider.service')];
         $order->status = $status;
         $order->save();
 
@@ -91,6 +92,87 @@ class OrderController extends Controller
                 "transaction" => $transaction
             ],
         ]);
+    }
+
+    public function cableTv(Request $request)
+    {
+        $request->validate([
+            'type' => "required|in:cable-tv",
+            "plan_id" => 'required|exists:plans,id',
+            "recipient" => 'required'
+        ]);
+        $user = auth()->user()
+            // ?? User::find(1)
+        ;
+
+        
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
+
+        $plan = Plan::findOrFail($request->plan_id);
+        $amount = 0;
+        if ($user->balance < $plan->price) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does not have enough balance to purchase this plan"
+            ], 403);
+        }
+        $amount = $plan->price;
+        // $order = Order::wherePlanId($plan->id)->first();
+
+        $order = $user->orders()->create([
+            "plan_id" => $request->plan_id,
+            "amount" => $amount,
+            "recipient" => $request->recipient,
+            "reference" => Order::uniqueRef(),
+        ]);
+
+
+        $txn = MobileAirtimeService::buyClubCable($plan->provider->slug, $order->recipient, $plan, $order->reference);
+        if ($txn['success']) {
+            $order_success = true;
+            $status = "complete";
+            $user->balance -= $amount;
+            $user->save();
+            OrderSuccess::dispatch($user, $order);
+        } else {
+            $order_success = false;
+            $status = "failed";
+            OrderFailed::dispatch($user, $order, $txn);
+        }
+        
+        $order->order_data = ["api_data"=>$txn, "plan" => $plan->load('provider.service')];
+        $order->status = $status;
+        $order->save();
+
+        $transaction = $user->debits()->create([
+            "user_id" => $user->id,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'debit_data' => $user,
+            'credit_data' => $order->load('plan.provider.service'),
+            'recipient' => $request->recipient,
+            'amount' => $order->amount,
+            'type' => $request->type,
+            'status' => $order->status,
+        ]);
+
+        return response()->json([
+            "success" => true,
+            "order_success" => $order_success,
+            "message" => "Order placed successfully",
+            "data" => [
+                "order" => $order->load('credit'),
+                "transaction" => $transaction
+            ],
+        ]);
+
     }
 
     public function airtime(Request $request)
@@ -151,7 +233,7 @@ class OrderController extends Controller
             OrderFailed::dispatch($user, $order, $txn);
         }
 
-        $order->order_data = $txn;
+        $order->order_data = ["api_data"=>$txn, "plan" => $plan->load('provider.service')];
         $order->status = $status;
         $order->save();
 
@@ -237,7 +319,7 @@ class OrderController extends Controller
             OrderFailed::dispatch($user, $order, $txn);
         }
 
-        $order->order_data = $txn;
+        $order->order_data = ["api_data"=>$txn, "plan" => $plan->load('provider.service')];
         $order->status = $status;
         $order->save();
         $user->balance -= $request->amount;
@@ -392,86 +474,5 @@ class OrderController extends Controller
         ]);
     }
 
-    public function cableTv(Request $request)
-    {
-        $request->validate([
-            'type' => "required|in:cable-tv",
-            "plan_id" => 'required|exists:plans,id',
-            "recipient" => 'required'
-        ]);
-        $user = auth()->user()
-            ?? User::find(1)
-        ;
-
-        
-        if (!Hash::check($request->pin, $user->pin)) {
-
-            return response()->json([
-                "success" => false,
-                "message" => "Incorrect PIN",
-                "code" => "PIN_INCORRECT"
-            ], 403);
-        }
-
-        $plan = Plan::findOrFail($request->plan_id);
-        $amount = 0;
-        if ($user->balance < $plan->price) {
-            return response()->json([
-                "success" => false,
-                "message" => "User does not have enough balance to purchase this plan"
-            ], 403);
-        }
-        $amount = $plan->price;
-        $user->balance -= $amount;
-        $user->save();
-
-        $order = $user->orders()->create([
-            "plan_id" => $request->plan_id,
-            "amount" => $amount,
-            "recipient" => $request->recipient,
-            "reference" => Order::uniqueRef(),
-        ]);
-
-        // $order = Order::wherePlanId($plan->id)->first();
-
-        $txn = MobileAirtimeService::buyClubCable($plan->provider->slug, $order->recipient, $plan, $order->reference);
-        
-        $order->order_data = $txn;
-        $order->save();
-        if ($txn['success']) {
-            $order_success = true;
-            $status = "complete";
-            $user->balance -= $amount;
-            $user->save();
-            OrderSuccess::dispatch($user, $order);
-        } else {
-            $order_success = false;
-            $status = "failed";
-            OrderFailed::dispatch($user, $order, $txn);
-        }
-
-        $order->status = $status;
-        $order->save();
-
-        $transaction = $user->debits()->create([
-            "user_id" => $user->id,
-            'creditable_id' => $order->id,
-            'creditable_type' => Order::class,
-            'amount' => $order->amount,
-            'recipient' => $request->recipient,
-            'type' => $request->type,
-            'status' => 'complete',
-        ]);
-
-        return response()->json([
-            "success" => true,
-            "order_success" => $order_success,
-            "message" => "Order placed successfully",
-            "data" => [
-                "order" => $order->load('credit'),
-                "transaction" => $transaction
-            ],
-        ]);
-
-    }
+    
 }

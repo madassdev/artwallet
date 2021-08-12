@@ -16,6 +16,10 @@ export const getAirtimeProviders = (providers) => {
     const airtimeProviders = providers?.filter((p) => p.service.slug === "airtime");
     return airtimeProviders;
 };
+export const getElectricityProviders = (providers) => {
+    const electricityProviders = providers?.filter((p) => p.service.slug === "electricity");
+    return electricityProviders;
+};
 
 export const getCableTvProviders = (providers) => {
     const dataProviders = providers?.filter(

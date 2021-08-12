@@ -17,6 +17,8 @@ class Transaction extends Model
         "reference",
     ];
 
+    protected $with = ['user'];
+
     protected $casts = [
         "amount" => "float",
         "credit_data" => "array",

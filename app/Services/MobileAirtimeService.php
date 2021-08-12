@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
+use App\Models\SiteConfig;
 use Illuminate\Support\Facades\Http;
 
 class MobileAirtimeService
 {
     public static function getClubAuthDetails()
     {
+        $club_user_id = @SiteConfig::where('key', 'clubkonnect_user_id')->first()->value ?? "CK100321230";
+        $club_api_key = @SiteConfig::where('key', 'clubkonnect_api_key')->first()->value ?? "3M53K9PG0V5S0602FWFLF1Y399W9L34NEPH3JR290J612950J7L6S6C9WVHH0YAQ";
         return [
-            "UserID" => "CK100321230",
-            "APIKey" => "3M53K9PG0V5S0602FWFLF1Y399W9L34NEPH3JR290J612950J7L6S6C9WVHH0YAQ"
+            "UserID" => $club_user_id,
+            "APIKey" => $club_api_key
         ];
     }
     public static function checkBalance()

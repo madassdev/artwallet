@@ -31,6 +31,19 @@ class AdminController extends Controller
         }
     }
 
+    public function getUsers()
+    {
+        $per_page = request()->per_page ?? 2;
+        $users = User::paginate($per_page);
+        return response()->json([
+            "success" => true,
+            "data" => [
+                "users" => $users,
+                "total" => 300
+            ]
+        ]);
+    }
+
     public function updateUserBalance(Request $request, User $user)
     {
         $user_copy = $user;

@@ -15,11 +15,11 @@ class PlanMeta extends Model
         return $this->belongsTo(Plan::class);
     }
 
-    public static function createForPlan(Plan $plan, $provider, $plan_ref)
+    public static function createForPlan(Plan $plan, $provider, $plan_ref, $provider_ref = null)
     {
         $meta = PlanMeta::wherePlanId($plan->id)->whereApiProvider(strtoupper($provider))->firstOrNew();
         $meta->plan_ref = $plan_ref;
-        $meta->provider_ref = $plan->provider->meta_ref ?? MobileAirtimeService::getClubProviderCode($plan->provider->slug);
+        $meta->provider_ref = $plan->provider->meta_ref ?? $plan->provider->slug ?? MobileAirtimeService::getClubProviderCode($plan->provider->slug);
         $meta->plan_id = $plan->id;
         $meta->api_provider = $provider;
         $meta->api_base_url = "https://www.nellobytesystems.com/APIDatabundleV1.asp";

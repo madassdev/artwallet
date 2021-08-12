@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAirtimeProviders } from "../reducers/providerReducer";
+import { getElectricityProviders } from "../reducers/providerReducer";
 import CreateOnePlan from "./CreateOnePlan";
 import DeletePlan from "./DeletePlan";
 import EditOnePlan from "./EditOnePlan";
 
-function AirtimeManagement(props) {
+function ElectricityManagement(props) {
     return (
         <div className="w-full p-5 bg-white">
             <h2 className="font-bold text-lg text-primary text-center">
-                Airtime Management
+                Electricity Management
             </h2>
 
             <div className="grid grid-cols-4 w-full">
@@ -76,7 +76,7 @@ function AirtimeManagement(props) {
 }
 const mapState = (state) => {
     return {
-        providers: getAirtimeProviders(state.providerState.providers),
+        providers: getElectricityProviders(state.providerState.providers),
     };
 };
 const mapDispatch = (dispatch) => {
@@ -86,7 +86,7 @@ const mapDispatch = (dispatch) => {
                 type: "OPEN_MODAL",
                 modal: {
                     show: 1,
-                    content: <CreateOnePlan plan={plan} type="airtime"/>,
+                    content: <CreateOnePlan plan={plan} type="electricity"/>,
                     header: <h3>Create Plan</h3>,
                 },
             });
@@ -96,7 +96,7 @@ const mapDispatch = (dispatch) => {
                 type: "OPEN_MODAL",
                 modal: {
                     show: 1,
-                    content: <EditOnePlan plan={plan} type="airtime"/>,
+                    content: <EditOnePlan plan={plan} type="electricity"/>,
                     header: <h3>Edit Plan</h3>,
                 },
             });
@@ -106,7 +106,7 @@ const mapDispatch = (dispatch) => {
                 type: "OPEN_MODAL",
                 modal: {
                     show: 1,
-                    content: <DeletePlan plan={plan} type="airtime"/>,
+                    content: <DeletePlan plan={plan} type="electricity"/>,
                     header: <h3>Delete Plan</h3>,
                 },
             });
@@ -114,4 +114,4 @@ const mapDispatch = (dispatch) => {
     };
 };
 
-export default connect(mapState, mapDispatch)(AirtimeManagement);
+export default connect(mapState, mapDispatch)(ElectricityManagement);

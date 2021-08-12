@@ -12,17 +12,17 @@ class TransactionController extends Controller
         if ($request->type) {
             $type = $request->type;
             if (auth()->user()->is_admin) {
-                $transactions = Transaction::whereType($type)->latest()->paginate(10);
+                $transactions = Transaction::whereType($type)->latest()->paginate($request->per_page ?? 10);
             } else {
 
-                $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate(10);
+                $transactions = Transaction::whereUserId(auth()->id())->whereType($type)->latest()->paginate($request->per_page ?? 10);
             }
         } else {
             if (auth()->user()->is_admin) {
-                $transactions = Transaction::latest()->paginate(10);
+                $transactions = Transaction::latest()->paginate($request->per_page ?? 10);
             } else {
 
-                $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate(10);
+                $transactions = Transaction::whereUserId(auth()->id())->latest()->paginate($request->per_page ?? 10);
             }
 
         }

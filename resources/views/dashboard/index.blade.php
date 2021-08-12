@@ -44,6 +44,7 @@ $sc = config('sc');
         const APP_SERVICES = @json($app_services);
         const PUBLIC_CONFIG = @json($sc);
         console.log(AUTH_USER)
+        console.log(PUBLIC_CONFIG)
         const deslug = (value) => {
             return value.replace(/_/g, ' ').replace(/-/g, ' ')
         }
