@@ -16,6 +16,7 @@ class OrderController extends Controller
 {
     public function data(Request $request)
     {
+        $charges = 0;
         $user = auth()->user()
             // ?? User::find(1)
         ;
@@ -96,6 +97,7 @@ class OrderController extends Controller
 
     public function cableTv(Request $request)
     {
+        $charges = 50;
         $request->validate([
             'type' => "required|in:cable-tv",
             "plan_id" => 'required|exists:plans,id',
@@ -177,6 +179,7 @@ class OrderController extends Controller
 
     public function airtime(Request $request)
     {
+        $charges = 0;
         $user = auth()->user()
             // ?? User::find(1)
         ;
@@ -261,6 +264,7 @@ class OrderController extends Controller
 
     public function electricity(Request $request)
     {
+        $charges = 50;
         $user = auth()->user() 
         // ?? User::find(1)
         ;
@@ -322,9 +326,6 @@ class OrderController extends Controller
         $order->order_data = ["api_data"=>$txn, "plan" => $plan->load('provider.service')];
         $order->status = $status;
         $order->save();
-        $user->balance -= $request->amount;
-        $user->save();
-
         $transaction = $user->debits()->create([
             "user_id" => $user->id,
             'creditable_id' => $order->id,

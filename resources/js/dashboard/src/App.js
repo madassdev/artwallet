@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import Payment from "./components/Payment";
@@ -25,7 +30,32 @@ import VerifyEmail from "./components/VerifyEmail";
 import VerificationSuccess from "./components/VerificationSuccess";
 import SetPin from "./components/SetPin";
 import PasswordResetSuccess from "./components/PasswordResetSuccess";
+import Customers from "./components/Customers";
 
+const NotFound = () => {
+    return (
+        <div className="nk-block nk-block-middle wide-md mx-auto flex ">
+            <div className="nk-block-content nk-error-ld text-center w-full mx-auto">
+                <img
+                    className="nk-error-gfx mx-auto"
+                    src={`${ASSET_PATH}images/404.svg`}
+                    alt=""
+                />
+                <div className="wide-xs mx-auto">
+                    <h3 className="nk-error-title">Oops! Why you’re here?</h3>
+                    <p className="nk-error-text">
+                        We are very sorry for inconvenience. It looks like
+                        you’re try to access a page that either has been deleted
+                        or never existed.
+                    </p>
+                    <a href="dashboard" className="btn btn-lg btn-primary mt-2">
+                        Back To Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+};
 function App(props) {
     useEffect(() => {
         props.init();
@@ -53,17 +83,17 @@ function App(props) {
                                 <Redirect to="/" />
                             </Route>
                             <Route path="/set-pin">
-                                <SetPin/>
+                                <SetPin />
                             </Route>
                             <Route exact path="/">
                                 <Home />
                             </Route>
-                            <AdminRoute path="/services">
+                            {/* <AdminRoute path="/services">
                                 <Service />
-                            </AdminRoute>
-                            <AdminRoute path="/providers">
+                            </AdminRoute> */}
+                            {/* <AdminRoute path="/providers">
                                 <Provider />
-                            </AdminRoute>
+                            </AdminRoute> */}
                             <AdminRoute path="/products">
                                 <ProductDashboard />
                             </AdminRoute>
@@ -77,6 +107,9 @@ function App(props) {
 
                             <AdminRoute path="/activities">
                                 <Activities />
+                            </AdminRoute>
+                            <AdminRoute path="/customers">
+                                <Customers />
                             </AdminRoute>
                             {AUTH_USER.is_super_admin && (
                                 <AdminRoute path="/admin">
@@ -114,6 +147,7 @@ function App(props) {
                             <Route path="/settings">
                                 <Settings />
                             </Route>
+                            {/* <Route path="*" component={NotFound} /> */}
                         </>
                     )}
                 </Switch>
@@ -130,6 +164,32 @@ function App(props) {
             </Modal>
         </Router>
     );
+}
+
+export function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
 }
 
 const mapStateToProps = (state) => {

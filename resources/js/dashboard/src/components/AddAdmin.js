@@ -31,7 +31,7 @@ function AddAdmin() {
 
     const removeAdmin = (admin) => {
         axios
-            .delete("/admin/admins/"+admin.id)
+            .delete("/admin/admins/" + admin.id)
             .then((response) => {
                 toast.success(response.data.message, {
                     position: "bottom-center",
@@ -120,7 +120,7 @@ function AddAdmin() {
                                             {admin.role.map((role, i) => (
                                                 <span
                                                     key={i}
-                                                    className="mr-2 capitalize badge-xs badge-success"
+                                                    className="mr-1 capitalize badge text-xs badge-success"
                                                 >
                                                     {deslug(role)}
                                                 </span>

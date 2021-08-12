@@ -3,12 +3,16 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { PaystackButton } from "react-paystack";
 import { connect } from "react-redux";
+import { isNumber } from "lodash";
 
 function AutoDeposit(props) {
     const publicKey = PUBLIC_CONFIG.paystack_public_key_live;
     const reference = "AR-" + Date.now();
     const [amount, setAmount] = useState(100);
-    const [paymentAmount, setPaymentAmount] = useState(amount * 100);
+    const [charges, setCharges] = useState(1.5);
+    const [paymentAmount, setPaymentAmount] = useState(
+        (amount + charges) * 100
+    );
     const [email, setEmail] = useState(AUTH_USER.email);
     const [name, setName] = useState(AUTH_USER.full_name);
     const [mobile, setMobile] = useState(AUTH_USER.mobile);
@@ -24,7 +28,7 @@ function AutoDeposit(props) {
             mobile,
         },
         publicKey,
-        text: "Pay Now",
+        text: "Pay " + naira(paymentAmount / 100),
         onSuccess: (data) => {
             setIsVerifying(true);
             axios
@@ -37,9 +41,24 @@ function AutoDeposit(props) {
         onClose: () => alert("Transaction cancelled"),
     };
 
-    const handleAmount = (amount) => {
-        setAmount(amount);
-        setPaymentAmount(amount * 100);
+    const calculateCharges = (value) => {
+        const flatRate = parseFloat(0.015 * value);
+        let total = flatRate;
+        if (value > 2500) {
+            total = flatRate + 100;
+        }
+
+        return Math.min(total, 2000);
+    };
+    const handleAmount = (p) => {
+        const amt = parseFloat(isNaN(p) || !p || p === "" ? 0 : p);
+        console.log(amt);
+        const ch = parseFloat(calculateCharges(amt));
+        const tot = (amt + ch) * 100;
+
+        setAmount(amt);
+        setCharges(ch);
+        setPaymentAmount(tot);
     };
 
     const handlePaymentSuccess = (data) => {
@@ -96,16 +115,27 @@ function AutoDeposit(props) {
                                     onChange={(e) =>
                                         handleAmount(e.target.value)
                                     }
-                                    placeholder="Enter your phone number"
+                                    placeholder="Enter amount"
                                 />
+                                <p className="font-bold text-gray-400 text-xs my-2">
+                                    Total Service charge: {naira(charges)}
+                                </p>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <PaystackButton
-                                {...componentProps}
-                                className="btn btn-block btn-primary"
-                            />
-                        </div>
+                        {amount > 99 ? (
+                            <div className="form-group">
+                                <PaystackButton
+                                    {...componentProps}
+                                    className="btn btn-block btn-primary"
+                                />
+                            </div>
+                        ) : (
+                            <>
+                            <button className="btn btn-block btn-light text-gray-600">
+                                Minimum amount is {naira(100)}
+                            </button>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

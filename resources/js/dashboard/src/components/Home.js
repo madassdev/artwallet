@@ -32,7 +32,7 @@ function Home(props) {
             <div className="my-2">
                 <h5 className="text-lg font-bold">Transactions</h5>
             </div>
-           <Transactions/>
+           <Transactions type="all"/>
         </div>
     );
 }

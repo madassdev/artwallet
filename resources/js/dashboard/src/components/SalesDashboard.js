@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import DataSales from "./DataSales";
 import AirtimeSales from "./AirtimeSales";
+import CableSales from "./CableSales";
+import ElectricitySales from "./ElectricitySales";
 
 function SalesDashboard(props) {
     let { path, url } = useRouteMatch();
@@ -25,6 +27,12 @@ function SalesDashboard(props) {
             </Route>
             <Route path={`${path}/airtime`}>
                 <AirtimeSales/>
+            </Route>
+            <Route path={`${path}/cable-tv`}>
+                <CableSales/>
+            </Route>
+            <Route path={`${path}/electricity`}>
+                <ElectricitySales/>
             </Route>
         </Switch>
     );

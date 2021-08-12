@@ -20,6 +20,7 @@ function Electricity(props) {
     const [pin, setPin] = useState("");
     const [meterDetails, setMeterDetails] = useState();
     const [meterType, setMeterType] = useState(0);
+    const charges = parseInt(PUBLIC_CONFIG.electricity_fees);
 
     const handlePlanSelected = (e) => {
         setSelectedPlan(e.target.value);
@@ -49,11 +50,6 @@ function Electricity(props) {
 
         if (parseInt(amount) < 50) {
             alert("Please enter a minimum amount of ₦50");
-            return;
-        }
-
-        if (amount > props.user.balance) {
-            alert("Your balance is insufficient for the transaction.");
             return;
         }
 
@@ -88,10 +84,6 @@ function Electricity(props) {
 
     const handlePaymentClicked = (e) => {
         e.preventDefault();
-        if (props.user.balance < amount) {
-            console.log("insufficient balance");
-        }
-
         if (pin.length !== 4) {
             alert("Please enter 4 digit PIN");
             return;
@@ -111,6 +103,11 @@ function Electricity(props) {
         }
         if (!amount || amount === 0 || amount === "") {
             alert("Please Enter a valid amount");
+            return;
+        }
+
+        if (amount+charges > props.user.balance) {
+            alert("Your balance is insufficient for the transaction.");
             return;
         }
 
@@ -206,8 +203,20 @@ function Electricity(props) {
                                 <div>
                                     <h2 className="font-bold m-0">Amount</h2>
                                     <p className="text-gray-600">
-                                        &#x20A6;
-                                        {parseFloat(amount).toLocaleString()}
+                                        {naira(amount)}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2 className="font-bold text-xs text-gray-400 m-0">Service charge</h2>
+                                    <p className="text-gray-400 text-xs">
+                                        {naira(charges)}
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h2 className="font-bold m-0">Total</h2>
+                                    <p className="text-primary font-bold">
+                                        {naira(amount + charges)}
                                     </p>
                                 </div>
                                 <form autoComplete="off">
@@ -255,10 +264,10 @@ function Electricity(props) {
                                                 className="btn btn-primary btn-block font-bold"
                                                 onClick={handlePaymentClicked}
                                             >
-                                                Pay &#x20A6;
-                                                {parseFloat(
-                                                    amount
-                                                ).toLocaleString()}
+                                                Pay 
+                                                {naira(
+                                                    amount+charges
+                                                )}
                                             </button>
                                         )}
                                         <p
@@ -319,7 +328,7 @@ function Electricity(props) {
                                         className="w-full rounded border-gray-300"
                                         value={amount}
                                         onChange={(e) =>
-                                            setAmount(e.target.value)
+                                            setAmount(parseInt(e.target.value))
                                         }
                                         placeholder="Enter amount"
                                     />

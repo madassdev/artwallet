@@ -20,13 +20,13 @@ function CableTv(props) {
     const [isValidating, setIsValidating] = useState(false);
     const [cableDetails, setCableDetails] = useState();
     const [pin, setPin] = useState("");
-
+    const charges = parseInt(PUBLIC_CONFIG.cable_tv_fees);
     const handlePlanSelected = (e) => {
         const plan_id = e.target.value;
         const plan_object = props.plans.find((p) => p.id == plan_id);
         setPlan(plan_object);
         setSelectedPlan(plan_object.id);
-        setAmount(plan_object.price);
+        setAmount(parseInt(plan_object.price));
         // console.log(amt);
     };
     const handleProviderSelected = (e) => {
@@ -36,12 +36,6 @@ function CableTv(props) {
     };
 
     const handleProceed = (e) => {
-        if (props.user.balance < amount) {
-            console.log("insufficient balance");
-            alert("Insufficient balance");
-            return;
-        }
-
         if (!selectedProvider) {
             alert("Please select a Provider first");
             return;
@@ -89,18 +83,10 @@ function CableTv(props) {
                 }
                 setIsValidating(false);
             });
-
-        // setIsReady(true);
     };
 
     const handlePaymentClicked = (e) => {
         e.preventDefault();
-        if (props.user.balance < amount) {
-            console.log("insufficient balance");
-            alert("Insufficient balance");
-            return;
-        }
-
         if (pin.length !== 4) {
             alert("Please enter 4 digit PIN");
             return;
@@ -123,8 +109,12 @@ function CableTv(props) {
             return;
         }
 
+        if (amount + charges > props.user.balance) {
+            alert("Your balance is insufficient for the transaction.");
+            return;
+        }
+
         setIsPaying(true);
-        // return;
         axios
             .post("/orders/cable-tv", {
                 plan_id: selectedPlan,
@@ -134,7 +124,9 @@ function CableTv(props) {
             })
             .then((res) => {
                 setIsPaying(false);
-                props.debitUserBalance(amount);
+                if (res.data.order_success) {
+                    props.debitUserBalance(amount);
+                }
                 toast.success(res.data.message, {
                     position: "bottom-center",
                 });
@@ -183,7 +175,7 @@ function CableTv(props) {
             ) : (
                 <>
                     <h2 className="text-purple-500 text-center font-bold text-lg capitalize m-0 p-0">
-                        Buy Data
+                        Buy Cable Tv
                     </h2>
                     <BalanceCard />
                     {isReady ? (
@@ -213,6 +205,20 @@ function CableTv(props) {
                                     <p className="text-gray-600">
                                         &#x20A6;
                                         {parseFloat(amount).toLocaleString()}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2 className="font-bold text-xs text-gray-400 m-0">
+                                        Service charge
+                                    </h2>
+                                    <p className="text-gray-400 text-xs">
+                                        {naira(charges)}
+                                    </p>
+                                </div>
+                                <div>
+                                    <h2 className="font-bold m-0">Total</h2>
+                                    <p className="text-primary font-bold">
+                                        {naira(amount + charges)}
                                     </p>
                                 </div>
                                 <form autoComplete="off">
@@ -260,10 +266,7 @@ function CableTv(props) {
                                                 className="btn btn-primary btn-block font-bold"
                                                 onClick={handlePaymentClicked}
                                             >
-                                                Pay &#x20A6;
-                                                {parseFloat(
-                                                    amount
-                                                ).toLocaleString()}
+                                                Pay {naira(amount + charges)}
                                             </button>
                                         )}
                                         <p

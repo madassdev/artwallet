@@ -195,7 +195,7 @@ function Sidebar() {
                                                     title=""
                                                 >
                                                     <span className="nk-menu-text">
-                                                        ELectricity Sales
+                                                        Electricity Sales
                                                     </span>
                                                 </NavLink>
                                             </li>
@@ -297,7 +297,7 @@ function Sidebar() {
                                             </ul>
                                         </li>
                                     )}
-                                    <li className="nk-menu-item">
+                                    {/* <li className="nk-menu-item">
                                         <NavLink
                                             to="/providers"
                                             className="nk-menu-link"
@@ -309,7 +309,7 @@ function Sidebar() {
                                                 Providers
                                             </span>
                                         </NavLink>
-                                    </li>
+                                    </li> */}
                                 </>
                             )}
 
