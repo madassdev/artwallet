@@ -32,7 +32,7 @@ function AutoDeposit(props) {
         onSuccess: (data) => {
             setIsVerifying(true);
             axios
-                .post("/payments", { reference: reference })
+                .post("/payments", { reference: reference, amount })
                 .then((response) => {
                     handlePaymentSuccess(response.data);
                 })
@@ -52,7 +52,6 @@ function AutoDeposit(props) {
     };
     const handleAmount = (p) => {
         const amt = parseFloat(isNaN(p) || !p || p === "" ? 0 : p);
-        console.log(amt);
         const ch = parseFloat(calculateCharges(amt));
         const tot = (amt + ch) * 100;
 

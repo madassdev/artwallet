@@ -140,7 +140,7 @@ class OrderController extends Controller
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
-            $user->balance -= $amount;
+            $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
@@ -314,7 +314,7 @@ class OrderController extends Controller
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
-            $user->balance -= $request->amount;
+            $user->balance -= $request->amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {

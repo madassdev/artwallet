@@ -21,8 +21,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         PasswordReset::class => [
             \App\Listeners\SendPasswordUpdatedNotification::class
-        ]
-        ,
+        ],
         \App\Events\AccountVerified::class => [
             \App\Listeners\SendAccountVerifiedNotification::class,
         ],

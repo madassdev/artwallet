@@ -20,6 +20,8 @@ class SubAdminController extends Controller
         return inertia('Admin/Index');
     }
 
+    
+
     public function test()
     {
         //  return Order::all()

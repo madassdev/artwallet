@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:300', 'unique:users'],
             'mobile' => ['required', 'numeric', 'digits:11', 'unique:users,mobile'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'referrer' => [],
+            'referral_code' => [],
         ]);
     }
 
@@ -73,14 +73,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $last_user = User::orderBy('uniqid', 'DESC')->first();
+        $referrer = User::whereReferralCode($data['referral_code'])->first();
+        // return dd($referrer);
         $user = User::create([
             "name" => $data["first_name"],
             "last_name" => $data["last_name"],
             "mobile" => $data["mobile"],
             "email" => $data['email'],
             "password" => bcrypt($data["password"]),
-            "uniqid" => $last_user->uniqid + 1
+            "uniqid" => $last_user->uniqid + 1,
+            "referrer" => $referrer->email
         ]);
+        $user->generate_referral_code();
         return $user;
     }
 

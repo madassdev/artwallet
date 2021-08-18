@@ -17,8 +17,18 @@ class AppController extends Controller
     public function status()
     {
         ini_set('max_execution_time', 1000);
-        Artisan::call('migrate:fresh', [
-            '--seed' => true,
+        // Artisan::call('migrate:fresh', [
+        //     '--seed' => true,
+        //     '--force' => true
+        // ]);
+
+        return dd(Artisan::output());
+    }
+
+    public function migrate()
+    {
+        ini_set('max_execution_time', 1000);
+        Artisan::call('migrate', [
             '--force' => true
         ]);
 

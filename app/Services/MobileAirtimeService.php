@@ -16,6 +16,15 @@ class MobileAirtimeService
             "APIKey" => $club_api_key
         ];
     }
+
+    public static function getClubBalance()
+    {
+        $url = "https://www.nellobytesystems.com/APIWalletBalanceV1.asp?";
+        $params = self::getClubAuthDetails();
+        $response = Http::get($url, $params)->json();
+
+        return $response;
+    }
     public static function checkBalance()
     {
         $params = [
@@ -117,7 +126,7 @@ class MobileAirtimeService
         // return $params;
 
     }
-    
+
     public static function verifyClubCable($service, $recipient)
     {
         $url = "https://www.nellobytesystems.com/APIVerifyCableTVV1.0.asp";
@@ -220,7 +229,6 @@ class MobileAirtimeService
         ];
 
         return @$packages[$provider][$plan];
-
     }
 
     public static function getClubCableProvider($provider)

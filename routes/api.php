@@ -18,8 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'test'], function(){
+Route::group(['prefix' => 'test'], function () {
     Route::get('/seed', 'SubAdminController@test');
+    Route::get('/migrate', 'AppController@migrate');
     Route::post('/orders/airtime', 'OrderController@airtime');
     Route::post('/orders/transfer', 'OrderController@transfer');
     Route::post('/orders/cable-tv', 'OrderController@cableTv');
@@ -29,5 +30,5 @@ Route::group(['prefix'=>'test'], function(){
     Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');
     Route::resource('plans', 'PlanController');
     Route::resource('providers', 'ProviderController');
+    Route::get('/analytics', 'AdminController@salesAnalytics');
 });
-

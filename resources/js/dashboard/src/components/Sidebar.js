@@ -153,6 +153,18 @@ function Sidebar() {
                                         <ul className="nk-menu-sub">
                                             <li className="nk-menu-item">
                                                 <NavLink
+                                                    to="/sales"
+                                                    className="nk-menu-link"
+                                                    data-original-title=""
+                                                    title=""
+                                                >
+                                                    <span className="nk-menu-text">
+                                                        Sales dashboard
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nk-menu-item">
+                                                <NavLink
                                                     to="/sales/data"
                                                     className="nk-menu-link"
                                                     data-original-title=""

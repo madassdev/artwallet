@@ -6,6 +6,7 @@ import FindUser from "./FindUser";
 function CreditUser() {
     const [user, setUser] = useState(null);
     const [userBalance, setUserBalance] = useState("");
+    const [credit, setCredit] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
     const setFoundUser = (user) => {
         setUser(user);
@@ -16,11 +17,10 @@ function CreditUser() {
         e.preventDefault();
         setIsUpdating(true);
         axios
-            .put("/admin/users/" + user.uniqid + "/updateBalance", {
-                balance: userBalance,
+            .put("/admin/users/" + user.uniqid + "/credit-user", {
+                credit: credit,
             })
             .then((res) => {
-                console.log(res.data);
                 setUser(res.data.data.user);
                 setUserBalance(res.data.data.user.balance);
                 setIsUpdating(false);
@@ -50,16 +50,14 @@ function CreditUser() {
                 <FindUser setFoundUser={(user) => setFoundUser(user)}>
                     <form onSubmit={updateUserBalance}>
                         <div className="form-group flex flex-col space-y-1">
-                            <p className="font-bold">Update Balance</p>
+                            <p className="font-bold">Credit User</p>
                             <div className="form-control-wrap">
                                 <input
                                     type="number"
                                     className="w-full rounded border-gray-300"
-                                    value={userBalance}
-                                    onChange={(e) =>
-                                        setUserBalance(e.target.value)
-                                    }
-                                    placeholder="Enter search term"
+                                    value={credit}
+                                    onChange={(e) => setCredit(e.target.value)}
+                                    placeholder="Enter amount to credit"
                                     required
                                 />
                                 {isUpdating ? (
@@ -77,7 +75,7 @@ function CreditUser() {
                                     </button>
                                 ) : (
                                     <button className="btn btn-primary btn-block my-2">
-                                        Update
+                                        Credit
                                     </button>
                                 )}
                             </div>

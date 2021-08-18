@@ -130,6 +130,14 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="default-01">Referral code</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="text" name="referral_code" class="form-control form-control-lg @error('referral_code') error @enderror" id="default-01" value="{{old('referral_code')}}" placeholder="Enter a referral code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-lg btn-primary btn-block">Create Account</button>
                                     </div>
                                 </form>

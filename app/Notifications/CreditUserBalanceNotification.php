@@ -2,13 +2,12 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AccountVerifiedNotification extends Notification
+class CreditUserBalanceNotification extends Notification
 {
     use Queueable;
 
@@ -17,9 +16,9 @@ class AccountVerifiedNotification extends Notification
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        //
     }
 
     /**
@@ -42,14 +41,9 @@ class AccountVerifiedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Welcome to Artwallet!')
-            ->greeting("You did it {$this->user->name},")
-            ->line('Your account has been successfuly verified!')
-            ->line('We are glad to have you fully on board, your account has been gifted with a '.naira(onboardBalance()).' bonus.')
-            ->line('Kindly visit your dashboard and start using our services now!')
-            ->action("I'm in, take me there!", url('/dashboard'))
-            ->line('Thank you for using Artwallet!')
-        ;
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**

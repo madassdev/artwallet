@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'mobile',
         'uniqid',
-
+        'referrer',
     ];
 
     /**
@@ -111,5 +111,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRouteKeyName()
     {
         return "uniqid";
+    }
+
+    public function generate_referral_code()
+    {
+        $this->referral_code = strtoupper(substr($this->name, 0, 3) . rand(99, 999));
+        $this->save();
+    }
+
+    public function getRefAttribute()
+    {
+        return @User::whereEmail(@$this->referrer)->orWhere('referral_code', @$this->referrer)->first();
     }
 }

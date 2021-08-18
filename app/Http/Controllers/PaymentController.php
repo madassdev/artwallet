@@ -12,6 +12,10 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         // return $request->intent ?? "deposit";
+        $request->validate([
+            "amount" => "required|numeric|min:100",
+            "reference" => "required|string"
+        ]);
         $user = auth()->user();
         if (Payment::whereRef($request->reference)->count()) {
 
@@ -22,8 +26,22 @@ class PaymentController extends Controller
         }
         $tr = PaymentService::verifyPaystack($request->reference);
         if ($tr["status"]) {
+            $expected_amount = calculatePaystackCharges($request->amount) + $request->amount;
             // return $tr['data'];
             $amount_paid = $tr['data']['amount'] / 100;
+            // return [
+            //     "amount" => $request->amount,
+            //     "expected" => $expected_amount,
+            //     "paid" => $amount_paid
+            // ];
+
+            if($expected_amount < $amount_paid-5)
+            {
+                return response()->json([
+                    "success" => false,
+                    "message" => "Amount paid lower than expected amount. Expected ".naira($expected_amount)." for ".naira($request->amount).", but received ".naira($amount_paid)
+                ],403);
+            }
             $payment = $user->payments()->create([
                 "ref" => $request->reference,
                 "amount" => $amount_paid,
@@ -33,7 +51,7 @@ class PaymentController extends Controller
                 "payment_data" => $tr['data']
             ]);
 
-            $user->balance += $amount_paid;
+            $user->balance += $request->amount;
             
             $user->save();
 
@@ -42,7 +60,7 @@ class PaymentController extends Controller
                 'debitable_id' => $payment->id,
                 'debitable_type' => Payment::class,
                 'recipient' => "wallet",
-                'amount' => $payment->amount,
+                'amount' => $request->amount,
                 'type' => 'deposit',
                 'status' => 'complete',
             ]);
