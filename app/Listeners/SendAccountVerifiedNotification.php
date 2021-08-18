@@ -34,9 +34,9 @@ class SendAccountVerifiedNotification
         $event->user->save();
 
         Notification::send($event->user, new AccountVerifiedNotification($event->user));
-        
-        if ($event->user->ref) {
-            Notification::send($event->user->ref, new UserReferralNotification($event->user->ref, $event->user));
-        }
+
+        // if ($event->user->ref) {
+        //     Notification::send($event->user->ref, new UserReferralNotification($event->user->ref, $event->user));
+        // }
     }
 }

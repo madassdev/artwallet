@@ -29,14 +29,14 @@ function Header() {
                             />
                         </a>
                     </div>
-                    <div className="nk-header-search ml-3 ml-xl-0">
+                    {/* <div className="nk-header-search ml-3 ml-xl-0">
                         <em className="icon ni ni-search"></em>
                         <input
                             type="text"
                             className="form-control border-transparent form-focus-none"
                             placeholder="Search anything"
                         />
-                    </div>
+                    </div> */}
                     <div className="nk-header-tools">
                         <ul className="nk-quick-nav">
                             {/* <li className="dropdown chats-dropdown hide-mb-xs">

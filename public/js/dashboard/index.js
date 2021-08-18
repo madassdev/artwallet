@@ -8933,15 +8933,6 @@ function Header() {
               alt: "logo-dark"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "nk-header-search ml-3 ml-xl-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", {
-            className: "icon ni ni-search"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-            type: "text",
-            className: "form-control border-transparent form-focus-none",
-            placeholder: "Search anything"
-          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "nk-header-tools",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("ul", {
@@ -9066,7 +9057,7 @@ function useQuery() {
 }
 
 function Home(props) {
-  var _props$user, _props$user2, _props$user3;
+  var _props$user, _props$user2;
 
   var query = useQuery();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -9084,17 +9075,8 @@ function Home(props) {
             children: ["\u20A6", parseFloat((_props$user = props.user) === null || _props$user === void 0 ? void 0 : _props$user.balance).toLocaleString()]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "bg-purple-700 shadow-md rounded p-3 w-full md:w-60",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-            className: "text-lg text-white m-0 p-0",
-            children: "Balance"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-            className: "text-2xl text-white font-bold m-0 p-0",
-            children: ["\u20A6", parseFloat((_props$user2 = props.user) === null || _props$user2 === void 0 ? void 0 : _props$user2.balance).toLocaleString()]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "bg-white shadow-md rounded p-3 w-full md:w-60",
-          children: ["User ID: ", (_props$user3 = props.user) === null || _props$user3 === void 0 ? void 0 : _props$user3.uniqid]
+          children: ["User ID: ", (_props$user2 = props.user) === null || _props$user2 === void 0 ? void 0 : _props$user2.uniqid]
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
