@@ -1,3 +1,63 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal__container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s;
+}
+
+.truncate-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.labl {
+    display : block;
+    margin:0;
+    padding: 0;
+}
+.labl > input{ /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+    position:absolute;
+}
+.labl > input + div{ /* DIV STYLES */
+    cursor:pointer;
+    background-color:white;
+}
+.label > div:hover{
+    border: 1px solid #854fff;
+    color:red;
+} 
+.labl > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
+    background-color: #854fff;
+    color: white;
+    /* border: 1px solid #ff6600; */
+}

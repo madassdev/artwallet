@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from "@inertiajs/inertia-react";
+
 function Header() {
     return (
         <div className="nk-header nk-header-fixed is-light">
@@ -17,14 +18,14 @@ function Header() {
                         <a href="#" className="logo-link">
                             <img
                                 className="logo-light logo-img"
-                                src={LOGO_URL}
-                                srcSet={`${LOGO_URL} 2x`}
+                                src={`${ASSET_PATH}images/artwallet.png`}
+                                srcSet={`${ASSET_PATH}images/artwallet.png 2x`}
                                 alt="logo"
                             />
                             <img
                                 className="logo-dark logo-img"
-                                src={LOGO_URL}
-                                srcSet={`${LOGO_URL} 2x`}
+                                src={`${ASSET_PATH}images/artwallet.png`}
+                                srcSet={`${ASSET_PATH}images/artwallet.png 2x`}
                                 alt="logo-dark"
                             />
                         </a>
@@ -87,7 +88,7 @@ function Header() {
                                     <div className="dropdown-inner">
                                         <ul className="link-list">
                                             <li>
-                                                <Link to="/settings">
+                                                <Link href="/settings">
                                                     <em className="icon ni ni-user-alt"></em>
                                                     <span>View Profile</span>
                                                 </Link>

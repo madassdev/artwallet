@@ -37,8 +37,17 @@ class MobileAirtimeService
         return $response;
     }
 
-    public static function buyClubAirtime($providerSlug, $mobile, $amount, $reference = null)
+    public static function buyClubAirtime($providerSlug, $mobile, $amount, $reference = null, $mock = false)
     {
+        if ($mock) {
+            return [
+                "success" => true,
+                "message" => "MOCK_AIRTIME_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
         $url = "https://www.nellobytesystems.com/APIAirtimeV1.asp";
 
         $params = [
@@ -60,8 +69,17 @@ class MobileAirtimeService
         return $response;
     }
 
-    public static function buyClubData($network, $mobile, $plan, $ref)
+    public static function buyClubData($network, $mobile, $plan, $ref, $mock = false)
     {
+        if ($mock) {
+            return [
+                "success" => true,
+                "message" => "MOCK_DATA_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
         $url = "https://www.nellobytesystems.com/APIDatabundleV1.asp";
         $params = [
             "MobileNetwork" => self::getClubProviderCode($network),
@@ -81,8 +99,17 @@ class MobileAirtimeService
         return $response;
     }
 
-    public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null)
+    public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null, $mock = false)
     {
+        if ($mock) {
+            return [
+                "success" => true,
+                "message" => "MOCK_ELECTRICITY_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
         $url = "https://www.nellobytesystems.com/APIElectricityV1.asp";
 
         $params = [
@@ -114,12 +141,13 @@ class MobileAirtimeService
         ] + self::getClubAuthDetails();
 
         $response = Http::get($url, $params)->json();
-        $count = str_word_count($response['customer_name']);
+        $customer_name = @$response['customer_name'];
+        $count = str_word_count($customer_name);
 
         return [
-            "success" =>  $response['customer_name'] !== "INVALID_SMARTCARDNO" && $count <= 4,
-            "message" => $response["customer_name"],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "success" =>  $customer_name && $customer_name !== "INVALID_METERNO" && $count <= 5,
+            "message" => $customer_name,
+            "recipient" => $customer_name,
             "api_response" => $response
         ];
 
@@ -137,12 +165,13 @@ class MobileAirtimeService
         ] + self::getClubAuthDetails();
 
         $response = Http::get($url, $params)->json();
-        $count = str_word_count($response['customer_name']);
+        $customer_name = @$response['customer_name'];
+        $count = str_word_count($customer_name);
 
         return [
-            "success" =>  $response['customer_name'] !== "INVALID_SMARTCARDNO" && $count <= 4,
-            "message" => $response["customer_name"],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "success" =>  $customer_name && $customer_name !== "INVALID_SMARTCARDNO" && $count <= 5,
+            "message" => $customer_name,
+            "recipient" => $customer_name,
             "api_response" => $response
         ];
 
@@ -150,13 +179,76 @@ class MobileAirtimeService
 
     }
 
-    public static function buyClubCable($network, $recipient, $plan, $ref)
+    public static function verifyClubInternet($service, $recipient)
     {
+        $url = "https://www.nellobytesystems.com/APIVerifySmileV1.asp";
+
+        $params = [
+            "MobileNetwork" => self::getClubInternetProvider($service),
+            "MobileNumber" => $recipient,
+        ] + self::getClubAuthDetails();
+
+        $response = Http::get($url, $params)->json();
+        $customer_name = @$response['customer_name'];
+        $count = str_word_count($customer_name);
+
+        return [
+            "success" =>  $customer_name && $customer_name !== "INVALID_ACCOUNTNO" && $count <= 5,
+            "message" => $customer_name,
+            "recipient" => $customer_name,
+            "api_response" => $response
+        ];
+
+        // return $params;
+
+    }
+
+    public static function buyClubCable($network, $recipient, $plan, $ref, $mock=false)
+    {
+        if($mock){
+            return [
+                "success" => true,
+                "message" => "MOCK_CABLT_TV_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
         $url = "https://www.nellobytesystems.com/APICableTVV1.asp";
         $params = [
             "CableTV" => self::getClubCableProvider($network),
-            "Package" => self::getClubCablePlan($network, $plan->slug),
+            "Package" => $plan->api_ref,
             "SmartCardNo" => $recipient,
+            "RequestID" => $ref,
+        ] + self::getClubAuthDetails();
+
+        // return $params;
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => $response['status'] === "ORDER_RECEIVED",
+            "message" => $response['status'],
+            "code" => "CLUBKONNECT_ERROR_CODE",
+            "api_response" => $response
+        ];
+    }
+
+    public static function buyClubInternet($network, $recipient, $plan, $ref, $mock=false)
+    {
+        if($mock){
+            return [
+                "success" => true,
+                "message" => "MOCK_INTERNET_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
+        $url = "https://www.nellobytesystems.com/APISmileV1.asp?";
+        $params = [
+            "MobileNetwork" => self::getClubCableProvider($network),
+            "DataPlan" => $plan->api_ref,
+            "MobileNumber" => $recipient,
             "RequestID" => $ref,
         ] + self::getClubAuthDetails();
 
@@ -238,7 +330,15 @@ class MobileAirtimeService
             "gotv" => 'gotv',
             'startimes' => 'startimes'
         ];
-        return $providers[strtolower($provider)];
+        return @$providers[strtolower($provider)];
+    }
+
+    public static function getClubInternetProvider($provider)
+    {
+        $providers = [
+            "smile" => "smile-direct",
+        ];
+        return @$providers[strtolower($provider)] ?? "smile-direct";
     }
 
     public static function buyAirtime($providerSlug, $mobile, $amount, $reference = null)

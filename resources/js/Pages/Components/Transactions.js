@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner";
-import { connect, useDispatch } from "react-redux";
-import { fetchTransactions } from "../reducers/transactionReducer";
+// import { connect, useDispatch } from "react-redux";
 
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -83,34 +82,28 @@ export const OrderTransactionSummary = ({ transaction }) => {
 
             {AUTH_USER.is_admin && (
                 <>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h2 className="font-bold m-0">API Code</h2>
-                            <p className="text-gray-600 text-xs">
-                                {
-                                    transaction?.credit_data?.order_data
-                                        ?.api_data?.code
-                                }
-                            </p>
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <h2 className="font-bold m-0">API Code</h2>
+                                <p className="text-gray-600 text-xs">
+                                    {
+                                        transaction?.credit_data?.order_data
+                                            ?.api_data?.code
+                                    }
+                                </p>
+                            </div>
+                            <div>
+                                <h2 className="font-bold m-0 text-right">
+                                    API Message
+                                </h2>
+                                <p className={`text-${transaction.status === "complete" ? "success" : "danger"} text-xs font-bold text-right`}>
+                                    {
+                                        transaction?.credit_data?.order_data
+                                            ?.api_data?.message
+                                    }
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="font-bold m-0 text-right">
-                                API Message
-                            </h2>
-                            <p
-                                className={`text-${
-                                    transaction.status === "complete"
-                                        ? "success"
-                                        : "danger"
-                                } text-xs font-bold text-right`}
-                            >
-                                {
-                                    transaction?.credit_data?.order_data
-                                        ?.api_data?.message
-                                }
-                            </p>
-                        </div>
-                    </div>
                 </>
             )}
             <h2 className="text-center font-bold mb-0">User Summary</h2>
@@ -148,7 +141,7 @@ export const OrderTransactionSummary = ({ transaction }) => {
 };
 
 export const DepositTransactionSummary = ({ transaction }) => {
-    return <div>{transaction.reference} lds nsdlv</div>;
+    return <div>{transaction.reference}</div>;
 };
 
 export const makeTransactionComponent = (transaction) => {
@@ -192,7 +185,7 @@ function Transactions(props) {
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(20);
     const [perPage, setPerPage] = useState(20);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const type =
         props.type === undefined ||
         props.type.toLowerCase() === "all" ||
@@ -201,21 +194,16 @@ function Transactions(props) {
             : props.type;
 
     const handleRowClicked = (transaction) => {
-        dispatch({
-            type: "OPEN_MODAL",
-            modal: {
-                show: 1,
-                content: (
-                    <div className="w-full md:w-1/2 mx-auto">
-                        {makeTransactionComponent(transaction)}
-                    </div>
-                ),
-                header: (
-                    <h3 className="font-bold uppercase">
-                        {transaction.reference}
-                    </h3>
-                ),
-            },
+        props.openModal({
+            show: true,
+            header: (
+                <h3 className="font-bold uppercase">{transaction.reference}</h3>
+            ),
+            content: (
+                <div className="w-full md:w-1/2 mx-auto">
+                    {makeTransactionComponent(transaction)}
+                </div>
+            ),
         });
     };
     const fetchT = async (page) => {
@@ -319,12 +307,6 @@ function Transactions(props) {
             ),
         },
     ];
-
-    const getData = (data) => {
-        // console.log(data)
-        props.fetchTransactions(data.page);
-    };
-
     return (
         <div>
             {props.isLoading ? (
@@ -478,25 +460,4 @@ function Transactions(props) {
     );
 }
 
-const mapState = (state) => {
-    return {
-        user: state.userState.user,
-        transactions: state.transactionState.transactions,
-        isLoading: state.transactionState.isFetching,
-    };
-};
-
-const mapDispatch = (dispatch) => {
-    return {
-        addTransaction: (transaction) =>
-            // console.log('t', transaction)
-            dispatch({
-                type: "ADD_TRANSACTION",
-                transaction: transaction,
-            }),
-        fetchTransactions: (page, type) => {
-            dispatch(fetchTransactions(page, type));
-        },
-    };
-};
-export default connect(mapState, mapDispatch)(Transactions);
+export default Transactions;

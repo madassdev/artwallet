@@ -28,6 +28,13 @@ export const getCableTvProviders = (providers) => {
     return dataProviders;
 };
 
+export const getInternetProviders = (providers) => {
+    const dataProviders = providers?.filter(
+        (p) => p.service.slug === "internet"
+    );
+    return dataProviders;
+};
+
 export const getProviderById = (id, providers) => {
     const provider = providers?.find((p) => {
         return p.id == id;

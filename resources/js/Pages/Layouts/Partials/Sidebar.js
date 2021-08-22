@@ -1,5 +1,4 @@
-import { NavLink } from "react-router-dom";
-import { nav_items } from "../data/NavItems";
+import { Link } from "@inertiajs/inertia-react";
 
 function Sidebar() {
     return (
@@ -9,26 +8,26 @@ function Sidebar() {
         >
             <div className="nk-sidebar-element nk-sidebar-head">
                 <div className="nk-sidebar-brand">
-                    <NavLink to="/" className="logo-link nk-sidebar-logo">
+                    <Link href="/" className="logo-link nk-sidebar-logo">
                         <img
                             className="logo-light logo-img"
-                            src={LOGO_URL}
-                            srcSet={`${LOGO_URL} 2x`}
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo"
                         />
                         <img
                             className="logo-dark logo-img"
-                            src={LOGO_URL}
-                            srcSet={`${LOGO_URL} 2x`}
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo-dark"
                         />
                         <img
                             className="logo-small logo-img logo-img-small"
-                            src={LOGO_URL}
-                            srcSet={`${LOGO_URL} 2x`}
+                            src={`${ASSET_PATH}images/artwallet.png`}
+                            srcSet="images/artwallet.png 2x"
                             alt="logo-small"
                         />
-                    </NavLink>
+                    </Link>
                 </div>
                 <div className="nk-menu-trigger mr-n2">
                     <a
@@ -59,8 +58,8 @@ function Sidebar() {
                                         </h6>
                                     </li>
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/customers"
+                                        <Link
+                                            href="/customers"
                                             className="nk-menu-link"
                                         >
                                             <span className="nk-menu-icon">
@@ -69,7 +68,7 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Customer Management
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nk-menu-item has-sub">
                                         <a
@@ -87,8 +86,8 @@ function Sidebar() {
                                         </a>
                                         <ul className="nk-menu-sub">
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/products/data"
+                                                <Link
+                                                    href="/products/data"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -96,11 +95,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Data Plans
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/products/airtime"
+                                                <Link
+                                                    href="/products/airtime"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -108,11 +107,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Airtime
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/products/cable-tv"
+                                                <Link
+                                                    href="/products/cable-tv"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -120,11 +119,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Cable Tv Plans
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/products/electricity"
+                                                <Link
+                                                    href="/products/electricity"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -132,19 +131,7 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Electricity Plans
                                                     </span>
-                                                </NavLink>
-                                            </li>
-                                            <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/products/internet"
-                                                    className="nk-menu-link"
-                                                    data-original-title=""
-                                                    title=""
-                                                >
-                                                    <span className="nk-menu-text">
-                                                        Internet Service Plans
-                                                    </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </li>
@@ -164,8 +151,8 @@ function Sidebar() {
                                         </a>
                                         <ul className="nk-menu-sub">
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/sales"
+                                                <Link
+                                                    href="/sales"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -173,11 +160,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Sales dashboard
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/sales/data"
+                                                <Link
+                                                    href="/sales/data"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -185,11 +172,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Data Sales
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/sales/airtime"
+                                                <Link
+                                                    href="/sales/airtime"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -197,11 +184,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Airtime Sales
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/sales/cable-tv"
+                                                <Link
+                                                    href="/sales/cable-tv"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -209,11 +196,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Cable Tv Sales
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/sales/electricity"
+                                                <Link
+                                                    href="/sales/electricity"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -221,7 +208,7 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Electricity Sales
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </li>
@@ -241,8 +228,8 @@ function Sidebar() {
                                         </a>
                                         <ul className="nk-menu-sub">
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/activities/profiles"
+                                                <Link
+                                                    href="/activities/profiles"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -250,11 +237,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Customer Profiles
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/activities/credit-user"
+                                                <Link
+                                                    href="/activities/credit-user"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -262,11 +249,11 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         Credit a User
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                             <li className="nk-menu-item">
-                                                <NavLink
-                                                    to="/activities/report"
+                                                <Link
+                                                    href="/activities/report"
                                                     className="nk-menu-link"
                                                     data-original-title=""
                                                     title=""
@@ -274,7 +261,7 @@ function Sidebar() {
                                                     <span className="nk-menu-text">
                                                         User Log report
                                                     </span>
-                                                </NavLink>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </li>
@@ -295,8 +282,8 @@ function Sidebar() {
                                             </a>
                                             <ul className="nk-menu-sub">
                                                 <li className="nk-menu-item">
-                                                    <NavLink
-                                                        to="/admin/add"
+                                                    <Link
+                                                        href="/admin/add"
                                                         className="nk-menu-link"
                                                         data-original-title=""
                                                         title=""
@@ -304,11 +291,11 @@ function Sidebar() {
                                                         <span className="nk-menu-text">
                                                             Manage Admin
                                                         </span>
-                                                    </NavLink>
+                                                    </Link>
                                                 </li>
                                                 <li className="nk-menu-item">
-                                                    <NavLink
-                                                        to="/admin/report"
+                                                    <Link
+                                                        href="/admin/report"
                                                         className="nk-menu-link"
                                                         data-original-title=""
                                                         title=""
@@ -316,14 +303,14 @@ function Sidebar() {
                                                         <span className="nk-menu-text">
                                                             Admin Transactions
                                                         </span>
-                                                    </NavLink>
+                                                    </Link>
                                                 </li>
                                             </ul>
                                         </li>
                                     )}
                                     {/* <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/providers"
+                                        <Link
+                                            href="/providers"
                                             className="nk-menu-link"
                                         >
                                             <span className="nk-menu-icon">
@@ -332,7 +319,7 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Providers
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li> */}
                                 </>
                             )}
@@ -343,18 +330,14 @@ function Sidebar() {
                                 </h6>
                             </li>
                             <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/"}
-                                    activeClassName="nav-active"
-                                    className="nk-menu-link"
-                                >
+                                <Link href={route('dashboard.index')} className="nk-menu-link">
                                     <span className="nk-menu-icon">
                                         <i className="mdi mdi-speedometer"></i>{" "}
                                     </span>
                                     <span className="nk-menu-text">
                                         Dashboard
                                     </span>
-                                </NavLink>
+                                </Link>
                             </li>
                             <li className="nk-menu-item has-sub">
                                 <a
@@ -372,8 +355,8 @@ function Sidebar() {
                                 </a>
                                 <ul className="nk-menu-sub">
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/payments/deposit"
+                                        <Link
+                                            href="/payments/deposit"
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -381,11 +364,11 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Fund wallet
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     {/* <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/payments/report"
+                                        <Link
+                                            href="/payments/report"
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -393,11 +376,11 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Report payment
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li> */}
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/payments/transfer"
+                                        <Link
+                                            href="/payments/transfer"
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -405,11 +388,11 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Transfer to others
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/payments/history"
+                                        <Link
+                                            href="/payments/history"
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -417,15 +400,14 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Payment history
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>
 
                             <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/buy/airtime"}
-                                    activeClassName="nav-active"
+                                <Link
+                                    href={route('buy.airtime')}
                                     className="nk-menu-link"
                                 >
                                     <span className="nk-menu-icon">
@@ -434,7 +416,7 @@ function Sidebar() {
                                     <span className="nk-menu-text">
                                         Airtime
                                     </span>
-                                </NavLink>
+                                </Link>
                             </li>
                             <li className="nk-menu-item has-sub">
                                 <a
@@ -452,8 +434,8 @@ function Sidebar() {
                                 </a>
                                 <ul className="nk-menu-sub">
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/buy/data"
+                                        <Link
+                                            href={route('buy.data')}
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -461,11 +443,11 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Data
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/buy/cable-tv"
+                                        <Link
+                                            href={route('buy.cable-tv')}
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -473,11 +455,11 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Cable TV
                                             </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/buy/electricity"
+                                        <Link
+                                            href={route('buy.electricity')}
                                             className="nk-menu-link"
                                             data-original-title=""
                                             title=""
@@ -485,26 +467,13 @@ function Sidebar() {
                                             <span className="nk-menu-text">
                                                 Electricity bill
                                             </span>
-                                        </NavLink>
-                                    </li>
-                                    <li className="nk-menu-item">
-                                        <NavLink
-                                            to="/buy/internet"
-                                            className="nk-menu-link"
-                                            data-original-title=""
-                                            title=""
-                                        >
-                                            <span className="nk-menu-text">
-                                                Internet Service
-                                            </span>
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>
                             <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/transactions"}
-                                    activeClassName="nav-active"
+                                <Link
+                                    href={"/transactions"}
                                     className="nk-menu-link"
                                 >
                                     <span className="nk-menu-icon">
@@ -513,12 +482,11 @@ function Sidebar() {
                                     <span className="nk-menu-text">
                                         Transactions
                                     </span>
-                                </NavLink>
+                                </Link>
                             </li>
                             <li className="nk-menu-item">
-                                <NavLink
-                                    to={"/settings"}
-                                    activeClassName="nav-active"
+                                <Link
+                                    href={"/settings"}
                                     className="nk-menu-link"
                                 >
                                     <span className="nk-menu-icon">
@@ -527,7 +495,7 @@ function Sidebar() {
                                     <span className="nk-menu-text">
                                         Settings
                                     </span>
-                                </NavLink>
+                                </Link>
                             </li>
                         </ul>
                     </div>

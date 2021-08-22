@@ -69,7 +69,7 @@ function Electricity(props) {
             .catch((err) => {
                 if (err.response.status === 403) {
                     console.log(err.response.data);
-                    toast.error(err.response.data.message, {
+                    toast.error(err.response.data.message || "Unable to verify!", {
                         position: "top-center",
                         style: {
                             background: "rgba(185, 16, 16,1)",

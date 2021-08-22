@@ -12,7 +12,7 @@ class Order extends Model
 
     protected $guarded = [];
 
-    protected $with = ['plan'];
+    // protected $with = ['plan'];
 
     protected $casts = [
         'order_data' => 'array',

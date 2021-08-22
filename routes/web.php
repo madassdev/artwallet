@@ -22,8 +22,21 @@ use Inertia\Inertia;
 |
 */
 
-
-
+Route::prefix('inertia')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function(){
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+    Route::name('buy.')->prefix('buy')->group(function(){
+        Route::get('/airtime', 'BuyController@buyAirtime')->name('airtime');
+        Route::get('/data', 'BuyController@buyData')->name('data');
+        Route::get('/cable-tv', 'BuyController@buyCableTv')->name('cable-tv');
+        Route::get('/electricity', 'BuyController@buyElectricity')->name('electricity');
+    });
+    Route::name('orders.')->prefix('buy')->group(function(){
+        Route::post('/airtime', 'OrderController@buyAirtime')->name('airtime.buy');
+        Route::post('/data', 'OrderController@buyData')->name('data.buy');
+        Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
+        Route::post('/electricity', 'OrderController@buyElectricity')->name('electricity.buy');
+    });
+});
 Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -63,6 +76,7 @@ Route::domain($admin_subdomain)->group(function () {
         Route::post('/users/find', 'AdminController@findUser');
         Route::put('/users/{user}', 'AdminController@updateUser');
         Route::put('/users/{user}/updateBalance', 'AdminController@updateUserBalance');
+        Route::put('/users/{user}/credit-user', 'AdminController@creditUserBalance');
         Route::group(['middleware' => 'role:super_admin'], function () {
             Route::post('/make-admin', 'AdminController@makeAdmin');
             Route::get('/admin-activities', 'AdminController@adminActivities');
@@ -89,7 +103,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::any(
         '{all?}',
         "DashboardController@index"
-    )->where(['all' => '.*']);
+    )->where(['all' => '.*'])->name('dashboard');
 });
 
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'verified']], function () {
@@ -100,12 +114,14 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'verified']], functio
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/users', 'AdminController@getUsers');
+    Route::get('/sales/analytics', 'AdminController@salesAnalytics');
     Route::get('/transactions', 'TransactionController@adminTransactions');
     Route::get('/users/search', 'AdminController@searchUsers');
     Route::post('/users/find', 'AdminController@findUser');
     Route::put('/users/{user}', 'AdminController@updateUser');
     Route::put('/users/{user}/updateBalance', 'AdminController@updateUserBalance');
-    Route::group(['middleware' => 'role:super_admin'], function () {
+        Route::put('/users/{user}/credit-user', 'AdminController@creditUserBalance');
+        Route::group(['middleware' => 'role:super_admin'], function () {
         Route::post('/make-admin', 'AdminController@makeAdmin');
         Route::get('/admin-activities', 'AdminController@adminActivities');
         Route::get('/admins', 'AdminController@getAdmins');
@@ -121,9 +137,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/orders/cable-tv', 'OrderController@cableTv');
     Route::post('/orders/airtime', 'OrderController@airtime');
     Route::post('/orders/electricity', 'OrderController@electricity');
+    Route::post('/orders/internet', 'OrderController@internet');
     Route::post('/orders/data', 'OrderController@data');
     Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
     Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');
+    Route::post('/orders/internet/verify', 'OrderController@verifyInternet');
     Route::resource('providers', 'ProviderController')->middleware('auth');
     Route::resource('plans', 'PlanController')->middleware('auth');
     Route::resource('payments', 'PaymentController')->middleware('auth');

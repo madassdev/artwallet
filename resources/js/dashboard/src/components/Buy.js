@@ -7,6 +7,7 @@ import Electricity from "./Electricity";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import PinRoute from "../PinRoute";
+import Internet from "./Internet";
 
 function Buy(props) {
     let { path, url } = useRouteMatch();
@@ -31,6 +32,16 @@ function Buy(props) {
                                 <h5>Cable-Tv</h5>
                             </Card>
                         </Link>
+                        <Link to={`/buy/electricity`}>
+                            <Card>
+                                <h5>Electricity</h5>
+                            </Card>
+                        </Link>
+                        <Link to={`/buy/internet`}>
+                            <Card>
+                                <h5>Internet</h5>
+                            </Card>
+                        </Link>
                     </BuyContainer>
                 </Route>
                 <PinRoute path={`${path}/data`}>
@@ -44,6 +55,9 @@ function Buy(props) {
                 </PinRoute>
                 <PinRoute path={`${path}/electricity`}>
                     <Electricity />
+                </PinRoute>
+                <PinRoute path={`${path}/internet`}>
+                    <Internet />
                 </PinRoute>
             </Switch>
         </div>

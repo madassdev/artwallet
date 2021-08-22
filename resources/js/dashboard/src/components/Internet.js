@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BalanceCard from "./BalanceCard";
 import axios from "axios";
-import { getCableTvProviders } from "../reducers/providerReducer";
+import { getInternetProviders } from "../reducers/providerReducer";
 import toast from "react-hot-toast";
 
-function CableTv(props) {
+function Internet(props) {
     const [selectedProvider, setSelectedProvider] = useState(-1);
     const [selectedPlan, setSelectedPlan] = useState(0);
     const [providerPlans, setProviderPlans] = useState([]);
@@ -18,9 +18,9 @@ function CableTv(props) {
     const [plan, setPlan] = useState();
     const [transactionComplete, setTransactionComplete] = useState(false);
     const [isValidating, setIsValidating] = useState(false);
-    const [cableDetails, setCableDetails] = useState();
+    const [details, setDetails] = useState();
     const [pin, setPin] = useState("");
-    const charges = parseInt(PUBLIC_CONFIG.cable_tv_fees);
+    const charges = parseInt(PUBLIC_CONFIG.internet_fees || 50);
     const handlePlanSelected = (e) => {
         const plan_id = e.target.value;
         const plan_object = props.plans.find((p) => p.id == plan_id);
@@ -57,14 +57,14 @@ function CableTv(props) {
 
         // return;
         axios
-            .post("/orders/cable-tv/verify", {
+            .post("/orders/internet/verify", {
                 plan_id: selectedPlan,
-                type: "cable-tv",
+                type: "internet",
                 recipient,
             })
             .then((res) => {
                 console.log(res.data);
-                setCableDetails(res.data.recipient);
+                setDetails(res.data.recipient);
                 setIsValidating(false);
                 setIsReady(true);
             })
@@ -115,9 +115,9 @@ function CableTv(props) {
 
         setIsPaying(true);
         axios
-            .post("/orders/cable-tv", {
+            .post("/orders/internet", {
                 plan_id: selectedPlan,
-                type: "cable-tv",
+                type: "internet",
                 pin,
                 recipient,
             })
@@ -174,7 +174,7 @@ function CableTv(props) {
             ) : (
                 <>
                     <h2 className="text-purple-500 text-center font-bold text-lg capitalize m-0 p-0">
-                        Buy Cable Tv
+                        Buy Internet Service
                     </h2>
                     <BalanceCard />
                     {isReady ? (
@@ -190,7 +190,7 @@ function CableTv(props) {
                                     <h2 className="font-bold m-0">Recipient</h2>
                                     <p className="text-gray-600">{recipient}</p>
                                     <p className="text-primary text-xs">
-                                        {cableDetails}
+                                        {details}
                                     </p>
                                 </div>
                                 <div>
@@ -282,7 +282,7 @@ function CableTv(props) {
                         <div className="my-4 w-full md:w-1/2 mx-auto">
                             <div className="form-group flex flex-col space-y-1">
                                 <p className="font-bold">
-                                    Select Cable Tv Provider
+                                    Select Internet Service Provider
                                 </p>
                                 <select
                                     name="provider"
@@ -380,7 +380,7 @@ const mapStateToProps = (state) => {
     return {
         services: state.serviceState.services,
         plans: state.planState.plans,
-        providers: getCableTvProviders(state.providerState.providers),
+        providers: getInternetProviders(state.providerState.providers),
         user: state.userState.user,
     };
 };
@@ -408,4 +408,4 @@ const mapDispatchToProps = (dispatch) => {
             }),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CableTv);
+export default connect(mapStateToProps, mapDispatchToProps)(Internet);

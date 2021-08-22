@@ -118,7 +118,7 @@ function App(props) {
                             )}
 
                             <Route path="/buy">
-                                <Buy />
+                            <Buy />
                             </Route>
                             <Route path="/verification-success">
                                 <VerificationSuccess />

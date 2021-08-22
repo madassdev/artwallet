@@ -1,39 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
-use App\Models\Order;
 use App\Models\Plan;
 use App\Models\PlanMeta;
 use App\Models\Provider;
 use App\Models\Service;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-
-class SubAdminController extends Controller
+class SmileDataSeeder extends Seeder
 {
-    public function index()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        return inertia('Admin/Index');
-    }
+        $service = Service::updateOrCreate([
+            "slug" => 'internet'
+        ],[
+            "title" => 'Internet',
+            "slug" => 'internet'
+        ]);
 
-    
-
-    public function test()
-    {
-        
-        // $service = Service::create([
-        //     "title" => 'Internet',
-        //     "slug" => 'internet'
-        // ]);
-
-        // $service->providers()->create([
-        //     "title" => "Smile Direct",
-        //     "slug" => "smile-direct"
-        // ]);
+        $service->providers()->updateOrcreate([
+            "slug" => "smile-direct"
+        ],[
+            "title" => "Smile Direct",
+            "slug" => "smile-direct"
+        ]);
 
         $provider = Provider::whereSlug("smile-direct")->first();
         $url = "https://www.nellobytesystems.com/APISmilePackagesV2.asp";
@@ -54,22 +52,18 @@ class SubAdminController extends Controller
             $price = revertNumberFormat($p['PACKAGE_AMOUNT']);
             $slug =  Str::slug($title.' '.$validity);
             $ref = $p["PACKAGE_ID"];
-            $plan = new Plan();
+            $plan = Plan::whereSlug($slug)->firstOrNew();
             $plan->provider_id = $provider->id;
             $plan->title = $title;
             $plan->validity = $validity;
             $plan->price = $price;
             $plan->slug = $slug;
-            $plan->ref = $ref;
-            // $plan->save();
-            // PlanMeta::createForPlan($plan, "CLUBKONNECT", $ref);
+            // $plan->ref = $ref;
+            $plan->save();
+            PlanMeta::createForPlan($plan, "CLUBKONNECT", $ref);
             return $plan;
            
         });
-        return $provider;
 
-
-        return Service::with('providers')->latest()->first();
-        return "golden silence";
     }
 }

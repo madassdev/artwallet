@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="shortcut icon" href="./images/artwallet.png?chunk=1">
     <!-- Page Title  -->
     @yield('title')
     <!-- StyleSheets  -->
@@ -26,9 +26,9 @@
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                         <div class="brand-logo pb-4 text-center">
-                            <a href="html/index.html" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg" src="./images/artwallet.png" srcset="./images/artwallet.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="./images/artwallet.png" srcset="./images/artwallet.png 2x" alt="logo-dark">
+                            <a href="https://artwallet.com.ng" class="logo-link">
+                                <img class="logo-light logo-img logo-img-lg" src="./images/artwallet.png?chunk=1" srcset="./images/artwallet.png?chunk=1 2x" alt="logo">
+                                <img class="logo-dark logo-img logo-img-lg" src="./images/artwallet.png?chunk=1" srcset="./images/artwallet.png?chunk=1 2x" alt="logo-dark">
                             </a>
                         </div>
                         @yield('content')
