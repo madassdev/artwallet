@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AgentRegistration;
 use App\Events\PasswordUpdated;
 use App\Events\PinSet;
 use App\Events\PinUpdated;
+use App\Models\Agent;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -16,6 +18,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Services\MobileAirtimeService;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
@@ -25,7 +28,12 @@ class DashboardController extends Controller
         // auth()->user()->email_verified_at = null;
         // auth()->user()->save();
 
-
+        $user = auth()->user()->load('agent');
+        // $user->agent->has_paid = false;
+        // $user->agent->save();
+        // return $user->agent;
+        // auth()->user()->agent = null;
+        // Agent::latest()->first()->update(['user_id' => 1, 'status' => 'pending']);
         $services = Service::with('providers')->get();
         $providers = Provider::with('service', 'plans.meta')->get();
         $plans = Plan::with('provider.service')->get();
@@ -37,14 +45,28 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('app_services'));
     }
 
-    public function otpView()
+    public function saveAgent(Request $request)
     {
-        $otp = rand(999, 9999);
-        $time = time();
-        auth()->user()->otp = $otp;
-        auth()->user()->otp_requested_at = $time;
-        return view('auth.request-otp');
-        return $otp;
+        $user = auth()->user();
+        $request->validate([
+            "business_cac" => "required|file|mimes:jpg,bmp,png,jpeg"
+        ]);
+        $path = "/";
+        if ($request->hasFile('business_cac')) {
+            $path = time() . 'user-'.$user->uniqid.'-cac.' . $request->business_cac->getClientOriginalExtension();
+            $request->business_cac->move(public_path('/images/business_cacs'), $path);
+            $image_url =  asset('/images/business_cacs/' . $path);
+        }
+
+        $agent = Agent::updateOrCreate(["user_id" => $user->id], $request->except(["business_cac"]) + ["business_cac" => $image_url]);
+        event(new AgentRegistration($user));
+        return response()->json([
+            "success" => true,
+            "message" => "Agent details saved successfully!",
+            "data" => [
+                "user" => $user->load('agent')
+            ]
+        ]);
     }
 
 
@@ -85,7 +107,7 @@ class DashboardController extends Controller
         $user->pin = bcrypt($request->pin);
         $user->pin_set = true;
         $user->save();
-        
+
         PinUpdated::dispatch($user);
         return response()->json([
             "success" => true,

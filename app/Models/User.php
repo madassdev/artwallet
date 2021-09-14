@@ -68,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles->where('name', 'admin')->count() ? true : false;
     }
 
+    public function agent()
+    {
+        return $this->hasOne(Agent::class);
+    }
+
     public function getIsSuperAdminAttribute()
     {
         return $this->roles->where('name', 'super_admin')->count() ? true : false;

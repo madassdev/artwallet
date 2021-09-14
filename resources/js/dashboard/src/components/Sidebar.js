@@ -71,6 +71,19 @@ function Sidebar() {
                                             </span>
                                         </NavLink>
                                     </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/agents"
+                                            className="nk-menu-link"
+                                        >
+                                            <span className="nk-menu-icon">
+                                                <em className="mdi mdi-badge-account"></em>
+                                            </span>
+                                            <span className="nk-menu-text">
+                                                Agent Management
+                                            </span>
+                                        </NavLink>
+                                    </li>
                                     <li className="nk-menu-item has-sub">
                                         <a
                                             href="#"

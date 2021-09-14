@@ -39,7 +39,7 @@ class MobileAirtimeService
 
     public static function buyClubAirtime($providerSlug, $mobile, $amount, $reference = null, $mock = false)
     {
-        if ($mock) {
+        if (env("APP_ENV") == "local") {
             return [
                 "success" => true,
                 "message" => "MOCK_AIRTIME_ORDER_RECEIVED",
@@ -64,14 +64,16 @@ class MobileAirtimeService
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
             "code" => "CLUBKONNECT_ERROR_CODE",
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
         return $response;
     }
 
     public static function buyClubData($network, $mobile, $plan, $ref, $mock = false)
     {
-        if ($mock) {
+        if (env("APP_ENV") == "local") {
             return [
                 "success" => true,
                 "message" => "MOCK_DATA_ORDER_RECEIVED",
@@ -94,14 +96,16 @@ class MobileAirtimeService
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
             "code" => "CLUBKONNECT_ERROR_CODE",
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
         return $response;
     }
 
     public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null, $mock = false)
     {
-        if ($mock) {
+        if (env("APP_ENV") == "local") {
             return [
                 "success" => true,
                 "message" => "MOCK_ELECTRICITY_ORDER_RECEIVED",
@@ -125,7 +129,9 @@ class MobileAirtimeService
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
             "code" => "CLUBKONNECT_ERROR_CODE",
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
 
         return $params;
@@ -133,6 +139,8 @@ class MobileAirtimeService
 
     public static function verifyClubElectricity($service, $meterno)
     {
+        if (env("APP_ENV") == "local") {
+        }
         $url = "https://www.nellobytesystems.com/APIVerifyElectricityV1.asp";
 
         $params = [
@@ -148,7 +156,9 @@ class MobileAirtimeService
             "success" =>  $customer_name && $customer_name !== "INVALID_METERNO" && $count <= 5,
             "message" => $customer_name,
             "recipient" => $customer_name,
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
 
         // return $params;
@@ -157,6 +167,7 @@ class MobileAirtimeService
 
     public static function verifyClubCable($service, $recipient)
     {
+        // $dstv_recipient = "7030500604";
         $url = "https://www.nellobytesystems.com/APIVerifyCableTVV1.0.asp";
 
         $params = [
@@ -172,7 +183,9 @@ class MobileAirtimeService
             "success" =>  $customer_name && $customer_name !== "INVALID_SMARTCARDNO" && $count <= 5,
             "message" => $customer_name,
             "recipient" => $customer_name,
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
 
         // return $params;
@@ -196,16 +209,17 @@ class MobileAirtimeService
             "success" =>  $customer_name && $customer_name !== "INVALID_ACCOUNTNO" && $count <= 5,
             "message" => $customer_name,
             "recipient" => $customer_name,
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
         ];
 
         // return $params;
 
     }
 
-    public static function buyClubCable($network, $recipient, $plan, $ref, $mock=false)
+    public static function buyClubCable($network, $recipient, $plan, $ref, $mock = false)
     {
-        if($mock){
+        if (env("APP_ENV") == "local") {
             return [
                 "success" => true,
                 "message" => "MOCK_CABLT_TV_ORDER_RECEIVED",
@@ -213,6 +227,7 @@ class MobileAirtimeService
                 "api_response" => [],
             ];
         }
+
 
         $url = "https://www.nellobytesystems.com/APICableTVV1.asp";
         $params = [
@@ -229,13 +244,14 @@ class MobileAirtimeService
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
             "code" => "CLUBKONNECT_ERROR_CODE",
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
         ];
     }
 
-    public static function buyClubInternet($network, $recipient, $plan, $ref, $mock=false)
+    public static function buyClubInternet($network, $recipient, $plan, $ref, $mock = false)
     {
-        if($mock){
+        if (env("APP_ENV") == "local") {
             return [
                 "success" => true,
                 "message" => "MOCK_INTERNET_ORDER_RECEIVED",
@@ -259,7 +275,9 @@ class MobileAirtimeService
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
             "code" => "CLUBKONNECT_ERROR_CODE",
-            "api_response" => $response
+            "api_response" => $response,
+            "request" => ["url" => $url, "params" => $params]
+
         ];
     }
 

@@ -18,11 +18,12 @@ class DepositSuccessfulNotification extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, Payment $payment, $context = "user")
+    public function __construct(User $user, Payment $payment, $context = "user", $deposit_context = "deposit")
     {
         $this->user = $user;
         $this->payment = $payment;
         $this->context = $context;
+        $this->deposit_context = $deposit_context;
     }
 
     /**
@@ -44,24 +45,45 @@ class DepositSuccessfulNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        if ($this->context === 'admin') {
-            return (new MailMessage)
-                ->subject("{$this->user->email} made a deposit of ₦" . number_format($this->payment->amount))
-                ->greeting('Payment was made')
-                ->line("A new payment of **₦" . number_format($this->payment->amount) . "** was recieved from **{$this->user->email}** via **{$this->payment->method}**")
-                // ->action('Notification Action', url('/'))
-                // ->line('Thank you for using our application!')
-            ;
-        }
-        if ($this->context === 'user') {
-            return (new MailMessage)
-                ->subject("Your deposit of ₦" . number_format($this->payment->amount) . " was successful!")
-                ->greeting('Hello')
-                ->line("We are glad to inform you that your deposit of **₦" . number_format($this->payment->amount) . "** was processed and received successfully!")
-                ->line("Your Artwallet balance has now been credited with **₦" . number_format($this->payment->amount) . "**")
-                ->line("Your current Artwallet balance is **₦" . number_format($this->user->balance) . "**")
-                ->action('Buy something', url('/dashboard/buy'))
-                ->line('Thank you for using Artwallet!');
+        if ($this->deposit_context === 'deposit') {
+            if ($this->context === 'admin') {
+                return (new MailMessage)
+                    ->subject("{$this->user->email} made a deposit of ₦" . number_format($this->payment->amount))
+                    ->greeting('Payment was made')
+                    ->line("A new payment of **₦" . number_format($this->payment->amount) . "** was recieved from **{$this->user->email}** via **{$this->payment->method}**")
+                    // ->action('Notification Action', url('/'))
+                    // ->line('Thank you for using our application!')
+                ;
+            }
+            if ($this->context === 'user') {
+                return (new MailMessage)
+                    ->subject("Your deposit of ₦" . number_format($this->payment->amount) . " was successful!")
+                    ->greeting('Hello')
+                    ->line("We are glad to inform you that your deposit of **₦" . number_format($this->payment->amount) . "** was processed and received successfully!")
+                    ->line("Your Artwallet balance has now been credited with **₦" . number_format($this->payment->amount) . "**")
+                    ->line("Your current Artwallet balance is **₦" . number_format($this->user->balance) . "**")
+                    ->action('Buy something', url('/dashboard/buy'))
+                    ->line('Thank you for using Artwallet!');
+            }
+        }if ($this->deposit_context === 'agent') {
+            if ($this->context === 'admin') {
+                return (new MailMessage)
+                    ->subject("{$this->user->email} paid an Agent Fee of ₦" . number_format($this->payment->amount))
+                    ->greeting('Agent fee was paid')
+                    ->line("A new agent fee of **₦" . number_format($this->payment->amount) . "** was recieved from **{$this->user->email}** via **{$this->payment->method}**")
+                    // ->action('Notification Action', url('/'))
+                    // ->line('Thank you for using our application!')
+                ;
+            }
+            if ($this->context === 'user') {
+                return (new MailMessage)
+                    ->subject("Your Agent Registration Fee of ₦" . number_format($this->payment->amount) . " was processed successfully!")
+                    ->greeting('Hello')
+                    ->line("We are glad to inform you that your agent registration fee of **₦" . number_format($this->payment->amount) . "** was processed and received successfully!")
+                    ->line("You are now a fully validated Artwallet Agent")
+                    ->action('Buy something cheaper', url('/dashboard/buy'))
+                    ->line('Thank you for using Artwallet!');
+            }
         }
     }
 

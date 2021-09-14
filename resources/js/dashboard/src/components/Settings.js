@@ -86,7 +86,7 @@ function Settings(props) {
     return (
         <div className="bg-white p-3 md:p-5">
             <h2 className="text-purple-500 text-center font-bold text-lg capitalize">
-                Accont Settings
+                Account Settings
             </h2>
             <div className="flex w-full items-center justify-center mb-8">
                 <i className="mdi mdi-account-circle text-8xl text-gray-300"></i>
@@ -228,9 +228,9 @@ function Settings(props) {
                                 <div className="w-full flex justify-between items-center mt-8">
                                     {isSavingPin ? (
                                         <button
-                                            onClick={() =>
-                                                setIsSavingPin(false)
-                                            }
+                                            // onClick={() =>
+                                                // setIsSavingPin(false)
+                                            // }
                                             className="btn btn-light btn-block"
                                             type="button"
                                         >

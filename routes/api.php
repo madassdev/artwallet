@@ -25,6 +25,7 @@ Route::group(['prefix' => 'test'], function () {
     Route::post('/orders/transfer', 'OrderController@transfer');
     Route::post('/orders/cable-tv', 'OrderController@cableTv');
     Route::post('/orders/electricity', 'OrderController@electricity');
+    Route::post('/orders/internet', 'OrderController@internet');
     Route::post('/orders/data', 'OrderController@data');
     Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
     Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');

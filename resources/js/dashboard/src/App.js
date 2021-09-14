@@ -31,6 +31,8 @@ import VerificationSuccess from "./components/VerificationSuccess";
 import SetPin from "./components/SetPin";
 import PasswordResetSuccess from "./components/PasswordResetSuccess";
 import Customers from "./components/Customers";
+import AgentRegistration from "./components/AgentRegistration";
+import Agents from "./components/Agents";
 
 const NotFound = () => {
     return (
@@ -101,6 +103,7 @@ function App(props) {
                             <AdminRoute path="/sales">
                                 <SalesDashboard />
                             </AdminRoute>
+
                             <AdminRoute path="/admin-settings">
                                 <AdminSettings />
                             </AdminRoute>
@@ -111,6 +114,9 @@ function App(props) {
                             <AdminRoute path="/customers">
                                 <Customers />
                             </AdminRoute>
+                            <AdminRoute path="/agents">
+                                <Agents />
+                            </AdminRoute>
                             {AUTH_USER.is_super_admin && (
                                 <AdminRoute path="/admin">
                                     <AdminDashboard />
@@ -118,7 +124,7 @@ function App(props) {
                             )}
 
                             <Route path="/buy">
-                            <Buy />
+                                <Buy />
                             </Route>
                             <Route path="/verification-success">
                                 <VerificationSuccess />
@@ -146,6 +152,9 @@ function App(props) {
                             </Route>
                             <Route path="/settings">
                                 <Settings />
+                            </Route>
+                            <Route path="/agent-registration">
+                                <AgentRegistration />
                             </Route>
                             {/* <Route path="*" component={NotFound} /> */}
                         </>

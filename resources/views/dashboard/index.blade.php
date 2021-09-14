@@ -17,7 +17,7 @@ $sc = config('sc');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/artwallet.png?chunk=1">
+    <link rel="shortcut icon" href="./images/artwallet_logo.png?chunk=1">
     <!-- Page Title  -->
     <title>ArtWallet | Wallet</title>
     <!-- StyleSheets  -->
@@ -43,7 +43,7 @@ $sc = config('sc');
         const APP_URL = "{{env('APP_URL')}}";
         const APP_SERVICES = @json($app_services);
         const PUBLIC_CONFIG = @json($sc);
-        const LOGO_URL = `${ASSET_PATH}images/artwallet.png?chunk=1`
+        const LOGO_URL = `${ASSET_PATH}images/artwallet_logo.png?chunk=1`
         console.log(AUTH_USER)
         console.log(PUBLIC_CONFIG)
         const deslug = (value) => {

@@ -22,15 +22,15 @@ use Inertia\Inertia;
 |
 */
 
-Route::prefix('inertia')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function(){
+Route::prefix('inertia')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
-    Route::name('buy.')->prefix('buy')->group(function(){
+    Route::name('buy.')->prefix('buy')->group(function () {
         Route::get('/airtime', 'BuyController@buyAirtime')->name('airtime');
         Route::get('/data', 'BuyController@buyData')->name('data');
         Route::get('/cable-tv', 'BuyController@buyCableTv')->name('cable-tv');
         Route::get('/electricity', 'BuyController@buyElectricity')->name('electricity');
     });
-    Route::name('orders.')->prefix('buy')->group(function(){
+    Route::name('orders.')->prefix('buy')->group(function () {
         Route::post('/airtime', 'OrderController@buyAirtime')->name('airtime.buy');
         Route::post('/data', 'OrderController@buyData')->name('data.buy');
         Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
@@ -97,7 +97,9 @@ Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
-Route::get('/test', 'AppController@test');
+Route::post('/test', 'AppController@test');
+Route::get('/migrate', 'AppController@migrate');
+Route::get('/seed', 'AppController@seed');
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::any(
@@ -120,16 +122,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::post('/users/find', 'AdminController@findUser');
     Route::put('/users/{user}', 'AdminController@updateUser');
     Route::put('/users/{user}/updateBalance', 'AdminController@updateUserBalance');
-        Route::put('/users/{user}/credit-user', 'AdminController@creditUserBalance');
-        Route::group(['middleware' => 'role:super_admin'], function () {
+    Route::put('/users/{user}/credit-user', 'AdminController@creditUserBalance');
+    Route::group(['middleware' => 'role:super_admin'], function () {
         Route::post('/make-admin', 'AdminController@makeAdmin');
         Route::get('/admin-activities', 'AdminController@adminActivities');
         Route::get('/admins', 'AdminController@getAdmins');
         Route::post('/admins', 'AdminController@createAdmin');
         Route::delete('/admins/{id}', 'AdminController@removeAdmin');
+        Route::group(['prefix' => 'agents'], function () {
+            Route::get('/', 'AgentController@index');
+            Route::post('/{agent}', 'AgentController@agentAction');
+        });
     });
 });
 Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::post('save-agent', 'DashboardController@saveAgent');
     Route::resource('services', 'ServiceController')->middleware('auth');
     Route::resource('orders', 'OrderController')->middleware('auth');
     Route::resource('transactions', 'TransactionController')->middleware('auth');
@@ -144,7 +151,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/orders/internet/verify', 'OrderController@verifyInternet');
     Route::resource('providers', 'ProviderController')->middleware('auth');
     Route::resource('plans', 'PlanController')->middleware('auth');
-    Route::resource('payments', 'PaymentController')->middleware('auth');
+    Route::post('payments', 'PaymentController@store')->middleware('auth');
+    Route::post('payments/agent', 'PaymentController@agent')->middleware('auth');
 });
 
 Route::get('/auth/otp', 'DashboardController@otpView')->middleware('auth')->name('otp.request');
@@ -154,3 +162,4 @@ Route::get('logout', 'Auth\LoginController@logout');
 // require __DIR__.'/auth.php';
 
 Auth::routes();
+Route::get('/agent-registration', 'Auth\AgentRegisterController@showRegistrationForm');

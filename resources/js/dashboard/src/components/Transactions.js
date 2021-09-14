@@ -22,7 +22,7 @@ export const OrderTransactionSummary = ({ transaction }) => {
                 <div>
                     <h2 className="font-bold m-0 text-right">Type</h2>
                     <p className="text-primary text-md capitalize font-bold text-right">
-                        {transaction.type}
+                        {deslug(transaction.type)}
                     </p>
                 </div>
             </div>
@@ -54,7 +54,7 @@ export const OrderTransactionSummary = ({ transaction }) => {
                     <h2 className="font-bold m-0 text-right">Status</h2>
                     <p
                         className={`text-xs capitalize m-0 text-right ${
-                            transaction.status === "complete"
+                            transaction.status === "complete"  || transaction.status === "success"
                                 ? "text-success"
                                 : transaction.status === "failed"
                                 ? "text-danger"
@@ -266,7 +266,7 @@ function Transactions(props) {
                     onClick={() => handleRowClicked(t)}
                     className="text-purple-500 font-bold uppercase"
                 >
-                    <span className="text-primary">{t.type}</span>
+                    <span className="text-primary">{deslug(t.type)}</span>
                     <span className="block text-xs font-bold text-gray-400">
                         {t.recipient}
                     </span>
@@ -281,7 +281,7 @@ function Transactions(props) {
                 <div onClick={() => handleRowClicked(t)} className="tb-ord-id">
                     <p
                         className={`font-bold ${
-                            t.status === "complete"
+                            t.status === "complete" || t.status === "success"
                                 ? "text-success"
                                 : t.status === "failed"
                                 ? "text-danger"
@@ -292,7 +292,7 @@ function Transactions(props) {
                     </p>
                     <span
                         className={`badge badge-dot capitalize text-xs ${
-                            t.status === "complete"
+                            t.status === "complete" || t.status === "success"
                                 ? "badge-success"
                                 : t.status === "failed"
                                 ? "badge-danger"

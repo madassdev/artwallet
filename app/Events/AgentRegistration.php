@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -12,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DepositSuccess
+class AgentRegistration
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,13 +21,9 @@ class DepositSuccess
      * @return void
      */
     public $user;
-    public $payment;
-    public $context;
-    public function __construct(User $user, Payment $payment, $context = 'deposit')
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->payment = $payment;
-        $this->context = $context;
     }
 
     /**

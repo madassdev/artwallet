@@ -8,7 +8,7 @@ function EditPlan(props) {
     const [validity, setValidity] = useState(props.plan.validity ?? "");
     const [price, setPrice] = useState(props.plan.price);
     const [selectedApiProvider, setSelectedApiProvider] = useState("CLUBKONNECT");
-    const [apiRef, setApiRef] = useState(props.plan.api_ref ?? "");
+    const [apiRef, setApiRef] = useState(props.plan.api_ref || props.plan.meta[0].plan_ref|| "sss");
     const handleSubmit = (e) => {
         e.preventDefault();
         if (apiRef === "") {

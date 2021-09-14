@@ -28,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\PinSet::class => [
             \App\Listeners\SendPinSetNotification::class
         ],
+        \App\Events\AgentRegistration::class => [
+            \App\Listeners\SendAgentRegistrationNotification::class
+        ],
         \App\Events\PinUpdated::class => [
             \App\Listeners\SendPinUpdatedNotification::class
         ],

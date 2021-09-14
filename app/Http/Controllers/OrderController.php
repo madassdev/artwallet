@@ -37,15 +37,17 @@ class OrderController extends Controller
             ], 403);
         }
         $plan = Plan::findOrFail($request->plan_id)->load('provider');
-        if ($user->balance < $plan->price) {
+        $amount = data_price($plan, $user);
+        // $order = Order::wherePlanId($plan->id)->first();
+        // return compact('amount', 'plan', 'charges');
+        // return $amount;
+
+        if ($user->balance < $amount + data_charges()) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this plan"
             ], 403);
         }
-        $amount = $plan->price;
-        // $order = Order::wherePlanId($plan->id)->first();
-
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
             "amount" => $amount,
@@ -61,10 +63,12 @@ class OrderController extends Controller
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
-            $user->balance -= $amount;
+            $charges = data_charges();
+            $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
+            $charges = 0;
             $order_success = false;
             $status = "failed";
             OrderFailed::dispatch($user, $order, $txn);
@@ -87,13 +91,26 @@ class OrderController extends Controller
             'status' => $order->status,
         ]);
 
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
+
         return response()->json([
             "success" => true,
             "order_success" => $order_success,
             "message" => "Order placed successfully",
             "data" => [
                 "order" => $order->load('credit'),
-                "transaction" => $transaction
             ],
         ]);
     }
@@ -101,15 +118,14 @@ class OrderController extends Controller
     public function cableTv(Request $request)
     {
         $type = "cable-tv";
-        $charges = 50;
+        $charges = 0;
         $request->validate([
             'type' => "required|in:cable-tv",
             "plan_id" => 'required|exists:plans,id',
             "recipient" => 'required'
         ]);
         $user = auth()->user()
-            // ?? User::find(1)
-        ;
+            ?? User::find(1);
 
 
         if (!Hash::check($request->pin, $user->pin)) {
@@ -122,15 +138,19 @@ class OrderController extends Controller
         }
 
         $plan = Plan::findOrFail($request->plan_id);
-        $amount = 0;
-        if ($user->balance < $plan->price) {
+        // $order = Order::whereReference('ORD-BXJNZM')->first();
+        // $plan = Plan::findOrFail($order->plan_id);
+
+        $amount = cable_tv_price($plan, $user);
+
+        // return compact('amount', 'plan', 'charges');
+
+        if ($user->balance < $amount + cable_tv_charges()) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this plan"
             ], 403);
         }
-        $amount = $plan->price;
-        // $order = Order::wherePlanId($plan->id)->first();
 
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
@@ -142,13 +162,16 @@ class OrderController extends Controller
 
 
         $txn = MobileAirtimeService::buyClubCable($plan->provider->slug, $order->recipient, $plan, $order->reference);
+        // return $txn;
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
+            $charges = cable_tv_charges();
             $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
+            $charges = 0;
             $order_success = false;
             $status = "failed";
             OrderFailed::dispatch($user, $order, $txn);
@@ -169,6 +192,20 @@ class OrderController extends Controller
             'type' => $request->type,
             'status' => $order->status,
         ]);
+
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
 
         return response()->json([
             "success" => true,
@@ -186,7 +223,7 @@ class OrderController extends Controller
     public function internet(Request $request)
     {
         $type = "internet";
-        $charges = 50;
+        $charges = 0;
         $request->validate([
             'type' => "required|in:internet",
             "plan_id" => 'required|exists:plans,id',
@@ -207,15 +244,15 @@ class OrderController extends Controller
         }
 
         $plan = Plan::findOrFail($request->plan_id);
-        $amount = 0;
-        if ($user->balance < $plan->price) {
+        $amount = internet_price($plan, $user);
+        // return compact('amount', 'plan', 'charges');
+
+        if ($user->balance < $amount + internet_charges()) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this plan"
             ], 403);
         }
-        $amount = $plan->price;
-        // $order = Order::wherePlanId($plan->id)->first();
 
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
@@ -230,10 +267,12 @@ class OrderController extends Controller
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
+            $charges = internet_charges();
             $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
+            $charges = 0;
             $order_success = false;
             $status = "failed";
             OrderFailed::dispatch($user, $order, $txn);
@@ -255,13 +294,26 @@ class OrderController extends Controller
             'status' => $order->status,
         ]);
 
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
+
         return response()->json([
             "success" => true,
             "order_success" => $order_success,
             "message" => "Order placed successfully",
             "data" => [
                 "order" => $order->load('credit'),
-                "transaction" => $transaction
             ],
         ]);
     }
@@ -271,8 +323,7 @@ class OrderController extends Controller
         $type = "airtime";
         $charges = 0;
         $user = auth()->user()
-            // ?? User::find(1)
-        ;
+            ?? User::find(1);
         $request->validate([
             'type' => "required|in:airtime",
             'amount' => 'required|numeric|min:0',
@@ -291,14 +342,16 @@ class OrderController extends Controller
 
         $plan = Plan::findOrFail($request->plan_id);
 
-        if ($request->amount < 50) {
+        if ($request->amount < minimum_airtime()) {
             return response()->json([
                 "success" => false,
-                "message" => "Minimum of ₦50 is required.",
+                "message" => "Minimum of " . naira(minimum_airtime()) . " is required.",
             ], 403);
         }
 
-        if ($user->balance < $request->amount) {
+        $amount = airtime_price($request->amount, $user);
+        // return compact('amount', 'plan', 'charges');
+        if ($user->balance < $amount + airtime_charges()) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this amount"
@@ -306,21 +359,22 @@ class OrderController extends Controller
         }
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
-            "amount" => $request->amount,
+            "amount" => $amount,
             "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
             "type" => $type
         ]);
         // $order = Order::wherePlanId($plan->id)->first();
         $txn = MobileAirtimeService::buyClubAirtime($plan->provider->slug, $order->recipient, $order->amount, $order->reference);
-        $amount = $request->amount;
         if ($txn['success']) {
             $order_success = true;
+            $charges = airtime_charges();
             $status = "complete";
-            $user->balance -= $amount;
+            $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
+            $charges = 0;
             $order_success = false;
             $status = "failed";
             OrderFailed::dispatch($user, $order, $txn);
@@ -342,6 +396,20 @@ class OrderController extends Controller
             'status' => $order->status,
         ]);
 
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
+
         return response()->json([
             "success" => true,
             "order_success" => $order_success,
@@ -355,7 +423,7 @@ class OrderController extends Controller
     public function electricity(Request $request)
     {
         $type = "electricity";
-        $charges = 50;
+        $charges = 0;
         $user = auth()->user()
             // ?? User::find(1)
         ;
@@ -378,14 +446,16 @@ class OrderController extends Controller
 
         $plan = Plan::findOrFail($request->plan_id);
 
-        if ($request->amount < 50) {
+
+        $amount = airtime_price($request->amount, $user);
+        if ($request->amount < minimum_electricity()) {
             return response()->json([
                 "success" => false,
-                "message" => "Minimum of ₦50 is required.",
+                "message" => "Minimum of " . naira(minimum_electricity()) . " is required.",
             ], 403);
         }
 
-        if ($user->balance < $request->amount) {
+        if ($user->balance < $amount + electricity_charges()) {
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this amount"
@@ -393,7 +463,7 @@ class OrderController extends Controller
         }
         $order = $user->orders()->create([
             "plan_id" => $request->plan_id,
-            "amount" => $request->amount,
+            "amount" => $amount,
             "recipient" => $request->recipient,
             "reference" => Order::uniqueRef(),
             "type" => $type
@@ -405,10 +475,12 @@ class OrderController extends Controller
         if ($txn['success']) {
             $order_success = true;
             $status = "complete";
-            $user->balance -= $request->amount + $charges;
+            $charges = electricity_charges();
+            $user->balance -= $amount + $charges;
             $user->save();
             OrderSuccess::dispatch($user, $order);
         } else {
+            $charges = 0;
             $order_success = false;
             $status = "failed";
             OrderFailed::dispatch($user, $order, $txn);
@@ -428,6 +500,20 @@ class OrderController extends Controller
             'type' => $request->type,
             'status' => $order->status,
         ]);
+
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
 
         return response()->json([
             "success" => true,
@@ -551,6 +637,7 @@ class OrderController extends Controller
     public function transfer(Request $request)
     {
 
+        $user = auth()->user();
         $request->validate([
             'type' => "required|in:transfer",
             'amount' => 'required|numeric|min:0',
@@ -567,7 +654,14 @@ class OrderController extends Controller
             ], 403);
         }
 
-        $user = auth()->user();
+        if ($recipient->id = $user->id) {
+            return response()->json([
+                "success" => false,
+                "message" => "You cannot transfer to yourself!",
+                "code" => "CANNOT_TRANSFER_TO_SELF"
+            ], 403);
+        }
+
         if (!Hash::check($request->pin, $user->pin)) {
 
             return response()->json([

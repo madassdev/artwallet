@@ -42,9 +42,8 @@ class PaymentService
         }
     }
 
-    public static function getPaystackSecretKey()
+    public static function getPaystackSecretKey($test = false)
     {
-        $paystack_secret_key = SiteConfig::where('key', 'paystack_secret_key_live')->first()->value;
         // if(config()->get('env') == "live")
         // {
         //     // Get key from config variable.
@@ -68,6 +67,10 @@ class PaymentService
         //     $paystack_secret_key = config()->get('payment.paystack_secret_key_test');
         // }
 
+        $paystack_secret_key = SiteConfig::where('key', 'paystack_secret_key_live')->first()->value;
+        if (env("APP_ENV") == "local") {
+            $paystack_secret_key = "sk_test_cc8f2f5a5dc2b79a638e93b3d42306a53fb13f3d";
+        }
         return $paystack_secret_key;
     }
 
@@ -117,9 +120,11 @@ class PaymentService
         return $transaction;
     }
 
-    public static function verifyPaystack($reference)
+    public static function verifyPaystack($reference, $test=false)
     {
-        $paystack_secret_key = self::getPaystackSecretKey();
+        $paystack_secret_key = self::getPaystackSecretKey($test);
+        // muzt: "sk_test_cc8f2f5a5dc2b79a638e93b3d42306a53fb13f3d"
+        // $paystack_secret_key = "sk_test_cc8f2f5a5dc2b79a638e93b3d42306a53fb13f3d";
 
         // dd(openssl_get_cert_locations());
         // reference AmasT234Android_1582026397815

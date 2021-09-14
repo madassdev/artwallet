@@ -23,9 +23,9 @@ function Home(props) {
                             {parseFloat(props.user?.balance).toLocaleString()}
                         </p>
                     </div>
-                    <div className="bg-white shadow-md rounded p-3 w-full md:w-60">
+                    {/* <div className="bg-white shadow-md rounded p-3 w-full md:w-60">
                         User ID: {props.user?.uniqid}
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

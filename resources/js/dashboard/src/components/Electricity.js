@@ -248,7 +248,7 @@ function Electricity(props) {
                                     <div className="w-full">
                                         {isPaying ? (
                                             <button
-                                                onClick={paymentDone}
+                                                // onClick={paymentDone}
                                                 className="btn btn-light btn-block"
                                                 type="button"
                                             >

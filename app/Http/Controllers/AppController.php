@@ -11,6 +11,7 @@ use App\Notifications\OrderSuccessfulNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class AppController extends Controller
 {
@@ -25,8 +26,9 @@ class AppController extends Controller
         return dd(Artisan::output());
     }
 
-    public function migrate()
+    public function migrate(Request $request)
     {
+        abort_unless($request->password === 'inter123...', 403, 'Unauthorized App Action');
         ini_set('max_execution_time', 1000);
         Artisan::call('migrate', [
             '--force' => true
@@ -42,13 +44,24 @@ class AppController extends Controller
         return dd(Artisan::output());
     }
 
-    public function test()
+    public function test(Request $request)
     {
-        // return 1;
+        return 1;
+        return ["file"=>$request->business_cac->path(), "req" => $request->all()];
         $admins = User::role('admin')->get();
         $order = Order::latest()->first();
         OrderSuccess::dispatch($order->user, $order);
         OrderFailed::dispatch($order->user, $order);
         return $order;
+    }
+
+    public function seed(Request $request)
+    {
+        abort_unless($request->password === 'inter123...', 403, 'Unauthorized App Action');
+        Artisan::call('db:seed', [
+            "--class" => "AgentRoleSeeder"
+        ]);
+
+        return dd(Artisan::output());
     }
 }

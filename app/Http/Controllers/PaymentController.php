@@ -35,12 +35,11 @@ class PaymentController extends Controller
             //     "paid" => $amount_paid
             // ];
 
-            if($expected_amount < $amount_paid-5)
-            {
+            if ($expected_amount < $amount_paid - 5) {
                 return response()->json([
                     "success" => false,
-                    "message" => "Amount paid lower than expected amount. Expected ".naira($expected_amount)." for ".naira($request->amount).", but received ".naira($amount_paid)
-                ],403);
+                    "message" => "Amount paid lower than expected amount. Expected " . naira($expected_amount) . " for " . naira($request->amount) . ", but received " . naira($amount_paid)
+                ], 403);
             }
             $payment = $user->payments()->create([
                 "ref" => $request->reference,
@@ -52,7 +51,7 @@ class PaymentController extends Controller
             ]);
 
             $user->balance += $request->amount;
-            
+
             $user->save();
 
             $transaction = $user->credits()->create([
@@ -66,6 +65,93 @@ class PaymentController extends Controller
             ]);
 
             DepositSuccess::dispatch($user, $payment);
+
+
+            return response()->json([
+                "success" => true,
+                "message" => "Payment verified successfully",
+                "data" => [
+                    "payment" => $payment->load('debit'),
+                    "transaction" => $transaction,
+                ],
+            ]);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => @$tr['message']
+            ], 403);
+        }
+
+
+
+        return response()->json($tr);
+
+        // AR1625555091744
+    }
+    public function agent(Request $request)
+    {
+        // return $request->intent ?? "deposit";
+        $request->validate([
+            "amount" => "required|numeric|min:100",
+            "reference" => "required|string",
+            "intent" => "required|string",
+        ]);
+        $user = auth()->user();
+        if (Payment::whereRef($request->reference)->count()) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Payment reference has already been used."
+            ], 403);
+        }
+        // $tr = PaymentService::verifyPaystack($request->reference, true);
+        $tr = PaymentService::verifyPaystack($request->reference);
+        if ($tr["status"]) {
+            // $expected_amount = calculatePaystackCharges($request->amount) + $request->amount;
+            $expected_amount = 10000;
+            // return $tr['data'];
+            $amount_paid = $tr['data']['amount'] / 100;
+            // return [
+            //     "amount" => $request->amount,
+            //     "expected" => $expected_amount,
+            //     "paid" => $amount_paid
+            // ];
+
+            if ($expected_amount < $amount_paid - 5) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "Amount paid lower than expected amount. Expected " . naira($expected_amount) . " for " . naira($request->amount) . ", but received " . naira($amount_paid)
+                ], 403);
+            }
+            $payment = $user->payments()->create([
+                "ref" => $request->reference,
+                "amount" => $amount_paid,
+                "intent" => $request->intent ?? "deposit",
+                "method" => $request->method ?? "paystack",
+                "status" => "success",
+                "payment_data" => $tr['data']
+            ]);
+
+            $user->agent->amount_paid += $amount_paid;
+            $user->agent->has_paid = true;
+            $user->agent->status = 'success';
+
+            $user->agent->save();
+            $user->assignRole('agent');
+
+            $transaction = $user->agent->credits()->create([
+                "user_id" => $user->id,
+                'debitable_id' => $payment->id,
+                'debitable_type' => User::class,
+                'debit_data' => $user,
+                'credit_data' => $user->agent->fresh(),
+                'recipient' => "agent",
+                'amount' => $amount_paid,
+                'type' => 'agent-activation',
+                'status' => 'complete',
+            ]);
+
+            DepositSuccess::dispatch($user, $payment, 'agent');
 
 
             return response()->json([

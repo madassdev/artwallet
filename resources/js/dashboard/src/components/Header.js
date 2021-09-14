@@ -92,6 +92,12 @@ function Header() {
                                                     <span>View Profile</span>
                                                 </Link>
                                             </li>
+                                            <li>
+                                                <Link to="/agent-registration">
+                                                    <i className="mdi mdi-briefcase mr-2 text-lg"></i>
+                                                    <span>Become an Agent</span>
+                                                </Link>
+                                            </li>
                                             {/* <li><a href="html/user-profile-setting.html"><em className="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                         <li><a href="html/user-profile-activity.html"><em className="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
                                         <li><a className="dark-switch" href="#"><em className="icon ni ni-moon"></em><span>Dark Mode</span></a></li> */}

@@ -17,9 +17,9 @@ class Plan extends Model
         'provider_id', 'title', 'description', 'price', 'min_price', 'max_price', 'slug', 'validity'
     ];
 
-    protected $appends = [
-        'api_ref'
-    ];
+    // protected $appends = [
+    //     'api_ref'
+    // ];
 
     public function provider()
     {

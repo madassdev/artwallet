@@ -30,7 +30,7 @@ class SendDepositSuccessNotification
     public function handle(DepositSuccess $event)
     {
         $admins = User::role('admin')->get();
-        Notification::send($admins, new DepositSuccessfulNotification($event->user, $event->payment, 'admin'));
-        Notification::send($event->user, new DepositSuccessfulNotification($event->user, $event->payment, 'user'));
+        Notification::send($admins, new DepositSuccessfulNotification($event->user, $event->payment, 'admin', $event->context));
+        Notification::send($event->user, new DepositSuccessfulNotification($event->user, $event->payment, 'user', $event->context));
     }
 }
