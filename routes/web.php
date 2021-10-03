@@ -68,31 +68,6 @@ Route::get('/verification/resend', 'UserController@resend')->middleware('auth');
 Route::get('/verification/verify/{id}', 'UserController@verify')->middleware('auth');
 
 $admin_subdomain = "control.artwallet.dv";
-Route::domain($admin_subdomain)->group(function () {
-    Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/', 'SubAdminController@index');
-        Route::get('/users', 'AdminController@getUsers');
-        Route::get('/users/search', 'AdminController@searchUsers');
-        Route::post('/users/find', 'AdminController@findUser');
-        Route::put('/users/{user}', 'AdminController@updateUser');
-        Route::put('/users/{user}/updateBalance', 'AdminController@updateUserBalance');
-        Route::put('/users/{user}/credit-user', 'AdminController@creditUserBalance');
-        Route::group(['middleware' => 'role:super_admin'], function () {
-            Route::post('/make-admin', 'AdminController@makeAdmin');
-            Route::get('/admin-activities', 'AdminController@adminActivities');
-            Route::get('/admins', 'AdminController@getAdmins');
-            Route::post('/admins', 'AdminController@createAdmin');
-            Route::delete('/admins/{id}', 'AdminController@removeAdmin');
-        });
-    });
-    Route::any(
-        '{all?}',
-        function () {
-            abort(404);
-        }
-    )->where(['all' => '.*']);
-});
-
 Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
@@ -138,13 +113,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('save-agent', 'DashboardController@saveAgent');
     Route::resource('services', 'ServiceController')->middleware('auth');
-    Route::resource('orders', 'OrderController')->middleware('auth');
     Route::resource('transactions', 'TransactionController')->middleware('auth');
     Route::post('/orders/transfer', 'OrderController@transfer');
     Route::post('/orders/cable-tv', 'OrderController@cableTv');
     Route::post('/orders/airtime', 'OrderController@airtime');
     Route::post('/orders/electricity', 'OrderController@electricity');
     Route::post('/orders/internet', 'OrderController@internet');
+    Route::post('/orders/recharge-print', 'OrderController@rechargePrint');
+    Route::get('/orders/recharge-print', 'OrderController@rechargePrints');
+    Route::get('/orders/recharge-print/{order}', 'OrderController@fetchRechargePrints');
     Route::post('/orders/data', 'OrderController@data');
     Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
     Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');
@@ -153,6 +130,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('plans', 'PlanController')->middleware('auth');
     Route::post('payments', 'PaymentController@store')->middleware('auth');
     Route::post('payments/agent', 'PaymentController@agent')->middleware('auth');
+    Route::resource('orders', 'OrderController')->middleware('auth');
 });
 
 Route::get('/auth/otp', 'DashboardController@otpView')->middleware('auth')->name('otp.request');

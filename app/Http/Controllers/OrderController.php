@@ -125,7 +125,8 @@ class OrderController extends Controller
             "recipient" => 'required'
         ]);
         $user = auth()->user()
-            ?? User::find(1);
+            // ?? User::find(1)
+        ;
 
 
         if (!Hash::check($request->pin, $user->pin)) {
@@ -215,6 +216,138 @@ class OrderController extends Controller
                 "order" => $order->load('credit'),
                 "transaction" => $transaction
             ],
+        ]);
+    }
+
+    public function rechargePrint(Request $request)
+    {
+        $type = "recharge-print";
+        $charges = 0;
+        $request->validate([
+            'type' => "required|in:recharge-print",
+            "plan_id" => 'required|exists:plans,id',
+            "quantity" => 'required|numeric|min:1'
+        ]);
+        $user = auth()->user()
+            ?? User::find(1);
+
+
+        if (!Hash::check($request->pin, $user->pin)) {
+
+            return response()->json([
+                "success" => false,
+                "message" => "Incorrect PIN",
+                "code" => "PIN_INCORRECT"
+            ], 403);
+        }
+
+        $plan = Plan::findOrFail($request->plan_id);
+        $amount = recharge_print_price($plan, $user, $request->quantity);
+        if ($user->balance < $amount + recharge_print_charges()) {
+            return response()->json([
+                "success" => false,
+                "message" => "User does not have enough balance to purchase this plan"
+            ], 403);
+        }
+
+        $order = $user->orders()->create([
+            "plan_id" => $request->plan_id,
+            "amount" => $amount,
+            "recipient" => $request->quantity . ' pieces',
+            "reference" => "RC-" . Order::uniqueRef(),
+            "type" => $type
+        ]);
+
+        $txn = MobileAirtimeService::buyClubRecharge($plan->provider->slug, $request->quantity, $plan, $order->reference);
+        // return ["plan" => $plan->title, "txn" => $txn];
+
+        $order->order_data = $txn;
+        $order->save();
+        if ($txn['success']) {
+            $order_success = true;
+            $status = "pending";
+            $charges = recharge_print_charges();
+            $user->balance -= $amount + $charges;
+            $user->save();
+            OrderSuccess::dispatch($user, $order);
+        } else {
+            $charges = 0;
+            $order_success = false;
+            $status = "failed";
+            OrderFailed::dispatch($user, $order, $txn);
+        }
+
+        $order->order_data = ["api_data" => $txn, "plan" => $plan->load('provider.service')];
+        $order->status = $status;
+        $order->save();
+
+
+        $transaction = $user->debits()->create([
+            "user_id" => $user->id,
+            'creditable_id' => $order->id,
+            'creditable_type' => Order::class,
+            'debit_data' => $user,
+            'credit_data' => $order->load('plan.provider.service'),
+            'recipient' => $order->recipient,
+            'amount' => $order->amount,
+            'type' => $request->type,
+            'status' => $order->status,
+        ]);
+
+        if ($charges) {
+            $transaction = $user->debits()->create([
+                "user_id" => $user->id,
+                'creditable_id' => $order->id,
+                'creditable_type' => Order::class,
+                'debit_data' => $user,
+                'credit_data' => $order->load('plan.provider.service'),
+                'recipient' => "Artwallet",
+                'amount' => $charges,
+                'type' => "service-charge",
+                'status' => "success",
+            ]);
+        }
+
+        return response()->json([
+            "success" => true,
+            "order_success" => $order_success,
+            "message" => "Order placed successfully",
+            "data" => [
+                "order" => $order->load('credit'),
+            ],
+        ]);
+    }
+
+    public function rechargePrints()
+    {
+        $orders = Order::whereType('recharge-print')->with('plan.provider')->latest()->get();
+        return response()->json([
+            "success" => true,
+            "data" => [
+                "orders" => $orders
+            ]
+        ]);
+    }
+
+    public function fetchRechargePrints(Request $request, Order $order)
+    {
+        $txn = MobileAirtimeService::fetchClubRecharge($order->reference);
+        if(!$txn["success"])
+        {
+         return response()->json([
+             "success" => false,
+             "message" => "Transaction not found"
+         ], 403);   
+        }
+        
+        $order->status = 'success';
+        $order->save();
+        $order->credit()->update(['status' => 'success']);
+        return response()->json([
+            "success" => true,
+            "data" => [
+                "pins" => $txn["pins"]
+            ]
         ]);
     }
 
@@ -323,7 +456,8 @@ class OrderController extends Controller
         $type = "airtime";
         $charges = 0;
         $user = auth()->user()
-            ?? User::find(1);
+            // ?? User::find(1)
+        ;
         $request->validate([
             'type' => "required|in:airtime",
             'amount' => 'required|numeric|min:0',

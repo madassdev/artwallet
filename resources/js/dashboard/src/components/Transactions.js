@@ -54,7 +54,8 @@ export const OrderTransactionSummary = ({ transaction }) => {
                     <h2 className="font-bold m-0 text-right">Status</h2>
                     <p
                         className={`text-xs capitalize m-0 text-right ${
-                            transaction.status === "complete"  || transaction.status === "success"
+                            transaction.status === "complete" ||
+                            transaction.status === "success"
                                 ? "text-success"
                                 : transaction.status === "failed"
                                 ? "text-danger"

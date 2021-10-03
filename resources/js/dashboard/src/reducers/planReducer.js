@@ -12,15 +12,16 @@ const INITIAL_STATE = {
 
 export const getElectricityPlans = (plans) => {
     const airtime_plans = plans?.filter(
-        (p) => p.provider.service.slug === "electricity"
+        (p) => p?.provider?.service?.slug === "electricity"
     );
     // console.log(airtime_plans)
     return airtime_plans;
 };
 
 export const getAirtimePlans = (plans) => {
+    // console.log(plans)
     const airtime_plans = plans?.filter(
-        (p) => p.provider.service.slug === "airtime"
+        (p) => p?.provider?.service?.slug === "airtime"
     );
     // console.log(airtime_plans)
     return airtime_plans;

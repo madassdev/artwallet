@@ -53,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
         "role",
         "is_admin",
         "is_super_admin",
+        "is_agent",
         "full_name",
         "date"
     ];
@@ -76,6 +77,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsSuperAdminAttribute()
     {
         return $this->roles->where('name', 'super_admin')->count() ? true : false;
+    }
+
+    public function getIsAgentAttribute()
+    {
+        return $this->roles->where('name', 'agent')->count() ? true : false;
     }
 
     public function orders()

@@ -512,6 +512,18 @@ function Sidebar() {
                                             </span>
                                         </NavLink>
                                     </li>
+                                    <li className="nk-menu-item">
+                                        <NavLink
+                                            to="/buy/recharge-print"
+                                            className="nk-menu-link"
+                                            data-original-title=""
+                                            title=""
+                                        >
+                                            <span className="nk-menu-text">
+                                                Print Recharge Card
+                                            </span>
+                                        </NavLink>
+                                    </li>
                                 </ul>
                             </li>
                             <li className="nk-menu-item">

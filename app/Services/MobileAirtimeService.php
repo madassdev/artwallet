@@ -102,6 +102,82 @@ class MobileAirtimeService
         ];
         return $response;
     }
+    public static function buyClubRecharge($network, $quantity, $plan, $ref, $mock = false)
+    {
+        if (env("APP_ENV") == "local") {
+            return [
+                "success" => true,
+                "message" => "MOCK_DATA_ORDER_RECEIVED",
+                "code" => "MOCK_SUCCESS_CODE",
+                "api_response" => [],
+            ];
+        }
+
+        $url = "https://www.nellobytesystems.com/APIEPINV1.asp";
+        $params = [
+            "MobileNetwork" => self::getClubProviderCode($network),
+            "Value" => self::getClubDataPlan($network, $plan),
+            "Quantity" => $quantity,
+            "RequestID" => $ref,
+
+        ] + self::getClubAuthDetails();
+
+        // return $params;
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => is_array(@$response['TXN_EPIN']) ? true : false,
+            "message" => @$response['status'],
+            "code" => "CLUBKONNECT_CODE",
+            "api_response" => @$response,
+            "request" => ["url" => $url, "params" => $params]
+
+        ];
+        return $response;
+
+        // RC-ORD-LBTFCE
+
+        // {"TXN_EPIN":[{"transactionid":"6329036611","transactiondate":"12/20/2019 9:08:00 PM","batchno":"82057","mobilenetwork":"MTN","sno":"00000003802132587","pin":"14819613681469920","amount":"100"}]}
+    }
+    public static function fetchClubRecharge($ref, $mock = false)
+    {
+        if (env("APP_ENV") == "local") {
+            // return [
+            //     "success" => true,
+            //     "message" => "MOCK_DATA_ORDER_RECEIVED",
+            //     "code" => "MOCK_SUCCESS_CODE",
+            //     "api_response" => [],
+            // ];
+            $ref = "RC-ORD-LBTFCE";
+            // $ref = "RC-ORD-R7BPHH";
+        }
+
+        $url = "https://www.nellobytesystems.com/APIQueryV1.asp";
+        $params = [
+            "RequestID" => $ref,
+
+        ] + self::getClubAuthDetails();
+
+        // return $params;
+
+        $response = Http::get($url, $params)->json();
+        return [
+            "success" => is_array(@$response['TXN_EPIN']) ? true : false,
+            "message" => @$response['status'],
+            "code" => "CLUBKONNECT_CODE",
+            "api_response" => @$response,
+            "request" => ["url" => $url, "params" => $params],
+            "pins" => (@$response['TXN_EPIN'])
+
+        ];
+        return $response;
+
+        // RC-ORD-LBTFCE
+        // Failed
+        // RC-ORD-R7BPHH
+
+        // {"TXN_EPIN":[{"transactionid":"6329036611","transactiondate":"12/20/2019 9:08:00 PM","batchno":"82057","mobilenetwork":"MTN","sno":"00000003802132587","pin":"14819613681469920","amount":"100"}]}
+    }
 
     public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null, $mock = false)
     {
@@ -483,18 +559,23 @@ class MobileAirtimeService
             "mtn" => "01",
             "mtn-data" => "01",
             "mtn-airtime" => "01",
+            "mtn-recharge-print" => "01",
             "glo" => "02",
             "glo-data" => "02",
             "glo-airtime" => "02",
+            "glo-recharge-print" => "02",
             "9mobile" => "03",
             "9mobile-data" => "03",
             "9mobile-airtime" => "03",
+            "9mobile-recharge-print" => "03",
             "etisalat" => "03",
             "etisalat-data" => "03",
             "etisalat-airtime" => "03",
+            "etisalat-recharge-print" => "03",
             "airtel" => "04",
             "airtel-data" => "04",
             "airtel-airtime" => "04",
+            "airtel-recharge-print" => "04",
         ];
         return @$clubProviders[$providerSlug];
     }

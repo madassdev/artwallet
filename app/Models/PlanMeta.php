@@ -10,6 +10,8 @@ class PlanMeta extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function plan()
     {
         return $this->belongsTo(Plan::class);

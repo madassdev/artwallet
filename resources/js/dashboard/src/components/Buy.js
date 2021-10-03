@@ -8,6 +8,8 @@ import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import PinRoute from "../PinRoute";
 import Internet from "./Internet";
+import RechargePrint from "./RechargePrint";
+import RechargeHistory from "./RechargeHistory";
 
 function Buy(props) {
     let { path, url } = useRouteMatch();
@@ -58,6 +60,12 @@ function Buy(props) {
                 </PinRoute>
                 <PinRoute path={`${path}/internet`}>
                     <Internet />
+                </PinRoute>
+                <PinRoute path={`${path}/recharge-print/history`}>
+                    <RechargeHistory />
+                </PinRoute>
+                <PinRoute path={`${path}/recharge-print`}>
+                    <RechargePrint />
                 </PinRoute>
             </Switch>
         </div>

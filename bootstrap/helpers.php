@@ -73,6 +73,17 @@ function cable_tv_price($plan, $user)
     return ceil($price);
 }
 
+function recharge_print_price($plan, $user, $quantity = 1)
+{
+    $price = $plan->price;
+    return $price * $quantity;
+    if ($user->hasRole('agent')) {
+        $price = agent_price($price);
+    }
+
+    return ceil($price);
+}
+
 function internet_price($plan, $user)
 {
     $price = $plan->price;
@@ -115,6 +126,11 @@ function data_charges()
 
 
 function internet_charges()
+{
+    return 50;
+}
+
+function recharge_print_charges()
 {
     return 50;
 }

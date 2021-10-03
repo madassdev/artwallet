@@ -25,8 +25,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // auth()->user()->email_verified_at = null;
-        // auth()->user()->save();
+        
 
         $user = auth()->user()->load('agent');
         // $user->agent->has_paid = false;
@@ -53,7 +52,7 @@ class DashboardController extends Controller
         ]);
         $path = "/";
         if ($request->hasFile('business_cac')) {
-            $path = time() . 'user-'.$user->uniqid.'-cac.' . $request->business_cac->getClientOriginalExtension();
+            $path = time() . 'user-' . $user->uniqid . '-cac.' . $request->business_cac->getClientOriginalExtension();
             $request->business_cac->move(public_path('/images/business_cacs'), $path);
             $image_url =  asset('/images/business_cacs/' . $path);
         }

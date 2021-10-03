@@ -35,6 +35,13 @@ export const getInternetProviders = (providers) => {
     return dataProviders;
 };
 
+export const getRechargeProviders = (providers) => {
+    const dataProviders = providers?.filter(
+        (p) => p.service.slug === "recharge-print"
+    );
+    return dataProviders;
+};
+
 export const getProviderById = (id, providers) => {
     const provider = providers?.find((p) => {
         return p.id == id;

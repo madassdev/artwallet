@@ -27,6 +27,7 @@ Route::group(['prefix' => 'test'], function () {
     Route::post('/orders/electricity', 'OrderController@electricity');
     Route::post('/orders/internet', 'OrderController@internet');
     Route::post('/orders/data', 'OrderController@data');
+    Route::post('/orders/recharge-print', 'OrderController@rechargePrint');
     Route::post('/orders/electricity/verify', 'OrderController@verifyElectricity');
     Route::post('/orders/cable-tv/verify', 'OrderController@verifyCable');
     Route::resource('plans', 'PlanController');

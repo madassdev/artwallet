@@ -1,40 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
-use App\Models\Order;
-use App\Models\Plan;
-use App\Models\PlanMeta;
 use App\Models\Provider;
 use App\Models\Service;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
-
-class SubAdminController extends Controller
+class RechargeServiceSeeder extends Seeder
 {
-    public function index()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        return inertia('Admin/Index');
-    }
-
-
-
-    public function test()
-    {
-
-        // $service = Service::create([
-        //     "title" => 'Internet',
-        //     "slug" => 'internet'
-        // ]);
-
-        // $service->providers()->create([
-        //     "title" => "Smile Direct",
-        //     "slug" => "smile-direct"
-        // ]);
-
         $service = 'Recharge Print';
         $service = Service::updateOrCreate([
             'title' => $service
@@ -71,6 +51,7 @@ class SubAdminController extends Controller
                 $pl = $pr->plans()->updateOrCreate(
                     [
                         "title" => $title . " $plan RECHARGE",
+                        "price" => $plan
                     ],
                     [
                         "title" => $title . " $plan RECHARGE",
