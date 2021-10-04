@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Modal from "../Components/Modal";
 import PinInput from "../Components/PinInput";
 import Transactions from "../Components/Transactions";
-import AppLayout from "../Layouts/AppLayout";
+import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
 
 function CableTv() {
@@ -146,7 +146,7 @@ function CableTv() {
     };
 
     return (
-        <AppLayout user={auth.user}>
+        <MainLayout user={auth.user}>
             <Toaster/>
             <CardWrapper>
                 <h2 className="text-primary font-bold uppercase text-center">
@@ -413,7 +413,7 @@ function CableTv() {
                 )}
             </CardWrapper>
             <Modal modal={modal} closeModal={closeModal} />
-        </AppLayout>
+        </MainLayout>
     );
 }
 

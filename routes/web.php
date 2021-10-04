@@ -22,21 +22,29 @@ use Inertia\Inertia;
 |
 */
 
-Route::prefix('inertia')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard.index');
-    Route::name('buy.')->prefix('buy')->group(function () {
-        Route::get('/airtime', 'BuyController@buyAirtime')->name('airtime');
-        Route::get('/data', 'BuyController@buyData')->name('data');
-        Route::get('/cable-tv', 'BuyController@buyCableTv')->name('cable-tv');
-        Route::get('/electricity', 'BuyController@buyElectricity')->name('electricity');
+if (env("APP_ENV")) {
+    // if (env("APP_ENV") == "local") {
+    Route::prefix('demo')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function () {
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+        Route::name('buy.')->prefix('buy')->group(function () {
+            Route::get('/', 'BuyController@buy')->name('index');
+            Route::get('/airtime', 'BuyController@buyAirtime')->name('airtime');
+            Route::get('/data', 'BuyController@buyData')->name('data');
+        });
+        Route::name('bills.')->prefix('bills')->group(function () {
+            Route::get('/', 'BuyController@bills')->name('index');
+            Route::get('/cable-tv', 'BuyController@buyCableTv')->name('cable-tv');
+            Route::get('/electricity', 'BuyController@buyElectricity')->name('electricity');
+            Route::get('/internet', 'BuyController@buyElectricity')->name('internet');
+        });
+        Route::name('orders.')->prefix('buy')->group(function () {
+            Route::post('/airtime', 'OrderController@buyAirtime')->name('airtime.buy');
+            Route::post('/data', 'OrderController@buyData')->name('data.buy');
+            Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
+            Route::post('/electricity', 'OrderController@buyElectricity')->name('electricity.buy');
+        });
     });
-    Route::name('orders.')->prefix('buy')->group(function () {
-        Route::post('/airtime', 'OrderController@buyAirtime')->name('airtime.buy');
-        Route::post('/data', 'OrderController@buyData')->name('data.buy');
-        Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
-        Route::post('/electricity', 'OrderController@buyElectricity')->name('electricity.buy');
-    });
-});
+}
 Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();

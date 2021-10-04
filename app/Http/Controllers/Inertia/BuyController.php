@@ -10,6 +10,16 @@ class BuyController extends Controller
 {
     //
 
+    public function buy()
+    {
+        return inertia('Buy/Buy');
+    }
+
+    public function bills()
+    {
+        return inertia('Buy/Bills');
+    }
+
     public function buyAirtime()
     {
         $providers = Service::whereSlug('airtime')->with('providers.plans')->first()->providers;

@@ -5,6 +5,7 @@ import Modal from "../Components/Modal";
 import PinInput from "../Components/PinInput";
 import Transactions from "../Components/Transactions";
 import AppLayout from "../Layouts/AppLayout";
+import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
 
 function Airtime() {
@@ -22,6 +23,7 @@ function Airtime() {
     const [selectedPlan, setSelectedPlan] = useState(true);
 
     const { auth, providers } = usePage().props;
+    console.log(providers);
     const handlePlanSelected = (plan) => {
         setPlanSelected(true);
         setSelectedPlan(plan);
@@ -79,7 +81,7 @@ function Airtime() {
     };
 
     return (
-        <AppLayout user={auth.user}>
+        <MainLayout user={auth.user}>
             <CardWrapper>
                 <h2 className="text-primary font-bold uppercase text-center">
                     Buy Airtime
@@ -168,15 +170,15 @@ function Airtime() {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col space-y-4 my-2 md:my-8 w-full md:w-2/3 mx-auto">
                         <div>
-                            <h2 className="font-bold">
+                            <h2 className="text-xs text-gray-600 m-2">
                                 Select Airtime Provider
                             </h2>
-                            <div className="flex flex-wrap items-center">
+                            <div className="grid grid-cols-4 md:gap-4 gap-3">
                                 {providers.map((p) => (
                                     <div
-                                        className="w-1/2 md:w-1/4 flex items-center justify-center"
+                                        className="w-full md:p-3 h-16 md:h-20 flex items-center justify-center"
                                         key={p.id}
                                     >
                                         <label
@@ -198,8 +200,12 @@ function Airtime() {
                                                     )
                                                 }
                                             />
-                                            <div className="rounded shadow-md hover:shadow-xl p-2 py-3 font-bold text-xs m-1 w-full text-gray-600">
-                                                {p.title}
+                                            <div className="rounded shadow-md hover:shadow-xl p-1 md:p-2 md:py-3 font-bold text-xs w-full text-gray-600 h-12 md:h-20">
+                                                <img
+                                                    src={p.logo_image}
+                                                    className="object-cover w-full h-full rounded"
+                                                />
+                                                {/* {p.title} */}
                                             </div>
                                         </label>
                                     </div>
@@ -207,12 +213,12 @@ function Airtime() {
                             </div>
                         </div>
                         {planSelected && (
-                            <div className="flex flex-col space-y-4 w-full md:w-2/3 mx-auto">
+                            <div className="flex flex-col space-y-4 w-full md:w-2/3 mx-auto text-gray-600">
                                 <h2 className="mt-8 text-primary font-bold uppercase text-center">
                                     {selectedPlan.title}
                                 </h2>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">
+                                <div className="form-group flex flex-col space-y-2">
+                                    <p className="text-sm">
                                         Recipient Phone Number
                                     </p>
 
@@ -225,12 +231,12 @@ function Airtime() {
                                             onChange={(e) =>
                                                 setRecipient(e.target.value)
                                             }
-                                            placeholder="Enter recipient phone number"
+                                            placeholder="08012345678"
                                         />
                                     </div>
                                 </div>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">Amount</p>
+                                <div className="form-group flex flex-col space-y-2">
+                                    <p className="text-sm">Amount</p>
 
                                     <div className="form-control-wrap">
                                         <input
@@ -241,17 +247,19 @@ function Airtime() {
                                             onChange={(e) =>
                                                 setAmount(e.target.value)
                                             }
-                                            placeholder="Enter amount"
+                                            // onBlur={handleAmount}
+                                            placeholder="100"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="form-group my-4">
                                     <button
-                                        className="btn btn-primary btn-block font-bold"
+                                        className="rounded text-white bg-primary w-full p-3 font-bold"
                                         onClick={handleProceed}
                                     >
-                                        Proceed {">>"}
+                                        Proceed
+                                        <i className="mdi mdi-chevron-right ml-4 text-purple-900"></i>
                                     </button>
                                 </div>
                             </div>
@@ -260,7 +268,7 @@ function Airtime() {
                 )}
             </CardWrapper>
             <Modal modal={modal} closeModal={closeModal} />
-        </AppLayout>
+        </MainLayout>
     );
 }
 

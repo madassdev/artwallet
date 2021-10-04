@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Modal from "../Components/Modal";
 import PinInput from "../Components/PinInput";
 import Transactions from "../Components/Transactions";
-import AppLayout from "../Layouts/AppLayout";
+import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
 
 function Data() {
@@ -109,7 +109,7 @@ function Data() {
     };
 
     return (
-        <AppLayout user={auth.user}>
+        <MainLayout user={auth.user}>
             <CardWrapper>
                 <h2 className="text-primary font-bold uppercase text-center">
                     Buy Data
@@ -343,7 +343,7 @@ function Data() {
                 )}
             </CardWrapper>
             <Modal modal={modal} closeModal={closeModal} />
-        </AppLayout>
+        </MainLayout>
     );
 }
 

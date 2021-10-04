@@ -2,6 +2,15 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@layer components {
+    .nav-link {
+        @apply block py-4 px-4 my-2 rounded transition duration-200 hover:bg-purple-700
+    }
+    .nav-active{
+        @apply bg-purple-800 hover:bg-purple-700
+    }
+}
+
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
@@ -57,7 +66,7 @@
     color:red;
 } 
 .labl > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
-    background-color: #854fff;
+    border:1px solid #854fff;
     color: white;
     /* border: 1px solid #ff6600; */
 }
