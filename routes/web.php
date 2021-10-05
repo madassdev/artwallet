@@ -25,6 +25,7 @@ use Inertia\Inertia;
 if (env("APP_ENV")) {
     // if (env("APP_ENV") == "local") {
     Route::prefix('demo')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function () {
+        mock_buy();
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
         Route::name('buy.')->prefix('buy')->group(function () {
             Route::get('/', 'BuyController@buy')->name('index');
@@ -43,6 +44,7 @@ if (env("APP_ENV")) {
             Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
             Route::post('/electricity', 'OrderController@buyElectricity')->name('electricity.buy');
         });
+        Route::post('/auth/check-pin', 'DashboardController@checkPin')->name('check-pin');
     });
 }
 Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');

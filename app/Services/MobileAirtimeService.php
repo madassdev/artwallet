@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class MobileAirtimeService
 {
+   
     public static function getClubAuthDetails()
     {
         $club_user_id = @SiteConfig::where('key', 'clubkonnect_user_id')->first()->value ?? "CK100321230";
@@ -39,7 +40,7 @@ class MobileAirtimeService
 
     public static function buyClubAirtime($providerSlug, $mobile, $amount, $reference = null, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_AIRTIME_ORDER_RECEIVED",
@@ -47,6 +48,7 @@ class MobileAirtimeService
                 "api_response" => [],
             ];
         }
+        dd('awo Lo');
 
         $url = "https://www.nellobytesystems.com/APIAirtimeV1.asp";
 
@@ -73,7 +75,7 @@ class MobileAirtimeService
 
     public static function buyClubData($network, $mobile, $plan, $ref, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_DATA_ORDER_RECEIVED",
@@ -104,7 +106,7 @@ class MobileAirtimeService
     }
     public static function buyClubRecharge($network, $quantity, $plan, $ref, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_DATA_ORDER_RECEIVED",
@@ -141,7 +143,7 @@ class MobileAirtimeService
     }
     public static function fetchClubRecharge($ref, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             // return [
             //     "success" => true,
             //     "message" => "MOCK_DATA_ORDER_RECEIVED",
@@ -181,7 +183,7 @@ class MobileAirtimeService
 
     public static function buyClubElectricity($service, $meterno, $mtype, $amount, $ref = null, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_ELECTRICITY_ORDER_RECEIVED",
@@ -215,7 +217,7 @@ class MobileAirtimeService
 
     public static function verifyClubElectricity($service, $meterno)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
         }
         $url = "https://www.nellobytesystems.com/APIVerifyElectricityV1.asp";
 
@@ -295,7 +297,7 @@ class MobileAirtimeService
 
     public static function buyClubCable($network, $recipient, $plan, $ref, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_CABLT_TV_ORDER_RECEIVED",
@@ -327,7 +329,7 @@ class MobileAirtimeService
 
     public static function buyClubInternet($network, $recipient, $plan, $ref, $mock = false)
     {
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             return [
                 "success" => true,
                 "message" => "MOCK_INTERNET_ORDER_RECEIVED",

@@ -7,6 +7,16 @@ function naira($value = null)
     return "₦" . number_format($value);
 }
 
+function mock_buy($value = true)
+{
+    config()->set('mock_buy', $value);
+}
+
+function isMock()
+{
+    return config('mock_buy');
+}
+
 function dataPlans()
 {
     return Plan::with('meta')->get()->groupBy('provider_id');

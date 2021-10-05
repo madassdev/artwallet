@@ -1,33 +1,84 @@
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import SelectSearch, { fuzzySearch } from "react-select-search";
 import Modal from "../Components/Modal";
 import PinInput from "../Components/PinInput";
+import SearchSelect from "../Components/SearchSelect";
 import Transactions from "../Components/Transactions";
-import AppLayout from "../Layouts/AppLayout";
 import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
+import SpinButton from "../Components/SpinButton";
+import OrderSummary from "./OrderSummary";
 
 function Airtime() {
+    const charges = parseInt(PUBLIC_CONFIG.data_fees ?? 0);
+    const minAirtimeValue = 100;
+    const { auth, providers } = usePage().props;
+
     const [modal, setModal] = useState({
         show: false,
         header: "Header",
         content: "Content",
     });
-    const [isReady, setIsReady] = useState(false);
-    const [amount, setAmount] = useState("");
-    const [recipient, setRecipient] = useState("");
-    const [isPaying, setIsPaying] = useState(false);
-    const [pin, setPin] = useState("");
-    const [planSelected, setPlanSelected] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState(true);
 
-    const { auth, providers } = usePage().props;
-    console.log(providers);
+    const defaultErrors = {
+        recipient: false,
+        plan: false,
+        amount: false,
+    };
+    const [submitting, setSubmitting] = useState(false);
+    const [amount, setAmount] = useState(50);
+    const [errors, setErrors] = useState(defaultErrors);
+    const [selectedProvider, setSelectedProvider] = useState(null);
+    const [pin, setPin] = useState("");
+    const [recipient, setRecipient] = useState("");
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [planOptions, setPlanOptions] = useState([]);
+    const [optionValue, setOptionValue] = useState(null);
+
+    const handleProviderSelected = (provider) => {
+        setSelectedProvider(provider);
+        const opt = provider?.plans?.map((plan) => {
+            return {
+                name: `${plan.title} @ ${naira(plan.price)}`,
+                value: plan.id,
+            };
+        });
+        setOptionValue(opt[0].value);
+        setPlanOptions(opt);
+    };
+
+    function handleError(error, message) {
+        setErrors((values) => ({
+            ...values,
+            [error]: message,
+        }));
+    }
+
+    function validate() {
+        let c = 0;
+
+        if (!recipient) {
+            handleError("recipient", "Please enter valid number");
+            c++;
+        }
+        if (!selectedPlan) {
+            handleError("provider", "Select a provider");
+            c++;
+        }
+        if (amount < minAirtimeValue) {
+            handleError("amount", "Please enter amount greater than 200");
+            c++;
+        }
+
+        return !c;
+    }
+
     const handlePlanSelected = (plan) => {
-        setPlanSelected(true);
         setSelectedPlan(plan);
-        console.log(plan);
+        handleError("plan", false);
     };
     const openModal = (modal) => {
         setModal({ ...modal, show: true });
@@ -38,237 +89,216 @@ function Airtime() {
     };
 
     const handleProceed = (e) => {
-        if (recipient === "") {
-            alert("Please enter a valid recipient phone number");
+        setErrors(defaultErrors);
+        if (!validate()) {
+            // toast.error("Please fill all Fields appropriately", {
+            //     position: "top-right",
+            // });
             return;
         }
-        if (!selectedPlan) {
-            alert("Please select a provider first");
-            return;
-        }
-
-        if (amount === "") {
-            alert("Please enter an amount");
-            return;
-        }
-
-        if (parseInt(amount) < 50) {
-            alert("Please enter a minimum amount of ₦50");
-            return;
-        }
-        if (amount > auth.user.balance) {
-            alert("Your balance is insufficient for the transaction.");
-            return;
-        }
-
-        setIsReady(true);
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            noClose: true,
+            header: "Checkout",
+            content: (
+                <OrderSummary
+                    handleSubmit={handleModalAction}
+                    amount={parseInt(amount) + parseInt(charges)}
+                    cancelAction={closeModal}
+                >
+                    {/* <Summary
+                        summary={{
+                            amount: selectedPlan.price,
+                            recipient,
+                            selectedPlan,
+                            charges,
+                        }}
+                    /> */}
+                </OrderSummary>
+            ),
+        }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (isPaying) {
-            alert("Please wait...");
-            return;
-        }
-        setIsPaying(true);
-        Inertia.post(route("orders.airtime.buy"), {
-            plan_id: selectedPlan.id,
-            type: "airtime",
-            pin,
-            amount,
-            recipient,
-        });
-    };
+    function handleModalAction(pin) {
+        closeModal();
+        setPin(pin);
+        setSubmitting(true);
 
+        Inertia.post(
+            route("orders.airtime.buy"),
+            {
+                plan_id: selectedPlan.id,
+                type: "airtime",
+                pin,
+                amount,
+                recipient,
+            },
+            {
+                onError: (error) => {
+                    setSubmitting(false);
+                    console.log(error);
+                    toast.error(error.message, {
+                        position: "top-center",
+                    });
+                },
+            }
+        );
+    }
     return (
-        <MainLayout user={auth.user}>
+        <MainLayout>
             <CardWrapper>
                 <h2 className="text-primary font-bold uppercase text-center">
                     Buy Airtime
                 </h2>
-                {isReady ? (
-                    /* Summary */
 
-                    <div className="my-4 w-full md:w-2/3 mx-auto shadow p-5">
-                        <div className="flex flex-col space-y-4">
-                            <h2 className="text-center font-bold mb-0">
-                                Transaction Summary
-                            </h2>
+                <div className="flex flex-col space-y-8 my-2 md:my-8 w-full md:w-2/3 mx-auto">
+                    <div className="form-group flex flex-col space-y-1">
+                        <p className="text-xs text-gray-600 m-2">
+                            Recipient Phone Number
+                        </p>
 
-                            <div>
-                                <h2 className="font-bold m-0">Recipient</h2>
-                                <p className="text-gray-600">{recipient}</p>
-                            </div>
-                            <div>
-                                <h2 className="font-bold m-0">Provider</h2>
-                                <p className="text-gray-600">
-                                    {selectedPlan.title}
-                                </p>
-                            </div>
-                            <div>
-                                <h2 className="font-bold m-0">Amount</h2>
-                                <p className="text-gray-600">
-                                    &#x20A6;
-                                    {parseFloat(amount).toLocaleString()}
-                                </p>
-                            </div>
-                            <form autoComplete="off" onSubmit={handleSubmit}>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">PIN</p>
-
-                                    <div className="form-control-wrap">
-                                        <a
-                                            className="form-icon form-icon-right passcode-switch lg"
-                                            data-target="pin"
-                                        >
-                                            <em className="passcode-icon icon-show icon ni ni-eye"></em>
-                                            <em className="passcode-icon icon-hide icon ni ni-eye-off"></em>
-                                        </a>
-                                        <PinInput
-                                            pin={pin}
-                                            setPinValue={(value) =>
-                                                setPin(value)
-                                            }
-                                            placeholder="Enter PIN"
-                                            eid="airtime_pin"
-                                        />
-                                    </div>
+                        <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                className={`w-full rounded border-gray-300 ${
+                                    errors.recipient && "error"
+                                }`}
+                                value={recipient}
+                                autoFocus
+                                onChange={(e) => {
+                                    setRecipient(e.target.value);
+                                    if (e.target.value) {
+                                        handleError("recipient", false);
+                                    }
+                                }}
+                                placeholder="08123456789"
+                            />
+                            {errors.recipient && (
+                                <div className="text-red-400 text-xs font-bold">
+                                    {errors.recipient}
                                 </div>
-                                <div className="w-full">
-                                    {isPaying ? (
-                                        <button
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
-                                            >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <>
-                                            <button
-                                                className="btn btn-primary btn-block font-bold"
-                                                // onClick={()=>setIsPaying(true)}
-                                            >
-                                                Pay {naira(amount)}
-                                            </button>
-                                            <p
-                                                onClick={() =>
-                                                    setIsReady(false)
-                                                }
-                                                className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
-                                            >
-                                                {"<<"} Go back
-                                            </p>
-                                        </>
-                                    )}
-                                </div>
-                            </form>
+                            )}
                         </div>
                     </div>
-                ) : (
-                    <div className="flex flex-col space-y-4 my-2 md:my-8 w-full md:w-2/3 mx-auto">
-                        <div>
-                            <h2 className="text-xs text-gray-600 m-2">
-                                Select Airtime Provider
-                            </h2>
-                            <div className="grid grid-cols-4 md:gap-4 gap-3">
-                                {providers.map((p) => (
-                                    <div
-                                        className="w-full md:p-3 h-16 md:h-20 flex items-center justify-center"
-                                        key={p.id}
-                                    >
-                                        <label
-                                            className="labl"
-                                            key={p?.plans[0]?.id}
-                                        >
-                                            <input
-                                                className=""
-                                                name="airtime_plan"
-                                                id={
-                                                    "airtime_plan" +
-                                                    p?.plans[0]?.id
-                                                }
-                                                type="radio"
-                                                value={p?.plans[0]?.id}
-                                                onChange={() =>
-                                                    handlePlanSelected(
-                                                        p?.plans[0]
-                                                    )
-                                                }
+                    <div>
+                        <p className="text-xs text-gray-600 m-2">
+                            Select Data Provider
+                        </p>
+                        <div className="grid grid-cols-4 md:gap-4 gap-3">
+                            {providers.map((p) => (
+                                <div
+                                    className="w-full md:p-3 h-16 md:h-20 flex items-center justify-center"
+                                    key={p.id}
+                                >
+                                    <label className="labl" key={p?.id}>
+                                        <input
+                                            className=""
+                                            name="data_provider"
+                                            id={"data_provider" + p?.id}
+                                            type="radio"
+                                            value={p?.plans[0]?.id}
+                                            onChange={() => {
+                                                handlePlanSelected(p?.plans[0]);
+                                                handleError("provider", false);
+                                            }}
+                                        />
+                                        <div className="rounded shadow-md hover:shadow-xl p-1 md:p-2 md:py-3 font-bold text-xs w-full text-gray-600 h-12 md:h-20">
+                                            <img
+                                                src={p.logo_image}
+                                                className="object-cover w-full h-full rounded"
                                             />
-                                            <div className="rounded shadow-md hover:shadow-xl p-1 md:p-2 md:py-3 font-bold text-xs w-full text-gray-600 h-12 md:h-20">
-                                                <img
-                                                    src={p.logo_image}
-                                                    className="object-cover w-full h-full rounded"
-                                                />
-                                                {/* {p.title} */}
-                                            </div>
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            ))}
                         </div>
-                        {planSelected && (
-                            <div className="flex flex-col space-y-4 w-full md:w-2/3 mx-auto text-gray-600">
-                                <h2 className="mt-8 text-primary font-bold uppercase text-center">
-                                    {selectedPlan.title}
-                                </h2>
-                                <div className="form-group flex flex-col space-y-2">
-                                    <p className="text-sm">
-                                        Recipient Phone Number
-                                    </p>
-
-                                    <div className="form-control-wrap">
-                                        <input
-                                            type="number"
-                                            min="100"
-                                            className="w-full rounded border-gray-300"
-                                            value={recipient}
-                                            onChange={(e) =>
-                                                setRecipient(e.target.value)
-                                            }
-                                            placeholder="08012345678"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group flex flex-col space-y-2">
-                                    <p className="text-sm">Amount</p>
-
-                                    <div className="form-control-wrap">
-                                        <input
-                                            type="number"
-                                            min="100"
-                                            className="w-full rounded border-gray-300"
-                                            value={amount}
-                                            onChange={(e) =>
-                                                setAmount(e.target.value)
-                                            }
-                                            // onBlur={handleAmount}
-                                            placeholder="100"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group my-4">
-                                    <button
-                                        className="rounded text-white bg-primary w-full p-3 font-bold"
-                                        onClick={handleProceed}
-                                    >
-                                        Proceed
-                                        <i className="mdi mdi-chevron-right ml-4 text-purple-900"></i>
-                                    </button>
-                                </div>
+                        {errors.provider && (
+                            <div className="text-red-400 text-xs font-bold">
+                                {errors.provider}
                             </div>
                         )}
                     </div>
-                )}
+                    <div className="form-group flex flex-col space-y-1">
+                        <p className="text-xs text-gray-600 m-2">Amount</p>
+                        <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                min={minAirtimeValue}
+                                className={`w-full rounded border-gray-300 ${
+                                    errors.recipient && "error"
+                                }`}
+                                value={amount}
+                                onChange={(e) => {
+                                    setAmount(e.target.value);
+                                    if (e.target.value >= minAirtimeValue) {
+                                        handleError("amount", false);
+                                    }
+                                }}
+                                placeholder="Enter amount"
+                            />
+                            {errors.amount && (
+                                <div className="text-red-400 text-xs font-bold">
+                                    {errors.amount}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div>
+                        {submitting ? (
+                            <SpinButton />
+                        ) : (
+                            <button
+                                className="btn btn-primary btn-block"
+                                onClick={handleProceed}
+                            >
+                                Pay
+                            </button>
+                        )}
+                    </div>
+                </div>
             </CardWrapper>
             <Modal modal={modal} closeModal={closeModal} />
         </MainLayout>
+    );
+}
+
+function Summary({ summary, handleSubmit }) {
+    const { recipient, selectedPlan, amount, charges } = summary;
+
+    return (
+        <div>
+            <div className="flex flex-col space-y-4">
+                <h2 className="text-center font-bold mb-0">
+                    Transaction Summary
+                </h2>
+
+                <div>
+                    <h2 className="font-bold m-0">Recipient</h2>
+                    <p className="text-gray-600">{recipient}</p>
+                </div>
+                <div>
+                    <h2 className="font-bold m-0">Plan</h2>
+                    <p className="text-gray-600">{selectedPlan.title}</p>
+                </div>
+                <div>
+                    <h2 className="font-bold m-0">Amount</h2>
+                    <p className="text-gray-600">{naira(amount)}</p>
+                </div>
+                <div>
+                    <h2 className="font-bold text-xs text-gray-400 m-0">
+                        Service charge
+                    </h2>
+                    <p className="text-warning text-xs">{naira(charges)}</p>
+                </div>
+                <div>
+                    <h2 className="font-bold m-0">Total</h2>
+                    <p className="text-primary font-bold">
+                        {naira(amount + charges)}
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 }
 

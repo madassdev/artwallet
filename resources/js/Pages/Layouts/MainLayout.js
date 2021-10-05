@@ -12,8 +12,6 @@ function MainLayout(props) {
     const prefix = "/demo";
     const { auth, flash } = page.props;
     const url = page.url;
-    console.log(url);
-    console.log(page);
     const showError = (flashMessage) => {
         toast.error(flashMessage, {
             position: "top-center",

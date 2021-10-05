@@ -1,13 +1,33 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.error {
+    @apply border-red-400;
+}
 
 @layer components {
     .nav-link {
-        @apply block py-4 px-4 my-2 rounded transition duration-200 hover:bg-purple-700
+        @apply block py-4 px-4 my-2 rounded transition duration-200 hover:bg-purple-700;
     }
-    .nav-active{
-        @apply bg-purple-800 hover:bg-purple-700
+    .nav-active {
+        @apply bg-purple-800 hover:bg-purple-700;
+    }
+
+    .btn {
+        @apply rounded bg-gray-200 p-3 text-gray-600;
+    }
+
+    .btn-primary {
+        @apply bg-primary text-white;
+    }
+
+    .btn-light {
+        @apply bg-gray-300 text-gray-600;
+    }
+
+    .btn-block {
+        @apply w-full;
     }
 }
 
@@ -29,7 +49,7 @@
     }
 }
 
-.modal__container{
+.modal__container {
     position: fixed;
     top: 0;
     left: 0;
@@ -49,24 +69,27 @@
 }
 
 .labl {
-    display : block;
-    margin:0;
+    display: block;
+    margin: 0;
     padding: 0;
 }
-.labl > input{ /* HIDE RADIO */
+.labl > input {
+    /* HIDE RADIO */
     visibility: hidden; /* Makes input not-clickable */
-    position:absolute;
+    position: absolute;
 }
-.labl > input + div{ /* DIV STYLES */
-    cursor:pointer;
-    background-color:white;
+.labl > input + div {
+    /* DIV STYLES */
+    cursor: pointer;
+    background-color: white;
 }
-.label > div:hover{
+.label > div:hover {
     border: 1px solid #854fff;
-    color:red;
-} 
-.labl > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
-    border:1px solid #854fff;
+    color: red;
+}
+.labl > input:checked + div {
+    /* (RADIO CHECKED) DIV STYLES */
+    border: 1px solid #854fff;
     color: white;
     /* border: 1px solid #ff6600; */
 }

@@ -33,7 +33,7 @@ class Provider extends Model
         $logos = [
             "mtn" => asset('images/providers/mtn_logo.png'),
             "mtn-airtime" => asset('images/providers/mtn_logo.png'),
-            "mtn_data" => asset('images/providers/mtn_logo.png'),
+            "mtn-data" => asset('images/providers/mtn_logo.png'),
             "airtel" => asset('images/providers/airtel_logo.png'),
             "airtel-airtime" => asset('images/providers/airtel_logo.png'),
             "airtel-data" => asset('images/providers/airtel_logo.png'),
@@ -43,6 +43,9 @@ class Provider extends Model
             "9mobile" => asset('images/providers/9mobile_logo.png'),
             "9mobile-airtime" => asset('images/providers/9mobile_logo.png'),
             "9mobile-data" => asset('images/providers/9mobile_logo.png'),
+            "dstv" => asset('images/providers/dstv_logo.png'),
+            "gotv" => asset('images/providers/gotv_logo.png'),
+            "startimes" => asset('images/providers/startimes_logo.png'),
         ];
 
         return @$logos[$this->slug];
