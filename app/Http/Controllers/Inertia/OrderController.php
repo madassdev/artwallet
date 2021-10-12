@@ -52,6 +52,7 @@ class OrderController extends Controller
         // return $request;
         $plan = Plan::findOrFail($request->plan_id)->load('provider');
         $amount = data_price($plan, $user);
+        // return $amount;
         // $order = Order::wherePlanId($plan->id)->first();
         // return compact('amount', 'plan', 'charges');
         // return $amount;
@@ -368,7 +369,7 @@ class OrderController extends Controller
 
 
 
-    public function internet(Request $request)
+    public function buyInternet(Request $request)
     {
         $type = "internet";
         $charges = 0;
@@ -455,6 +456,7 @@ class OrderController extends Controller
                 'status' => "success",
             ]);
         }
+        return redirect(route('dashboard.index'))->withSuccess('Internet order placed successfully');
 
         return response()->json([
             "success" => true,
@@ -574,7 +576,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function electricity(Request $request)
+    public function buyElectricity(Request $request)
     {
         $type = "electricity";
         $charges = 0;
@@ -601,7 +603,7 @@ class OrderController extends Controller
         $plan = Plan::findOrFail($request->plan_id);
 
 
-        $amount = airtime_price($request->amount, $user);
+        $amount = electricity_price($request->amount, $user);
         if ($request->amount < minimum_electricity()) {
             return response()->json([
                 "success" => false,
@@ -668,6 +670,7 @@ class OrderController extends Controller
                 'status' => "success",
             ]);
         }
+        return redirect(route('dashboard.index'))->withSuccess('Electricity order placed successfully');
 
         return response()->json([
             "success" => true,
@@ -801,35 +804,43 @@ class OrderController extends Controller
 
         $recipient = User::whereMobile($request->recipient)->first();
         if (!$recipient) {
-            return response()->json([
-                "success" => false,
-                "message" => "Recipient Not Found",
-                "code" => "RECIPIENT_NOT_FOUND"
-            ], 403);
+            return redirect()->back()->withErrors([
+                "message" => "Unable to verify user",
+                "code" => "PIN_INCORRECT"
+            ]);
+
+            // return response()->json([
+            //     "success" => false,
+            //     "message" => "Recipient Not Found",
+            //     "code" => "RECIPIENT_NOT_FOUND"
+            // ], 403);
         }
 
-        if ($recipient->id = $user->id) {
-            return response()->json([
-                "success" => false,
+        if ($recipient->id == $user->id) {
+            return redirect()->back()->withErrors([
                 "message" => "You cannot transfer to yourself!",
                 "code" => "CANNOT_TRANSFER_TO_SELF"
-            ], 403);
+            ]);
         }
 
         if (!Hash::check($request->pin, $user->pin)) {
-
-            return response()->json([
-                "success" => false,
+            return redirect()->back()->withErrors([
                 "message" => "Incorrect PIN",
                 "code" => "PIN_INCORRECT"
-            ], 403);
+            ]);
+
+            // return response()->json([
+            //     "success" => false,
+            //     "message" => "Incorrect PIN",
+            //     "code" => "PIN_INCORRECT"
+            // ], 403);
         }
 
         if ($user->balance < $request->amount) {
-            return response()->json([
-                "success" => false,
-                "message" => "User does not have enough balance to purchase this amount"
-            ], 403);
+            return redirect()->back()->withErrors([
+                "message" => "User does not have enough balance to purchase this amount",
+                "code" => "INSUFFICIENT_BALANCE"
+            ]);
         }
 
         $amount = $request->amount;
@@ -863,6 +874,7 @@ class OrderController extends Controller
         ]);
 
         // Send Mail
+        return redirect(route('dashboard.index'))->withSuccess('Funds transferred successfully.');
 
         return response()->json([
             "success" => true,

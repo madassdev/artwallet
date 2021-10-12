@@ -1,36 +1,95 @@
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import SelectSearch, { fuzzySearch } from "react-select-search";
 import Modal from "../Components/Modal";
 import PinInput from "../Components/PinInput";
+import SearchSelect from "../Components/SearchSelect";
 import Transactions from "../Components/Transactions";
 import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
+import SpinButton from "../Components/SpinButton";
+import OrderSummary from "./OrderSummary";
+import axios from "axios";
+import { discountValue, getDiscountValue } from "@/util/functions";
 
 function Electricity() {
+    const { auth, providers, discount, charges, minimum_value } =
+        usePage().props;
+    const minElectricityValue = minimum_value;
+
     const [modal, setModal] = useState({
         show: false,
         header: "Header",
         content: "Content",
     });
-    const [isReady, setIsReady] = useState(false);
-    const [amount, setAmount] = useState("");
-    const [recipient, setRecipient] = useState("");
-    const [isPaying, setIsPaying] = useState(false);
-    const [pin, setPin] = useState("");
-    const [planSelected, setPlanSelected] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState(true);
-    const [isValidating, setIsValidating] = useState(false);
-    const [meterDetails, setMeterDetails] = useState();
-    const [meterType, setMeterType] = useState(0);
-    const charges = parseInt(PUBLIC_CONFIG.electricity_fees);
-    const { auth, providers } = usePage().props;
 
-    const handlePlanSelected = (plan) => {
-        setPlanSelected(true);
-        setSelectedPlan(plan);
+    const defaultErrors = {
+        recipient: false,
+        plan: false,
+        meterType: false,
+        amount: false,
+    };
+    const [submitting, setSubmitting] = useState(false);
+    const [errors, setErrors] = useState(defaultErrors);
+    const [selectedProvider, setSelectedProvider] = useState(null);
+    const [meterDetails, setMeterDetails] = useState();
+    const [amount, setAmount] = useState(minElectricityValue);
+    const [pin, setPin] = useState("");
+    const [recipient, setRecipient] = useState("");
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [planOptions, setPlanOptions] = useState([]);
+    const [optionValue, setOptionValue] = useState(null);
+    const [meterType, setMeterType] = useState(false);
+
+    useEffect(() => {
+        const sopt = providers.map((provider) => {
+            return {
+                name: provider.plans[0].title,
+                value: provider.plans[0].id,
+            };
+        });
+        console.log(sopt);
+        setOptionValue(sopt[0].value);
+        setPlanOptions(sopt);
+    }, []);
+
+    function handleError(error, message) {
+        setErrors((values) => ({
+            ...values,
+            [error]: message,
+        }));
+    }
+
+    function validate() {
+        let c = 0;
+
+        if (!recipient) {
+            handleError("recipient", "Please enter valid number");
+            c++;
+        }
+        if (!selectedPlan) {
+            handleError("plan", "Select a valid plan");
+            c++;
+        }
+        if (!meterType) {
+            handleError("meterType", "Please select meter type");
+            c++;
+        }
+        if (amount < minElectricityValue) {
+            handleError("amount", "Please enter amount greater than 200");
+            c++;
+        }
+
+        return !c;
+    }
+
+    const handlePlanSelected = (planId) => {
+        const plan = providers.find((p) => p.plans[0].id === planId).plans[0];
         console.log(plan);
+        setSelectedPlan(plan);
+        handleError("plan", false);
     };
     const openModal = (modal) => {
         setModal({ ...modal, show: true });
@@ -41,30 +100,18 @@ function Electricity() {
     };
 
     const handleProceed = (e) => {
-        if (recipient === "") {
-            alert("Please enter a valid meter number");
+        setErrors(defaultErrors);
+        if (!validate()) {
+            // toast.error("Please fill all Fields appropriately", {
+            //     position: "top-right",
+            // });
             return;
         }
-        if (!selectedPlan) {
-            alert("Please select a provider first");
-            return;
-        }
-        if (!meterType) {
-            alert("Please select a meter type first");
-            return;
-        }
-
-        if (amount === "") {
-            alert("Please enter an amount");
-            return;
-        }
-
-        if (parseInt(amount) < 50) {
-            alert("Please enter a minimum amount of ₦50");
-            return;
-        }
-
-        setIsValidating(true);
+        let totalAmt =
+            parseFloat(amount) +
+            parseFloat(charges) -
+            parseFloat(discountValue(discount, amount, auth.user));
+        setSubmitting(true);
         axios
             .post("/orders/electricity/verify", {
                 plan_id: selectedPlan.id,
@@ -74,8 +121,35 @@ function Electricity() {
             .then((res) => {
                 console.log(res.data);
                 setMeterDetails(res.data.recipient);
-                setIsValidating(false);
-                setIsReady(true);
+                setSubmitting(false);
+                setModal((modal) => ({
+                    ...modal,
+                    show: true,
+                    header: "Checkout",
+                    content: (
+                        <OrderSummary
+                            handleSubmit={handleModalAction}
+                            amount={totalAmt}
+                            cancelAction={closeModal}
+                        >
+                            <Summary
+                                summary={{
+                                    amount,
+                                    recipient,
+                                    meterDetails: res.data.recipient,
+                                    selectedPlan,
+                                    charges,
+                                    discount: getDiscountValue(
+                                        discount,
+                                        auth.user
+                                    ),
+                                    total: totalAmt,
+                                }}
+                            />
+                        </OrderSummary>
+                    ),
+                }));
+                // setIsReady(true);
             })
             .catch((err) => {
                 if (err.response.status === 403) {
@@ -89,298 +163,264 @@ function Electricity() {
                         },
                     });
                 }
-                setIsValidating(false);
+                setSubmitting(false);
             });
+        // setModal((modal) => ({
+        //     ...modal,
+        //     show: true,
+        //     noClose: true,
+        //     header: "Checkout",
+        //     content: (
+        //         <OrderSummary
+        //             handleSubmit={handleModalAction}
+        //             amount={selectedPlan.price + charges}
+        //             cancelAction={closeModal}
+        //         >
+        //             {/* <Summary
+        //                 summary={{
+        //                     amount: selectedPlan.price,
+        //                     recipient,
+        //                     selectedPlan,
+        //                     charges,
+        //                 }}
+        //             /> */}
+        //         </OrderSummary>
+        //     ),
+        // }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (isPaying) {
-            alert("Please wait...");
-            return;
-        }
-        if (pin.length !== 4) {
-            alert("Please enter 4 digit PIN");
-            return;
-        }
+    function handleModalAction(pin) {
+        closeModal();
+        setPin(pin);
+        setSubmitting(true);
 
-        if (!selectedPlan) {
-            alert("Please select a provider first");
-            return;
-        }
-        if (
-            !recipient ||
-            recipient.length.length < 11 ||
-            recipient.length === ""
-        ) {
-            alert("Please Enter a valid number");
-            return;
-        }
-        if (!amount || amount === 0 || amount === "") {
-            alert("Please Enter a valid amount");
-            return;
-        }
-
-        if (amount + charges > auth.user.balance) {
-            alert("Your balance is insufficient for the transaction.");
-            return;
-        }
-
-        setIsPaying(true);
-        Inertia.post(route("orders.electricity.buy"), {
-            plan_id: selectedPlan.id,
-            type: "electricity",
-            pin,
-            amount,
-            meter_type: meterType,
-            recipient,
-        });
-    };
-
+        Inertia.post(
+            route("orders.electricity.buy"),
+            {
+                plan_id: selectedPlan.id,
+                type: "electricity",
+                pin,
+                amount,
+                meter_type: meterType,
+                recipient,
+            },
+            {
+                onError: (error) => {
+                    setSubmitting(false);
+                    console.log(error);
+                    toast.error(error.message, {
+                        position: "top-center",
+                    });
+                },
+            }
+        );
+    }
     return (
-        <MainLayout user={auth.user}>
-            <Toaster />
+        <MainLayout>
             <CardWrapper>
                 <h2 className="text-primary font-bold uppercase text-center">
-                    Buy Electricity
+                    Buy Cable Tv
                 </h2>
-                {isReady ? (
-                    /* Summary */
 
-                    <div className="my-4 w-full md:w-2/3 mx-auto shadow p-5">
-                        <div className="flex flex-col space-y-4">
-                            <h2 className="text-center font-bold mb-0">
-                                Transaction Summary
-                            </h2>
+                <div className="flex flex-col space-y-8 my-2 md:my-8 w-full md:w-2/3 mx-auto">
+                    <div className="form-group flex flex-col space-y-1">
+                        <p className="text-xs text-gray-600 m-2">
+                            Recipient Device Number
+                        </p>
 
-                            <div>
-                                <h2 className="font-bold m-0">Recipient</h2>
-                                <p className="text-gray-600">{recipient}</p>
-                                <p className="text-primary text-xs">
-                                    {meterDetails}
-                                </p>
-                            </div>
-                            <div>
-                                <h2 className="font-bold m-0">Provider</h2>
-                                <p className="text-gray-600">
-                                    {selectedPlan?.title}
-                                </p>
-                            </div>
-                            <div>
-                                <h2 className="font-bold m-0">Amount</h2>
-                                <p className="text-gray-600">{naira(amount)}</p>
-                            </div>
-                            <div>
-                                <h2 className="font-bold text-xs text-gray-400 m-0">
-                                    Service charge
-                                </h2>
-                                <p className="text-gray-400 text-xs">
-                                    {naira(charges)}
-                                </p>
-                            </div>
-
-                            <div>
-                                <h2 className="font-bold m-0">Total</h2>
-                                <p className="text-primary font-bold">
-                                    {naira(amount + charges)}
-                                </p>
-                            </div>
-                            <form autoComplete="off" onSubmit={handleSubmit}>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">PIN</p>
-
-                                    <div className="form-control-wrap">
-                                        <a
-                                            className="form-icon form-icon-right passcode-switch lg"
-                                            data-target="pin"
-                                        >
-                                            <em className="passcode-icon icon-show icon ni ni-eye"></em>
-                                            <em className="passcode-icon icon-hide icon ni ni-eye-off"></em>
-                                        </a>
-                                        <PinInput
-                                            pin={pin}
-                                            setPinValue={(value) =>
-                                                setPin(value)
-                                            }
-                                            placeholder="Enter PIN"
-                                            eid="airtime_pin"
-                                        />
-                                    </div>
+                        <div className="form-control-wrap">
+                            <input
+                                type="text"
+                                className={`w-full rounded border-gray-300 ${
+                                    errors.recipient && "error"
+                                }`}
+                                value={recipient}
+                                autoFocus
+                                onChange={(e) => {
+                                    setRecipient(e.target.value);
+                                    if (e.target.value) {
+                                        handleError("recipient", false);
+                                    }
+                                }}
+                                placeholder="08123456789"
+                            />
+                            {errors.recipient && (
+                                <div className="text-red-400 text-xs font-bold">
+                                    {errors.recipient}
                                 </div>
-                                <div className="w-full">
-                                    {isPaying ? (
-                                        <button
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
-                                            >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <>
-                                            <button
-                                                className="btn btn-primary btn-block font-bold"
-                                                // onClick={()=>setIsPaying(true)}
-                                            >
-                                                Pay{naira(amount + charges)}
-                                            </button>
-                                            <p
-                                                onClick={() =>
-                                                    setIsReady(false)
-                                                }
-                                                className="text-center mt-2 cursor-pointer text-gray-400 hover:text-purple-700 text-xs"
-                                            >
-                                                {"<<"} Go back
-                                            </p>
-                                        </>
-                                    )}
-                                </div>
-                            </form>
+                            )}
                         </div>
                     </div>
-                ) : (
-                    <div className="flex flex-col space-y-4">
-                        <div>
-                            <h2 className="font-bold">
-                                Select Airtime Provider
-                            </h2>
-                            <div className="flex flex-wrap items-center">
-                                {providers.map((p) => (
-                                    <div
-                                        className="flex items-center justify-center m-2"
-                                        key={p.id}
-                                    >
-                                        <label
-                                            className="labl"
-                                            key={p?.plans[0]?.id}
-                                        >
-                                            <input
-                                                className=""
-                                                name="airtime_plan"
-                                                id={
-                                                    "airtime_plan" +
-                                                    p?.plans[0]?.id
-                                                }
-                                                type="radio"
-                                                value={p?.plans[0]?.id}
-                                                onChange={() =>
-                                                    handlePlanSelected(
-                                                        p?.plans[0]
-                                                    )
-                                                }
-                                            />
-                                            <div className="rounded shadow-md hover:shadow-xl p-2 py-3 font-bold text-xs m-1 w-full text-gray-600">
-                                                {p.title}
-                                            </div>
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        {planSelected && (
-                            <div className="flex flex-col space-y-4 w-full md:w-2/3 mx-auto">
-                                <h2 className="mt-8 text-primary font-bold uppercase text-center">
-                                    {selectedPlan.title}
-                                </h2>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">
-                                        Recipient Meter Number
-                                    </p>
 
-                                    <div className="form-control-wrap">
-                                        <input
-                                            type="text"
-                                            min="100"
-                                            className="w-full rounded border-gray-300"
-                                            value={recipient}
-                                            onChange={(e) =>
-                                                setRecipient(e.target.value)
-                                            }
-                                            placeholder="Enter recipient meter number"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group flex flex-col space-y-1">
-                                    <p className="font-bold">Amount</p>
-
-                                    <div className="form-control-wrap">
-                                        <input
-                                            type="number"
-                                            min="100"
-                                            className="w-full rounded border-gray-300"
-                                            value={amount}
-                                            onChange={(e) =>
-                                                setAmount(
-                                                    parseInt(e.target.value)
-                                                )
-                                            }
-                                            placeholder="Enter amount"
-                                        />
-                                    </div>
-                                </div>
-
-                                <p className="font-bold mb-1">Meter type</p>
-                                <div className="flex space-x-8">
-                                    <div className="flex space-x-2">
-                                        <input
-                                            type="radio"
-                                            name="meter_type"
-                                            onChange={() =>
-                                                setMeterType("prepaid")
-                                            }
-                                            value="prepaid"
-                                        />
-                                        <p className="font-bold">Prepaid</p>
-                                    </div>
-                                    <div className="flex space-x-2">
-                                        <input
-                                            type="radio"
-                                            name="meter_type"
-                                            onChange={() =>
-                                                setMeterType("postpaid")
-                                            }
-                                            value="postpaid"
-                                        />
-                                        <p className="font-bold">Postpaid</p>
-                                    </div>
-                                </div>
-
-                                <div className="form-group my-2">
-                                    {isValidating ? (
-                                        <button
-                                            onClick={() => {
-                                                setIsValidating(false);
-                                            }}
-                                            className="btn btn-light btn-block"
-                                            type="button"
-                                        >
-                                            <div
-                                                className="spinner-border-sm spinner-border text-primary"
-                                                role="status"
-                                            >
-                                                {/* <span class="sr-only">Loading...</span> */}
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="btn btn-primary btn-block font-bold"
-                                            onClick={handleProceed}
-                                        >
-                                            Proceed {">>"}
-                                        </button>
-                                    )}
-                                </div>
+                    <div>
+                        <p className="text-xs text-gray-600 m-2">
+                            Select Electricity Porvider
+                        </p>
+                        <SelectSearch
+                            options={planOptions}
+                            search={true}
+                            filterOptions={fuzzySearch}
+                            emptyMessage={"Plan Not Found"}
+                            placeholder={"Select provider"}
+                            onChange={handlePlanSelected}
+                            value={optionValue}
+                        />
+                        {errors.plan && (
+                            <div className="text-red-400 text-xs font-bold">
+                                {errors.plan}
                             </div>
                         )}
                     </div>
-                )}
+
+                    <div className="form-group flex flex-col space-y-1">
+                        <p className="text-xs text-gray-600 m-2">Amount</p>
+                        <div className="form-control-wrap">
+                            <input
+                                type="number"
+                                min={minElectricityValue}
+                                className={`w-full rounded border-gray-300 ${
+                                    errors.amount && "error"
+                                }`}
+                                value={amount}
+                                onChange={(e) => {
+                                    setAmount(e.target.value);
+                                    if (e.target.value >= minElectricityValue) {
+                                        handleError("amount", false);
+                                    }
+                                }}
+                                placeholder="Enter amount"
+                            />
+                            {errors.amount && (
+                                <div className="text-red-400 text-xs font-bold">
+                                    {errors.amount}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="form-group flex flex-col space-y-1">
+                        <p className="text-xs text-gray-600 m-2">Meter type</p>
+                        <div className="flex space-x-8">
+                            <div className="flex space-x-2">
+                                <input
+                                    type="radio"
+                                    name="meter_type"
+                                    onChange={() => {
+                                        setMeterType("prepaid");
+                                        handleError("meterType", false);
+                                    }}
+                                    value="prepaid"
+                                />
+                                <p className="">Prepaid</p>
+                            </div>
+                            <div className="flex space-x-2">
+                                <input
+                                    type="radio"
+                                    name="meter_type"
+                                    onChange={() => {
+                                        setMeterType("postpaid");
+                                        handleError("meterType", false);
+                                    }}
+                                    value="postpaid"
+                                />
+                                <p className="">Postpaid</p>
+                            </div>
+                        </div>
+                        {errors.meterType && (
+                            <div className="text-red-400 text-xs font-bold">
+                                {errors.meterType}
+                            </div>
+                        )}
+                    </div>
+
+                    <div>
+                        {submitting ? (
+                            <SpinButton />
+                        ) : (
+                            <button
+                                className="btn btn-primary btn-block"
+                                onClick={handleProceed}
+                            >
+                                Proceed
+                            </button>
+                        )}
+                    </div>
+                </div>
             </CardWrapper>
             <Modal modal={modal} closeModal={closeModal} />
         </MainLayout>
+    );
+}
+
+function Summary({ summary, handleSubmit }) {
+    const {
+        recipient,
+        selectedPlan,
+        amount,
+        charges,
+        discount,
+        total,
+        meterDetails,
+    } = summary;
+    console.log(summary);
+
+    return (
+        <div>
+            <div className="flex flex-col space-y-4">
+                <h2 className="text-center font-bold mb-0">Order Summary</h2>
+
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600  m-0">Recipient</h2>
+                        <p className="text-primary font-bold">{recipient}</p>
+                        <p className="text-primary text-xs">{meterDetails}</p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600  m-0">Plan</h2>
+                        <p className="text-primary font-bold">
+                            {selectedPlan.title}
+                        </p>
+                    </div>
+                </div>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600 font-bold text-xs text-gray-400 m-0">
+                            Service charge
+                        </h2>
+                        <p className="text-red-600 font-bold text-xs">
+                            {naira(charges)}
+                        </p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600 text-xs text-gray-400 m-0">
+                            Discount
+                        </h2>
+                        <p className="text-blue-400 text-xs font-bold">
+                            {naira((discount * amount) / 100)}
+                        </p>
+                        <p className="text-gray-400 text-xs">({discount}%)</p>
+                    </div>
+                </div>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600 font-bold text-xs text-gray-400 m-0">
+                            Order amount
+                        </h2>
+                        <p className="text-primary">{naira(amount)}</p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600 text-xs text-gray-400 m-0">
+                            Total
+                        </h2>
+                        <p className="text-primary text-xl font-bold">
+                            {naira(total)}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 

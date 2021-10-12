@@ -28,6 +28,9 @@ class DashboardController extends Controller
         
 
         $user = auth()->user()->load('agent');
+
+        // $user-> email_verified_at = null;
+        // $user->save();
         // $user->agent->has_paid = false;
         // $user->agent->save();
         // return $user->agent;

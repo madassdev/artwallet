@@ -88,6 +88,11 @@ function Home() {
                             link={route("buy.data")}
                             title="Data"
                         />
+                        <QuickLinkCard
+                            icon="mdi mdi-wallet"
+                            link={route("wallet.index")}
+                            title="Wallet"
+                        />
                     </div>
                 </div>
 
@@ -96,8 +101,8 @@ function Home() {
                         Transactions
                     </h5>
                 </div>
-                <Transactions type="all" openModal={openModal} />
-                <Modal modal={modal} closeModal={closeModal} /> */}
+                <Transactions type="all" openModal={openModal} /> */}
+                <Modal modal={modal} closeModal={closeModal} />
             </div>
         </MainLayout>
     );

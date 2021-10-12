@@ -788,7 +788,7 @@ class OrderController extends Controller
             ], 403);
         }
 
-        if ($recipient->id = $user->id) {
+        if ($recipient->id == $user->id) {
             return response()->json([
                 "success" => false,
                 "message" => "You cannot transfer to yourself!",

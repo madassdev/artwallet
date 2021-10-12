@@ -34,7 +34,6 @@ $sc = config('sc');
                 parseFloat(value).toLocaleString()
         }
         const ROUTE_BASENAME = "dashboard"
-        const PUBLIC_PATH = "{{ asset('transcorp')}}"
         const PUBLIC_CONFIG = @json($sc);
         const IMG_PATH = "{{ asset('images/')}}"
         const ASSET_PATH = "{{ asset('')}}"

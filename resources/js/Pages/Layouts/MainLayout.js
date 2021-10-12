@@ -115,8 +115,30 @@ function MainLayout(props) {
                                     : ""
                             }`}
                         >
-                            <i className="mdi mdi-cash-multiple mr-2"></i>
+                            <i className="mdi mdi-receipt mr-2"></i>
                             Pay Bills
+                        </Link>
+                        <Link
+                            href={route("wallet.index")}
+                            className={`nav-link ${
+                                url.startsWith(prefix + "/wallet")
+                                    ? "nav-active"
+                                    : ""
+                            }`}
+                        >
+                            <i className="mdi mdi-wallet mr-2"></i>
+                            Wallet
+                        </Link>
+                        <Link
+                            href={route("auth.settings.index")}
+                            className={`nav-link ${
+                                url.startsWith(prefix + "/settings")
+                                    ? "nav-active"
+                                    : ""
+                            }`}
+                        >
+                            <i className="mdi mdi-account-cog mr-2"></i>
+                            Account Settings
                         </Link>
                         {auth.user.is_admin && (
                             <Link

@@ -269,23 +269,17 @@ function Transactions(props) {
                 <div onClick={() => handleRowClicked(t)} className="tb-ord-id">
                     <p
                         className={`font-bold ${
-                            t.status === "complete"
-                                ? "text-success"
+                            t.status === "complete" || t.status === "success"
+                                ? "text-green-400"
                                 : t.status === "failed"
-                                ? "text-danger"
-                                : "text-warning"
+                                ? "text-red-500"
+                                : "text-yellow-400"
                         }`}
                     >
                         {naira(t.amount)}
                     </p>
                     <span
-                        className={`badge badge-dot capitalize text-xs ${
-                            t.status === "complete"
-                                ? "badge-success"
-                                : t.status === "failed"
-                                ? "badge-danger"
-                                : "badge-warning"
-                        }`}
+                        className={`badge badge-dot capitalize text-xs text-gray-300`}
                     >
                         {t.status}
                     </span>

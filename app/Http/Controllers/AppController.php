@@ -64,4 +64,9 @@ class AppController extends Controller
 
         return dd(Artisan::output());
     }
+
+    public function mockTest()
+    {
+        return isMock();
+    }
 }

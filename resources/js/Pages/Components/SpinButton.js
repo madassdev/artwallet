@@ -3,8 +3,8 @@ import React from "react";
 function SpinButton(props) {
     return (
         <button
-            className="btn bg-purple-200 btn-block flex items-center justify-center"
-            // onClick={handleProceed}
+            className="btn bg-purple-200 btn-block flex items-center justify-center" type="button"
+            // onClick={handleProceed} 
         >
             <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-purple-600 " viewBox="0 0 24 24">
                 <circle

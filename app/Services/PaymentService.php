@@ -68,7 +68,7 @@ class PaymentService
         // }
 
         $paystack_secret_key = SiteConfig::where('key', 'paystack_secret_key_live')->first()->value;
-        if (env("APP_ENV") == "local") {
+        if (isMock()) {
             $paystack_secret_key = "sk_test_cc8f2f5a5dc2b79a638e93b3d42306a53fb13f3d";
         }
         return $paystack_secret_key;

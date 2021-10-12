@@ -11,11 +11,12 @@ import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
 import SpinButton from "../Components/SpinButton";
 import OrderSummary from "./OrderSummary";
+import { discountValue, getDiscountValue, naira } from "@/util/functions";
 
 function Airtime() {
-    const charges = parseInt(PUBLIC_CONFIG.data_fees ?? 0);
-    const minAirtimeValue = 100;
-    const { auth, providers } = usePage().props;
+    const { auth, providers, discount, charges, minimum_value } =
+        usePage().props;
+    const minAirtimeValue = minimum_value;
 
     const [modal, setModal] = useState({
         show: false,
@@ -29,11 +30,12 @@ function Airtime() {
         amount: false,
     };
     const [submitting, setSubmitting] = useState(false);
-    const [amount, setAmount] = useState(50);
+    const [amount, setAmount] = useState(minAirtimeValue);
     const [errors, setErrors] = useState(defaultErrors);
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [pin, setPin] = useState("");
     const [recipient, setRecipient] = useState("");
+    // const [recipient, setRecipient] = useState("08136051712");
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [planOptions, setPlanOptions] = useState([]);
     const [optionValue, setOptionValue] = useState(null);
@@ -96,6 +98,13 @@ function Airtime() {
             // });
             return;
         }
+
+        let totalAmt =
+            parseFloat(amount) +
+            parseFloat(charges) -
+            parseFloat(discountValue(discount, amount, auth.user));
+        console.log(totalAmt);
+
         setModal((modal) => ({
             ...modal,
             show: true,
@@ -104,17 +113,19 @@ function Airtime() {
             content: (
                 <OrderSummary
                     handleSubmit={handleModalAction}
-                    amount={parseInt(amount) + parseInt(charges)}
+                    amount={totalAmt}
                     cancelAction={closeModal}
                 >
-                    {/* <Summary
+                    <Summary
                         summary={{
-                            amount: selectedPlan.price,
+                            amount,
                             recipient,
                             selectedPlan,
                             charges,
+                            discount: getDiscountValue(discount, auth.user),
+                            total: totalAmt,
                         }}
-                    /> */}
+                    />
                 </OrderSummary>
             ),
         }));
@@ -183,7 +194,7 @@ function Airtime() {
                     </div>
                     <div>
                         <p className="text-xs text-gray-600 m-2">
-                            Select Data Provider
+                            Select Airtime Provider
                         </p>
                         <div className="grid grid-cols-4 md:gap-4 gap-3">
                             {providers.map((p) => (
@@ -226,7 +237,7 @@ function Airtime() {
                                 type="number"
                                 min={minAirtimeValue}
                                 className={`w-full rounded border-gray-300 ${
-                                    errors.recipient && "error"
+                                    errors.amount && "error"
                                 }`}
                                 value={amount}
                                 onChange={(e) => {
@@ -264,38 +275,64 @@ function Airtime() {
 }
 
 function Summary({ summary, handleSubmit }) {
-    const { recipient, selectedPlan, amount, charges } = summary;
+    const { recipient, selectedPlan, amount, charges, discount, total } =
+        summary;
+    console.log(summary);
 
     return (
         <div>
             <div className="flex flex-col space-y-4">
-                <h2 className="text-center font-bold mb-0">
-                    Transaction Summary
-                </h2>
+                <h2 className="text-center font-bold mb-0">Order Summary</h2>
 
-                <div>
-                    <h2 className="font-bold m-0">Recipient</h2>
-                    <p className="text-gray-600">{recipient}</p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600  m-0">Recipient</h2>
+                        <p className="text-primary font-bold">{recipient}</p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600  m-0">Plan</h2>
+                        <p className="text-primary font-bold">
+                            {selectedPlan.title}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h2 className="font-bold m-0">Plan</h2>
-                    <p className="text-gray-600">{selectedPlan.title}</p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600 font-bold text-xs text-gray-400 m-0">
+                            Service charge
+                        </h2>
+                        <p className="text-red-600 font-bold text-xs">
+                            {naira(charges)}
+                        </p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600 text-xs text-gray-400 m-0">
+                            Discount
+                        </h2>
+                        <p className="text-blue-400 text-xs font-bold">
+                            {naira((discount * amount) / 100)}
+                        </p>
+                        <p className="text-gray-400 text-xs">({discount}%)</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 className="font-bold m-0">Amount</h2>
-                    <p className="text-gray-600">{naira(amount)}</p>
-                </div>
-                <div>
-                    <h2 className="font-bold text-xs text-gray-400 m-0">
-                        Service charge
-                    </h2>
-                    <p className="text-warning text-xs">{naira(charges)}</p>
-                </div>
-                <div>
-                    <h2 className="font-bold m-0">Total</h2>
-                    <p className="text-primary font-bold">
-                        {naira(amount + charges)}
-                    </p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-gray-600 font-bold text-xs text-gray-400 m-0">
+                            Order amount
+                        </h2>
+                        <p className="text-primary">{naira(amount)}</p>
+                    </div>
+
+                    <div className="text-right">
+                        <h2 className="text-gray-600 text-xs text-gray-400 m-0">
+                            Total
+                        </h2>
+                        <p className="text-primary text-xl font-bold">
+                            {naira(total)}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

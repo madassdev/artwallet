@@ -46,6 +46,7 @@ class Provider extends Model
             "dstv" => asset('images/providers/dstv_logo.png'),
             "gotv" => asset('images/providers/gotv_logo.png'),
             "startimes" => asset('images/providers/startimes_logo.png'),
+            "smile-direct" => asset('images/providers/smile_logo.png'),
         ];
 
         return @$logos[$this->slug];

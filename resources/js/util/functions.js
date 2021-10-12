@@ -1,5 +1,5 @@
 export const naira = (value) => {
-    return "₦" + Math.round(parseFloat(value)).toLocaleString();
+    return "₦" + (parseFloat(value)).toLocaleString();
 };
 
 export const roi = (plan) => {
@@ -30,6 +30,29 @@ export const paintStatus = (status) => {
     }
 };
 
-export function deslug(value){
-    return value.replace(/_/g, ' ').replace(/-/g, ' ')
+export function deslug(value) {
+    return value.replace(/_/g, " ").replace(/-/g, " ");
+}
+
+export function discountValue(discount, amt, usr = null) {
+    let final = 0;
+    let discount_value = getDiscountValue(discount, usr);
+
+    if (discount.type === "percentage") {
+        final = (discount_value / 100) * amt;
+        return final;
+    }
+
+    if (discount.type === "fixed") {
+        final = amt - discount_value;
+        return final;
+    }
+
+    return final;
+}
+
+export function getDiscountValue(discount, usr = null) {
+    return usr?.is_agent
+        ? discount.value.agent
+        : discount.value.user;
 }

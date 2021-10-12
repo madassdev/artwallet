@@ -16,6 +16,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+        // sleep(3);
         return inertia('User/Home');
     }
 
@@ -36,4 +37,20 @@ class DashboardController extends Controller
             "code" => "PIN_INCORRECT"
         ], 403);
     }
+
+    public function showVerify()
+    {
+        if (!auth()->user()->email_verified_at) {
+            return inertia("Auth/Verify");
+        }
+
+        return redirect(route('dashboard.index'))->withSuccess("Account verified successfully!");
+    }
+
+    public function settings()
+    {
+        return inertia("User/Settings");
+    }
+
+
 }

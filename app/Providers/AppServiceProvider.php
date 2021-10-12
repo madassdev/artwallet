@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
         mock_buy(env("APP_ENV") === "local");
+        // dd(isMock());
         try {
             //code...
             $sc = SiteConfig::wherePublic(true)->pluck('value', 'key');

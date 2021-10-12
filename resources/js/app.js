@@ -15,4 +15,4 @@ render(
     el
 );
 
-InertiaProgress.init({ color: '#9d72ff' });
+InertiaProgress.init({ color: '#ff8000' });

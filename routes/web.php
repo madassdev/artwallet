@@ -25,7 +25,8 @@ use Inertia\Inertia;
 if (env("APP_ENV")) {
     // if (env("APP_ENV") == "local") {
     Route::prefix('demo')->middleware(['auth', 'verified'])->namespace('Inertia')->group(function () {
-        mock_buy();
+        // mock_buy();
+
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
         Route::name('buy.')->prefix('buy')->group(function () {
             Route::get('/', 'BuyController@buy')->name('index');
@@ -36,18 +37,34 @@ if (env("APP_ENV")) {
             Route::get('/', 'BuyController@bills')->name('index');
             Route::get('/cable-tv', 'BuyController@buyCableTv')->name('cable-tv');
             Route::get('/electricity', 'BuyController@buyElectricity')->name('electricity');
-            Route::get('/internet', 'BuyController@buyElectricity')->name('internet');
+            Route::get('/internet', 'BuyController@buyInternet')->name('internet');
         });
         Route::name('orders.')->prefix('buy')->group(function () {
             Route::post('/airtime', 'OrderController@buyAirtime')->name('airtime.buy');
             Route::post('/data', 'OrderController@buyData')->name('data.buy');
             Route::post('/cable-tv', 'OrderController@buyCableTv')->name('cable-tv.buy');
             Route::post('/electricity', 'OrderController@buyElectricity')->name('electricity.buy');
+            Route::post('/internet', 'OrderController@buyInternet')->name('internet.buy');
+            Route::post('/transfer', 'OrderController@transfer')->name('transfer');
         });
-        Route::post('/auth/check-pin', 'DashboardController@checkPin')->name('check-pin');
+        Route::name('wallet.')->prefix('wallet')->group(function () {
+            Route::get('/', 'WalletController@index')->name('index');
+            Route::get('/fund', 'WalletController@fund')->name('fund');
+            Route::get('/transfer', 'WalletController@transfer')->name('transfer');
+            Route::get('/history', 'WalletController@history')->name('history');
+            Route::post('/fund/verify-paystack', 'WalletController@verifyPaystack')->name('fund.verify.paystack');
+        });
+        Route::name('auth.')->prefix('auth')->group(function () {
+            Route::post('/check-pin', 'DashboardController@checkPin')->name('check-pin');
+            Route::get('/settings', 'DashboardController@settings')->name('settings.index');
+        });
     });
 }
-Route::get('/dashboard/auth/verify', 'DashboardController@index')->name('verification.show')->middleware('auth');
+// Route::get('/verify', 'DashboardController@showVerify')->name('verification.show')->middleware('auth');
+Route::name('validation.')->prefix('validation')->group(function () {
+    Route::post('/user/mobile', 'VerificationController@userMobile')->name('user.mobile');
+});
+Route::get('/dashboard/auth/verify', 'Inertia\DashboardController@showVerify')->name('verification.show')->middleware('auth');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
@@ -83,6 +100,7 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::post('/test', 'AppController@test');
+Route::get('/test', 'AppController@Mocktest');
 Route::get('/migrate', 'AppController@migrate');
 Route::get('/seed', 'AppController@seed');
 

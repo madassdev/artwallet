@@ -14,7 +14,7 @@ function OrderSummary({ handleSubmit, amount, children, cancelAction }) {
         setSubmitting(true);
         setPinError(false);
         axios
-            .post(route("check-pin"), { pin })
+            .post(route("auth.check-pin"), { pin })
             .then((data) => {
                 handleSubmit(pin);
                 // cancelAction();
@@ -47,6 +47,7 @@ function OrderSummary({ handleSubmit, amount, children, cancelAction }) {
                             secret
                             onChange={(value, index) => {
                                 setPin(value);
+                                setPinError('')
                             }}
                             type="numeric"
                             inputMode="number"
@@ -99,6 +100,9 @@ function OrderSummary({ handleSubmit, amount, children, cancelAction }) {
                         <button
                             className="btn btn-block btn-light"
                             type="button"
+                            onClick={()=>{
+                                setPinError('Enter your 4 digit PIN')
+                            }}
                         >
                             Pay {naira(amount)}
                         </button>
@@ -109,7 +113,7 @@ function OrderSummary({ handleSubmit, amount, children, cancelAction }) {
                         className="mt-12 cursor-pointer"
                         onClick={cancelAction}
                     >
-                        <p className="h-8 w-8 rounded-full text-sm shadow mx-auto flex items-center justify-center bg-red-300 text-red-600">
+                        <p className="h-8 w-8 rounded-full text-sm shadow mx-auto flex items-center justify-center text-red-600">
                             <i className="mdi mdi-close"></i>
                         </p>
                         <p className="text-xs text-gray-600 text-center">

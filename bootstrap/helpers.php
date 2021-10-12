@@ -17,10 +17,6 @@ function isMock()
     return config('mock_buy');
 }
 
-function dataPlans()
-{
-    return Plan::with('meta')->get()->groupBy('provider_id');
-}
 
 function onboardBalance()
 {
@@ -48,40 +44,22 @@ function revertNumberFormat($value)
     return (float) str_replace(",", "", $value);
 }
 
-function minimum_airtime()
-{
-    return 50;
-}
 
-function minimum_electricity()
-{
-    return 100;
-}
 
-function agent_price($amount)
+function agent_price($amount, $package = [
+    "type" => "percentage",
+    "value" => [
+        "user" => 0,
+        "agent" => 0
+    ]
+])
 {
-    $discount = 3;
+    $discount = $package["value"]["agent"];
     return ((100 - $discount) / 100) * $amount;
 }
-function data_price($plan, $user)
-{
-    $price = $plan->price;
-    if ($user->hasRole('agent')) {
-        $price = agent_price($price);
-    }
 
-    return ceil($price);
-}
 
-function cable_tv_price($plan, $user)
-{
-    $price = $plan->price;
-    if ($user->hasRole('agent')) {
-        $price = agent_price($price);
-    }
-
-    return ceil($price);
-}
+// RECHARGE PRINT
 
 function recharge_print_price($plan, $user, $quantity = 1)
 {
@@ -94,29 +72,55 @@ function recharge_print_price($plan, $user, $quantity = 1)
     return ceil($price);
 }
 
+function recharge_print_charges()
+{
+    return 50;
+}
+
+
+
+//INTERNET
 function internet_price($plan, $user)
 {
     $price = $plan->price;
     if ($user->hasRole('agent')) {
-        $price = agent_price($price);
+        $price = agent_price($price, internet_discount());
     }
 
     return ceil($price);
 }
 
-function airtime_price($amount, $user)
+function internet_charges()
 {
-    $price = $amount;
-    if ($user->hasRole('agent')) {
-        $price = agent_price($price);
-    }
+    return 50;
+}
 
-    return ceil($price);
+function internet_discount()
+{
+    return [
+        "type" => "percentage",
+        "value" => [
+            "user" => 0,
+            "agent" => 3
+        ]
+    ];
+}
+
+
+// ELECTRICITY
+function minimum_electricity()
+{
+    return 100;
 }
 
 function electricity_price($amount, $user)
 {
-    return $amount;
+    $price = $amount;
+    if ($user->hasRole('agent')) {
+        $price = agent_price($price, electricity_discount());
+    }
+
+    return ceil($price);
 }
 
 function electricity_charges()
@@ -124,10 +128,57 @@ function electricity_charges()
     return 50;
 }
 
+function electricity_discount()
+{
+    return [
+        "type" => "percentage",
+        "value" => [
+            "user" => 0,
+            "agent" => 14
+        ]
+    ];
+}
+
+
+// CABLE TV
+
 function cable_tv_charges()
 {
     return 50;
 }
+
+
+function cable_tv_price($plan, $user)
+{
+    $price = $plan->price;
+    if ($user->hasRole('agent')) {
+        $price = agent_price($price, cable_tv_discount());
+    }
+
+    return ceil($price);
+}
+
+
+
+function cable_tv_discount()
+{
+    return [
+        "type" => "percentage",
+        "value" => [
+            "user" => 0,
+            "agent" => 0
+        ]
+    ];
+}
+
+
+//DATA
+
+function dataPlans()
+{
+    return Plan::with('meta')->get()->groupBy('provider_id');
+}
+
 
 function data_charges()
 {
@@ -135,12 +186,44 @@ function data_charges()
 }
 
 
-function internet_charges()
+function data_price($plan, $user)
 {
-    return 50;
+    $price = $plan->price;
+    if ($user->hasRole('agent')) {
+        $price = agent_price($price, data_discount());
+    }
+
+    return ($price);
 }
 
-function recharge_print_charges()
+
+function data_discount()
+{
+    return [
+        "type" => "percentage",
+        "value" => [
+            "user" => 1,
+            "agent" => 3
+        ]
+    ];
+}
+
+
+
+//AIRTIME
+
+function airtime_price($amount, $user)
+{
+    $price = $amount;
+    if ($user->hasRole('agent')) {
+        $price = agent_price($price, airtime_discount());
+    }
+
+    return ceil($price);
+}
+
+
+function minimum_airtime()
 {
     return 50;
 }
@@ -149,4 +232,15 @@ function recharge_print_charges()
 function airtime_charges()
 {
     return 0;
+}
+
+function airtime_discount()
+{
+    return [
+        "type" => "percentage",
+        "value" => [
+            "user" => 1,
+            "agent" => 3
+        ]
+    ];
 }
