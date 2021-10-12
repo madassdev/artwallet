@@ -72,7 +72,7 @@ function Airtime() {
             c++;
         }
         if (amount < minAirtimeValue) {
-            handleError("amount", "Please enter amount greater than 200");
+            handleError("amount", "Please enter amount greater than " +naira(minAirtimeValue));
             c++;
         }
 

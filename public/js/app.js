@@ -5854,7 +5854,7 @@ function Airtime() {
     }
 
     if (amount < minAirtimeValue) {
-      handleError("amount", "Please enter amount greater than 200");
+      handleError("amount", "Please enter amount greater than " + (0,_util_functions__WEBPACK_IMPORTED_MODULE_11__.naira)(minAirtimeValue));
       c++;
     }
 
