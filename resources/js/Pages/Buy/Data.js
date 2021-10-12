@@ -9,13 +9,14 @@ import SearchSelect from "../Components/SearchSelect";
 import Transactions from "../Components/Transactions";
 import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
+import InsufficientBalance from "../Components/InsufficientBalance";
 import SpinButton from "../Components/SpinButton";
 import OrderSummary from "./OrderSummary";
 import { discountValue, getDiscountValue } from "@/util/functions";
 
 function Data() {
     const { auth, providers, discount, charges } = usePage().props;
-    console.log(charges)
+    console.log(charges);
     const [modal, setModal] = useState({
         show: false,
         header: "Header",
@@ -31,8 +32,8 @@ function Data() {
     const [errors, setErrors] = useState(defaultErrors);
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [pin, setPin] = useState("");
-    const [recipient, setRecipient] = useState("08136051712");
-    // const [recipient, setRecipient] = useState("");
+    // const [recipient, setRecipient] = useState("08136051712");
+    const [recipient, setRecipient] = useState("");
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [planOptions, setPlanOptions] = useState([]);
     const [optionValue, setOptionValue] = useState(null);
@@ -88,6 +89,20 @@ function Data() {
         setModal({ ...modal, show: false });
     };
 
+    function openInsufficientModal(totalAmt) {
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            header: "Insufficient Balance",
+            content: (
+                <InsufficientBalance
+                    expected={totalAmt}
+                    balance={auth.user.balance}
+                />
+            ),
+        }));
+    }
+
     const handleProceed = (e) => {
         setErrors(defaultErrors);
         if (!validate()) {
@@ -96,12 +111,17 @@ function Data() {
             // });
             return;
         }
+
         let totalAmt =
             parseFloat(selectedPlan.price) +
             parseFloat(charges) -
             parseFloat(discountValue(discount, selectedPlan.price, auth.user));
         console.log(totalAmt);
 
+        if (totalAmt > auth.user.balance) {
+            openInsufficientModal(totalAmt);
+            return;
+        }
         setModal((modal) => ({
             ...modal,
             show: true,

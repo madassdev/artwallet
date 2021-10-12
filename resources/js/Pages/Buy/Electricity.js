@@ -12,12 +12,13 @@ import CardWrapper from "../Layouts/Partials/CardWrapper";
 import SpinButton from "../Components/SpinButton";
 import OrderSummary from "./OrderSummary";
 import axios from "axios";
+import InsufficientBalance from "../Components/InsufficientBalance";
 import { discountValue, getDiscountValue } from "@/util/functions";
 
 function Electricity() {
     const { auth, providers, discount, charges, minimum_value } =
         usePage().props;
-    console.log(charges)
+    console.log(charges);
     const minElectricityValue = minimum_value;
 
     const [modal, setModal] = useState({
@@ -79,7 +80,10 @@ function Electricity() {
             c++;
         }
         if (amount < minElectricityValue) {
-            handleError("amount", "Please enter amount greater than " +naira(minElectricityValue));
+            handleError(
+                "amount",
+                "Please enter amount greater than " + naira(minElectricityValue)
+            );
             c++;
         }
 
@@ -100,6 +104,34 @@ function Electricity() {
         setModal({ ...modal, show: false });
     };
 
+    function openInsufficientModal(totalAmt) {
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            header: "Insufficient Balance",
+            content: (
+                <InsufficientBalance
+                    expected={totalAmt}
+                    balance={auth.user.balance}
+                />
+            ),
+        }));
+    }
+
+    function openInsufficientModal(totalAmt) {
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            header: "Insufficient Balance",
+            content: (
+                <InsufficientBalance
+                    expected={totalAmt}
+                    balance={auth.user.balance}
+                />
+            ),
+        }));
+    }
+
     const handleProceed = (e) => {
         setErrors(defaultErrors);
         if (!validate()) {
@@ -108,10 +140,17 @@ function Electricity() {
             // });
             return;
         }
+
         let totalAmt =
             parseFloat(amount) +
             parseFloat(charges) -
             parseFloat(discountValue(discount, amount, auth.user));
+        console.log(totalAmt);
+
+        if (totalAmt > auth.user.balance) {
+            openInsufficientModal(totalAmt);
+            return;
+        }
         setSubmitting(true);
         axios
             .post("/orders/electricity/verify", {

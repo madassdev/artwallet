@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inertia;
 
+use App\Events\PinSet;
 use App\Http\Controllers\Controller;
 use App\Services\MobileAirtimeService;
 use Illuminate\Http\Request;
@@ -17,7 +18,28 @@ class DashboardController extends Controller
     public function index()
     {
         // sleep(3);
+        // auth()->user()->balance = 2000;
+        // auth()->user()->save();
         return inertia('User/Home');
+    }
+
+    public function setPin(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            "pin" => "required|numeric|digits:4"
+        ]);
+
+        $user->pin = bcrypt($request->pin);
+        $user->pin_set = true;
+        $user->save();
+
+        PinSet::dispatch($user);
+        return redirect(route('dashboard.index'))->withSuccess('PIN saved successfully!');
+        return response()->json([
+            "success" => true,
+            "message" => "PIN created successfully",
+        ],);
     }
 
     public function checkPin(Request $request)
@@ -51,6 +73,4 @@ class DashboardController extends Controller
     {
         return inertia("User/Settings");
     }
-
-
 }

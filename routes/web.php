@@ -56,6 +56,7 @@ if (env("APP_ENV")) {
         });
         Route::name('auth.')->prefix('auth')->group(function () {
             Route::post('/check-pin', 'DashboardController@checkPin')->name('check-pin');
+            Route::post('/set-pin', 'DashboardController@setPin')->name('set-pin');
             Route::get('/settings', 'DashboardController@settings')->name('settings.index');
         });
     });

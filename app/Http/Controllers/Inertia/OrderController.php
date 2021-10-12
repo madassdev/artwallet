@@ -58,6 +58,11 @@ class OrderController extends Controller
         // return $amount;
 
         if ($user->balance < $amount + data_charges()) {
+            return redirect()->back()->withErrors([
+                "message" => "User does not have enough balance to make this order",
+                "code" => "INSUFFICIENT_BALANCE"
+            ]);
+
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this plan"
@@ -499,6 +504,10 @@ class OrderController extends Controller
         $plan = Plan::findOrFail($request->plan_id);
 
         if ($request->amount < minimum_airtime()) {
+            return redirect()->back()->withErrors([
+                "message" => "Minimum of " . naira(minimum_airtime()) . " is required.",
+                "code" => "INSUFFICIENT_BALANCE"
+            ]);
             return response()->json([
                 "success" => false,
                 "message" => "Minimum of " . naira(minimum_airtime()) . " is required.",
@@ -508,6 +517,10 @@ class OrderController extends Controller
         $amount = airtime_price($request->amount, $user);
         // return compact('amount', 'plan', 'charges');
         if ($user->balance < $amount + airtime_charges()) {
+            return redirect()->back()->withErrors([
+                "message" => "User does not have enough balance to make this order",
+                "code" => "INSUFFICIENT_BALANCE"
+            ]);
             return response()->json([
                 "success" => false,
                 "message" => "User does not have enough balance to purchase this amount"

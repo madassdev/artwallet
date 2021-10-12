@@ -1,6 +1,8 @@
 import { Link, usePage } from "@inertiajs/inertia-react";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Modal from "../Components/Modal";
+import SetPin from '../User/SetPin'
 
 function MainLayout(props) {
     const [openNav, setOpenNav] = useState(true);
@@ -12,9 +14,26 @@ function MainLayout(props) {
     const prefix = "/demo";
     const { auth, flash } = page.props;
     const [flashMessage, setFlashMessage] = useState(null);
+    const [modal, setModal] = useState({
+        show: false,
+        header: "Header",
+        content: "Content",
+    });
+    const closeModal = () => {
+        setModal({ ...modal, show: false });
+    };
     const url = page.url;
     useEffect(() => {
         setFlashMessage(flash);
+        if (!auth.user.pin_set) {
+            setModal((modal) => ({
+                ...modal,
+                show: true,
+                noClose: true,
+                header: "Create 4 digit PIN",
+                content:<SetPin/>,
+            }));
+        }
     }, []);
     function clearFlashMessages() {
         setFlashMessage(null);
@@ -149,6 +168,13 @@ function MainLayout(props) {
                             <i className="mdi mdi-account-cog mr-2"></i>
                             Account Settings
                         </Link>
+                        <Link
+                            href={'/logout'}
+                            className={`nav-link`}
+                        >
+                            <i className="mdi mdi-logout mr-2"></i>
+                            Logout
+                        </Link>
                         {auth.user.is_admin && (
                             <Link
                                 href={route("dashboard.index")}
@@ -182,6 +208,7 @@ function MainLayout(props) {
                         <div className="w-full">
                             <div className="p-5">{props.children}</div>
                         </div>
+                        <Modal modal={modal} closeModal={closeModal} />
                     </div>
                     {/* <div className="w-80 bg-white p-3 hidden md:flex md:flex-col md:space-y-8">
                     <div className="bg-red-200 text-white rounded-lg shadow p-3 flex flex-col space-y-4">

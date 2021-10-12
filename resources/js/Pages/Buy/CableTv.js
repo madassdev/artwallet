@@ -13,6 +13,7 @@ import SpinButton from "../Components/SpinButton";
 import OrderSummary from "./OrderSummary";
 import axios from "axios";
 import { discountValue, getDiscountValue } from "@/util/functions";
+import InsufficientBalance from "../Components/InsufficientBalance";
 
 function CableTv() {
     const { auth, providers, discount, charges } = usePage().props;
@@ -90,6 +91,20 @@ function CableTv() {
         setModal({ ...modal, show: false });
     };
 
+    function openInsufficientModal(totalAmt) {
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            header: "Insufficient Balance",
+            content: (
+                <InsufficientBalance
+                    expected={totalAmt}
+                    balance={auth.user.balance}
+                />
+            ),
+        }));
+    }
+
     const handleProceed = (e) => {
         setErrors(defaultErrors);
         if (!validate()) {
@@ -98,11 +113,17 @@ function CableTv() {
             // });
             return;
         }
+
         let totalAmt =
             parseFloat(selectedPlan.price) +
             parseFloat(charges) -
             parseFloat(discountValue(discount, selectedPlan.price, auth.user));
+        console.log(totalAmt);
 
+        if (totalAmt > auth.user.balance) {
+            openInsufficientModal(totalAmt);
+            return;
+        }
         setSubmitting(true);
         axios
             .post("/orders/cable-tv/verify", {

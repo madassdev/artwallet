@@ -10,19 +10,20 @@ import Transactions from "../Components/Transactions";
 import MainLayout from "../Layouts/MainLayout";
 import CardWrapper from "../Layouts/Partials/CardWrapper";
 import SpinButton from "../Components/SpinButton";
+import InsufficientBalance from "../Components/InsufficientBalance";
 import OrderSummary from "./OrderSummary";
 import { discountValue, getDiscountValue, naira } from "@/util/functions";
 
 function Airtime() {
     const { auth, providers, discount, charges, minimum_value } =
         usePage().props;
-    console.log(charges)
+    console.log(charges);
     const minAirtimeValue = minimum_value;
 
     const [modal, setModal] = useState({
         show: false,
         header: "Header",
-        content: "Content",
+        content: null,
     });
 
     const defaultErrors = {
@@ -35,8 +36,8 @@ function Airtime() {
     const [errors, setErrors] = useState(defaultErrors);
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [pin, setPin] = useState("");
-    const [recipient, setRecipient] = useState("");
-    // const [recipient, setRecipient] = useState("08136051712");
+    // const [recipient, setRecipient] = useState("");
+    const [recipient, setRecipient] = useState("08136051712");
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [planOptions, setPlanOptions] = useState([]);
     const [optionValue, setOptionValue] = useState(null);
@@ -52,6 +53,7 @@ function Airtime() {
         setOptionValue(opt[0].value);
         setPlanOptions(opt);
     };
+    
 
     function handleError(error, message) {
         setErrors((values) => ({
@@ -72,7 +74,10 @@ function Airtime() {
             c++;
         }
         if (amount < minAirtimeValue) {
-            handleError("amount", "Please enter amount greater than " +naira(minAirtimeValue));
+            handleError(
+                "amount",
+                "Please enter amount greater than " + naira(minAirtimeValue)
+            );
             c++;
         }
 
@@ -91,6 +96,20 @@ function Airtime() {
         setModal({ ...modal, show: false });
     };
 
+    function openInsufficientModal(totalAmt) {
+        setModal((modal) => ({
+            ...modal,
+            show: true,
+            header: "Insufficient Balance",
+            content: (
+                <InsufficientBalance
+                    expected={totalAmt}
+                    balance={auth.user.balance}
+                />
+            ),
+        }));
+    }
+
     const handleProceed = (e) => {
         setErrors(defaultErrors);
         if (!validate()) {
@@ -105,6 +124,11 @@ function Airtime() {
             parseFloat(charges) -
             parseFloat(discountValue(discount, amount, auth.user));
         console.log(totalAmt);
+
+        if (totalAmt > auth.user.balance) {
+            openInsufficientModal(totalAmt);
+            return;
+        }
 
         setModal((modal) => ({
             ...modal,
@@ -149,9 +173,13 @@ function Airtime() {
             {
                 onError: (error) => {
                     setSubmitting(false);
-                    console.log(error);
                     toast.error(error.message, {
-                        position: "top-center",
+                        position: "bottom-center",
+                        style: {
+                            background: "rgba(185, 16, 16,1)",
+                            color: "#fff",
+                            padding: "20px",
+                        },
                     });
                 },
             }
