@@ -16,6 +16,7 @@ import { discountValue, getDiscountValue } from "@/util/functions";
 
 function Internet() {
     const { auth, providers, discount, charges } = usePage().props;
+    console.log(charges)
 
     const [modal, setModal] = useState({
         show: false,

@@ -16,6 +16,7 @@ import { discountValue, getDiscountValue } from "@/util/functions";
 
 function CableTv() {
     const { auth, providers, discount, charges } = usePage().props;
+    console.log(charges);
 
     const [modal, setModal] = useState({
         show: false,

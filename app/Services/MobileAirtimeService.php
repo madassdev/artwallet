@@ -65,7 +65,7 @@ class MobileAirtimeService
         return [
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response,
             "request" => ["url" => $url, "params" => $params]
 
@@ -97,7 +97,7 @@ class MobileAirtimeService
         return [
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response,
             "request" => ["url" => $url, "params" => $params]
 
@@ -206,7 +206,7 @@ class MobileAirtimeService
         return [
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response,
             "request" => ["url" => $url, "params" => $params]
 
@@ -321,7 +321,7 @@ class MobileAirtimeService
         return [
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response,
             "request" => ["url" => $url, "params" => $params]
         ];
@@ -352,7 +352,7 @@ class MobileAirtimeService
         return [
             "success" => $response['status'] === "ORDER_RECEIVED",
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response,
             "request" => ["url" => $url, "params" => $params]
 
@@ -456,7 +456,7 @@ class MobileAirtimeService
         return [
             "success" => $response['code'] === 100,
             "message" => $response['status'],
-            "code" => "CLUBKONNECT_ERROR_CODE",
+            "code" => "CLUBKONNECT_RESPONSE_CODE",
             "api_response" => $response
         ];
         return $response;

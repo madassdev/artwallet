@@ -58,6 +58,18 @@ function agent_price($amount, $package = [
     return ((100 - $discount) / 100) * $amount;
 }
 
+function user_price($amount, $package = [
+    "type" => "percentage",
+    "value" => [
+        "user" => 0,
+        "agent" => 0
+    ]
+])
+{
+    $discount = $package["value"]["user"];
+    return ((100 - $discount) / 100) * $amount;
+}
+
 
 // RECHARGE PRINT
 
@@ -92,6 +104,12 @@ function internet_price($plan, $user)
 
 function internet_charges()
 {
+    $user = auth()->user();
+    if ($user->hasRole('agent')) {
+        return 50;
+    } else {
+        return 100;
+    };
     return 50;
 }
 
@@ -101,7 +119,7 @@ function internet_discount()
         "type" => "percentage",
         "value" => [
             "user" => 0,
-            "agent" => 3
+            "agent" => 0
         ]
     ];
 }
@@ -125,6 +143,12 @@ function electricity_price($amount, $user)
 
 function electricity_charges()
 {
+    $user = auth()->user();
+    if ($user->hasRole('agent')) {
+        return 50;
+    } else {
+        return 100;
+    };
     return 50;
 }
 
@@ -134,7 +158,7 @@ function electricity_discount()
         "type" => "percentage",
         "value" => [
             "user" => 0,
-            "agent" => 14
+            "agent" => 0
         ]
     ];
 }
@@ -144,7 +168,12 @@ function electricity_discount()
 
 function cable_tv_charges()
 {
-    return 50;
+    $user = auth()->user();
+    if ($user->hasRole('agent')) {
+        return 50;
+    } else {
+        return 100;
+    };
 }
 
 
@@ -183,6 +212,12 @@ function dataPlans()
 function data_charges()
 {
     return 0;
+    $user = auth()->user();
+    if ($user->hasRole('agent')) {
+        return 50;
+    } else {
+        return 100;
+    };
 }
 
 
@@ -191,6 +226,8 @@ function data_price($plan, $user)
     $price = $plan->price;
     if ($user->hasRole('agent')) {
         $price = agent_price($price, data_discount());
+    } else {
+        $price = user_price($price, data_discount());
     }
 
     return ($price);
@@ -203,7 +240,7 @@ function data_discount()
         "type" => "percentage",
         "value" => [
             "user" => 1,
-            "agent" => 3
+            "agent" => 3.5
         ]
     ];
 }
@@ -217,6 +254,8 @@ function airtime_price($amount, $user)
     $price = $amount;
     if ($user->hasRole('agent')) {
         $price = agent_price($price, airtime_discount());
+    } else {
+        $price = user_price($price, airtime_discount());
     }
 
     return ceil($price);
@@ -232,6 +271,12 @@ function minimum_airtime()
 function airtime_charges()
 {
     return 0;
+    $user = auth()->user();
+    if ($user->hasRole('agent')) {
+        return 50;
+    } else {
+        return 100;
+    };
 }
 
 function airtime_discount()

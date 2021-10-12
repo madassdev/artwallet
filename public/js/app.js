@@ -5756,6 +5756,7 @@ function Airtime() {
       discount = _usePage$props.discount,
       charges = _usePage$props.charges,
       minimum_value = _usePage$props.minimum_value;
+  console.log(charges);
   var minAirtimeValue = minimum_value;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
@@ -6939,6 +6940,7 @@ function CableTv() {
       providers = _usePage$props.providers,
       discount = _usePage$props.discount,
       charges = _usePage$props.charges;
+  console.log(charges);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     show: false,
@@ -7848,6 +7850,7 @@ function Data() {
       providers = _usePage$props.providers,
       discount = _usePage$props.discount,
       charges = _usePage$props.charges;
+  console.log(charges);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     show: false,
@@ -8760,6 +8763,7 @@ function Electricity() {
       discount = _usePage$props.discount,
       charges = _usePage$props.charges,
       minimum_value = _usePage$props.minimum_value;
+  console.log(charges);
   var minElectricityValue = minimum_value;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
@@ -8839,8 +8843,8 @@ function Electricity() {
         name: provider.plans[0].title,
         value: provider.plans[0].id
       };
-    });
-    console.log(sopt);
+    }); // console.log(sopt);
+
     setOptionValue(sopt[0].value);
     setPlanOptions(sopt);
   }, []);
@@ -8870,7 +8874,7 @@ function Electricity() {
     }
 
     if (amount < minElectricityValue) {
-      handleError("amount", "Please enter amount greater than 200");
+      handleError("amount", "Please enter amount greater than " + naira(minElectricityValue));
       c++;
     }
 
@@ -9291,6 +9295,7 @@ function Internet() {
       providers = _usePage$props.providers,
       discount = _usePage$props.discount,
       charges = _usePage$props.charges;
+  console.log(charges);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     show: false,
@@ -10744,10 +10749,23 @@ function MainLayout(props) {
   var _page$props = page.props,
       auth = _page$props.auth,
       flash = _page$props.flash;
-  var url = page.url;
 
-  var showError = function showError(flashMessage) {
-    react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.default.error(flashMessage, {
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      flashMessage = _useState6[0],
+      setFlashMessage = _useState6[1];
+
+  var url = page.url;
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setFlashMessage(flash);
+  }, []);
+
+  function clearFlashMessages() {
+    setFlashMessage(null);
+  }
+
+  var showError = function showError(message) {
+    react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.default.error(message, {
       position: "top-center",
       style: {
         background: "rgba(185, 16, 16,1)",
@@ -10755,10 +10773,11 @@ function MainLayout(props) {
         padding: "20px"
       }
     });
+    clearFlashMessages();
   };
 
-  var showSuccess = function showSuccess(flashMessage) {
-    react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.default.success(flashMessage, {
+  var showSuccess = function showSuccess(message) {
+    react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.default.success(message, {
       position: "top-center",
       style: {
         background: "rgba(16, 185, 129,1)",
@@ -10766,10 +10785,11 @@ function MainLayout(props) {
         padding: "20px"
       }
     });
+    clearFlashMessages();
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.Toaster, {}), flash.success && showSuccess(flash.success), flash.err && showError(flash.err), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.Toaster, {}), (flashMessage === null || flashMessage === void 0 ? void 0 : flashMessage.success) && showSuccess(flashMessage === null || flashMessage === void 0 ? void 0 : flashMessage.success), (flashMessage === null || flashMessage === void 0 ? void 0 : flashMessage.err) && showError(flashMessage === null || flashMessage === void 0 ? void 0 : flashMessage.err), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "relative min-h-screen\r md:flex",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "bg-primary text-gray-100 flex items-center justify-between md:hidden",

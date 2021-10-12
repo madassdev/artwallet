@@ -17,6 +17,7 @@ import { discountValue, getDiscountValue } from "@/util/functions";
 function Electricity() {
     const { auth, providers, discount, charges, minimum_value } =
         usePage().props;
+    console.log(charges)
     const minElectricityValue = minimum_value;
 
     const [modal, setModal] = useState({
@@ -50,7 +51,7 @@ function Electricity() {
                 value: provider.plans[0].id,
             };
         });
-        console.log(sopt);
+        // console.log(sopt);
         setOptionValue(sopt[0].value);
         setPlanOptions(sopt);
     }, []);
@@ -78,7 +79,7 @@ function Electricity() {
             c++;
         }
         if (amount < minElectricityValue) {
-            handleError("amount", "Please enter amount greater than 200");
+            handleError("amount", "Please enter amount greater than " +naira(minElectricityValue));
             c++;
         }
 

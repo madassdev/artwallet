@@ -16,6 +16,7 @@ import { discountValue, getDiscountValue, naira } from "@/util/functions";
 function Airtime() {
     const { auth, providers, discount, charges, minimum_value } =
         usePage().props;
+    console.log(charges)
     const minAirtimeValue = minimum_value;
 
     const [modal, setModal] = useState({

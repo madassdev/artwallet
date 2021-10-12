@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function MainLayout(props) {
@@ -11,9 +11,16 @@ function MainLayout(props) {
     const page = usePage();
     const prefix = "/demo";
     const { auth, flash } = page.props;
+    const [flashMessage, setFlashMessage] = useState(null);
     const url = page.url;
-    const showError = (flashMessage) => {
-        toast.error(flashMessage, {
+    useEffect(() => {
+        setFlashMessage(flash);
+    }, []);
+    function clearFlashMessages() {
+        setFlashMessage(null);
+    }
+    const showError = (message) => {
+        toast.error(message, {
             position: "top-center",
             style: {
                 background: "rgba(185, 16, 16,1)",
@@ -21,9 +28,10 @@ function MainLayout(props) {
                 padding: "20px",
             },
         });
+        clearFlashMessages();
     };
-    const showSuccess = (flashMessage) => {
-        toast.success(flashMessage, {
+    const showSuccess = (message) => {
+        toast.success(message, {
             position: "top-center",
             style: {
                 background: "rgba(16, 185, 129,1)",
@@ -31,12 +39,13 @@ function MainLayout(props) {
                 padding: "20px",
             },
         });
+        clearFlashMessages();
     };
     return (
         <>
             <Toaster />
-            {flash.success && showSuccess(flash.success)}
-            {flash.err && showError(flash.err)}
+            {flashMessage?.success && showSuccess(flashMessage?.success)}
+            {flashMessage?.err && showError(flashMessage?.err)}
             <div
                 className="relative min-h-screen
              md:flex"
