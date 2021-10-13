@@ -59,6 +59,10 @@ if (env("APP_ENV")) {
             Route::post('/set-pin', 'DashboardController@setPin')->name('set-pin');
             Route::get('/settings', 'DashboardController@settings')->name('settings.index');
         });
+        Route::name('agent.')->prefix('agent')->group(function () {
+            Route::get('/apply', 'AgentController@showApply')->name('apply');
+            Route::post('/apply', 'AgentController@submitApplication')->name('submit-application');
+        });
     });
 }
 // Route::get('/verify', 'DashboardController@showVerify')->name('verification.show')->middleware('auth');

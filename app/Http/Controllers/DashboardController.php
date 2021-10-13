@@ -49,6 +49,7 @@ class DashboardController extends Controller
 
     public function saveAgent(Request $request)
     {
+        // return $request;
         $user = auth()->user();
         $request->validate([
             "business_cac" => "required|file|mimes:jpg,bmp,png,jpeg"

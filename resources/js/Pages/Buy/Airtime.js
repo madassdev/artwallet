@@ -36,8 +36,8 @@ function Airtime() {
     const [errors, setErrors] = useState(defaultErrors);
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [pin, setPin] = useState("");
-    // const [recipient, setRecipient] = useState("");
-    const [recipient, setRecipient] = useState("08136051712");
+    const [recipient, setRecipient] = useState("");
+    // const [recipient, setRecipient] = useState("08136051712");
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [planOptions, setPlanOptions] = useState([]);
     const [optionValue, setOptionValue] = useState(null);

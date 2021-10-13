@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 
 function ImageUpload({ imageUploaded, defaultImage }) {
-    console.log(defaultImage)
+    // console.log(defaultImage);
     const hiddenFileInput = useRef(null);
     const handleClick = (event) => {
         hiddenFileInput.current.click();
@@ -18,11 +18,13 @@ function ImageUpload({ imageUploaded, defaultImage }) {
 
     return (
         <div className="">
-            <p className="p-3 bg-gray-300 my-2">
-                {imgSrc && <img src={imgSrc} className="w-12 h-12" />}
-            </p>
+            {imgSrc && (
+                <p className="p-3 bg-gray-300 my-2">
+                    <img src={imgSrc} className="w-12 h-12" />
+                </p>
+            )}
             <button
-                className="text-xs p-1 bg-info text-white rounded m-2 cursor-pointer"
+                className="text-xs p-2 bg-primary text-white rounded m-2 cursor-pointer"
                 onClick={handleClick}
                 type="button"
             >

@@ -2,7 +2,7 @@ import { Link, usePage } from "@inertiajs/inertia-react";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "../Components/Modal";
-import SetPin from '../User/SetPin'
+import SetPin from "../User/SetPin";
 
 function MainLayout(props) {
     const [openNav, setOpenNav] = useState(true);
@@ -31,7 +31,7 @@ function MainLayout(props) {
                 show: true,
                 noClose: true,
                 header: "Create 4 digit PIN",
-                content:<SetPin/>,
+                content: <SetPin />,
             }));
         }
     }, []);
@@ -169,9 +169,17 @@ function MainLayout(props) {
                             Account Settings
                         </Link>
                         <Link
-                            href={'/logout'}
-                            className={`nav-link`}
+                            href={route("agent.apply")}
+                            className={`nav-link ${
+                                url.startsWith(prefix + "/agent")
+                                    ? "nav-active"
+                                    : ""
+                            }`}
                         >
+                            <i className="mdi mdi-briefcase mr-2"></i>
+                            Agent
+                        </Link>
+                        <Link href={"/logout"} className={`nav-link`}>
                             <i className="mdi mdi-logout mr-2"></i>
                             Logout
                         </Link>

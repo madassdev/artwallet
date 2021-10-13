@@ -3,7 +3,7 @@ import React from "react";
 
 function InsufficientBalance({ expected, balance }) {
     return (
-        <div>
+        <div className="w-full md:w-1/2 mx-auto">
             <p className="text-center flex justify-center">
                 <span className="flex items-center h-12 w-12 justify-center rounded-full bg-red-200">
                     <i className="mdi mdi-alert-circle text-red-600"></i>
