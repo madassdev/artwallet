@@ -18,7 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         // sleep(3);
-        // auth()->user()->balance = 2000;
+        // auth()->user()->pin_set = false;
         // auth()->user()->save();
         return inertia('User/Home');
     }
@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $user->save();
 
         PinSet::dispatch($user);
-        return redirect(route('dashboard.index'))->withSuccess('PIN saved successfully!');
+        return redirect(route('dashboard.index',["status"=>"okay"]))->withSuccess('PIN saved successfully!');
         return response()->json([
             "success" => true,
             "message" => "PIN created successfully",

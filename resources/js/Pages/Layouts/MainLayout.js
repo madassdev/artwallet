@@ -25,7 +25,7 @@ function MainLayout(props) {
     const url = page.url;
     useEffect(() => {
         setFlashMessage(flash);
-        if (!auth.user.pin_set) {
+        if (auth.user.email_verified_at && !auth.user.pin_set) {
             setModal((modal) => ({
                 ...modal,
                 show: true,

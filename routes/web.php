@@ -61,7 +61,9 @@ if (env("APP_ENV")) {
         });
         Route::name('agent.')->prefix('agent')->group(function () {
             Route::get('/apply', 'AgentController@showApply')->name('apply');
+            Route::get('/show-application', 'AgentController@showApplication')->name('show');
             Route::post('/apply', 'AgentController@submitApplication')->name('submit-application');
+            Route::post('/pay', 'AgentController@agentPayment')->name('pay');
         });
     });
 }
